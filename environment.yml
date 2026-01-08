@@ -1,0 +1,16 @@
+name: proj-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - ruff>=0.6
+      - pytest>=8
+      - pre-commit>=3
+      - ipykernel
+      - jupyter
+      - numpy
+      - pandas
+      - matplotlib
+      - pyarrow
