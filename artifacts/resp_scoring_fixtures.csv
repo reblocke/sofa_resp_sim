@@ -1,0 +1,11 @@
+fixture_id,scenario,expected_sofa_pulm,expected_sofa_pulm_bl,notes
+0,SpO2->PaO2 conversion,,,"50->26.9; 70->36.6; 80->44.3; 85->50.0; 90->58.7; 96->81.9"
+1,SpO2>96 room air,0,,"pao2_calc/pf_ratio_temp null"
+2,FiO2 24h lookback only,0,,"pf ratio computed but not acute"
+3,HFNC two PF ratios,2,,"resp-detail 3 -> measures 2"
+4,IMV single PF ratio,4,,"no suppression"
+5,NIPPV single PF ratio,3,,"no suppression"
+6,Single PF no support,0,,"acute single-PF suppression"
+7,Baseline recent day,,1,"baseline selects most recent day"
+8,Quartile suppression,0,,"room-air fallback blocked"
+9,Altitude factor shift,"4|3",,"altitude_factor 1.0 vs 0.85"

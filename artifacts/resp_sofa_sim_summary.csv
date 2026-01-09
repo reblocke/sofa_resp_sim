@@ -1,0 +1,2 @@
+obs_freq_minutes,noise_sd,room_air_threshold,n_reps,mean_count_pf_ratio_acute,p_single_pf_suppressed,p_sofa_0,p_sofa_1,p_sofa_2,p_sofa_3,p_sofa_4
+15,1.0,94.0,200,74.72,0.0,0.0,0.0,0.825,0.16,0.015

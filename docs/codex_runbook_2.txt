@@ -1,0 +1,190 @@
+Codex Implementation Ticket: Add Golden SQL-Parity Fixtures as Unit Tests
+
+Title
+
+Add golden fixtures to verify SQL-parity respiratory SOFA scoring end-to-end (resp detail → Measures acute/baseline selection)
+
+Goal
+
+Codify the previously defined “golden fixtures” as pytest unit tests that validate:
+	1.	SpO2→PaO2 conversion behavior and rounding.
+	2.	FiO2 prioritization and minute/day lookback selection.
+	3.	PF ratio computation rules including quartile-based suppression.
+	4.	Respiratory rubric scoring including altitude threshold scaling.
+	5.	The two-stage “support gating” rules:
+	•	Resp-detail: 3–4 requires some support (IMV/HFNC/NIPPV; excludes OSA)
+	•	Measures-stage: 3–4 requires IMV or NIPPV only
+	6.	Measures acute-only suppression: single PF ratio + not IMV/NIPPV ⇒ 0
+
+These fixtures should fail if any of the above diverges from SQL.
+
+Target Files
+	•	Add tests to: python/tests/test_resp_scoring.py (or create python/tests/test_resp_scoring_fixtures.py if you want clearer separation)
+	•	Use existing engine functions from:
+	•	python/src/tcco2_accuracy/resp_scoring.py
+	•	python/src/tcco2_accuracy/resp_utils.py
+
+Required Test Harness Capabilities
+
+Ensure the scoring code exposes (directly or via a debug flag) both:
+	1.	Row-level output (resp detail equivalent) with at least:
+	•	pao2_calc, pao2_priority
+	•	fio2_prioritized, fio2_minute_lookback, fio2_minute_look_fw, fio2_day_lookback, fio2_lookback
+	•	pf_ratio_temp
+	•	sofa_resp_temp (resp-detail temp)
+	•	sofa_ts, quartile
+	2.	Encounter-level output (Measures equivalent):
+	•	SOFA_PULM (acute)
+	•	SOFA_PULM_BL (baseline)
+	•	count_pf_ratio_acute (or an equivalent diagnostic used for the acute single-PF suppression rule)
+
+If the current API only returns encounter-level scores, add a “debug return” path or expose an internal function used by the tests.
+
+Shared Assumptions for Fixtures
+	•	admit_dts = 2026-01-01 00:00:00
+	•	Use timezone-naive datetimes consistently.
+	•	altitude_factor = 1.0 unless the fixture specifies otherwise.
+	•	Support mapping must replicate SQL intent:
+	•	invasive_ind = 1 for support_type ∈ {IMV, SURG IMV}
+	•	Resp-detail support_ind = 1 for support_type ∈ {HFNC, NIPPV} (and not OSA)
+	•	Measures resp_support_ind = 1 for support_type ∈ {IMV, NIPPV} only
+
+Fixtures to Implement
+
+Fixture 0: SpO2→PaO2 conversion reference points
+
+Purpose: Validate Ellis conversion and Oracle-style rounding to 1 decimal.
+
+Inputs: SpO2 values [50, 70, 80, 85, 90, 96]
+Expected pao2_calc:
+	•	50 → 26.9
+	•	70 → 36.6
+	•	80 → 44.3
+	•	85 → 50.0
+	•	90 → 58.7
+	•	96 → 81.9
+
+Also assert:
+	•	SpO2 < 50 ⇒ pao2_calc is NULL
+	•	SpO2 > 96 ⇒ pao2_calc is NULL
+
+Fixture 1: SpO2 > 96 produces no PF ratio; acute score defaults to 0
+
+Single row at +1h: SpO2=99, room air.
+Expected:
+	•	pao2_calc = NULL, pf_ratio_temp = NULL
+	•	SOFA_PULM = 0
+	•	count_pf_ratio_acute = 0
+
+Fixture 2: PF ratio computable via 24h FiO2 lookback but excluded from acute due to missing minute-window FiO2
+
+Rows:
+	•	-1h: low-flow O2 flow=2 (implies FiO2=27)
+	•	0h: SpO2=90, no FiO2/flow on-row
+
+Expected at 0h:
+	•	fio2_day_lookback = 27
+	•	fio2_minute_lookback = NULL
+	•	fio2_minute_look_fw = NULL
+	•	fio2_lookback = 27
+	•	pf_ratio_temp = 217.41
+	•	Does not qualify for acute Measures selection because nvl(fio2_minute_lookback, fio2_minute_look_fw) is NULL
+	•	Encounter: SOFA_PULM = 0, count_pf_ratio_acute = 0
+
+Fixture 3: HFNC can yield resp-detail 3 but Measures caps to 2; two PF ratios avoids single-PF suppression
+
+Rows (FiO2 measured on-row):
+	•	0h: SpO2=90, HFNC, FiO2=50
+	•	+30m: SpO2=85, HFNC, FiO2=50
+
+Expected:
+	•	PF ratios: 117.40 and 100.00
+	•	Resp-detail sofa_resp_temp = 3 for both rows (HFNC counts as support in resp-detail)
+	•	Measures-stage cap: HFNC is not IMV/NIPPV ⇒ final candidate becomes 2
+	•	count_pf_ratio_acute = 2 so no acute single-PF suppression
+	•	Encounter: SOFA_PULM = 2
+
+Fixture 4: IMV allows score 4 with a single PF ratio (no suppression)
+
+Row:
+	•	0h: SpO2=85, IMV, FiO2=80
+
+Expected:
+	•	pf_ratio_temp = 62.50
+	•	SOFA_PULM = 4
+	•	No acute single-PF suppression because Measures resp_support_ind = 1
+
+Fixture 5: NIPPV allows score 3 with a single PF ratio (no suppression)
+
+Row:
+	•	0h: SpO2=90, NIPPV, FiO2=50
+
+Expected:
+	•	pf_ratio_temp = 117.40
+	•	SOFA_PULM = 3
+	•	No acute single-PF suppression because Measures resp_support_ind = 1
+
+Fixture 6: Acute single PF ratio suppression for non-IMV/NIPPV forces final score to 0
+
+Row:
+	•	0h: SpO2=90, no IMV/NIPPV/HFNC, low-flow oxygen_flow_rate = 4 (FiO2=33)
+
+Expected:
+	•	fio2_minute_look_fw is non-null (on-row FiO2 included in [0, +5min] window)
+	•	pf_ratio_temp = 177.88
+	•	Resp-detail will already cap rubric 3 → 2 because there is no support at all
+	•	Measures: count_pf_ratio_acute = 1, resp_support_ind = 0, sofa_temp > 0 ⇒ suppressed to 0
+	•	Encounter: SOFA_PULM = 0
+
+Fixture 7: Baseline selection uses most recent baseline day (not worst-ever)
+
+Rows in baseline window:
+	•	2025-12-12 00:00: SpO2=90, NIPPV, FiO2=50 → score 3
+	•	2025-12-22 00:00: SpO2=96, room air → PF 390.00 → score 1
+
+Expected:
+	•	Baseline selects most recent baseline day (2025-12-22), hence:
+	•	SOFA_PULM_BL = 1
+
+Fixture 8: Quartile suppression blocks room-air PF fallback if any FiO2 exists in same 6h block
+
+Rows:
+	•	+1h: SpO2=90, no FiO2/flow
+	•	+2h: FiO2 record exists (FiO2=50)
+
+Expected at +1h:
+	•	fio2_lookback = NULL
+	•	Because a fio2_prioritized exists in the same (sofa_ts, quartile) partition, SQL suppresses PF fallback:
+	•	pf_ratio_temp = NULL
+	•	Encounter: SOFA_PULM = 0, count_pf_ratio_acute = 0
+
+Fixture 9: Altitude factor changes rubric thresholds
+
+Row:
+	•	0h: SpO2=80, IMV, FiO2=50 → PF=88.60
+
+Expected:
+	•	altitude_factor=1.0 ⇒ PF<100 ⇒ score 4 ⇒ SOFA_PULM=4
+	•	altitude_factor=0.85 ⇒ threshold(4) becomes 85; PF 88.60 ⇒ score 3 ⇒ SOFA_PULM=3
+
+Implement as one parametrized test with two altitude_factor settings.
+
+Assertions Guidance
+	•	Compare floats using:
+	•	either exact equality after applying the same rounding helper used in scoring, or
+	•	pytest.approx with a tight tolerance (e.g., abs=1e-6).
+	•	For each fixture, assert both:
+	•	Encounter-level final scores (SOFA_PULM, SOFA_PULM_BL where applicable)
+	•	At least one key intermediate that uniquely diagnoses the intended behavior (e.g., fio2_minute_look_fw null vs non-null; pf_ratio_temp null vs computed; quartile value).
+
+Acceptance Criteria
+	•	All fixtures pass.
+	•	At least one failing assertion clearly indicates:
+	•	minute-window inclusion/exclusion,
+	•	quartile suppression behavior,
+	•	resp-detail vs Measures-stage support gating distinction,
+	•	acute single-PF suppression.
+
+Optional Add-On Test (tie-breaker)
+
+Add a fixture where two acute records have equal sofa_temp2, one is IMV/NIPPV and one is not, and confirm the Measures ranking prefers resp_support_ind=1.

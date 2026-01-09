@@ -5,6 +5,9 @@ description = "One-line description."
 requires-python = ">=3.11"
 dependencies = []
 
+[project.scripts]
+resp-sofa-sim = "tcco2_accuracy.resp_sofa_runner:main"
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
@@ -14,5 +17,6 @@ select = ["E", "F", "I", "B", "UP"]
 ignore = []
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests", "python/tests"]
+pythonpath = ["python/src"]
 addopts = "-q"

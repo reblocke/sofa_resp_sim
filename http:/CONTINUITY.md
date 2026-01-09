@@ -1,0 +1,34 @@
+- Goal (incl. success criteria):
+  - Add golden SQL-parity fixtures as pytest unit tests for respiratory SOFA scoring; tests must validate row-level intermediates and encounter-level outputs for specified fixtures.
+- Constraints/Assumptions:
+  - Follow SQL parity rules in ticket/docs runbook (non-clinical, exact gating/quirks).
+  - Use Conway difference definition and route-1 study-level bootstrap if relevant.
+  - Implement Oracle-style rounding (half-up).
+  - Sandbox: workspace-write, network restricted, approvals never.
+  - Root AGENTS constraints apply unless conflicting (no edits to Code/Legacy or Drafts; new Python under python/).
+  - Every milestone ends with `pytest`, updated artifacts under `artifacts/`, and `git commit`.
+- Key decisions:
+  - Use existing resp scoring engine under `python/src/tcco2_accuracy` and add debug return path if needed for row-level outputs.
+  - Tests live under `python/tests/` (new file if clearer separation).
+- State:
+  - Implemented SQL-parity fixture tests and artifacts; pytest completed.
+- Done:
+  - Read AGENTS/ledger; confirmed constraints and approvals.
+  - Added `python/tests/test_resp_scoring_fixtures.py` covering fixtures 0-9.
+  - Added artifacts `artifacts/resp_scoring_fixtures.md` and `.csv`.
+  - Ran `python -m pytest -q` successfully.
+  - `git add` failed due to `.git/index.lock` permission in sandbox.
+- Now:
+  - Await manual git add/commit (sandbox blocks `.git/index.lock`).
+- Next:
+  - User to run `git add` + `git commit` locally.
+- Open questions (UNCONFIRMED if needed):
+  - None.
+- Working set (files/ids/commands):
+  - http://CONTINUITY.md
+  - python/src/tcco2_accuracy/resp_scoring.py
+  - python/src/tcco2_accuracy/resp_utils.py
+  - python/tests/test_resp_scoring_fixtures.py
+  - artifacts/resp_scoring_fixtures.md
+  - artifacts/resp_scoring_fixtures.csv
+  - python -m pytest -q
