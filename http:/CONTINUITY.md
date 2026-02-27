@@ -1,26 +1,25 @@
 - Goal (incl. success criteria):
-  - Add golden SQL-parity respiratory SOFA fixtures as pytest unit tests and update docs; ensure CLI entrypoint supports debug output when needed; run pytest.
+  - Sketch a concrete conversion path from current respiratory SOFA simulation CLI/API into an interactive applet (ideally browser-based) where users can tweak parameters and compare resulting distributions to a reference distribution.
+  - Success criteria: provide a practical architecture + UX + implementation phases grounded in current code, and commit deliverable notes to repo.
 - Constraints/Assumptions:
-  - Follow SQL-parity rules in ticket; use SpO2->PaO2 Ellis conversion and Oracle-style rounding.
-  - Do not modify `Code/Legacy/` or `Drafts/`.
-  - New/changed Python code under `python/` with core math pure; inputs via adapters if needed.
-  - Sandbox: workspace-write, network restricted, approvals never.
-  - User instruction overrides AGENTS: do not run `git commit`.
-- Key decisions:
-- Key decisions:
-  - Public entrypoint is `score_respiratory`, which returns `RespiratoryScoreResult` with `event_level` detail.
-  - `sofa_ts`/`quartile` bins now anchor to `admit_dts` with acute pre-admit override; quartile is 1–4.
-- State:
-  - Tests updated and passing after binning changes.
-- Done:
-  - Inspected `resp_scoring.py`, `resp_sofa_runner.py`, `resp_utils.py`, and tests.
-  - Updated `resp_scoring.py` docstrings and binning logic for `sofa_ts`/`quartile`.
-  - Added/renamed golden fixture tests with canonical schema and sofa_ts/quartile assertions.
-  - Updated README, CLI help, and artifacts summary/fixtures tables.
-- Now:
-  - Prepare results summary for user.
-- Next:
-  - Address any feedback or additional fixture/doc tweaks.
+  - Follow AGENTS instructions; keep continuity ledger updated.
+  - Developer instruction requires committing any repo changes and creating a PR message via `make_pr`.
+  - Implement a first-pass design artifact as documentation (`docs/APPLET_SKETCH.md`) rather than full UI implementation in this turn.
+  - Keep simulation engine in existing pure functions and wrap with thin app-layer adapter.
+  - Ready to commit.
+  - Read AGENTS.md and prior continuity ledger.
+  - Re-read simulation entrypoints (`resp_sofa_runner.py`, `resp_simulation.py`) to ground applet parameter model.
+  - Added `docs/APPLET_SKETCH.md` with architecture, controls, reference comparison design, API contract, UX sketch, validation gates, and phased implementation plan.
+  - Ran `pytest -q`; failed during collection due to missing dependency (`numpy`) in environment.
+  - Commit documentation change and create PR record.
+  - Return concise summary with test status and file citations.
+  - UNCONFIRMED: preferred UI stack for production deployment (Streamlit vs FastAPI+React).
+  - UNCONFIRMED: whether reference distribution should be static (artifact CSV) or user-uploaded.
+  - `http:/CONTINUITY.md`
+  - `docs/APPLET_SKETCH.md`
+  - `python/src/tcco2_accuracy/resp_simulation.py`
+  - `python/src/tcco2_accuracy/resp_sofa_runner.py`
+  - Command: `pytest -q`
 - Open questions (UNCONFIRMED if needed):
   - None.
 - Working set (files/ids/commands):
