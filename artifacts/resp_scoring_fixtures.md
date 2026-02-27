@@ -3,7 +3,8 @@
 - `admit_dts`: 2026-01-01 00:00:00 (timezone-naive)
 - Default `altitude_factor`: 1.0 unless specified
 - Coverage: SpO2 conversion, FiO2 prioritization/lookbacks, PF ratio + quartile suppression,
-  resp-detail vs measures gating, acute single-PF suppression, baseline day selection
+  resp-detail vs measures gating, acute single-PF suppression, baseline day selection,
+  sofa_ts/quartile binning
 
 ## Summary
 
@@ -19,5 +20,6 @@
 | 7 | Baseline recent day | `SOFA_PULM_BL=1` | most recent day selected |
 | 8 | Quartile suppression | `SOFA_PULM=0` | room-air fallback blocked |
 | 9 | Altitude factor | `SOFA_PULM=4/3` | thresholds scale by altitude |
+| 10 | sofa_ts/quartile bins | N/A | 24h binning + 6h quartiles (1–4) |
 
 See `artifacts/resp_scoring_fixtures.csv` for full expectations.

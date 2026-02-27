@@ -1,34 +1,35 @@
 - Goal (incl. success criteria):
-  - Add golden SQL-parity fixtures as pytest unit tests for respiratory SOFA scoring; tests must validate row-level intermediates and encounter-level outputs for specified fixtures.
+  - Add golden SQL-parity respiratory SOFA fixtures as pytest unit tests and update docs; ensure CLI entrypoint supports debug output when needed; run pytest.
 - Constraints/Assumptions:
-  - Follow SQL parity rules in ticket/docs runbook (non-clinical, exact gating/quirks).
-  - Use Conway difference definition and route-1 study-level bootstrap if relevant.
-  - Implement Oracle-style rounding (half-up).
+  - Follow SQL-parity rules in ticket; use SpO2->PaO2 Ellis conversion and Oracle-style rounding.
+  - Do not modify `Code/Legacy/` or `Drafts/`.
+  - New/changed Python code under `python/` with core math pure; inputs via adapters if needed.
   - Sandbox: workspace-write, network restricted, approvals never.
-  - Root AGENTS constraints apply unless conflicting (no edits to Code/Legacy or Drafts; new Python under python/).
-  - Every milestone ends with `pytest`, updated artifacts under `artifacts/`, and `git commit`.
+  - User instruction overrides AGENTS: do not run `git commit`.
 - Key decisions:
-  - Use existing resp scoring engine under `python/src/tcco2_accuracy` and add debug return path if needed for row-level outputs.
-  - Tests live under `python/tests/` (new file if clearer separation).
+- Key decisions:
+  - Public entrypoint is `score_respiratory`, which returns `RespiratoryScoreResult` with `event_level` detail.
+  - `sofa_ts`/`quartile` bins now anchor to `admit_dts` with acute pre-admit override; quartile is 1–4.
 - State:
-  - Implemented SQL-parity fixture tests and artifacts; pytest completed.
+  - Tests updated and passing after binning changes.
 - Done:
-  - Read AGENTS/ledger; confirmed constraints and approvals.
-  - Added `python/tests/test_resp_scoring_fixtures.py` covering fixtures 0-9.
-  - Added artifacts `artifacts/resp_scoring_fixtures.md` and `.csv`.
-  - Ran `python -m pytest -q` successfully.
-  - `git add` failed due to `.git/index.lock` permission in sandbox.
+  - Inspected `resp_scoring.py`, `resp_sofa_runner.py`, `resp_utils.py`, and tests.
+  - Updated `resp_scoring.py` docstrings and binning logic for `sofa_ts`/`quartile`.
+  - Added/renamed golden fixture tests with canonical schema and sofa_ts/quartile assertions.
+  - Updated README, CLI help, and artifacts summary/fixtures tables.
 - Now:
-  - Await manual git add/commit (sandbox blocks `.git/index.lock`).
+  - Prepare results summary for user.
 - Next:
-  - User to run `git add` + `git commit` locally.
+  - Address any feedback or additional fixture/doc tweaks.
 - Open questions (UNCONFIRMED if needed):
   - None.
 - Working set (files/ids/commands):
-  - http://CONTINUITY.md
+  - http:/CONTINUITY.md
   - python/src/tcco2_accuracy/resp_scoring.py
-  - python/src/tcco2_accuracy/resp_utils.py
-  - python/tests/test_resp_scoring_fixtures.py
+  - python/src/tcco2_accuracy/resp_sofa_runner.py
+  - python/tests/test_resp_scoring_golden_fixtures.py
   - artifacts/resp_scoring_fixtures.md
   - artifacts/resp_scoring_fixtures.csv
-  - python -m pytest -q
+  - artifacts/resp_sofa_sim_summary.md
+  - README.md
+  - python -m pytest

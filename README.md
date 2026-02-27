@@ -17,6 +17,27 @@ ruff check .
 pytest -q
 ```
 
+## Respiratory SOFA (SQL-parity)
+
+- ``sofa_ts`` is a 24h bin anchored to ``admit_dts`` midnight; acute lead-in
+  records (default −6h) are assigned to the admit-day bin.
+- ``quartile`` splits each ``sofa_ts`` into 6h sub-bins labeled 1–4.
+- FiO2 selection uses a 14-minute lookback (excluding current), a 0–5 minute
+  look-forward (including current), then a 24h lookback; room air defaults to 21%.
+- Measures-stage gating caps non-IMV/NIPPV records at 2 and applies the acute
+  single-PF suppression rule when only one qualifying PF ratio exists without
+  IMV/NIPPV support.
+
+## Testing
+
+- Run ``python -m pytest`` (or ``pytest -q``) from the repo root.
+- Golden SQL-parity fixtures live in
+  ``python/tests/test_resp_scoring_golden_fixtures.py`` and validate SpO2→PaO2
+  conversion, FiO2 prioritization/lookbacks, PF ratios (including quartile-based
+  suppression), support gating, baseline selection, and altitude thresholds.
+- Inspect row-level outputs via ``RespiratoryScoreResult.event_level`` for
+  intermediate columns (``pao2_calc``, ``fio2_lookback``, ``pf_ratio_temp``, etc.).
+
 ## Repo structure
 
 ```

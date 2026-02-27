@@ -9,3 +9,4 @@ fixture_id,scenario,expected_sofa_pulm,expected_sofa_pulm_bl,notes
 7,Baseline recent day,,1,"baseline selects most recent day"
 8,Quartile suppression,0,,"room-air fallback blocked"
 9,Altitude factor shift,"4|3",,"altitude_factor 1.0 vs 0.85"
+10,Sofa_ts/quartile bins,,,"24h bin anchored to admit_dts; quartiles 1-4"

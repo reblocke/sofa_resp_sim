@@ -8,7 +8,15 @@ from .resp_simulation import SimulationConfig, run_parameter_sweep
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run respiratory SOFA simulation sweeps.")
+    parser = argparse.ArgumentParser(
+        description="Run respiratory SOFA simulation sweeps.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Scoring parity notes:\n"
+            "- Support types recognized by scoring: IMV, SURG IMV, NIPPV, HFNC, OSA, None.\n"
+            "- Measures-stage gating allows scores 3–4 only for IMV/NIPPV; others cap at 2."
+        ),
+    )
     parser.add_argument("--replicates", type=int, default=1000)
     parser.add_argument("--obs-freq", type=str, default="15")
     parser.add_argument("--noise-sd", type=str, default="1.0")

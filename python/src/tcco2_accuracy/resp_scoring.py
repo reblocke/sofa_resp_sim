@@ -1,3 +1,11 @@
+"""SQL-parity respiratory SOFA scoring and event-level diagnostics.
+
+Defines 24h respiratory SOFA bins (``sofa_ts``) and 6h sub-bins (``quartile``,
+values 1–4) anchored to ``admit_dts``. Events that fall in the acute lead-in
+window (``admit_dts`` minus ``acute_begin_days``) are assigned to the admit-day
+bin so that pre-admit acute records share the same bin as day 0.
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -36,8 +44,42 @@ def score_respiratory(
     admit_dts: pd.Timestamp,
     config: RespScoringConfig | None = None,
 ) -> RespiratoryScoreResult:
+    """Score respiratory SOFA with SQL-parity intermediate fields.
+
+    Parameters
+    ----------
+    observations:
+        Event-level table with at minimum:
+        - ``etime_ts`` (datetime64)
+        - ``spo2_obs`` (float)
+        - ``pao2_meas`` (float, optional)
+        - ``support_type`` (str, optional: ``IMV``, ``SURG IMV``, ``NIPPV``, ``HFNC``, ``OSA``)
+        - ``is_room_air`` (bool)
+        - ``oxygen_flow_rate`` (float)
+        - ``fio2_set`` / ``fio2_meas`` / ``fio2_abg`` (float)
+        - ``altitude_factor`` (float, optional; per-row override)
+    admit_dts:
+        Encounter admit timestamp used to define acute/baseline windows and
+        day-0 binning for ``sofa_ts``/``quartile``.
+    config:
+        Optional ``RespScoringConfig`` overrides for defaults and column names.
+
+    Returns
+    -------
+    RespiratoryScoreResult
+        ``event_level`` includes diagnostic columns such as ``pao2_calc``,
+        ``pao2``, ``pao2_priority``, ``fio2_prioritized``, ``fio2_priority``,
+        lookback fields (minute/day), ``pf_ratio_temp``, ``sofa_resp_temp``,
+        ``sofa_temp``, ``sofa_temp2``, ``resp_support_ind``, ``sofa_ts`` (24h
+        bin start anchored to ``admit_dts``), and ``quartile`` (1–4 for 6h
+        sub-bins). Encounter-level outputs include ``sofa_pulm`` (acute),
+        ``sofa_pulm_bl`` (baseline), ``sofa_pulm_delta``,
+        ``count_pf_ratio_acute``, and qualifying record counts.
+    """
     if config is None:
         config = RespScoringConfig()
+
+    admit_dts = pd.to_datetime(admit_dts)
 
     df = observations.copy()
     time_col = config.time_col
@@ -106,9 +148,15 @@ def score_respiratory(
         ),
     )
 
-    df["sofa_ts"] = df[time_col].dt.floor("D")
+    acute_begin = admit_dts + pd.to_timedelta(config.acute_begin_days, unit="D")
+    adjusted_time = df[time_col].where(
+        ~((df[time_col] >= acute_begin) & (df[time_col] < admit_dts)),
+        admit_dts,
+    )
+    df["sofa_ts"] = adjusted_time.dt.floor("D")
     df["quartile"] = (
-        ((df[time_col] - df["sofa_ts"]).dt.total_seconds() // (6 * 3600)).astype(int)
+        ((adjusted_time - df["sofa_ts"]).dt.total_seconds() // (6 * 3600)).astype(int)
+        + 1
     )
     df["has_fio2_in_block"] = (
         df.groupby(["sofa_ts", "quartile"], dropna=False)["fio2_prioritized"]
