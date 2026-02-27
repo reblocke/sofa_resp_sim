@@ -1,18 +1,17 @@
 - Goal (incl. success criteria):
-  - Add golden SQL-parity respiratory SOFA fixtures as pytest unit tests and update docs; ensure CLI entrypoint supports debug output when needed; run pytest.
-- Constraints/Assumptions:
-  - Follow SQL-parity rules in ticket; use SpO2->PaO2 Ellis conversion and Oracle-style rounding.
-  - Do not modify `Code/Legacy/` or `Drafts/`.
-  - New/changed Python code under `python/` with core math pure; inputs via adapters if needed.
-  - Sandbox: workspace-write, network restricted, approvals never.
-  - User instruction overrides AGENTS: do not run `git commit`.
-- Key decisions:
-- Key decisions:
-  - Public entrypoint is `score_respiratory`, which returns `RespiratoryScoreResult` with `event_level` detail.
-  - `sofa_ts`/`quartile` bins now anchor to `admit_dts` with acute pre-admit override; quartile is 1–4.
-- State:
-  - Tests updated and passing after binning changes.
-- Done:
+  - Produce a concrete, execution-ready implementation plan for converting the respiratory SOFA simulation sketch into a browser applet where users tune parameters and compare scenario distributions to a reference.
+  - Success criteria: plan includes milestones, task breakdown, validation gates, and clear mapping to existing Python modules.
+  - Prior turn delivered architecture sketch in `docs/APPLET_SKETCH.md`; this turn adds a separate implementation plan artifact focused on execution sequencing.
+  - Keep first build path Streamlit-first while preserving backend abstraction for later FastAPI/frontend split.
+  - Read AGENTS.md and current continuity ledger.
+  - Reviewed existing sketch document to extract implementation requirements.
+  - Added `docs/APPLET_IMPLEMENTATION_PLAN.md` with milestones, task breakdown, validation gates, risks, and file-level mapping.
+  - Ran `pytest -q`; failed during test collection because `numpy` is missing in the environment.
+  - Commit changes and create PR message.
+  - Return summary with citations and test status.
+  - UNCONFIRMED: preferred deployment target for first user-facing release (internal Streamlit vs externally hosted app).
+  - UNCONFIRMED: should user-uploaded reference distributions be enabled in v1 or deferred to v1.1.
+  - `docs/APPLET_IMPLEMENTATION_PLAN.md`
   - Inspected `resp_scoring.py`, `resp_sofa_runner.py`, `resp_utils.py`, and tests.
   - Updated `resp_scoring.py` docstrings and binning logic for `sofa_ts`/`quartile`.
   - Added/renamed golden fixture tests with canonical schema and sofa_ts/quartile assertions.
