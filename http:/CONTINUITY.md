@@ -1,6 +1,6 @@
 - Goal (incl. success criteria):
   - Implement Milestone 1 Respiratory SOFA applet (Streamlit + Plotly) with validated request model, single-scenario execution service, built-in reference overlay/delta, and tests.
-  - Success criteria: applet modules and tests added per plan; standard checks run; no legacy folders touched.
+  - Success criteria: applet modules and tests added per plan; standard checks run; milestone artifacts updated; no legacy folders touched.
 - Constraints/Assumptions:
   - Follow AGENTS format and working agreements.
   - No edits to `Code/Legacy/` or `Drafts/`.
@@ -10,7 +10,7 @@
   - Implemented under `python/src/tcco2_accuracy/web/` with separate `view_model`, `app_services`, `reference`, and Streamlit entrypoint modules.
   - Kept simulation core logic unchanged; app layer maps inputs to `SimulationConfig` and summarizes replicate outputs.
 - State:
-  - Milestone 1 implementation complete.
+  - Milestone 1 implementation complete and committed.
 - Done:
   - Updated dependency manifests: `environment.yml`, `pyproject.toml`.
   - Added applet modules:
@@ -23,14 +23,19 @@
     - `python/tests/test_web_view_model.py`
     - `python/tests/test_web_services.py`
     - `python/tests/test_web_reference.py`
+  - Added milestone artifacts:
+    - `artifacts/resp_applet_m1_validation.md`
+    - `artifacts/resp_applet_m1_validation.csv`
   - Created/updated `proj-env` and installed required runtime/test deps.
   - Verification results:
     - `conda run -n proj-env python -m pytest` -> 40 passed.
     - `conda run -n proj-env python -m ruff check python/src/tcco2_accuracy/web python/tests/test_web_view_model.py python/tests/test_web_services.py python/tests/test_web_reference.py` -> all checks passed.
     - `conda run -n proj-env python -m ruff check .` -> fails on pre-existing non-web files (`resp_scoring.py`, `resp_simulation.py`, `resp_utils.py`, legacy test import sorting).
     - `conda run -n proj-env env PYTHONPATH=python/src python -m tcco2_accuracy.web.applet_streamlit` -> executed in Streamlit bare mode with expected context warnings.
+  - Commits:
+    - `628b5f9` Add Milestone 1 respiratory SOFA Streamlit applet scaffold
 - Now:
-  - Summarize implementation and verification for user.
+  - Commit artifact updates and summarize implementation for user.
 - Next:
   - Optionally fix pre-existing global Ruff issues in non-web modules if requested.
 - Open questions (UNCONFIRMED if needed):
@@ -39,4 +44,5 @@
   - `environment.yml`, `pyproject.toml`, `http:/CONTINUITY.md`
   - `python/src/tcco2_accuracy/web/*`
   - `python/tests/test_web_view_model.py`, `python/tests/test_web_services.py`, `python/tests/test_web_reference.py`
+  - `artifacts/resp_applet_m1_validation.md`, `artifacts/resp_applet_m1_validation.csv`
   - Commands: `conda run -n proj-env python -m pytest`, `conda run -n proj-env python -m ruff check ...`, `conda run -n proj-env env PYTHONPATH=python/src python -m tcco2_accuracy.web.applet_streamlit`.

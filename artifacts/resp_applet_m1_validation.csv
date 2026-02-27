@@ -1,0 +1,5 @@
+check,scope,result,details
+pytest,repo,pass,"40 passed in 16.49s"
+ruff,web_and_new_tests,pass,"All checks passed"
+ruff,repo,fail,"Pre-existing lint issues outside web scope"
+streamlit_module,bare_mode,pass,"Applet module executed with expected ScriptRunContext warnings"
