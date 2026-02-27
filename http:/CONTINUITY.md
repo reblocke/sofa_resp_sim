@@ -1,35 +1,42 @@
 - Goal (incl. success criteria):
-  - Add golden SQL-parity respiratory SOFA fixtures as pytest unit tests and update docs; ensure CLI entrypoint supports debug output when needed; run pytest.
+  - Implement Milestone 1 Respiratory SOFA applet (Streamlit + Plotly) with validated request model, single-scenario execution service, built-in reference overlay/delta, and tests.
+  - Success criteria: applet modules and tests added per plan; standard checks run; no legacy folders touched.
 - Constraints/Assumptions:
-  - Follow SQL-parity rules in ticket; use SpO2->PaO2 Ellis conversion and Oracle-style rounding.
-  - Do not modify `Code/Legacy/` or `Drafts/`.
-  - New/changed Python code under `python/` with core math pure; inputs via adapters if needed.
-  - Sandbox: workspace-write, network restricted, approvals never.
-  - User instruction overrides AGENTS: do not run `git commit`.
+  - Follow AGENTS format and working agreements.
+  - No edits to `Code/Legacy/` or `Drafts/`.
+  - Scope locked to Milestone 1; built-in reference only; no upload flow.
+  - Dependencies added: Streamlit and Plotly.
 - Key decisions:
-- Key decisions:
-  - Public entrypoint is `score_respiratory`, which returns `RespiratoryScoreResult` with `event_level` detail.
-  - `sofa_ts`/`quartile` bins now anchor to `admit_dts` with acute pre-admit override; quartile is 1–4.
+  - Implemented under `python/src/tcco2_accuracy/web/` with separate `view_model`, `app_services`, `reference`, and Streamlit entrypoint modules.
+  - Kept simulation core logic unchanged; app layer maps inputs to `SimulationConfig` and summarizes replicate outputs.
 - State:
-  - Tests updated and passing after binning changes.
+  - Milestone 1 implementation complete.
 - Done:
-  - Inspected `resp_scoring.py`, `resp_sofa_runner.py`, `resp_utils.py`, and tests.
-  - Updated `resp_scoring.py` docstrings and binning logic for `sofa_ts`/`quartile`.
-  - Added/renamed golden fixture tests with canonical schema and sofa_ts/quartile assertions.
-  - Updated README, CLI help, and artifacts summary/fixtures tables.
+  - Updated dependency manifests: `environment.yml`, `pyproject.toml`.
+  - Added applet modules:
+    - `python/src/tcco2_accuracy/web/__init__.py`
+    - `python/src/tcco2_accuracy/web/view_model.py`
+    - `python/src/tcco2_accuracy/web/app_services.py`
+    - `python/src/tcco2_accuracy/web/reference.py`
+    - `python/src/tcco2_accuracy/web/applet_streamlit.py`
+  - Added tests:
+    - `python/tests/test_web_view_model.py`
+    - `python/tests/test_web_services.py`
+    - `python/tests/test_web_reference.py`
+  - Created/updated `proj-env` and installed required runtime/test deps.
+  - Verification results:
+    - `conda run -n proj-env python -m pytest` -> 40 passed.
+    - `conda run -n proj-env python -m ruff check python/src/tcco2_accuracy/web python/tests/test_web_view_model.py python/tests/test_web_services.py python/tests/test_web_reference.py` -> all checks passed.
+    - `conda run -n proj-env python -m ruff check .` -> fails on pre-existing non-web files (`resp_scoring.py`, `resp_simulation.py`, `resp_utils.py`, legacy test import sorting).
+    - `conda run -n proj-env env PYTHONPATH=python/src python -m tcco2_accuracy.web.applet_streamlit` -> executed in Streamlit bare mode with expected context warnings.
 - Now:
-  - Prepare results summary for user.
+  - Summarize implementation and verification for user.
 - Next:
-  - Address any feedback or additional fixture/doc tweaks.
+  - Optionally fix pre-existing global Ruff issues in non-web modules if requested.
 - Open questions (UNCONFIRMED if needed):
-  - None.
+  - None blocking for Milestone 1 implementation.
 - Working set (files/ids/commands):
-  - http:/CONTINUITY.md
-  - python/src/tcco2_accuracy/resp_scoring.py
-  - python/src/tcco2_accuracy/resp_sofa_runner.py
-  - python/tests/test_resp_scoring_golden_fixtures.py
-  - artifacts/resp_scoring_fixtures.md
-  - artifacts/resp_scoring_fixtures.csv
-  - artifacts/resp_sofa_sim_summary.md
-  - README.md
-  - python -m pytest
+  - `environment.yml`, `pyproject.toml`, `http:/CONTINUITY.md`
+  - `python/src/tcco2_accuracy/web/*`
+  - `python/tests/test_web_view_model.py`, `python/tests/test_web_services.py`, `python/tests/test_web_reference.py`
+  - Commands: `conda run -n proj-env python -m pytest`, `conda run -n proj-env python -m ruff check ...`, `conda run -n proj-env env PYTHONPATH=python/src python -m tcco2_accuracy.web.applet_streamlit`.
