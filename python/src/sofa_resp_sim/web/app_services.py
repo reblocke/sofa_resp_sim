@@ -24,7 +24,7 @@ from .view_model import (
     normalize_sweep_request,
 )
 
-APPLET_CODE_VERSION = "m3-v1"
+APPLET_CODE_VERSION = "m4-v1"
 DEFAULT_CI_LEVEL = 0.95
 DEFAULT_BOOTSTRAP_SAMPLES = 1000
 DEFAULT_SWEEP_GUARDRAIL_RUNS = 50_000
