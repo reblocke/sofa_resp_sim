@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
-from tcco2_accuracy.web.reference import (
+from sofa_resp_sim.web.reference import (
     REQUIRED_PROBABILITY_COLUMNS,
     load_builtin_reference,
 )

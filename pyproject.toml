@@ -9,8 +9,8 @@ dependencies = [
 ]
 
 [project.scripts]
-resp-sofa-sim = "tcco2_accuracy.resp_sofa_runner:main"
-resp-sofa-applet = "tcco2_accuracy.web.applet_streamlit:main"
+resp-sofa-sim = "sofa_resp_sim.resp_sofa_runner:main"
+resp-sofa-applet = "sofa_resp_sim.web.applet_streamlit:main"
 
 [tool.ruff]
 line-length = 100

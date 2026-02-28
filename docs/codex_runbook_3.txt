@@ -27,9 +27,9 @@ Locate and Lock the Public Entry Points (Required)
 Before writing tests, inspect the current code so tests call the actual public API.
 
 Files to inspect
-	•	python/src/tcco2_accuracy/resp_scoring.py
-	•	python/src/tcco2_accuracy/resp_sofa_runner.py (CLI runner, likely calls the scoring entrypoint)
-	•	python/src/tcco2_accuracy/resp_utils.py
+	•	python/src/sofa_resp_sim/resp_scoring.py
+	•	python/src/sofa_resp_sim/resp_sofa_runner.py (CLI runner, likely calls the scoring entrypoint)
+	•	python/src/sofa_resp_sim/resp_utils.py
 
 Task
 	1.	Identify the public scoring entrypoint used by the CLI (preferred) or exported by the package.

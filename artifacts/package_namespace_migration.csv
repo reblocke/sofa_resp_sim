@@ -1,0 +1,5 @@
+item,old_namespace,new_namespace,status
+python_package,tcco2_accuracy,sofa_resp_sim,renamed
+cli_entrypoint_sim,tcco2_accuracy.resp_sofa_runner,sofa_resp_sim.resp_sofa_runner,updated
+cli_entrypoint_applet,tcco2_accuracy.web.applet_streamlit,sofa_resp_sim.web.applet_streamlit,updated
+imports_tests,tcco2_accuracy.*,sofa_resp_sim.*,updated

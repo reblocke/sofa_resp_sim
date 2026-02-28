@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from tcco2_accuracy.web.view_model import (
+from sofa_resp_sim.web.view_model import (
     DEFAULT_RUN_REQUEST,
     derive_support_thresholds,
     normalize_request,

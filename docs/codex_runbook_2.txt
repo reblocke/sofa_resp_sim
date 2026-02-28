@@ -21,8 +21,8 @@ These fixtures should fail if any of the above diverges from SQL.
 Target Files
 	•	Add tests to: python/tests/test_resp_scoring.py (or create python/tests/test_resp_scoring_fixtures.py if you want clearer separation)
 	•	Use existing engine functions from:
-	•	python/src/tcco2_accuracy/resp_scoring.py
-	•	python/src/tcco2_accuracy/resp_utils.py
+	•	python/src/sofa_resp_sim/resp_scoring.py
+	•	python/src/sofa_resp_sim/resp_utils.py
 
 Required Test Harness Capabilities
 

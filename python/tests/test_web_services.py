@@ -3,14 +3,14 @@ from __future__ import annotations
 from dataclasses import replace
 
 import pandas as pd
-from tcco2_accuracy.resp_simulation import run_replicates
-from tcco2_accuracy.web.app_services import (
+from sofa_resp_sim.resp_simulation import run_replicates
+from sofa_resp_sim.web.app_services import (
     SUMMARY_COLUMNS,
     build_cache_key,
     build_simulation_config,
     run_single_scenario,
 )
-from tcco2_accuracy.web.view_model import default_run_request
+from sofa_resp_sim.web.view_model import default_run_request
 
 
 def _manual_summary(replicates: pd.DataFrame, *, obs_freq: int, noise_sd: float, room_air: float):

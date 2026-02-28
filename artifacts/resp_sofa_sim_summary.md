@@ -13,4 +13,4 @@ and summarized in ``artifacts/resp_scoring_fixtures.md``/``.csv``. They cover
 SpO2→PaO2 conversion, FiO2 lookbacks/selection, PF ratios (including quartile
 suppression), support gating, baseline selection, altitude thresholds, and
 24h/6h binning for ``sofa_ts``/``quartile`` as implemented in
-``python/src/tcco2_accuracy/resp_scoring.py``.
+``python/src/sofa_resp_sim/resp_scoring.py``.

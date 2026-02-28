@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 
-from tcco2_accuracy.resp_scoring import RespScoringConfig, score_respiratory
-from tcco2_accuracy.resp_utils import oracle_round, spo2_to_pao2
+from sofa_resp_sim.resp_scoring import RespScoringConfig, score_respiratory
+from sofa_resp_sim.resp_utils import oracle_round, spo2_to_pao2
 
 
 def test_oracle_round_half_up():

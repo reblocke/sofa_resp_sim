@@ -59,7 +59,7 @@ When Stata conflicts with (1) or (2):
 
 ## Python layout
 - All new Python code lives under `python/`:
-  - `python/src/tcco2_accuracy/`
+  - `python/src/sofa_resp_sim/`
   - `python/tests/`
 - Keep core math pure (no I/O), and isolate I/O to `io.py`/`data.py` modules.
 

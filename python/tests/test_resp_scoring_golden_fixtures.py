@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from tcco2_accuracy.resp_scoring import RespScoringConfig, score_respiratory
-from tcco2_accuracy.resp_utils import spo2_to_pao2
+from sofa_resp_sim.resp_scoring import RespScoringConfig, score_respiratory
+from sofa_resp_sim.resp_utils import spo2_to_pao2
 
 
 ADMIT_DTS = pd.Timestamp("2026-01-01 00:00:00")
