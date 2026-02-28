@@ -6,15 +6,21 @@ import pandas as pd
 import pytest
 from sofa_resp_sim.resp_simulation import run_replicates
 from sofa_resp_sim.web.app_services import (
+    DEFAULT_SWEEP_GUARDRAIL_RUNS,
     SUMMARY_COLUMNS,
+    SWEEP_REPLICATE_EXPORT_COLUMNS,
+    SWEEP_SUMMARY_EXPORT_COLUMNS,
     bootstrap_sofa_probability_ci,
     build_cache_key,
     build_simulation_config,
     compute_divergence_metrics,
     extract_sofa_probabilities,
+    format_sweep_replicates_for_export,
+    format_sweep_summary_for_export,
     run_single_scenario,
+    run_sweep_scenario,
 )
-from sofa_resp_sim.web.view_model import default_run_request
+from sofa_resp_sim.web.view_model import default_run_request, normalize_sweep_request
 
 
 def _manual_summary(
@@ -37,6 +43,19 @@ def _manual_summary(
     for score in range(5):
         row[f"p_sofa_{score}"] = counts.get(score, 0) / total if total else 0.0
     return pd.DataFrame([row], columns=SUMMARY_COLUMNS)
+
+
+def _small_sweep_request(n_reps: int = 5):
+    base = replace(default_run_request(), n_reps=n_reps, seed=77)
+    return normalize_sweep_request(
+        {
+            "base_request": base,
+            "obs_freq_minutes_values": "15,60",
+            "noise_sd_values": "0.5,1.0",
+            "room_air_threshold_values": "92,94",
+            "heatmap_metric": "p_sofa_3plus",
+        }
+    )
 
 
 def test_run_single_scenario_is_deterministic_for_seed():
@@ -141,3 +160,58 @@ def test_divergence_metrics_invariants_and_identity_zero():
 
     assert shifted_metrics["l1_distance"] >= 0
     assert shifted_metrics["jensen_shannon_distance"] >= 0
+
+
+def test_run_sweep_scenario_is_deterministic_for_seed():
+    request = _small_sweep_request(n_reps=4)
+
+    summary_a, reps_a = run_sweep_scenario(request, return_replicates=True)
+    summary_b, reps_b = run_sweep_scenario(request, return_replicates=True)
+
+    pd.testing.assert_frame_equal(summary_a, summary_b)
+    pd.testing.assert_frame_equal(reps_a, reps_b)
+
+
+def test_run_sweep_row_count_and_derived_metric():
+    request = _small_sweep_request(n_reps=3)
+    product_size = (
+        len(request.obs_freq_minutes_values)
+        * len(request.noise_sd_values)
+        * len(request.room_air_threshold_values)
+    )
+
+    summary, replicates = run_sweep_scenario(request, return_replicates=True)
+
+    assert summary.shape[0] == product_size
+    assert replicates.shape[0] == product_size * request.base_request.n_reps
+    assert (summary["p_sofa_3plus"] == summary["p_sofa_3"] + summary["p_sofa_4"]).all()
+
+
+def test_run_sweep_scenario_guardrail_blocks_large_workloads():
+    request = _small_sweep_request(n_reps=10000)
+
+    with pytest.raises(ValueError, match="exceeds guardrail"):
+        run_sweep_scenario(request, return_replicates=True)
+
+    total_runs = (
+        len(request.obs_freq_minutes_values)
+        * len(request.noise_sd_values)
+        * len(request.room_air_threshold_values)
+        * request.base_request.n_reps
+    )
+    assert total_runs > DEFAULT_SWEEP_GUARDRAIL_RUNS
+
+
+def test_sweep_export_formatters_return_stable_columns():
+    request = _small_sweep_request(n_reps=3)
+    summary, replicates = run_sweep_scenario(request, return_replicates=True)
+
+    summary_export = format_sweep_summary_for_export(summary)
+    replicates_export = format_sweep_replicates_for_export(replicates)
+
+    assert summary_export.columns[: len(SWEEP_SUMMARY_EXPORT_COLUMNS)].tolist() == (
+        SWEEP_SUMMARY_EXPORT_COLUMNS
+    )
+    assert replicates_export.columns[: len(SWEEP_REPLICATE_EXPORT_COLUMNS)].tolist() == (
+        SWEEP_REPLICATE_EXPORT_COLUMNS
+    )

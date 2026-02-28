@@ -8,20 +8,47 @@ import pandas as pd
 from .app_services import (
     DEFAULT_BOOTSTRAP_SAMPLES,
     DEFAULT_CI_LEVEL,
+    DEFAULT_SWEEP_GUARDRAIL_RUNS,
     build_cache_key,
+    build_sweep_cache_key,
+    build_sweep_heatmap_frame,
     build_uncertainty_table,
     compute_divergence_metrics,
+    format_sweep_replicates_for_export,
+    format_sweep_summary_for_export,
     parse_request_payload,
+    parse_sweep_payload,
     run_single_scenario,
+    run_sweep_scenario,
     serialize_request_payload,
+    serialize_sweep_payload,
 )
 from .reference import REQUIRED_PROBABILITY_COLUMNS, load_builtin_reference
 from .view_model import (
     SPO2_ROUNDING_OPTIONS,
+    SWEEP_HEATMAP_METRICS,
     AppletRunRequest,
+    AppletSweepRequest,
     default_run_request,
+    default_sweep_request,
+    estimate_total_sweep_runs,
     normalize_request,
+    normalize_sweep_request,
 )
+
+SWEEP_PRESETS = {
+    "Quick": {
+        "obs_freq_minutes_values": "15,30,60",
+        "noise_sd_values": "0.5,1.0,1.5",
+        "room_air_threshold_values": "92,94,96",
+    },
+    "Broad": {
+        "obs_freq_minutes_values": "5,15,30,60",
+        "noise_sd_values": "0.5,1.0,1.5,2.0",
+        "room_air_threshold_values": "90,92,94",
+    },
+    "Custom": None,
+}
 
 
 def main() -> None:
@@ -31,16 +58,24 @@ def main() -> None:
     st.set_page_config(page_title="Respiratory SOFA Applet", layout="wide")
     st.title("Respiratory SOFA Simulation Applet")
     st.caption(
-        "Milestone 2: built-in reference comparison, uncertainty intervals, and divergence metrics."
+        "Milestone 3: single scenario plus parameter sweep with heatmaps and CSV exports."
     )
 
     defaults = default_run_request()
-    run_clicked, request = _render_sidebar(st, defaults)
+    run_clicked, run_mode, request, sweep_request_raw = _render_sidebar(st, defaults)
 
     if not run_clicked:
         st.info("Configure parameters in the sidebar and click Run simulation.")
         return
 
+    if run_mode == "Single scenario":
+        _run_single_scenario_flow(st, go, request)
+        return
+
+    _run_sweep_flow(st, go, sweep_request_raw)
+
+
+def _run_single_scenario_flow(st, go, request: AppletRunRequest) -> None:
     try:
         request = normalize_request(request)
     except ValueError as exc:
@@ -91,6 +126,132 @@ def main() -> None:
             scenario_probs=scenario_probs,
             reference_probs=reference_probs,
         )
+
+
+def _run_sweep_flow(st, go, sweep_request_raw) -> None:
+    if sweep_request_raw is None:
+        st.error("Sweep request is missing. Reconfigure sweep controls and retry.")
+        return
+
+    try:
+        sweep_request = normalize_sweep_request(sweep_request_raw)
+    except ValueError as exc:
+        st.error(f"Invalid sweep request: {exc}")
+        return
+
+    total_runs = estimate_total_sweep_runs(sweep_request)
+    combinations = (
+        len(sweep_request.obs_freq_minutes_values)
+        * len(sweep_request.noise_sd_values)
+        * len(sweep_request.room_air_threshold_values)
+    )
+    if total_runs > DEFAULT_SWEEP_GUARDRAIL_RUNS:
+        st.error(
+            "Sweep workload exceeds guardrail. "
+            f"Combinations={combinations}, n_reps={sweep_request.base_request.n_reps}, "
+            f"total_runs={total_runs}, limit={DEFAULT_SWEEP_GUARDRAIL_RUNS}."
+        )
+        return
+
+    cache_key = build_sweep_cache_key(sweep_request)
+    payload = serialize_sweep_payload(sweep_request)
+
+    @st.cache_data(show_spinner=False)
+    def _run_sweep_cached(serialized_payload: str, deterministic_key: str):
+        _ = deterministic_key
+        parsed_request = parse_sweep_payload(serialized_payload)
+        return run_sweep_scenario(parsed_request, return_replicates=True)
+
+    with st.spinner("Running parameter sweep..."):
+        try:
+            summary_df, replicates_df = _run_sweep_cached(payload, cache_key)
+        except ValueError as exc:
+            st.error(f"Sweep run failed: {exc}")
+            return
+
+    _render_sweep_tab(
+        st=st,
+        go=go,
+        sweep_request=sweep_request,
+        summary_df=summary_df,
+        replicates_df=replicates_df,
+    )
+
+
+def _render_sweep_tab(
+    st,
+    go,
+    sweep_request: AppletSweepRequest,
+    summary_df: pd.DataFrame,
+    replicates_df: pd.DataFrame,
+) -> None:
+    st.subheader("Sweep Summary")
+
+    summary_export = format_sweep_summary_for_export(summary_df)
+    replicates_export = format_sweep_replicates_for_export(replicates_df)
+
+    if summary_export.empty:
+        st.error("Sweep returned no summary rows.")
+        return
+
+    st.dataframe(summary_export, use_container_width=True)
+
+    st.subheader("Sweep Heatmaps")
+    heatmap_frame = build_sweep_heatmap_frame(summary_export, sweep_request.heatmap_metric)
+    thresholds = sorted(heatmap_frame["room_air_threshold"].unique())
+
+    for threshold in thresholds:
+        subset = heatmap_frame.loc[
+            heatmap_frame["room_air_threshold"] == threshold,
+            ["obs_freq_minutes", "noise_sd", "metric_value"],
+        ]
+        pivot = subset.pivot(
+            index="obs_freq_minutes",
+            columns="noise_sd",
+            values="metric_value",
+        )
+        if pivot.isna().any().any():
+            st.warning(
+                "Missing sweep cells detected in heatmap grid "
+                f"for room_air_threshold={threshold}."
+            )
+
+        fig = go.Figure(
+            data=go.Heatmap(
+                z=pivot.to_numpy(),
+                x=[str(value) for value in pivot.columns.tolist()],
+                y=[str(value) for value in pivot.index.tolist()],
+                colorscale="Viridis",
+                colorbar_title=sweep_request.heatmap_metric,
+            )
+        )
+        fig.update_layout(
+            title=(
+                f"{sweep_request.heatmap_metric} "
+                f"(room_air_threshold={threshold})"
+            ),
+            xaxis_title="noise_sd",
+            yaxis_title="obs_freq_minutes",
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+    st.subheader("Sweep Exports")
+    summary_csv = summary_export.to_csv(index=False)
+    replicates_csv = replicates_export.to_csv(index=False)
+
+    export_col_1, export_col_2 = st.columns(2)
+    export_col_1.download_button(
+        label="Download sweep summary CSV",
+        data=summary_csv,
+        file_name="resp_applet_sweep_summary.csv",
+        mime="text/csv",
+    )
+    export_col_2.download_button(
+        label="Download sweep replicates CSV",
+        data=replicates_csv,
+        file_name="resp_applet_sweep_replicates.csv",
+        mime="text/csv",
+    )
 
 
 def _render_distribution_tab(st, go, summary_df, replicates_df, comparison_df):
@@ -259,9 +420,70 @@ def _render_uncertainty_tab(
         st.plotly_chart(count_fig, use_container_width=True)
 
 
-def _render_sidebar(st, defaults: AppletRunRequest) -> tuple[bool, AppletRunRequest]:
+def _render_sidebar(
+    st,
+    defaults: AppletRunRequest,
+) -> tuple[bool, str, AppletRunRequest, dict | None]:
     st.sidebar.header("Scenario Controls")
+    run_mode = st.sidebar.radio("Run mode", ["Single scenario", "Parameter sweep"])
 
+    request = _render_base_controls(st, defaults)
+    sweep_request_raw: dict | None = None
+
+    if run_mode == "Parameter sweep":
+        sweep_defaults = default_sweep_request()
+        _render_sweep_control_defaults(st)
+
+        obs_values_raw = st.sidebar.text_input(
+            "obs_freq_minutes sweep values",
+            key="sweep_obs_values",
+        )
+        noise_values_raw = st.sidebar.text_input(
+            "noise_sd sweep values",
+            key="sweep_noise_values",
+        )
+        room_air_values_raw = st.sidebar.text_input(
+            "room_air_threshold sweep values",
+            key="sweep_room_values",
+        )
+        heatmap_metric = st.sidebar.selectbox(
+            "Heatmap metric",
+            options=list(SWEEP_HEATMAP_METRICS),
+            index=list(SWEEP_HEATMAP_METRICS).index(sweep_defaults.heatmap_metric),
+        )
+
+        sweep_request_raw = {
+            "base_request": request,
+            "obs_freq_minutes_values": obs_values_raw,
+            "noise_sd_values": noise_values_raw,
+            "room_air_threshold_values": room_air_values_raw,
+            "heatmap_metric": heatmap_metric,
+        }
+
+        try:
+            preview_request = normalize_sweep_request(sweep_request_raw)
+            combinations = (
+                len(preview_request.obs_freq_minutes_values)
+                * len(preview_request.noise_sd_values)
+                * len(preview_request.room_air_threshold_values)
+            )
+            total_runs = estimate_total_sweep_runs(preview_request)
+            st.sidebar.caption(
+                f"Sweep workload: combinations={combinations}, total_runs={total_runs}."
+            )
+            if total_runs > DEFAULT_SWEEP_GUARDRAIL_RUNS:
+                st.sidebar.error(
+                    "Sweep exceeds guardrail and will be blocked on run: "
+                    f"{total_runs} > {DEFAULT_SWEEP_GUARDRAIL_RUNS}."
+                )
+        except ValueError as exc:
+            st.sidebar.error(f"Sweep input error: {exc}")
+
+    run_clicked = st.sidebar.button("Run simulation", type="primary")
+    return run_clicked, run_mode, request, sweep_request_raw
+
+
+def _render_base_controls(st, defaults: AppletRunRequest) -> AppletRunRequest:
     st.sidebar.subheader("Timeline")
     default_dt = defaults.admit_dts.to_pydatetime()
     admit_date = st.sidebar.date_input("admit_dts (date)", value=default_dt.date())
@@ -397,8 +619,6 @@ def _render_sidebar(st, defaults: AppletRunRequest) -> tuple[bool, AppletRunRequ
     )
     seed = st.sidebar.number_input("seed", min_value=0, value=defaults.seed, step=1)
 
-    run_clicked = st.sidebar.button("Run simulation", type="primary")
-
     request = AppletRunRequest(
         admit_dts=admit_dts,
         acute_start_hours=float(acute_start_hours),
@@ -424,7 +644,35 @@ def _render_sidebar(st, defaults: AppletRunRequest) -> tuple[bool, AppletRunRequ
         n_reps=int(n_reps),
         seed=int(seed),
     )
-    return run_clicked, request
+    return request
+
+
+def _render_sweep_control_defaults(st) -> None:
+    st.sidebar.subheader("Sweep Controls")
+    selected_preset = st.sidebar.selectbox("Sweep preset", options=list(SWEEP_PRESETS.keys()))
+
+    applied_preset = st.session_state.get("sweep_applied_preset")
+    if applied_preset != selected_preset:
+        preset_values = SWEEP_PRESETS[selected_preset]
+        if preset_values is not None:
+            st.session_state["sweep_obs_values"] = preset_values["obs_freq_minutes_values"]
+            st.session_state["sweep_noise_values"] = preset_values["noise_sd_values"]
+            st.session_state["sweep_room_values"] = preset_values["room_air_threshold_values"]
+        else:
+            defaults = default_sweep_request()
+            st.session_state.setdefault(
+                "sweep_obs_values",
+                ",".join(str(value) for value in defaults.obs_freq_minutes_values),
+            )
+            st.session_state.setdefault(
+                "sweep_noise_values",
+                ",".join(str(value) for value in defaults.noise_sd_values),
+            )
+            st.session_state.setdefault(
+                "sweep_room_values",
+                ",".join(str(value) for value in defaults.room_air_threshold_values),
+            )
+        st.session_state["sweep_applied_preset"] = selected_preset
 
 
 def _default_reference_path() -> Path:
