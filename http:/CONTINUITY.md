@@ -1,31 +1,55 @@
 - Goal (incl. success criteria):
-  - Rename repository Python package namespace from `tcco2_accuracy` to `sofa_resp_sim` across code, tests, scripts, and docs.
-  - Success criteria: imports/entrypoints resolve under the new namespace; checks run; migration documented.
+  - Implement Milestone 2 for the Streamlit applet: uncertainty outputs, divergence metrics, stronger reference parser, tests, and artifacts.
+  - Success criteria: uncertainty tab with CI table + plots + metrics, reference parser supports probability and count schemas, checks pass, milestone artifacts updated, commit created.
 - Constraints/Assumptions:
-  - Follow AGENTS format and continuity updates.
+  - Follow AGENTS working agreements and keep continuity ledger updated.
   - No edits to `Code/Legacy/` or `Drafts/`.
-  - Canonical replacement namespace is `sofa_resp_sim`.
+  - Milestone 2 scope excludes upload UI, sweep UI, and core simulation/scoring changes.
+  - CI defaults fixed: 95% and 1000 bootstrap resamples.
 - Key decisions:
-  - Applied repo-wide rename while preserving simulation/scoring behavior.
+  - Bootstrap percentile CIs over replicate rows.
+  - Add L1 and Jensen-Shannon distance metrics with epsilon guard.
+  - Keep built-in reference source but expand parser to count-form schema now.
 - State:
-  - Implementation complete; pending commit.
+  - Milestone 2 implementation complete; pending commit summary.
 - Done:
-  - Renamed package directory: `python/src/tcco2_accuracy` -> `python/src/sofa_resp_sim`.
-  - Updated namespace references in source, tests, pyproject scripts, docs, artifacts, and AGENTS paths.
-  - Added migration artifacts:
-    - `artifacts/package_namespace_migration.md`
-    - `artifacts/package_namespace_migration.csv`
-  - Validation:
-    - `conda run -n proj-env python -m pytest` -> 40 passed.
-    - `conda run -n proj-env env PYTHONPATH=python/src python -m sofa_resp_sim.resp_sofa_runner --help` -> pass.
-    - `conda run -n proj-env python -m ruff check .` -> fails on pre-existing lint issues in core files/tests.
+  - Updated `python/src/sofa_resp_sim/web/reference.py`:
+    - Added `normalize_reference_distribution(frame)`.
+    - Added probability/count schema support with deterministic precedence (probability first).
+    - Added count-form validation (integer class 0..4, non-negative counts, positive sum).
+  - Updated `python/src/sofa_resp_sim/web/app_services.py`:
+    - Added `extract_sofa_probabilities`.
+    - Added `compute_divergence_metrics` (L1 + JS distance).
+    - Added `bootstrap_sofa_probability_ci` (95%/1000 default, deterministic seed).
+    - Added `build_uncertainty_table` with required columns.
+    - Bumped `APPLET_CODE_VERSION` to `m2-v1`.
+  - Updated `python/src/sofa_resp_sim/web/applet_streamlit.py`:
+    - Added Distribution/Uncertainty tabs.
+    - Added uncertainty warning for `n_reps < 100`.
+    - Added CI table, probability CI plot, `count_pf_ratio_acute` histogram.
+    - Added L1 and JS metrics panel.
+  - Updated exports in `python/src/sofa_resp_sim/web/__init__.py`.
+  - Expanded tests:
+    - `python/tests/test_web_reference.py` (count-form happy/error paths + schema precedence).
+    - `python/tests/test_web_services.py` (bootstrap determinism/invariants + divergence invariants).
+    - Added `python/tests/test_web_uncertainty.py`.
+  - Added milestone artifacts:
+    - `artifacts/resp_applet_m2_uncertainty.md`
+    - `artifacts/resp_applet_m2_uncertainty.csv`
+  - Verification:
+    - `conda run -n proj-env python -m pytest` -> 52 passed.
+    - `conda run -n proj-env python -m ruff check python/src/sofa_resp_sim/web python/tests/test_web_*` -> All checks passed.
+    - Smoke launch command executed and served on `127.0.0.1:8511`; verified with `lsof` + `curl`.
 - Now:
-  - Commit namespace migration changes.
+  - Stage and commit milestone 2 changes.
 - Next:
-  - Optionally address pre-existing global Ruff issues if requested.
+  - Address Milestone 3 if requested.
 - Open questions (UNCONFIRMED if needed):
   - None.
 - Working set (files/ids/commands):
-  - `python/src/sofa_resp_sim/`
-  - `pyproject.toml`, `python/tests/*`, `docs/*`, `artifacts/*`, `AGENTS.md`, `http:/CONTINUITY.md`
-  - Commands: `mv`, `rg`, `perl -pi -e`, `conda run -n proj-env python -m pytest`, `conda run -n proj-env python -m ruff check .`.
+  - `python/src/sofa_resp_sim/web/reference.py`
+  - `python/src/sofa_resp_sim/web/app_services.py`
+  - `python/src/sofa_resp_sim/web/applet_streamlit.py`
+  - `python/src/sofa_resp_sim/web/__init__.py`
+  - `python/tests/test_web_reference.py`, `python/tests/test_web_services.py`, `python/tests/test_web_uncertainty.py`
+  - `artifacts/resp_applet_m2_uncertainty.md`, `artifacts/resp_applet_m2_uncertainty.csv`
