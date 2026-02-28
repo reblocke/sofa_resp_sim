@@ -3,17 +3,27 @@ from __future__ import annotations
 from dataclasses import replace
 
 import pandas as pd
+import pytest
 from sofa_resp_sim.resp_simulation import run_replicates
 from sofa_resp_sim.web.app_services import (
     SUMMARY_COLUMNS,
+    bootstrap_sofa_probability_ci,
     build_cache_key,
     build_simulation_config,
+    compute_divergence_metrics,
+    extract_sofa_probabilities,
     run_single_scenario,
 )
 from sofa_resp_sim.web.view_model import default_run_request
 
 
-def _manual_summary(replicates: pd.DataFrame, *, obs_freq: int, noise_sd: float, room_air: float):
+def _manual_summary(
+    replicates: pd.DataFrame,
+    *,
+    obs_freq: int,
+    noise_sd: float,
+    room_air: float,
+):
     counts = replicates["sofa_pulm"].value_counts().to_dict()
     total = len(replicates)
     row = {
@@ -73,3 +83,61 @@ def test_build_cache_key_changes_when_request_changes():
 
     assert key_a == key_b
     assert key_a != key_c
+
+
+def test_bootstrap_ci_is_deterministic_for_seed():
+    request = replace(default_run_request(), n_reps=50, seed=9)
+    _, replicates = run_single_scenario(request)
+
+    ci_a = bootstrap_sofa_probability_ci(
+        replicates,
+        n_bootstrap=200,
+        ci_level=0.95,
+        seed=123,
+    )
+    ci_b = bootstrap_sofa_probability_ci(
+        replicates,
+        n_bootstrap=200,
+        ci_level=0.95,
+        seed=123,
+    )
+
+    pd.testing.assert_frame_equal(ci_a, ci_b)
+
+
+def test_bootstrap_ci_invariants():
+    request = replace(default_run_request(), n_reps=60, seed=5)
+    _, replicates = run_single_scenario(request)
+
+    ci = bootstrap_sofa_probability_ci(
+        replicates,
+        n_bootstrap=200,
+        ci_level=0.95,
+        seed=42,
+    )
+
+    assert ci["score"].tolist() == [0, 1, 2, 3, 4]
+    assert ((ci["p_scenario"] >= 0) & (ci["p_scenario"] <= 1)).all()
+    assert ((ci["ci_lower"] >= 0) & (ci["ci_upper"] <= 1)).all()
+    assert (ci["ci_lower"] <= ci["ci_upper"]).all()
+    assert (ci["ci_lower"] <= ci["p_scenario"]).all()
+    assert (ci["p_scenario"] <= ci["ci_upper"]).all()
+
+
+def test_divergence_metrics_invariants_and_identity_zero():
+    request = replace(default_run_request(), n_reps=80, seed=21)
+    _, replicates = run_single_scenario(request)
+    scenario = extract_sofa_probabilities(replicates)
+
+    identical_metrics = compute_divergence_metrics(scenario, scenario)
+    assert identical_metrics["l1_distance"] == pytest.approx(0.0)
+    assert identical_metrics["jensen_shannon_distance"] == pytest.approx(0.0)
+
+    shifted_reference = pd.Series(
+        [0.05, 0.05, 0.2, 0.4, 0.3],
+        index=[f"p_sofa_{score}" for score in range(5)],
+    )
+    shifted_metrics = compute_divergence_metrics(scenario, shifted_reference)
+
+    assert shifted_metrics["l1_distance"] >= 0
+    assert shifted_metrics["jensen_shannon_distance"] >= 0

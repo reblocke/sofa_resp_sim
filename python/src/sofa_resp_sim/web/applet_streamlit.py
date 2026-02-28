@@ -6,7 +6,11 @@ from pathlib import Path
 import pandas as pd
 
 from .app_services import (
+    DEFAULT_BOOTSTRAP_SAMPLES,
+    DEFAULT_CI_LEVEL,
     build_cache_key,
+    build_uncertainty_table,
+    compute_divergence_metrics,
     parse_request_payload,
     run_single_scenario,
     serialize_request_payload,
@@ -27,7 +31,7 @@ def main() -> None:
     st.set_page_config(page_title="Respiratory SOFA Applet", layout="wide")
     st.title("Respiratory SOFA Simulation Applet")
     st.caption(
-        "Milestone 1: single-scenario simulation with built-in reference distribution comparison."
+        "Milestone 2: built-in reference comparison, uncertainty intervals, and divergence metrics."
     )
 
     defaults = default_run_request()
@@ -73,6 +77,23 @@ def main() -> None:
     )
     comparison_df["delta"] = comparison_df["scenario"] - comparison_df["reference"]
 
+    tabs = st.tabs(["Distribution", "Uncertainty"])
+
+    with tabs[0]:
+        _render_distribution_tab(st, go, summary_df, replicates_df, comparison_df)
+
+    with tabs[1]:
+        _render_uncertainty_tab(
+            st=st,
+            go=go,
+            request=request,
+            replicates_df=replicates_df,
+            scenario_probs=scenario_probs,
+            reference_probs=reference_probs,
+        )
+
+
+def _render_distribution_tab(st, go, summary_df, replicates_df, comparison_df):
     dist_col, delta_col = st.columns(2)
     with dist_col:
         dist_fig = go.Figure()
@@ -141,6 +162,101 @@ def main() -> None:
         replicates_df["single_pf_suppressed"].mean()
     )
     st.dataframe(replicate_summary, use_container_width=True)
+
+
+def _render_uncertainty_tab(
+    st,
+    go,
+    request: AppletRunRequest,
+    replicates_df: pd.DataFrame,
+    scenario_probs: pd.Series,
+    reference_probs: pd.Series,
+):
+    if request.n_reps < 100:
+        st.warning(
+            "n_reps is below 100; bootstrap confidence intervals may be unstable."
+        )
+
+    uncertainty_df = build_uncertainty_table(
+        replicates=replicates_df,
+        reference_probs=reference_probs,
+        n_bootstrap=DEFAULT_BOOTSTRAP_SAMPLES,
+        ci_level=DEFAULT_CI_LEVEL,
+        seed=request.seed,
+    )
+    metrics = compute_divergence_metrics(scenario_probs, reference_probs)
+
+    metric_col_1, metric_col_2, metric_col_3 = st.columns(3)
+    metric_col_1.metric("L1 distance", f"{metrics['l1_distance']:.4f}")
+    metric_col_2.metric(
+        "Jensen-Shannon distance",
+        f"{metrics['jensen_shannon_distance']:.4f}",
+    )
+    metric_col_3.metric(
+        "Uncertainty method",
+        f"{int(DEFAULT_CI_LEVEL * 100)}% bootstrap ({DEFAULT_BOOTSTRAP_SAMPLES})",
+    )
+
+    st.subheader("SOFA Probability Confidence Intervals")
+    st.dataframe(uncertainty_df, use_container_width=True)
+
+    ci_plot_col, count_plot_col = st.columns(2)
+
+    with ci_plot_col:
+        ci_fig = go.Figure()
+        ci_fig.add_trace(
+            go.Scatter(
+                x=uncertainty_df["score"].astype(str),
+                y=uncertainty_df["p_scenario"],
+                mode="lines+markers",
+                name="Scenario",
+                line=dict(color="#2563eb"),
+                error_y=dict(
+                    type="data",
+                    symmetric=False,
+                    array=(
+                        uncertainty_df["ci_upper"] - uncertainty_df["p_scenario"]
+                    ),
+                    arrayminus=(
+                        uncertainty_df["p_scenario"] - uncertainty_df["ci_lower"]
+                    ),
+                ),
+            )
+        )
+        ci_fig.add_trace(
+            go.Scatter(
+                x=uncertainty_df["score"].astype(str),
+                y=uncertainty_df["p_reference"],
+                mode="lines+markers",
+                name="Built-in reference",
+                line=dict(color="#dc2626"),
+            )
+        )
+        ci_fig.update_layout(
+            title="Scenario Probability with 95% Bootstrap CIs",
+            xaxis_title="SOFA respiratory score",
+            yaxis_title="Probability",
+            yaxis=dict(range=[0, 1]),
+        )
+        st.plotly_chart(ci_fig, use_container_width=True)
+
+    with count_plot_col:
+        count_fig = go.Figure()
+        count_fig.add_trace(
+            go.Histogram(
+                x=replicates_df["count_pf_ratio_acute"],
+                marker_color="#0ea5e9",
+                nbinsx=30,
+                name="count_pf_ratio_acute",
+            )
+        )
+        count_fig.update_layout(
+            title="Distribution: count_pf_ratio_acute",
+            xaxis_title="count_pf_ratio_acute",
+            yaxis_title="Replicate frequency",
+            bargap=0.05,
+        )
+        st.plotly_chart(count_fig, use_container_width=True)
 
 
 def _render_sidebar(st, defaults: AppletRunRequest) -> tuple[bool, AppletRunRequest]:
