@@ -7,13 +7,27 @@ from collections.abc import Mapping
 import numpy as np
 import pandas as pd
 
-from ..resp_simulation import SimulationConfig, SupportPolicy, run_replicates
+from ..resp_simulation import (
+    SimulationConfig,
+    SupportPolicy,
+    run_parameter_sweep,
+    run_replicates,
+)
 from .reference import REQUIRED_PROBABILITY_COLUMNS
-from .view_model import AppletRunRequest, derive_support_thresholds, normalize_request
+from .view_model import (
+    SWEEP_HEATMAP_METRICS,
+    AppletRunRequest,
+    AppletSweepRequest,
+    derive_support_thresholds,
+    estimate_total_sweep_runs,
+    normalize_request,
+    normalize_sweep_request,
+)
 
-APPLET_CODE_VERSION = "m2-v1"
+APPLET_CODE_VERSION = "m3-v1"
 DEFAULT_CI_LEVEL = 0.95
 DEFAULT_BOOTSTRAP_SAMPLES = 1000
+DEFAULT_SWEEP_GUARDRAIL_RUNS = 50_000
 JENSEN_SHANNON_EPSILON = 1e-12
 
 SUMMARY_COLUMNS = [
@@ -28,6 +42,26 @@ SUMMARY_COLUMNS = [
     "p_sofa_2",
     "p_sofa_3",
     "p_sofa_4",
+]
+
+SWEEP_SUMMARY_EXPORT_COLUMNS = [
+    *SUMMARY_COLUMNS,
+    "p_sofa_3plus",
+]
+
+SWEEP_REPLICATE_EXPORT_COLUMNS = [
+    "obs_freq_minutes",
+    "noise_sd",
+    "room_air_threshold",
+    "replicate",
+    "seed",
+    "sofa_pulm",
+    "sofa_pulm_bl",
+    "sofa_pulm_delta",
+    "count_pf_ratio_acute",
+    "n_qualifying_pf_records_acute",
+    "n_qualifying_pf_records_baseline",
+    "single_pf_suppressed",
 ]
 
 UNCERTAINTY_COLUMNS = [
@@ -82,6 +116,120 @@ def run_single_scenario(request: AppletRunRequest) -> tuple[pd.DataFrame, pd.Dat
     replicates = run_replicates(config=config, n_reps=normalized.n_reps, seed=normalized.seed)
     summary = _summarize_replicates(replicates, normalized)
     return summary, replicates
+
+
+def run_sweep_scenario(
+    request: AppletSweepRequest,
+    return_replicates: bool = True,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    normalized = normalize_sweep_request(request)
+    total_runs = estimate_total_sweep_runs(normalized)
+    combinations = (
+        len(normalized.obs_freq_minutes_values)
+        * len(normalized.noise_sd_values)
+        * len(normalized.room_air_threshold_values)
+    )
+    if total_runs > DEFAULT_SWEEP_GUARDRAIL_RUNS:
+        raise ValueError(
+            "Sweep workload exceeds guardrail "
+            f"({total_runs} runs > {DEFAULT_SWEEP_GUARDRAIL_RUNS}). "
+            f"Combinations={combinations}, n_reps={normalized.base_request.n_reps}."
+        )
+
+    base_config = build_simulation_config(normalized.base_request)
+    summary_df, replicate_df_or_none = run_parameter_sweep(
+        base_config=base_config,
+        obs_freq_minutes=normalized.obs_freq_minutes_values,
+        noise_sd=normalized.noise_sd_values,
+        room_air_thresholds=normalized.room_air_threshold_values,
+        n_reps=normalized.base_request.n_reps,
+        seed=normalized.base_request.seed,
+        return_replicates=return_replicates,
+    )
+
+    summary_df = add_sweep_derived_metrics(summary_df)
+    if return_replicates and replicate_df_or_none is not None:
+        replicate_df = replicate_df_or_none
+    else:
+        replicate_df = pd.DataFrame(columns=SWEEP_REPLICATE_EXPORT_COLUMNS)
+
+    return summary_df, replicate_df
+
+
+def add_sweep_derived_metrics(summary_df: pd.DataFrame) -> pd.DataFrame:
+    required_columns = {"p_sofa_3", "p_sofa_4"}
+    missing = [column for column in required_columns if column not in summary_df.columns]
+    if missing:
+        raise ValueError(
+            "Sweep summary is missing required columns for derived metrics: "
+            + ", ".join(sorted(missing))
+        )
+
+    augmented = summary_df.copy()
+    augmented["p_sofa_3plus"] = augmented["p_sofa_3"] + augmented["p_sofa_4"]
+    return augmented
+
+
+def format_sweep_summary_for_export(summary_df: pd.DataFrame) -> pd.DataFrame:
+    augmented = add_sweep_derived_metrics(summary_df)
+
+    ordered_columns = [
+        column for column in SWEEP_SUMMARY_EXPORT_COLUMNS if column in augmented.columns
+    ]
+    remaining_columns = [
+        column for column in augmented.columns if column not in ordered_columns
+    ]
+
+    formatted = augmented.loc[:, ordered_columns + remaining_columns].copy()
+    sort_columns = [
+        column
+        for column in ["obs_freq_minutes", "noise_sd", "room_air_threshold"]
+        if column in formatted.columns
+    ]
+    if sort_columns:
+        formatted = formatted.sort_values(sort_columns).reset_index(drop=True)
+    return formatted
+
+
+def format_sweep_replicates_for_export(replicates_df: pd.DataFrame) -> pd.DataFrame:
+    if replicates_df.empty:
+        return pd.DataFrame(columns=SWEEP_REPLICATE_EXPORT_COLUMNS)
+
+    formatted = replicates_df.copy()
+    for column in SWEEP_REPLICATE_EXPORT_COLUMNS:
+        if column not in formatted.columns:
+            formatted[column] = np.nan
+
+    remaining_columns = [
+        column for column in formatted.columns if column not in SWEEP_REPLICATE_EXPORT_COLUMNS
+    ]
+    formatted = formatted.loc[:, SWEEP_REPLICATE_EXPORT_COLUMNS + remaining_columns]
+    formatted = formatted.sort_values(
+        ["obs_freq_minutes", "noise_sd", "room_air_threshold", "replicate"]
+    ).reset_index(drop=True)
+    return formatted
+
+
+def build_sweep_heatmap_frame(summary_df: pd.DataFrame, metric: str) -> pd.DataFrame:
+    if metric not in SWEEP_HEATMAP_METRICS:
+        raise ValueError(f"metric must be one of {SWEEP_HEATMAP_METRICS}.")
+
+    augmented = add_sweep_derived_metrics(summary_df)
+    required = ["room_air_threshold", "obs_freq_minutes", "noise_sd", metric]
+    missing = [column for column in required if column not in augmented.columns]
+    if missing:
+        raise ValueError(
+            "Sweep summary is missing required heatmap columns: "
+            + ", ".join(sorted(missing))
+        )
+
+    heatmap_frame = (
+        augmented.loc[:, required]
+        .rename(columns={metric: "metric_value"})
+        .sort_values(["room_air_threshold", "obs_freq_minutes", "noise_sd"])
+        .reset_index(drop=True)
+    )
+    return heatmap_frame
 
 
 def extract_sofa_probabilities(replicates: pd.DataFrame) -> pd.Series:
@@ -208,6 +356,19 @@ def build_cache_key(request: AppletRunRequest, code_version: str = APPLET_CODE_V
     return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
 
+def build_sweep_cache_key(
+    request: AppletSweepRequest,
+    code_version: str = APPLET_CODE_VERSION,
+) -> str:
+    normalized = normalize_sweep_request(request)
+    payload = {
+        "code_version": code_version,
+        "sweep_request": normalized.to_json_dict(),
+    }
+    serialized = json.dumps(payload, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+
+
 def serialize_request_payload(
     request: AppletRunRequest,
     code_version: str = APPLET_CODE_VERSION,
@@ -220,11 +381,30 @@ def serialize_request_payload(
     return json.dumps(payload, sort_keys=True, separators=(",", ":"))
 
 
+def serialize_sweep_payload(
+    request: AppletSweepRequest,
+    code_version: str = APPLET_CODE_VERSION,
+) -> str:
+    normalized = normalize_sweep_request(request)
+    payload: Mapping[str, object] = {
+        "code_version": code_version,
+        "sweep_request": normalized.to_json_dict(),
+    }
+    return json.dumps(payload, sort_keys=True, separators=(",", ":"))
+
+
 def parse_request_payload(payload: str) -> AppletRunRequest:
     parsed = json.loads(payload)
     if "request" not in parsed:
         raise ValueError("Serialized request payload must include a 'request' field.")
     return normalize_request(parsed["request"])
+
+
+def parse_sweep_payload(payload: str) -> AppletSweepRequest:
+    parsed = json.loads(payload)
+    if "sweep_request" not in parsed:
+        raise ValueError("Serialized sweep payload must include a 'sweep_request' field.")
+    return normalize_sweep_request(parsed["sweep_request"])
 
 
 def _coerce_probability_series(values: pd.Series, name: str) -> pd.Series:

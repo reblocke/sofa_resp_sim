@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 import math
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
 
 import pandas as pd
 
 SPO2_ROUNDING_OPTIONS = ("int", "one_decimal", "raw")
+SWEEP_HEATMAP_METRICS = ("p_sofa_3plus", "p_sofa_4", "mean_count_pf_ratio_acute")
+DEFAULT_SWEEP_HEATMAP_METRIC = "p_sofa_3plus"
 
 
 @dataclass(frozen=True)
@@ -64,6 +66,24 @@ class AppletRunRequest:
         }
 
 
+@dataclass(frozen=True)
+class AppletSweepRequest:
+    base_request: AppletRunRequest
+    obs_freq_minutes_values: tuple[int, ...]
+    noise_sd_values: tuple[float, ...]
+    room_air_threshold_values: tuple[float, ...]
+    heatmap_metric: str = DEFAULT_SWEEP_HEATMAP_METRIC
+
+    def to_json_dict(self) -> dict[str, Any]:
+        return {
+            "base_request": self.base_request.to_json_dict(),
+            "obs_freq_minutes_values": list(self.obs_freq_minutes_values),
+            "noise_sd_values": list(self.noise_sd_values),
+            "room_air_threshold_values": list(self.room_air_threshold_values),
+            "heatmap_metric": self.heatmap_metric,
+        }
+
+
 DEFAULT_RUN_REQUEST = AppletRunRequest(
     admit_dts=pd.Timestamp("2024-01-01"),
     acute_start_hours=-6.0,
@@ -90,9 +110,21 @@ DEFAULT_RUN_REQUEST = AppletRunRequest(
     seed=0,
 )
 
+DEFAULT_SWEEP_REQUEST = AppletSweepRequest(
+    base_request=DEFAULT_RUN_REQUEST,
+    obs_freq_minutes_values=(15, 30, 60),
+    noise_sd_values=(0.5, 1.0, 1.5),
+    room_air_threshold_values=(92.0, 94.0, 96.0),
+    heatmap_metric=DEFAULT_SWEEP_HEATMAP_METRIC,
+)
+
 
 def default_run_request() -> AppletRunRequest:
     return DEFAULT_RUN_REQUEST
+
+
+def default_sweep_request() -> AppletSweepRequest:
+    return DEFAULT_SWEEP_REQUEST
 
 
 def derive_support_thresholds(room_air_threshold: float) -> tuple[float, float, float, float]:
@@ -199,6 +231,79 @@ def normalize_request(raw: Mapping[str, Any] | AppletRunRequest) -> AppletRunReq
     return request
 
 
+def parse_csv_numeric_list(raw: str, cast: type, field_name: str) -> tuple[int | float, ...]:
+    if not isinstance(raw, str):
+        raise ValueError(f"{field_name} must be a comma-separated string.")
+    stripped_input = raw.strip()
+    if not stripped_input:
+        raise ValueError(f"{field_name} must not be empty.")
+
+    values: list[int | float] = []
+    for idx, token in enumerate(raw.split(","), start=1):
+        stripped = token.strip()
+        if not stripped:
+            raise ValueError(f"{field_name} contains an empty value at position {idx}.")
+        if cast is int:
+            value = _as_int(stripped, field_name)
+        elif cast is float:
+            value = _as_float(stripped, field_name)
+        else:
+            raise ValueError(f"Unsupported cast type for {field_name}: {cast}")
+        values.append(value)
+
+    return _dedupe_sorted(values)
+
+
+def normalize_sweep_request(
+    raw: Mapping[str, Any] | AppletSweepRequest,
+) -> AppletSweepRequest:
+    if isinstance(raw, AppletSweepRequest):
+        request = raw
+    else:
+        defaults = DEFAULT_SWEEP_REQUEST
+        base_input = _raw_or_default(raw, "base_request", defaults.base_request)
+        base_request = normalize_request(base_input)
+
+        request = AppletSweepRequest(
+            base_request=base_request,
+            obs_freq_minutes_values=_normalize_sweep_axis(
+                _raw_or_default(raw, "obs_freq_minutes_values", defaults.obs_freq_minutes_values),
+                int,
+                "obs_freq_minutes_values",
+            ),
+            noise_sd_values=_normalize_sweep_axis(
+                _raw_or_default(raw, "noise_sd_values", defaults.noise_sd_values),
+                float,
+                "noise_sd_values",
+            ),
+            room_air_threshold_values=_normalize_sweep_axis(
+                _raw_or_default(
+                    raw,
+                    "room_air_threshold_values",
+                    defaults.room_air_threshold_values,
+                ),
+                float,
+                "room_air_threshold_values",
+            ),
+            heatmap_metric=str(
+                _raw_or_default(raw, "heatmap_metric", defaults.heatmap_metric)
+            ).strip(),
+        )
+
+    _validate_sweep_request(request)
+    return request
+
+
+def estimate_total_sweep_runs(request: AppletSweepRequest) -> int:
+    normalized = normalize_sweep_request(request)
+    combinations = (
+        len(normalized.obs_freq_minutes_values)
+        * len(normalized.noise_sd_values)
+        * len(normalized.room_air_threshold_values)
+    )
+    return combinations * normalized.base_request.n_reps
+
+
 def _validate_request(request: AppletRunRequest) -> None:
     if pd.isna(request.admit_dts):
         raise ValueError("admit_dts must be a valid timestamp.")
@@ -260,6 +365,71 @@ def _validate_request(request: AppletRunRequest) -> None:
         value = getattr(request, field_name)
         if not math.isfinite(float(value)):
             raise ValueError(f"{field_name} must be finite.")
+
+
+def _validate_sweep_request(request: AppletSweepRequest) -> None:
+    _validate_request(request.base_request)
+
+    if request.heatmap_metric not in SWEEP_HEATMAP_METRICS:
+        raise ValueError(
+            f"heatmap_metric must be one of {SWEEP_HEATMAP_METRICS}."
+        )
+
+    if not request.obs_freq_minutes_values:
+        raise ValueError("obs_freq_minutes_values must contain at least one value.")
+    if not request.noise_sd_values:
+        raise ValueError("noise_sd_values must contain at least one value.")
+    if not request.room_air_threshold_values:
+        raise ValueError("room_air_threshold_values must contain at least one value.")
+
+    for value in request.obs_freq_minutes_values:
+        if value < 1:
+            raise ValueError("obs_freq_minutes_values entries must be >= 1.")
+
+    for value in request.noise_sd_values:
+        if value < 0:
+            raise ValueError("noise_sd_values entries must be >= 0.")
+        if not math.isfinite(float(value)):
+            raise ValueError("noise_sd_values entries must be finite.")
+
+    for value in request.room_air_threshold_values:
+        if not math.isfinite(float(value)):
+            raise ValueError("room_air_threshold_values entries must be finite.")
+        derive_support_thresholds(float(value))
+
+
+def _normalize_sweep_axis(
+    raw_values: Any,
+    cast: type,
+    field_name: str,
+) -> tuple[int | float, ...]:
+    if isinstance(raw_values, str):
+        values = parse_csv_numeric_list(raw_values, cast, field_name)
+    elif isinstance(raw_values, Sequence) and not isinstance(raw_values, (str, bytes)):
+        if len(raw_values) == 0:
+            raise ValueError(f"{field_name} must not be empty.")
+        parsed: list[int | float] = []
+        for value in raw_values:
+            if cast is int:
+                parsed.append(_as_int(value, field_name))
+            elif cast is float:
+                parsed.append(_as_float(value, field_name))
+            else:
+                raise ValueError(f"Unsupported cast type for {field_name}: {cast}")
+        values = _dedupe_sorted(parsed)
+    else:
+        raise ValueError(
+            f"{field_name} must be a comma-separated string or a sequence of numeric values."
+        )
+
+    if not values:
+        raise ValueError(f"{field_name} must contain at least one value.")
+    return values
+
+
+def _dedupe_sorted(values: Sequence[int | float]) -> tuple[int | float, ...]:
+    unique_sorted = sorted(set(values))
+    return tuple(unique_sorted)
 
 
 def _raw_or_default(raw: Mapping[str, Any], key: str, default: Any) -> Any:
