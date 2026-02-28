@@ -1,0 +1,58 @@
+# Respiratory SOFA Applet Runbook
+
+## 1) Local launch
+From repo root:
+
+```bash
+conda run -n proj-env env PYTHONPATH=python/src streamlit run python/src/sofa_resp_sim/web/applet_streamlit.py
+```
+
+If `resp-sofa-applet` script is installed in the active environment:
+
+```bash
+conda run -n proj-env env PYTHONPATH=python/src resp-sofa-applet
+```
+
+## 2) Sidebar control workflow
+1. Choose `Run mode` (`Single scenario` or `Parameter sweep`).
+2. Select presets:
+   - `Scenario preset`
+   - `Sweep preset`
+3. Click `Reset controls to selected preset` when you want to reapply preset defaults.
+4. Click `Run simulation`.
+
+Preset schema version is shown in the sidebar. This version is used by preset serialization helpers for deterministic roundtrips.
+
+## 3) Validation commands
+Run these from repo root before release:
+
+```bash
+conda run -n proj-env python -m pytest
+conda run -n proj-env python -m ruff check python/src/sofa_resp_sim/web python/tests/test_web_*
+```
+
+## 4) Performance profiling
+Profile single-scenario runtime:
+
+```bash
+conda run -n proj-env env PYTHONPATH=python/src \\
+  python python/scripts/profile_applet_performance.py \\
+  --n-reps 1000 --repeats 5 --seed 0 --target-seconds 2.0 \\
+  --output-csv artifacts/resp_applet_m4_performance.csv
+```
+
+## 5) Smoke test (headless)
+```bash
+conda run -n proj-env env PYTHONPATH=python/src streamlit run /tmp/sofa_resp_sim_applet_launcher.py \\
+  --server.headless true --server.address 127.0.0.1 --server.port 8511
+```
+
+Open [http://127.0.0.1:8511](http://127.0.0.1:8511) to verify:
+- charts render after control changes,
+- sweep heatmaps render for valid presets,
+- CSV download buttons return non-empty files.
+
+## 6) Known limitations
+- Large synchronous sweeps can still feel slow near the guardrail (`50,000` total runs).
+- Built-in reference is currently fixed to artifact input (upload workflow is deferred).
+- Streamlit state is session-local and not shared across clients.

@@ -23,6 +23,13 @@ from .app_services import (
     serialize_request_payload,
     serialize_sweep_payload,
 )
+from .presets import (
+    APPLET_PRESET_VERSION,
+    apply_run_preset,
+    apply_sweep_preset,
+    list_run_presets,
+    list_sweep_presets,
+)
 from .reference import REQUIRED_PROBABILITY_COLUMNS, load_builtin_reference
 from .view_model import (
     SPO2_ROUNDING_OPTIONS,
@@ -30,24 +37,43 @@ from .view_model import (
     AppletRunRequest,
     AppletSweepRequest,
     default_run_request,
-    default_sweep_request,
     estimate_total_sweep_runs,
     normalize_request,
     normalize_sweep_request,
 )
 
-SWEEP_PRESETS = {
-    "Quick": {
-        "obs_freq_minutes_values": "15,30,60",
-        "noise_sd_values": "0.5,1.0,1.5",
-        "room_air_threshold_values": "92,94,96",
-    },
-    "Broad": {
-        "obs_freq_minutes_values": "5,15,30,60",
-        "noise_sd_values": "0.5,1.0,1.5,2.0",
-        "room_air_threshold_values": "90,92,94",
-    },
-    "Custom": None,
+RUN_WIDGET_KEYS = {
+    "admit_date": "run_admit_date",
+    "admit_time": "run_admit_time",
+    "acute_start_hours": "run_acute_start_hours",
+    "acute_end_hours": "run_acute_end_hours",
+    "include_baseline": "run_include_baseline",
+    "baseline_days_before": "run_baseline_days_before",
+    "baseline_duration_hours": "run_baseline_duration_hours",
+    "obs_freq_minutes": "run_obs_freq_minutes",
+    "spo2_mean": "run_spo2_mean",
+    "spo2_sd": "run_spo2_sd",
+    "ar1": "run_ar1",
+    "desat_prob": "run_desat_prob",
+    "desat_depth": "run_desat_depth",
+    "desat_duration_minutes": "run_desat_duration_minutes",
+    "measurement_sd": "run_measurement_sd",
+    "spo2_rounding": "run_spo2_rounding",
+    "room_air_threshold": "run_room_air_threshold",
+    "support_based_on_observed": "run_support_based_on_observed",
+    "fio2_meas_prob": "run_fio2_meas_prob",
+    "oxygen_flow_min": "run_oxygen_flow_min",
+    "oxygen_flow_max": "run_oxygen_flow_max",
+    "altitude_factor": "run_altitude_factor",
+    "n_reps": "run_n_reps",
+    "seed": "run_seed",
+}
+
+SWEEP_WIDGET_KEYS = {
+    "obs_values": "sweep_obs_values",
+    "noise_values": "sweep_noise_values",
+    "room_values": "sweep_room_values",
+    "heatmap_metric": "sweep_heatmap_metric",
 }
 
 
@@ -58,7 +84,8 @@ def main() -> None:
     st.set_page_config(page_title="Respiratory SOFA Applet", layout="wide")
     st.title("Respiratory SOFA Simulation Applet")
     st.caption(
-        "Milestone 3: single scenario plus parameter sweep with heatmaps and CSV exports."
+        "Milestone 4: hardened presets, sweep/export flow, uncertainty views, "
+        "and handoff-ready runbook."
     )
 
     defaults = default_run_request()
@@ -424,32 +451,59 @@ def _render_sidebar(
     st,
     defaults: AppletRunRequest,
 ) -> tuple[bool, str, AppletRunRequest, dict | None]:
+    _ = defaults
+
     st.sidebar.header("Scenario Controls")
     run_mode = st.sidebar.radio("Run mode", ["Single scenario", "Parameter sweep"])
 
-    request = _render_base_controls(st, defaults)
+    st.sidebar.subheader("Presets")
+    run_preset_name = st.sidebar.selectbox(
+        "Scenario preset",
+        options=list_run_presets(),
+        key="run_preset_name",
+    )
+    sweep_preset_name = st.sidebar.selectbox(
+        "Sweep preset",
+        options=list_sweep_presets(),
+        key="sweep_preset_name",
+    )
+    st.sidebar.caption(f"Preset version: {APPLET_PRESET_VERSION}")
+
+    run_preset_request = apply_run_preset(run_preset_name)
+    sweep_preset_request = apply_sweep_preset(
+        sweep_preset_name,
+        base_request=run_preset_request,
+    )
+
+    _set_run_widget_state(st.session_state, run_preset_request, overwrite=False)
+    _set_sweep_widget_state(st.session_state, sweep_preset_request, overwrite=False)
+
+    if st.sidebar.button("Reset controls to selected preset"):
+        _set_run_widget_state(st.session_state, run_preset_request, overwrite=True)
+        _set_sweep_widget_state(st.session_state, sweep_preset_request, overwrite=True)
+        st.rerun()
+
+    request = _render_base_controls(st)
     sweep_request_raw: dict | None = None
 
     if run_mode == "Parameter sweep":
-        sweep_defaults = default_sweep_request()
-        _render_sweep_control_defaults(st)
-
+        st.sidebar.subheader("Sweep Controls")
         obs_values_raw = st.sidebar.text_input(
             "obs_freq_minutes sweep values",
-            key="sweep_obs_values",
+            key=SWEEP_WIDGET_KEYS["obs_values"],
         )
         noise_values_raw = st.sidebar.text_input(
             "noise_sd sweep values",
-            key="sweep_noise_values",
+            key=SWEEP_WIDGET_KEYS["noise_values"],
         )
         room_air_values_raw = st.sidebar.text_input(
             "room_air_threshold sweep values",
-            key="sweep_room_values",
+            key=SWEEP_WIDGET_KEYS["room_values"],
         )
         heatmap_metric = st.sidebar.selectbox(
             "Heatmap metric",
             options=list(SWEEP_HEATMAP_METRICS),
-            index=list(SWEEP_HEATMAP_METRICS).index(sweep_defaults.heatmap_metric),
+            key=SWEEP_WIDGET_KEYS["heatmap_metric"],
         )
 
         sweep_request_raw = {
@@ -483,141 +537,145 @@ def _render_sidebar(
     return run_clicked, run_mode, request, sweep_request_raw
 
 
-def _render_base_controls(st, defaults: AppletRunRequest) -> AppletRunRequest:
+def _render_base_controls(st) -> AppletRunRequest:
     st.sidebar.subheader("Timeline")
-    default_dt = defaults.admit_dts.to_pydatetime()
-    admit_date = st.sidebar.date_input("admit_dts (date)", value=default_dt.date())
-    admit_time = st.sidebar.time_input("admit_dts (time)", value=default_dt.time())
+    admit_date = st.sidebar.date_input("admit_dts (date)", key=RUN_WIDGET_KEYS["admit_date"])
+    admit_time = st.sidebar.time_input("admit_dts (time)", key=RUN_WIDGET_KEYS["admit_time"])
     admit_dts = pd.Timestamp(datetime.combine(admit_date, admit_time))
 
     acute_start_hours = st.sidebar.number_input(
         "acute_start_hours",
-        value=defaults.acute_start_hours,
         step=1.0,
         format="%.2f",
+        key=RUN_WIDGET_KEYS["acute_start_hours"],
     )
     acute_end_hours = st.sidebar.number_input(
         "acute_end_hours",
-        value=defaults.acute_end_hours,
         step=1.0,
         format="%.2f",
+        key=RUN_WIDGET_KEYS["acute_end_hours"],
     )
     include_baseline = st.sidebar.checkbox(
         "include_baseline",
-        value=defaults.include_baseline,
+        key=RUN_WIDGET_KEYS["include_baseline"],
     )
     baseline_days_before = st.sidebar.number_input(
         "baseline_days_before",
         min_value=1,
-        value=defaults.baseline_days_before,
         step=1,
+        key=RUN_WIDGET_KEYS["baseline_days_before"],
     )
     baseline_duration_hours = st.sidebar.number_input(
         "baseline_duration_hours",
         min_value=0.5,
-        value=defaults.baseline_duration_hours,
         step=0.5,
+        key=RUN_WIDGET_KEYS["baseline_duration_hours"],
     )
 
     st.sidebar.subheader("Process")
     obs_freq_minutes = st.sidebar.number_input(
         "obs_freq_minutes",
         min_value=1,
-        value=defaults.obs_freq_minutes,
         step=1,
+        key=RUN_WIDGET_KEYS["obs_freq_minutes"],
     )
     spo2_mean = st.sidebar.number_input(
         "spo2_mean",
         min_value=0.0,
         max_value=100.0,
-        value=defaults.spo2_mean,
         step=0.5,
+        key=RUN_WIDGET_KEYS["spo2_mean"],
     )
     spo2_sd = st.sidebar.number_input(
         "spo2_sd",
         min_value=0.01,
-        value=defaults.spo2_sd,
         step=0.1,
+        key=RUN_WIDGET_KEYS["spo2_sd"],
     )
     ar1 = st.sidebar.number_input(
         "ar1",
         min_value=-0.99,
         max_value=0.99,
-        value=defaults.ar1,
         step=0.05,
+        key=RUN_WIDGET_KEYS["ar1"],
     )
     desat_prob = st.sidebar.number_input(
         "desat_prob",
         min_value=0.0,
         max_value=1.0,
-        value=defaults.desat_prob,
         step=0.01,
+        key=RUN_WIDGET_KEYS["desat_prob"],
     )
     desat_depth = st.sidebar.number_input(
         "desat_depth",
         min_value=0.0,
-        value=defaults.desat_depth,
         step=0.5,
+        key=RUN_WIDGET_KEYS["desat_depth"],
     )
     desat_duration_minutes = st.sidebar.number_input(
         "desat_duration_minutes",
         min_value=1,
-        value=defaults.desat_duration_minutes,
         step=1,
+        key=RUN_WIDGET_KEYS["desat_duration_minutes"],
     )
 
     st.sidebar.subheader("Measurement and Support")
     measurement_sd = st.sidebar.number_input(
         "measurement_sd",
         min_value=0.0,
-        value=defaults.measurement_sd,
         step=0.1,
+        key=RUN_WIDGET_KEYS["measurement_sd"],
     )
     spo2_rounding = st.sidebar.selectbox(
         "spo2_rounding",
         options=list(SPO2_ROUNDING_OPTIONS),
-        index=SPO2_ROUNDING_OPTIONS.index(defaults.spo2_rounding),
+        key=RUN_WIDGET_KEYS["spo2_rounding"],
     )
     room_air_threshold = st.sidebar.number_input(
         "room_air_threshold",
-        value=defaults.room_air_threshold,
         step=1.0,
+        key=RUN_WIDGET_KEYS["room_air_threshold"],
     )
     support_based_on_observed = st.sidebar.checkbox(
         "support_based_on_observed",
-        value=defaults.support_based_on_observed,
+        key=RUN_WIDGET_KEYS["support_based_on_observed"],
     )
     fio2_meas_prob = st.sidebar.number_input(
         "fio2_meas_prob",
         min_value=0.0,
         max_value=1.0,
-        value=defaults.fio2_meas_prob,
         step=0.05,
+        key=RUN_WIDGET_KEYS["fio2_meas_prob"],
     )
     oxygen_flow_min = st.sidebar.number_input(
         "oxygen_flow_min",
-        value=defaults.oxygen_flow_min,
         step=0.5,
+        key=RUN_WIDGET_KEYS["oxygen_flow_min"],
     )
     oxygen_flow_max = st.sidebar.number_input(
         "oxygen_flow_max",
-        value=defaults.oxygen_flow_max,
         step=0.5,
+        key=RUN_WIDGET_KEYS["oxygen_flow_max"],
     )
     altitude_factor = st.sidebar.number_input(
         "altitude_factor",
-        value=defaults.altitude_factor,
         step=0.05,
+        key=RUN_WIDGET_KEYS["altitude_factor"],
     )
 
     st.sidebar.subheader("Simulation")
     n_reps = st.sidebar.number_input(
         "n_reps",
         min_value=1,
-        value=defaults.n_reps,
         step=100,
+        key=RUN_WIDGET_KEYS["n_reps"],
     )
-    seed = st.sidebar.number_input("seed", min_value=0, value=defaults.seed, step=1)
+    seed = st.sidebar.number_input(
+        "seed",
+        min_value=0,
+        step=1,
+        key=RUN_WIDGET_KEYS["seed"],
+    )
 
     request = AppletRunRequest(
         admit_dts=admit_dts,
@@ -647,32 +705,109 @@ def _render_base_controls(st, defaults: AppletRunRequest) -> AppletRunRequest:
     return request
 
 
-def _render_sweep_control_defaults(st) -> None:
-    st.sidebar.subheader("Sweep Controls")
-    selected_preset = st.sidebar.selectbox("Sweep preset", options=list(SWEEP_PRESETS.keys()))
+def _set_state_value(state, key: str, value, overwrite: bool) -> None:
+    if overwrite or key not in state:
+        state[key] = value
 
-    applied_preset = st.session_state.get("sweep_applied_preset")
-    if applied_preset != selected_preset:
-        preset_values = SWEEP_PRESETS[selected_preset]
-        if preset_values is not None:
-            st.session_state["sweep_obs_values"] = preset_values["obs_freq_minutes_values"]
-            st.session_state["sweep_noise_values"] = preset_values["noise_sd_values"]
-            st.session_state["sweep_room_values"] = preset_values["room_air_threshold_values"]
-        else:
-            defaults = default_sweep_request()
-            st.session_state.setdefault(
-                "sweep_obs_values",
-                ",".join(str(value) for value in defaults.obs_freq_minutes_values),
-            )
-            st.session_state.setdefault(
-                "sweep_noise_values",
-                ",".join(str(value) for value in defaults.noise_sd_values),
-            )
-            st.session_state.setdefault(
-                "sweep_room_values",
-                ",".join(str(value) for value in defaults.room_air_threshold_values),
-            )
-        st.session_state["sweep_applied_preset"] = selected_preset
+
+def _set_run_widget_state(state, request: AppletRunRequest, *, overwrite: bool) -> None:
+    dt = request.admit_dts.to_pydatetime()
+    _set_state_value(state, RUN_WIDGET_KEYS["admit_date"], dt.date(), overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["admit_time"], dt.time(), overwrite)
+    _set_state_value(
+        state,
+        RUN_WIDGET_KEYS["acute_start_hours"],
+        request.acute_start_hours,
+        overwrite,
+    )
+    _set_state_value(
+        state,
+        RUN_WIDGET_KEYS["acute_end_hours"],
+        request.acute_end_hours,
+        overwrite,
+    )
+    _set_state_value(
+        state,
+        RUN_WIDGET_KEYS["include_baseline"],
+        request.include_baseline,
+        overwrite,
+    )
+    _set_state_value(
+        state,
+        RUN_WIDGET_KEYS["baseline_days_before"],
+        request.baseline_days_before,
+        overwrite,
+    )
+    _set_state_value(
+        state,
+        RUN_WIDGET_KEYS["baseline_duration_hours"],
+        request.baseline_duration_hours,
+        overwrite,
+    )
+    _set_state_value(
+        state,
+        RUN_WIDGET_KEYS["obs_freq_minutes"],
+        request.obs_freq_minutes,
+        overwrite,
+    )
+    _set_state_value(state, RUN_WIDGET_KEYS["spo2_mean"], request.spo2_mean, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["spo2_sd"], request.spo2_sd, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["ar1"], request.ar1, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["desat_prob"], request.desat_prob, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["desat_depth"], request.desat_depth, overwrite)
+    _set_state_value(
+        state,
+        RUN_WIDGET_KEYS["desat_duration_minutes"],
+        request.desat_duration_minutes,
+        overwrite,
+    )
+    _set_state_value(state, RUN_WIDGET_KEYS["measurement_sd"], request.measurement_sd, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["spo2_rounding"], request.spo2_rounding, overwrite)
+    _set_state_value(
+        state,
+        RUN_WIDGET_KEYS["room_air_threshold"],
+        request.room_air_threshold,
+        overwrite,
+    )
+    _set_state_value(
+        state,
+        RUN_WIDGET_KEYS["support_based_on_observed"],
+        request.support_based_on_observed,
+        overwrite,
+    )
+    _set_state_value(state, RUN_WIDGET_KEYS["fio2_meas_prob"], request.fio2_meas_prob, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["oxygen_flow_min"], request.oxygen_flow_min, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["oxygen_flow_max"], request.oxygen_flow_max, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["altitude_factor"], request.altitude_factor, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["n_reps"], request.n_reps, overwrite)
+    _set_state_value(state, RUN_WIDGET_KEYS["seed"], request.seed, overwrite)
+
+
+def _set_sweep_widget_state(state, request: AppletSweepRequest, *, overwrite: bool) -> None:
+    _set_state_value(
+        state,
+        SWEEP_WIDGET_KEYS["obs_values"],
+        ",".join(str(value) for value in request.obs_freq_minutes_values),
+        overwrite,
+    )
+    _set_state_value(
+        state,
+        SWEEP_WIDGET_KEYS["noise_values"],
+        ",".join(str(value) for value in request.noise_sd_values),
+        overwrite,
+    )
+    _set_state_value(
+        state,
+        SWEEP_WIDGET_KEYS["room_values"],
+        ",".join(str(value) for value in request.room_air_threshold_values),
+        overwrite,
+    )
+    _set_state_value(
+        state,
+        SWEEP_WIDGET_KEYS["heatmap_metric"],
+        request.heatmap_metric,
+        overwrite,
+    )
 
 
 def _default_reference_path() -> Path:
