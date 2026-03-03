@@ -1,55 +1,59 @@
 - Goal (incl. success criteria):
-  - Implement Milestone 2 for the Streamlit applet: uncertainty outputs, divergence metrics, stronger reference parser, tests, and artifacts.
-  - Success criteria: uncertainty tab with CI table + plots + metrics, reference parser supports probability and count schemas, checks pass, milestone artifacts updated, commit created.
+  - Determine whether Milestone 4 exists and implement Milestone 4 hardening + handoff deliverables for the Streamlit respiratory SOFA applet.
+  - Success criteria: versioned presets + reset behavior in UI, lightweight performance harness with measured output, docs for local applet run, handoff decision memo (Streamlit vs split API/frontend), tests for preset serialization roundtrip, standard checks pass, artifacts updated, commit created.
 - Constraints/Assumptions:
-  - Follow AGENTS working agreements and keep continuity ledger updated.
+  - Follow AGENTS working agreements: brief plan before edits, small diffs/checkpoint commit, expand tests for core logic, run standard checks.
   - No edits to `Code/Legacy/` or `Drafts/`.
-  - Milestone 2 scope excludes upload UI, sweep UI, and core simulation/scoring changes.
-  - CI defaults fixed: 95% and 1000 bootstrap resamples.
+  - No scientific assumption/model-math changes.
+  - Preserve Milestones 1–3 behavior.
 - Key decisions:
-  - Bootstrap percentile CIs over replicate rows.
-  - Add L1 and Jensen-Shannon distance metrics with epsilon guard.
-  - Keep built-in reference source but expand parser to count-form schema now.
+  - Milestone 4 exists in `docs/APPLET_IMPLEMENTATION_PLAN.md` and was implemented.
+  - Added explicit preset schema version (`m4-v1`) with roundtrip serialization helpers.
+  - Kept Streamlit as internal validation surface; documented recommendation to transition production path to split API/frontend.
 - State:
-  - Milestone 2 implementation complete; pending commit summary.
+  - Milestone 4 complete and committed.
 - Done:
-  - Updated `python/src/sofa_resp_sim/web/reference.py`:
-    - Added `normalize_reference_distribution(frame)`.
-    - Added probability/count schema support with deterministic precedence (probability first).
-    - Added count-form validation (integer class 0..4, non-negative counts, positive sum).
-  - Updated `python/src/sofa_resp_sim/web/app_services.py`:
-    - Added `extract_sofa_probabilities`.
-    - Added `compute_divergence_metrics` (L1 + JS distance).
-    - Added `bootstrap_sofa_probability_ci` (95%/1000 default, deterministic seed).
-    - Added `build_uncertainty_table` with required columns.
-    - Bumped `APPLET_CODE_VERSION` to `m2-v1`.
+  - Added `python/src/sofa_resp_sim/web/presets.py` with:
+    - run/sweep preset catalogs,
+    - preset application helpers,
+    - preset selection/request serialization + parse roundtrip helpers.
   - Updated `python/src/sofa_resp_sim/web/applet_streamlit.py`:
-    - Added Distribution/Uncertainty tabs.
-    - Added uncertainty warning for `n_reps < 100`.
-    - Added CI table, probability CI plot, `count_pf_ratio_acute` histogram.
-    - Added L1 and JS metrics panel.
+    - preset selectors + version tag,
+    - `Reset controls to selected preset` behavior,
+    - stable widget-state keys for control reset/reproducibility.
+  - Updated `python/src/sofa_resp_sim/web/app_services.py` code version to `m4-v1`.
   - Updated exports in `python/src/sofa_resp_sim/web/__init__.py`.
-  - Expanded tests:
-    - `python/tests/test_web_reference.py` (count-form happy/error paths + schema precedence).
-    - `python/tests/test_web_services.py` (bootstrap determinism/invariants + divergence invariants).
-    - Added `python/tests/test_web_uncertainty.py`.
-  - Added milestone artifacts:
-    - `artifacts/resp_applet_m2_uncertainty.md`
-    - `artifacts/resp_applet_m2_uncertainty.csv`
-  - Verification:
-    - `conda run -n proj-env python -m pytest` -> 52 passed.
-    - `conda run -n proj-env python -m ruff check python/src/sofa_resp_sim/web python/tests/test_web_*` -> All checks passed.
-    - Smoke launch command executed and served on `127.0.0.1:8511`; verified with `lsof` + `curl`.
+  - Added profiling harness:
+    - `python/scripts/profile_applet_performance.py`.
+  - Added docs:
+    - `docs/APPLET_RUNBOOK.md`.
+    - `docs/APPLET_HANDOFF_DECISION.md`.
+  - Added tests:
+    - `python/tests/test_web_presets.py` (preset behavior + serialization roundtrip).
+  - Added M4 artifacts:
+    - `artifacts/resp_applet_m4_hardening.md`.
+    - `artifacts/resp_applet_m4_performance.csv`.
+  - Verification completed:
+    - `conda run -n proj-env python -m pytest` -> `80 passed`.
+    - `conda run -n proj-env python -m ruff check python/src/sofa_resp_sim/web python/scripts/profile_applet_performance.py python/tests/test_web_*` -> all checks passed.
+    - Streamlit smoke check on `127.0.0.1:8511` -> reachable (`ready=1`, listener present).
+    - Performance harness run (`n_reps=1000`, `repeats=1`) recorded `mean_seconds=26.56`, `target=2.0`, `meets_target=False`.
+  - Commit created:
+    - `400f12f` — `Implement Milestone 4 hardening, presets, and handoff docs`.
 - Now:
-  - Stage and commit milestone 2 changes.
+  - Await user direction for post-M4 follow-up milestone scope.
 - Next:
-  - Address Milestone 3 if requested.
+  - Optional: begin API split skeleton (`FastAPI`) and async sweep execution path.
 - Open questions (UNCONFIRMED if needed):
   - None.
 - Working set (files/ids/commands):
-  - `python/src/sofa_resp_sim/web/reference.py`
-  - `python/src/sofa_resp_sim/web/app_services.py`
+  - `python/src/sofa_resp_sim/web/presets.py`
   - `python/src/sofa_resp_sim/web/applet_streamlit.py`
+  - `python/src/sofa_resp_sim/web/app_services.py`
   - `python/src/sofa_resp_sim/web/__init__.py`
-  - `python/tests/test_web_reference.py`, `python/tests/test_web_services.py`, `python/tests/test_web_uncertainty.py`
-  - `artifacts/resp_applet_m2_uncertainty.md`, `artifacts/resp_applet_m2_uncertainty.csv`
+  - `python/scripts/profile_applet_performance.py`
+  - `python/tests/test_web_presets.py`
+  - `docs/APPLET_RUNBOOK.md`
+  - `docs/APPLET_HANDOFF_DECISION.md`
+  - `artifacts/resp_applet_m4_hardening.md`
+  - `artifacts/resp_applet_m4_performance.csv`
