@@ -1,59 +1,22 @@
 - Goal (incl. success criteria):
-  - Determine whether Milestone 4 exists and implement Milestone 4 hardening + handoff deliverables for the Streamlit respiratory SOFA applet.
-  - Success criteria: versioned presets + reset behavior in UI, lightweight performance harness with measured output, docs for local applet run, handoff decision memo (Streamlit vs split API/frontend), tests for preset serialization roundtrip, standard checks pass, artifacts updated, commit created.
+  - Answer whether a Milestone 5 exists in the current respiratory SOFA applet plan.
+  - Success criteria: verify from repo docs and respond with current milestone status.
 - Constraints/Assumptions:
-  - Follow AGENTS working agreements: brief plan before edits, small diffs/checkpoint commit, expand tests for core logic, run standard checks.
-  - No edits to `Code/Legacy/` or `Drafts/`.
-  - No scientific assumption/model-math changes.
-  - Preserve Milestones 1–3 behavior.
+  - Use repository sources as ground truth.
+  - No code or scientific-model changes required for this query.
 - Key decisions:
-  - Milestone 4 exists in `docs/APPLET_IMPLEMENTATION_PLAN.md` and was implemented.
-  - Added explicit preset schema version (`m4-v1`) with roundtrip serialization helpers.
-  - Kept Streamlit as internal validation surface; documented recommendation to transition production path to split API/frontend.
+  - Checked implementation plan directly (`docs/APPLET_IMPLEMENTATION_PLAN.md`).
 - State:
-  - Milestone 4 complete and committed.
+  - Query answered from docs; no Milestone 5 currently defined.
 - Done:
-  - Added `python/src/sofa_resp_sim/web/presets.py` with:
-    - run/sweep preset catalogs,
-    - preset application helpers,
-    - preset selection/request serialization + parse roundtrip helpers.
-  - Updated `python/src/sofa_resp_sim/web/applet_streamlit.py`:
-    - preset selectors + version tag,
-    - `Reset controls to selected preset` behavior,
-    - stable widget-state keys for control reset/reproducibility.
-  - Updated `python/src/sofa_resp_sim/web/app_services.py` code version to `m4-v1`.
-  - Updated exports in `python/src/sofa_resp_sim/web/__init__.py`.
-  - Added profiling harness:
-    - `python/scripts/profile_applet_performance.py`.
-  - Added docs:
-    - `docs/APPLET_RUNBOOK.md`.
-    - `docs/APPLET_HANDOFF_DECISION.md`.
-  - Added tests:
-    - `python/tests/test_web_presets.py` (preset behavior + serialization roundtrip).
-  - Added M4 artifacts:
-    - `artifacts/resp_applet_m4_hardening.md`.
-    - `artifacts/resp_applet_m4_performance.csv`.
-  - Verification completed:
-    - `conda run -n proj-env python -m pytest` -> `80 passed`.
-    - `conda run -n proj-env python -m ruff check python/src/sofa_resp_sim/web python/scripts/profile_applet_performance.py python/tests/test_web_*` -> all checks passed.
-    - Streamlit smoke check on `127.0.0.1:8511` -> reachable (`ready=1`, listener present).
-    - Performance harness run (`n_reps=1000`, `repeats=1`) recorded `mean_seconds=26.56`, `target=2.0`, `meets_target=False`.
-  - Commit created:
-    - `400f12f` — `Implement Milestone 4 hardening, presets, and handoff docs`.
+  - Searched milestone references across docs/artifacts.
+  - Confirmed `docs/APPLET_IMPLEMENTATION_PLAN.md` defines milestones 1–4 only.
 - Now:
-  - Await user direction for post-M4 follow-up milestone scope.
+  - Report status to user.
 - Next:
-  - Optional: begin API split skeleton (`FastAPI`) and async sweep execution path.
+  - If requested, draft and implement a Milestone 5 plan.
 - Open questions (UNCONFIRMED if needed):
   - None.
 - Working set (files/ids/commands):
-  - `python/src/sofa_resp_sim/web/presets.py`
-  - `python/src/sofa_resp_sim/web/applet_streamlit.py`
-  - `python/src/sofa_resp_sim/web/app_services.py`
-  - `python/src/sofa_resp_sim/web/__init__.py`
-  - `python/scripts/profile_applet_performance.py`
-  - `python/tests/test_web_presets.py`
-  - `docs/APPLET_RUNBOOK.md`
-  - `docs/APPLET_HANDOFF_DECISION.md`
-  - `artifacts/resp_applet_m4_hardening.md`
-  - `artifacts/resp_applet_m4_performance.csv`
+  - `docs/APPLET_IMPLEMENTATION_PLAN.md`
+  - `rg -n "Milestone 5|Milestone 4|Milestone" docs artifacts README.md -g '*.md'`
