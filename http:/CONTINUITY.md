@@ -1,4 +1,5 @@
 - Goal (incl. success criteria):
+<<<<<<< Updated upstream
   - Answer whether a Milestone 5 exists in the current respiratory SOFA applet plan.
   - Success criteria: verify from repo docs and respond with current milestone status.
 - Constraints/Assumptions:
@@ -20,3 +21,29 @@
 - Working set (files/ids/commands):
   - `docs/APPLET_IMPLEMENTATION_PLAN.md`
   - `rg -n "Milestone 5|Milestone 4|Milestone" docs artifacts README.md -g '*.md'`
+=======
+  - Provide an accurate repository functionality summary in `README.md`, replacing placeholder text and stale repo-structure notes.
+- Constraints/Assumptions:
+  - Follow SQL-parity behavior already implemented in `python/src/tcco2_accuracy/`.
+  - Do not modify `Code/Legacy/` or `Drafts/`.
+  - Keep docs aligned with actual runnable commands from repo root.
+- Key decisions:
+  - README should describe both scoring (`score_respiratory`) and simulation (`run_replicates`, `run_parameter_sweep`, CLI runner).
+  - Runtime examples should use `PYTHONPATH=python/src` unless packaging/install path is formalized.
+- State:
+  - Documentation task completed; README now summarizes implemented functionality and execution flow.
+- Done:
+  - Read current `README.md`, package modules, tests, and `pyproject.toml` entrypoint.
+  - Rewrote `README.md` with concrete scope, module-level functionality, quickstart/test commands, CLI execution examples, and corrected repository layout.
+  - Confirmed updated README content matches actual code structure under `python/src/tcco2_accuracy/`.
+- Now:
+  - Provide summary of README updates to user.
+- Next:
+  - Address follow-up doc requests (if any).
+- Open questions (UNCONFIRMED if needed):
+  - None.
+- Working set (files/ids/commands):
+  - http:/CONTINUITY.md
+  - README.md
+  - sed -n '1,260p' README.md
+>>>>>>> Stashed changes
