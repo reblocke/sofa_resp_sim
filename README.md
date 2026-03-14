@@ -1,68 +1,107 @@
-# Project Title
+# TcCO2 Accuracy (Python): Respiratory SOFA SQL-Parity + Simulation
 
-One-paragraph summary of what this repository does and who it’s for.
+This repository currently contains a Python implementation of respiratory SOFA
+scoring logic that matches the project SQL rules, plus a simulation framework to
+stress-test scoring behavior under different observation and support patterns.
+
+## Current functionality
+
+- Score respiratory SOFA from event-level observations (`SpO2`, optional measured
+  `PaO2`, FiO2 fields, support modality, room-air indicator, flow rate).
+- Preserve SQL-parity intermediate fields for debugging and validation
+  (FiO2 lookbacks/look-forward, PaO2 source priority, PF ratio, rubric score,
+  measures-stage gating fields).
+- Apply acute/baseline respiratory selection and suppression rules, returning:
+  `sofa_pulm`, `sofa_pulm_bl`, `sofa_pulm_delta`, and qualifying PF counts.
+- Simulate synthetic encounters and run Monte Carlo sweeps to estimate score
+  distributions as assumptions change (frequency, noise, support thresholds).
+- Validate behavior with unit tests and golden fixtures that encode SQL-parity
+  expectations.
+
+## Key modules
+
+- `python/src/tcco2_accuracy/resp_scoring.py`
+  - Core scoring function: `score_respiratory(...)`
+  - Returns `RespiratoryScoreResult`, including `event_level` diagnostics.
+- `python/src/tcco2_accuracy/resp_simulation.py`
+  - Encounter simulator plus `run_replicates(...)` and `run_parameter_sweep(...)`.
+- `python/src/tcco2_accuracy/resp_sofa_runner.py`
+  - CLI runner for simulation sweeps.
+- `python/src/tcco2_accuracy/resp_utils.py`
+  - Oracle-style rounding and SpO2 to PaO2 conversion helper.
 
 ## Quickstart
 
 ```bash
-# 1) Create environment (conda/mamba)
-mamba env create -f environment.yml   # or: conda env create -f environment.yml
-mamba activate proj-env               # or: conda activate proj-env
+# 1) Create environment (mamba or conda)
+mamba env create -f environment.yml
+mamba activate proj-env
 
-# 2) Pre-commit hooks (optional but recommended)
+# 2) Optional dev hooks
 pre-commit install
 
-# 3) Run checks/tests
+# 3) Run tests and lint
+python -m pytest
 ruff check .
-pytest -q
 ```
 
-## Respiratory SOFA (SQL-parity)
+## Run the simulation CLI
 
-- ``sofa_ts`` is a 24h bin anchored to ``admit_dts`` midnight; acute lead-in
-  records (default −6h) are assigned to the admit-day bin.
-- ``quartile`` splits each ``sofa_ts`` into 6h sub-bins labeled 1–4.
-- FiO2 selection uses a 14-minute lookback (excluding current), a 0–5 minute
-  look-forward (including current), then a 24h lookback; room air defaults to 21%.
-- Measures-stage gating caps non-IMV/NIPPV records at 2 and applies the acute
-  single-PF suppression rule when only one qualifying PF ratio exists without
-  IMV/NIPPV support.
+From repo root:
+
+```bash
+PYTHONPATH=python/src python -m tcco2_accuracy.resp_sofa_runner \
+  --replicates 200 \
+  --obs-freq 15 \
+  --noise-sd 1.0 \
+  --room-air-threshold 94 \
+  --seed 0
+```
+
+Expected output:
+
+- A one-row or multi-row summary table (depending on parameter list sizes) with:
+  `obs_freq_minutes`, `noise_sd`, `room_air_threshold`, `n_reps`,
+  `mean_count_pf_ratio_acute`, `p_single_pf_suppressed`, and `p_sofa_0..p_sofa_4`.
+
+To write CSV instead of printing:
+
+```bash
+PYTHONPATH=python/src python -m tcco2_accuracy.resp_sofa_runner --output artifacts/resp_sofa_sim_summary.csv
+```
+
+## Respiratory SOFA SQL-parity notes
+
+- `sofa_ts` is a 24-hour bin anchored to `admit_dts` day boundaries.
+- `quartile` splits each `sofa_ts` into 6-hour bins labeled `1..4`.
+- FiO2 association is selected in this order:
+  minute lookback (`-14 to -1 min`), minute look-forward (`0 to +5 min`),
+  then 24-hour lookback, with room air defaulting to 21%.
+- Measures-stage gating caps non-IMV/NIPPV respiratory scores at 2.
+- Acute single-PF suppression can set acute respiratory score to 0 when only one
+  qualifying PF record exists and no IMV/NIPPV support is present.
 
 ## Testing
 
-- Run ``python -m pytest`` (or ``pytest -q``) from the repo root.
-- Golden SQL-parity fixtures live in
-  ``python/tests/test_resp_scoring_golden_fixtures.py`` and validate SpO2→PaO2
-  conversion, FiO2 prioritization/lookbacks, PF ratios (including quartile-based
-  suppression), support gating, baseline selection, and altitude thresholds.
-- Inspect row-level outputs via ``RespiratoryScoreResult.event_level`` for
-  intermediate columns (``pao2_calc``, ``fio2_lookback``, ``pf_ratio_temp``, etc.).
+- Run `python -m pytest` from repo root.
+- Golden fixtures: `python/tests/test_resp_scoring_golden_fixtures.py`.
+- Core tests: `python/tests/test_resp_scoring.py`.
+- Smoke test: `tests/test_smoke.py`.
 
-## Repo structure
+## Repository layout
 
-```
-├── src/                # Source code (importable package under src/ layout)
-├── notebooks/          # Jupyter notebooks (keep light; move code to src/)
-├── data/               # Data placeholders; do NOT commit restricted data
-├── tests/              # Unit tests
-├── environment.yml     # Reproducible env (conda/mamba)
-├── pyproject.toml      # Tooling config (ruff, pytest) and project metadata
-├── CONTRIBUTING.md     # How to contribute, run checks, style
-├── CITATION.cff        # How to cite this work
-└── README.md
+```text
+python/src/tcco2_accuracy/   # Python package (scoring + simulation)
+python/tests/                # SQL-parity and unit tests
+tests/                       # Project-level smoke test(s)
+artifacts/                   # Small generated summaries/tables
+docs/                        # Runbooks and notes
+data/                        # Placeholder data directory
+environment.yml              # Conda/mamba environment
+pyproject.toml               # Tooling config + script entrypoint metadata
 ```
 
-## Reproducibility notes
+## Citation and license
 
-- Pin dependencies in `environment.yml` (mamba preferred for speed/solver reliability).
-- Keep credentials in `.env` (never commit). See `.env.example`.
-- Record data provenance and transformations in `DATA_NOTES.md` (add if needed).
-- Keep analysis code importable and testable: notebooks should call `src/` code.
-
-## How to cite
-
-See `CITATION.cff` or the GitHub “Cite this repository” box.
-
-## License
-
-Add a license (e.g., MIT) and any data-use restrictions.
+- Citation metadata: `CITATION.cff`
+- License: `LICENSE`
