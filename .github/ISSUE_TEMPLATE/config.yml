@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support and usage questions
+    url: https://github.com/reblocke/sofa_resp_sim/issues
+    about: Use the issue tracker for support questions if no form fits.
+  - name: Security policy
+    url: https://github.com/reblocke/sofa_resp_sim/security/policy
+    about: Please do not report vulnerabilities in public issues.

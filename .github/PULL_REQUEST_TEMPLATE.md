@@ -1,11 +1,31 @@
 ## Summary
-Describe what this PR changes and why.
 
-## Checklist
-- [ ] Tests added/updated
-- [ ] `ruff check .` passes
-- [ ] `pytest` passes
-- [ ] Docs/README updated if needed
+Describe what changed and why.
 
-## Related issues
-Fixes #<id>
+## Scope
+
+- [ ] Respiratory scoring logic
+- [ ] Simulation logic
+- [ ] Streamlit applet/UI
+- [ ] Packaging/tooling
+- [ ] Docs/governance
+- [ ] Artifacts/validation evidence
+
+## Validation
+
+List the exact commands you ran and the results.
+
+```bash
+# example
+make check
+```
+
+## Evidence
+
+- [ ] Tests added or updated for changed behavior
+- [ ] Canonical docs updated if behavior/commands changed
+- [ ] Artifacts updated if validation outputs changed
+
+## Risks / follow-ups
+
+Describe any remaining risk, open questions, or intentionally deferred work.
