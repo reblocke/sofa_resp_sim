@@ -126,15 +126,20 @@ function resetWorker() {
   if (state.worker) {
     state.worker.terminate();
   }
-  state.pending.forEach(({ reject }) => reject(new Error("Worker reset.")));
-  state.pending.clear();
+  rejectPendingRequests(new Error("Worker reset."));
   state.worker = new Worker("pyodide_worker.js");
   state.worker.onmessage = handleWorkerMessage;
   state.worker.onerror = (event) => {
     const message = event.message || "Worker error";
+    rejectPendingRequests(new Error(message));
     setRuntimeStatus("error", message);
     toast(message);
   };
+}
+
+function rejectPendingRequests(error) {
+  state.pending.forEach(({ reject }) => reject(error));
+  state.pending.clear();
 }
 
 function cancelWork() {

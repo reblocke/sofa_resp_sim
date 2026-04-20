@@ -2,6 +2,8 @@
 
 Respiratory SOFA scoring, simulation, and static browser validation app.
 
+Use the published app: [Respiratory SOFA Simulation](https://reblocke.github.io/sofa_resp_sim/).
+
 This repository contains:
 - a Python respiratory SOFA scoring engine with diagnostic outputs,
 - deterministic simulation helpers for respiratory observation/support scenarios,

@@ -17,6 +17,10 @@ should be interpreted.
 Generated staged browser assets under `web/assets/py/` and `web/assets/data/`
 are not source assets; regenerate them with `make stage-web`.
 
+The packaged fallback CSV under `src/sofa_resp_sim/data/` intentionally mirrors
+`artifacts/resp_sofa_sim_summary.csv` so the browser contract also works from an
+installed wheel.
+
 ### 2. Canonical documentation
 
 - `README.md`
