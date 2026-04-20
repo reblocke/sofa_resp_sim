@@ -6,7 +6,7 @@ This repository uses `uv` as the canonical development path.
 
 ```bash
 uv sync --dev
-make check
+make test
 ```
 
 ## Common commands
@@ -15,8 +15,10 @@ make check
 make sync
 make lint
 make test
-make check
-make app
+make stage-web
+make e2e
+make verify
+make serve
 ```
 
 ## Branching and pull requests
@@ -30,15 +32,19 @@ make app
 ## Required checks before review
 
 ```bash
-make check
+make test
 ```
 
-If app-facing code changed, also run the relevant app verification tests.
+If browser-facing code changed, also run:
+
+```bash
+make e2e
+```
 
 ## Code standards
 
 - Keep respiratory scoring and simulation logic in the package core.
-- Do not duplicate scoring logic in the Streamlit layer.
+- Do not duplicate scoring or simulation logic in JavaScript.
 - Prefer explicit names and small functions with one level of abstraction.
 - Keep user-facing commands and paths truthful.
 - Add or update tests for changed behavior.

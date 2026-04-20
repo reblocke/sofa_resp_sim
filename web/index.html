@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Respiratory SOFA Simulation</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">sofa_resp_sim</p>
+        <h1>Respiratory SOFA simulation</h1>
+      </div>
+      <div class="runtime-status" data-state="loading">
+        <span id="runtime-dot" aria-hidden="true"></span>
+        <span id="runtime-status" data-testid="runtime-status">Starting Pyodide</span>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <nav class="tabbar" aria-label="App sections">
+        <button class="tab-button active" type="button" data-tab="scenario">Scenario</button>
+        <button class="tab-button" type="button" data-tab="sweep">Sweep</button>
+        <button class="tab-button" type="button" data-tab="about">About / Safety</button>
+      </nav>
+
+      <section class="workspace active" id="scenario-tab">
+        <aside class="control-panel">
+          <div class="panel-heading">
+            <h2>Scenario inputs</h2>
+            <button class="secondary" type="button" id="reset-scenario">Reset</button>
+          </div>
+          <label>
+            Preset
+            <select id="scenario-preset"></select>
+          </label>
+          <div class="field-grid two">
+            <label>
+              Replicates
+              <input id="scenario-n-reps" type="number" min="1" step="1" />
+            </label>
+            <label>
+              Seed
+              <input id="scenario-seed" type="number" min="0" step="1" />
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              Observation minutes
+              <input id="scenario-obs-freq" type="number" min="1" step="1" />
+            </label>
+            <label>
+              Room-air threshold
+              <input id="scenario-room-air" type="number" step="0.1" />
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              SpO2 mean
+              <input id="scenario-spo2-mean" type="number" step="0.1" />
+            </label>
+            <label>
+              SpO2 SD
+              <input id="scenario-spo2-sd" type="number" min="0.1" step="0.1" />
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              AR(1)
+              <input id="scenario-ar1" type="number" min="-0.99" max="0.99" step="0.01" />
+            </label>
+            <label>
+              Measurement SD
+              <input id="scenario-measurement-sd" type="number" min="0" step="0.1" />
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              Desat probability
+              <input id="scenario-desat-prob" type="number" min="0" max="1" step="0.001" />
+            </label>
+            <label>
+              Desat depth
+              <input id="scenario-desat-depth" type="number" min="0" step="0.1" />
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              Desat duration
+              <input id="scenario-desat-duration" type="number" min="1" step="1" />
+            </label>
+            <label>
+              SpO2 rounding
+              <select id="scenario-rounding"></select>
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              FiO2 measured probability
+              <input id="scenario-fio2-prob" type="number" min="0" max="1" step="0.01" />
+            </label>
+            <label>
+              Altitude factor
+              <input id="scenario-altitude" type="number" min="0.1" step="0.01" />
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              Acute start hours
+              <input id="scenario-acute-start" type="number" step="0.5" />
+            </label>
+            <label>
+              Acute end hours
+              <input id="scenario-acute-end" type="number" step="0.5" />
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              O2 flow minimum
+              <input id="scenario-flow-min" type="number" min="0" step="0.1" />
+            </label>
+            <label>
+              O2 flow maximum
+              <input id="scenario-flow-max" type="number" min="0" step="0.1" />
+            </label>
+          </div>
+          <label class="checkline">
+            <input id="scenario-support-observed" type="checkbox" />
+            Support follows observed SpO2
+          </label>
+          <label class="checkline">
+            <input id="scenario-include-baseline" type="checkbox" />
+            Include baseline window
+          </label>
+          <div class="field-grid two">
+            <label>
+              Baseline days before
+              <input id="scenario-baseline-days" type="number" min="1" step="1" />
+            </label>
+            <label>
+              Baseline hours
+              <input id="scenario-baseline-hours" type="number" min="0.5" step="0.5" />
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              Bootstrap samples
+              <input id="scenario-bootstrap" type="number" min="1" step="1" />
+            </label>
+            <label>
+              CI level
+              <input id="scenario-ci-level" type="number" min="0.5" max="0.999" step="0.01" />
+            </label>
+          </div>
+          <div class="button-row">
+            <button class="primary" type="button" id="run-scenario" data-testid="run-scenario">
+              Run scenario
+            </button>
+            <button class="secondary" type="button" id="cancel-scenario">Cancel</button>
+          </div>
+        </aside>
+
+        <section class="result-panel" aria-live="polite">
+          <div class="section-heading">
+            <div>
+              <h2>Scenario results</h2>
+              <p id="scenario-summary-note">Waiting for a completed run.</p>
+            </div>
+            <div class="export-row">
+              <button class="secondary" type="button" id="download-scenario-csv" disabled>
+                Summary CSV
+              </button>
+              <button class="secondary" type="button" id="download-scenario-reps" disabled>
+                Replicates CSV
+              </button>
+              <button class="secondary" type="button" id="download-scenario-json" disabled>
+                Request JSON
+              </button>
+            </div>
+          </div>
+          <div class="metric-strip" id="scenario-metrics"></div>
+          <div class="chart-block">
+            <h3>SOFA probability vs reference</h3>
+            <div id="scenario-chart" class="probability-chart" data-testid="scenario-chart"></div>
+          </div>
+          <div class="chart-block">
+            <h3>Uncertainty</h3>
+            <div class="table-wrap">
+              <table id="uncertainty-table"></table>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="workspace" id="sweep-tab">
+        <aside class="control-panel">
+          <div class="panel-heading">
+            <h2>Sweep inputs</h2>
+            <button class="secondary" type="button" id="reset-sweep">Reset</button>
+          </div>
+          <label>
+            Preset
+            <select id="sweep-preset"></select>
+          </label>
+          <div class="field-grid two">
+            <label>
+              Base replicates
+              <input id="sweep-n-reps" type="number" min="1" step="1" />
+            </label>
+            <label>
+              Base seed
+              <input id="sweep-seed" type="number" min="0" step="1" />
+            </label>
+          </div>
+          <label>
+            Observation minutes
+            <input id="sweep-obs-values" type="text" />
+          </label>
+          <label>
+            Noise SD values
+            <input id="sweep-noise-values" type="text" />
+          </label>
+          <label>
+            Room-air thresholds
+            <input id="sweep-room-values" type="text" />
+          </label>
+          <label>
+            Heatmap metric
+            <select id="sweep-metric"></select>
+          </label>
+          <p class="workload" id="sweep-workload">Workload estimate unavailable.</p>
+          <div class="button-row">
+            <button class="primary" type="button" id="run-sweep" data-testid="run-sweep">
+              Run sweep
+            </button>
+            <button class="secondary" type="button" id="cancel-sweep">Cancel</button>
+          </div>
+        </aside>
+
+        <section class="result-panel" aria-live="polite">
+          <div class="section-heading">
+            <div>
+              <h2>Sweep results</h2>
+              <p id="sweep-summary-note">Waiting for a completed sweep.</p>
+            </div>
+            <div class="export-row">
+              <button class="secondary" type="button" id="download-sweep-summary" disabled>
+                Summary CSV
+              </button>
+              <button class="secondary" type="button" id="download-sweep-reps" disabled>
+                Replicates CSV
+              </button>
+            </div>
+          </div>
+          <div class="metric-strip" id="sweep-metrics"></div>
+          <div class="chart-block">
+            <h3>Heatmap-ready rows</h3>
+            <div id="sweep-heatmap" class="heatmap" data-testid="sweep-heatmap"></div>
+          </div>
+          <div class="chart-block">
+            <h3>Summary table</h3>
+            <div class="table-wrap">
+              <table id="sweep-table"></table>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="workspace about-layout" id="about-tab">
+        <section class="result-panel full">
+          <h2>About and safety</h2>
+          <p>
+            The browser app runs the staged Python package in Pyodide. Scoring and
+            simulation logic remain in <code>src/sofa_resp_sim/</code>; JavaScript only
+            collects inputs, renders returned tables, and downloads exports.
+          </p>
+          <div id="reference-panel" class="reference-panel"></div>
+          <h3>Guardrails</h3>
+          <ul id="guardrails-list"></ul>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="assets/js/app.js"></script>
+  </body>
+</html>

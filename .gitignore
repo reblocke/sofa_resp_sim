@@ -23,6 +23,12 @@ build/
 htmlcov/
 .coverage
 
+# Generated GitHub Pages staging outputs
+web/assets/py/
+web/assets/data/
+playwright-report/
+test-results/
+
 # OS/editor
 .DS_Store
 .idea/

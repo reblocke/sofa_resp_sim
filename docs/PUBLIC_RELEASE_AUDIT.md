@@ -12,6 +12,7 @@ The current tracked tree is intended to contain:
 - source code,
 - tests,
 - documentation,
+- static web app source,
 - small synthetic or aggregate validation artifacts.
 
 ## Known public-release blocker
@@ -53,3 +54,5 @@ If available, also run a dedicated secret scanner such as `gitleaks` or
   decision says otherwise.
 - Keep checked-in validation artifacts small, synthetic or aggregate, and
   documented in `artifacts/README.md`.
+- Keep generated `web/assets/py/` and `web/assets/data/` outputs ignored and
+  reproducible from tracked source/artifacts.

@@ -1,11 +1,13 @@
 # Keep the current `python/src` layout for the first hardening pass
 
-- Status: accepted
+- Status: superseded by `0005-streamlit-to-pages.md`
 - Date: 2026-04-20
 
 ## Context and Problem Statement
 
-The repository already uses a nested `python/src/sofa_resp_sim` layout. Flattening to `src/sofa_resp_sim` may be cleaner, but it would create additional churn during the first hardening pass.
+The repository used a nested `python/src/sofa_resp_sim` layout during the first
+hardening pass. Flattening to root `src/sofa_resp_sim` was deferred to avoid
+mixing packaging movement with governance cleanup.
 
 ## Decision Drivers
 
@@ -20,7 +22,10 @@ The repository already uses a nested `python/src/sofa_resp_sim` layout. Flatteni
 
 ## Decision Outcome
 
-Chosen option: keep `python/src/` for now.
+Chosen option at the time: keep `python/src/` temporarily.
+
+This decision was later superseded by the Pages/Pyodide migration, which moved
+the package to root `src/`.
 
 ## Consequences
 
