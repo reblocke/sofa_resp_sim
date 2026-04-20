@@ -22,6 +22,8 @@ Outputs to produce during the task:
 - any unresolved risks.
 
 Specific to this repo:
-- scoring truth lives in `resp_scoring.py`, `resp_utils.py`, and `resp_simulation.py`
-- the Streamlit layer must not diverge from those modules
+- scoring truth lives in `src/sofa_resp_sim/core/resp_scoring.py`,
+  `src/sofa_resp_sim/core/resp_utils.py`, and
+  `src/sofa_resp_sim/core/resp_simulation.py`
+- browser-facing code must call the Python contract instead of duplicating model logic
 - package identity must remain `sofa_resp_sim`

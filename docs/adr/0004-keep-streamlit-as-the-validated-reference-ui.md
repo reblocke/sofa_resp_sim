@@ -1,6 +1,6 @@
 # Keep Streamlit as the validated reference UI
 
-- Status: accepted
+- Status: superseded by `0005-streamlit-to-pages.md`
 - Date: 2026-04-20
 
 ## Context and Problem Statement
@@ -21,7 +21,9 @@ The repository already contains a functioning Streamlit applet and supporting se
 
 ## Decision Outcome
 
-Chosen option: keep Streamlit as the validated reference UI for now.
+Chosen option at the time: keep Streamlit as the validated reference UI for now.
+
+This decision was later superseded by the Pages/Pyodide migration.
 
 ## Consequences
 
