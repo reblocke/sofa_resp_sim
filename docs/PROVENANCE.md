@@ -22,6 +22,11 @@ Local workspaces may contain untracked PDFs under `docs/`. Do not add them to
 version control unless their provenance, purpose, and redistribution posture are
 documented here first.
 
+Public-release note: the current tracked tree does not include PDFs, but a
+hosted repository may still expose historical blobs through old commits or PR
+refs. Check `docs/PUBLIC_RELEASE_AUDIT.md` before changing repository visibility
+or publishing a public mirror.
+
 Rules:
 - keep only files that are genuinely needed for project context or provenance,
 - document why each checked-in reference exists,
