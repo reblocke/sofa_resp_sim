@@ -14,6 +14,7 @@ __pycache__/
 # Data (keep raw data out of git)
 data/
 !data/.gitkeep
+docs/*.pdf
 
 # Build/artifacts
 dist/
