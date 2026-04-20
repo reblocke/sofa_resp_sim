@@ -1,19 +1,10 @@
 cff-version: 1.2.0
-message: If you use this software, please cite it as below.
-title: Project Title
+message: "If you use this software, please cite it as below."
+title: "sofa_resp_sim"
+type: software
 authors:
-  - family-names: Lastname
-    given-names: Firstname
-    orcid: https://orcid.org/0000-0000-0000-0000
-version: 0.1.0
-date-released: 2026-01-05
-doi: 10.0000/placeholder-doi
-url: https://github.com/your-org/your-repo
+  - family-names: Locke
+    given-names: Brian
+repository-code: "https://github.com/reblocke/sofa_resp_sim"
+url: "https://github.com/reblocke/sofa_resp_sim"
 license: MIT
-preferred-citation:
-  type: software
-  title: Project Title
-  authors:
-    - family-names: Lastname
-      given-names: Firstname
-  year: 2026

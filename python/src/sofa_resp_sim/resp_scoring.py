@@ -8,8 +8,8 @@ bin so that pre-admit acute records share the same bin as day 0.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Iterable
 
 import numpy as np
 import pandas as pd
@@ -223,7 +223,6 @@ def _compute_fio2_lookbacks(df: pd.DataFrame, config: RespScoringConfig) -> pd.D
         fio2_priorities = group["fio2_priority"].to_numpy()
 
         for local_i, row_idx in enumerate(idx):
-            t = times[local_i]
             day_value, day_priority = _find_last_in_window(
                 times,
                 fio2_values,
