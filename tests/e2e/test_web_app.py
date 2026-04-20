@@ -79,6 +79,29 @@ def test_static_app_runs_scenario_and_sweep(page: Page, web_server: str) -> None
     assert browser_errors == []
 
 
+def test_worker_error_rejects_pending_init_request(page: Page, web_server: str) -> None:
+    page.route(
+        "**/pyodide_worker.js",
+        lambda route: route.fulfill(
+            status=200,
+            content_type="application/javascript",
+            body=(
+                "self.onmessage = () => { "
+                "setTimeout(() => { throw new Error('forced worker crash'); }, 0); "
+                "};"
+            ),
+        ),
+    )
+
+    page.goto(web_server, wait_until="domcontentloaded")
+
+    expect(page.get_by_test_id("runtime-status")).to_contain_text(
+        "forced worker crash",
+        timeout=10_000,
+    )
+    expect(page.get_by_test_id("run-scenario")).to_be_enabled()
+
+
 def _free_port() -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.bind(("127.0.0.1", 0))

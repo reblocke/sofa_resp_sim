@@ -14,6 +14,9 @@ __pycache__/
 # Data (keep raw data out of git)
 data/
 !data/.gitkeep
+!src/sofa_resp_sim/data/
+!src/sofa_resp_sim/data/__init__.py
+!src/sofa_resp_sim/data/*.csv
 docs/*.pdf
 
 # Build/artifacts

@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import importlib.resources
 import json
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
+from sofa_resp_sim import browser_contract
 from sofa_resp_sim.browser_contract import (
     get_app_config_payload,
     run_scenario_payload,
@@ -12,6 +15,8 @@ from sofa_resp_sim.browser_contract import (
 )
 from sofa_resp_sim.reporting.app_services import run_single_scenario
 from sofa_resp_sim.reporting.view_model import default_run_request
+
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def test_config_payload_is_json_serializable() -> None:
@@ -21,6 +26,36 @@ def test_config_payload_is_json_serializable() -> None:
     assert payload["defaults"]["n_reps"] == 1000
     assert payload["reference_distribution"]
     json.dumps(payload)
+
+
+def test_config_payload_uses_packaged_reference_when_filesystem_candidates_missing(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    monkeypatch.setattr(
+        browser_contract,
+        "_reference_candidates",
+        lambda: (tmp_path / "missing-reference.csv",),
+    )
+
+    payload = browser_contract.get_app_config_payload()
+
+    assert payload["ok"] is True
+    assert payload["reference_distribution"]
+    json.dumps(payload)
+
+
+def test_packaged_reference_matches_artifact() -> None:
+    packaged = (
+        importlib.resources.files("sofa_resp_sim.data")
+        .joinpath(browser_contract.REFERENCE_FILENAME)
+        .read_text(encoding="utf-8")
+    )
+    artifact = (ROOT / "artifacts" / browser_contract.REFERENCE_FILENAME).read_text(
+        encoding="utf-8"
+    )
+
+    assert packaged == artifact
 
 
 def test_scenario_payload_matches_reporting_service_summary() -> None:

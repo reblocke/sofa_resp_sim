@@ -19,6 +19,7 @@ modules through thin contracts.
 | `src/sofa_resp_sim/reporting/reference.py` | Reference distribution normalization | Supports CSV probability/count schemas |
 | `src/sofa_resp_sim/reporting/presets.py` | Presets and serialization | Shared by tests and browser contract |
 | `src/sofa_resp_sim/browser_contract.py` | Pyodide API | JSON-safe payload boundary |
+| `src/sofa_resp_sim/data/` | Packaged reference fallback | Used outside repo/staged web layouts |
 | `src/sofa_resp_sim/workflows/cli.py` | CLI entrypoint | `resp-sofa-sim` |
 | `scripts/stage_web_python.py` | Web staging | Allowlists browser-safe Python and data |
 | `web/` | Static app | HTML/CSS/JS plus Pyodide worker |
@@ -78,6 +79,9 @@ at the worker boundary.
 
 Generated staged assets under `web/assets/py/` and `web/assets/data/` are
 ignored and reproducible.
+
+Installed package use falls back to the packaged reference CSV under
+`sofa_resp_sim.data` when repo and Pyodide filesystem paths are unavailable.
 
 ## Architecture invariants
 
