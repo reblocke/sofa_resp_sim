@@ -1,28 +1,30 @@
-# Security Policy
+# Security policy
 
 ## Supported versions
 
-This repository is research software. Security support is best-effort.
+This repository is research software.
+Security support is best-effort for the latest default branch state.
 
 | Version | Supported |
-|--------:|:---------:|
-| latest  | yes       |
-| older   | no        |
+|---|---|
+| latest default branch | yes |
+| older snapshots/releases | no |
 
 ## Reporting a vulnerability
 
-Please do **not** open a public issue for security-sensitive reports.
+Do **not** open a public issue for security-sensitive reports.
 
-Preferred reporting paths:
-1. Use GitHub **Private Vulnerability Reporting** (Security tab → “Report a vulnerability”), if enabled.
-2. Otherwise email the maintainer: TODO (add an email address).
+Preferred path:
+1. Use GitHub Private Vulnerability Reporting, if enabled for this repository.
+2. If that is unavailable, contact the maintainer privately before public disclosure.
 
 Include:
-- A clear description of the issue and potential impact
-- Steps to reproduce
-- Any suggested fix or mitigation
+- a clear description of the issue,
+- potential impact,
+- steps to reproduce,
+- suggested mitigation if available.
 
-## Handling sensitive data
+## Sensitive data
 
-- Do not commit patient-level data or any restricted datasets.
-- If you discover sensitive data has been committed, report it immediately via the private paths above.
+- Do not commit patient-level or restricted data.
+- If sensitive data has already been committed, report it immediately through a private path.

@@ -1,6 +1,13 @@
 # Support
 
-For questions, bug reports, or feature requests, please use the GitHub issue tracker:
-https://github.com/reblocke/tcco2-accuracy/issues
+For bug reports and feature requests, use the GitHub issue tracker:
 
-If you need to report a security issue, see `SECURITY.md`.
+- https://github.com/reblocke/sofa_resp_sim/issues
+
+Before opening an issue, check:
+- `README.md`
+- `docs/ARCHITECTURE.md`
+- `docs/VALIDATION.md`
+- `docs/CLINICAL_SCOPE.md`
+
+For security-sensitive issues, follow `SECURITY.md`.

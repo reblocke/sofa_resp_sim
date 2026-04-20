@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field, replace
 from itertools import product
-from typing import Iterable
 
 import numpy as np
 import pandas as pd

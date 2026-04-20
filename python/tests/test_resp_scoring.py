@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-
 from sofa_resp_sim.resp_scoring import RespScoringConfig, score_respiratory
 from sofa_resp_sim.resp_utils import oracle_round, spo2_to_pao2
 
