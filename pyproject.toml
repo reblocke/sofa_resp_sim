@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "sofa-resp-sim"
 version = "0.1.0"
-description = "Respiratory SOFA scoring, simulation, and Streamlit validation applet."
+description = "Respiratory SOFA scoring, simulation, and static Pyodide validation app."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
@@ -15,8 +15,6 @@ authors = [
 dependencies = [
   "numpy>=1.26",
   "pandas>=2.2",
-  "streamlit>=1.30",
-  "plotly>=5.24",
 ]
 
 [project.urls]
@@ -25,26 +23,28 @@ Repository = "https://github.com/reblocke/sofa_resp_sim"
 Issues = "https://github.com/reblocke/sofa_resp_sim/issues"
 
 [project.scripts]
-resp-sofa-sim = "sofa_resp_sim.resp_sofa_runner:main"
-resp-sofa-applet = "sofa_resp_sim.web.applet_streamlit:main"
+resp-sofa-sim = "sofa_resp_sim.workflows.cli:main"
 
 [dependency-groups]
 dev = [
   "build>=1.2",
   "pre-commit>=3.7",
+  "pytest-playwright>=0.7",
   "pytest>=8.2",
   "pytest-cov>=5.0",
+  "playwright>=1.55",
   "ruff>=0.7",
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["python/src/sofa_resp_sim"]
+packages = ["src/sofa_resp_sim"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-  "python/src/sofa_resp_sim",
-  "python/tests",
+  "src/sofa_resp_sim",
   "tests",
+  "scripts",
+  "web",
   "docs/*.md",
   "docs/adr/*.md",
   "artifacts",
@@ -53,14 +53,22 @@ include = [
   "CITATION.cff",
   "AGENTS.md",
 ]
+exclude = [
+  "web/assets/py",
+  "web/assets/data",
+]
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+src = ["src", "tests", "scripts"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests", "python/tests"]
+testpaths = ["tests"]
 addopts = ["--import-mode=importlib", "-q"]
+markers = [
+  "e2e: browser end-to-end tests",
+]

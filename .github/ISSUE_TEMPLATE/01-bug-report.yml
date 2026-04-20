@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a reproducible defect in scoring, simulation, packaging, docs, or the applet.
+description: Report a reproducible defect in scoring, simulation, packaging, docs, or the static app.
 title: "[Bug] "
 labels: ["bug", "triage"]
 body:
@@ -14,7 +14,7 @@ body:
       options:
         - respiratory scoring
         - simulation
-        - Streamlit applet
+        - static Pages/Pyodide app
         - packaging/tooling
         - documentation
         - governance/repo metadata

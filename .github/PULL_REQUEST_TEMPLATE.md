@@ -6,7 +6,7 @@ Describe what changed and why.
 
 - [ ] Respiratory scoring logic
 - [ ] Simulation logic
-- [ ] Streamlit applet/UI
+- [ ] static Pages/Pyodide app
 - [ ] Packaging/tooling
 - [ ] Docs/governance
 - [ ] Artifacts/validation evidence

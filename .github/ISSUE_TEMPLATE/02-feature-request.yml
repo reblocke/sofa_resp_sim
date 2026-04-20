@@ -10,7 +10,7 @@ body:
       options:
         - respiratory scoring
         - simulation
-        - Streamlit applet
+        - static Pages/Pyodide app
         - packaging/tooling
         - documentation
         - governance/repo metadata
