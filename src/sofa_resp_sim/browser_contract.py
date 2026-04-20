@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.metadata
+import importlib.resources
 import math
 from collections.abc import Mapping
 from io import StringIO
@@ -31,7 +32,7 @@ from .reporting.presets import (
     list_run_presets,
     list_sweep_presets,
 )
-from .reporting.reference import load_builtin_reference
+from .reporting.reference import load_builtin_reference, normalize_reference_distribution
 from .reporting.view_model import (
     DEFAULT_SWEEP_HEATMAP_METRIC,
     SPO2_ROUNDING_OPTIONS,
@@ -182,8 +183,15 @@ def _load_reference_series() -> pd.Series:
     for path in _reference_candidates():
         if path.exists():
             return load_builtin_reference(path).loc[0]
+    package_resource = importlib.resources.files("sofa_resp_sim.data").joinpath(REFERENCE_FILENAME)
+    if package_resource.is_file():
+        frame = pd.read_csv(StringIO(package_resource.read_text(encoding="utf-8")))
+        return normalize_reference_distribution(frame).loc[0]
     candidates = ", ".join(str(path) for path in _reference_candidates())
-    raise FileNotFoundError(f"Reference file not found in any expected location: {candidates}")
+    raise FileNotFoundError(
+        "Reference file not found in filesystem candidates or package resources: "
+        f"{candidates}, sofa_resp_sim.data/{REFERENCE_FILENAME}"
+    )
 
 
 def _reference_candidates() -> tuple[Path, ...]:
