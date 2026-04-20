@@ -1,44 +1,55 @@
 # Contributing
 
-## Dev setup
+## Canonical development setup
 
-1. Create environment (mamba preferred):
-
-   ```bash
-   mamba env create -f environment.yml
-   mamba activate proj-env
-   ```
-
-2. Install pre-commit hooks (recommended):
-
-   ```bash
-   pre-commit install
-   ```
-
-## Branching & PRs
-
-- Use feature branches: `feat/short-topic`, `fix/bug-123`.
-- Keep PRs small and focused; link issues when relevant.
-- Require review; checks must pass before merge.
-
-## Tests & checks
+This repository uses `uv` as the canonical development path.
 
 ```bash
-ruff check .
-ruff format .
-pytest -q
+uv sync --dev
+make check
 ```
 
-Add tests in `tests/` for new or changed behavior.
+## Common commands
 
-## Style
+```bash
+make sync
+make lint
+make test
+make check
+make app
+```
 
-- Ruff enforces linting and formatting.
-- Prefer explicit types in public functions.
-- Keep notebooks light; move logic to `src/` and import.
+## Branching and pull requests
 
-## Data
+- Use focused branches.
+- Keep pull requests small enough to review coherently.
+- Link issues when applicable.
+- Summarize validation performed in the PR body.
+- Update canonical docs when behavior, commands, or outputs change.
 
-- Never commit PHI/PII or raw restricted data.
-- Use `data/` for placeholders and derived small examples only.
-- Store pointers and provenance (sources, dates, filters) in repo docs.
+## Required checks before review
+
+```bash
+make check
+```
+
+If app-facing code changed, also run the relevant app verification tests.
+
+## Code standards
+
+- Keep respiratory scoring and simulation logic in the package core.
+- Do not duplicate scoring logic in the Streamlit layer.
+- Prefer explicit names and small functions with one level of abstraction.
+- Keep user-facing commands and paths truthful.
+- Add or update tests for changed behavior.
+
+## Data and artifact policy
+
+- Never commit PHI, patient-level raw extracts, or restricted datasets.
+- Keep checked-in artifacts small, reproducible, and documented in `artifacts/README.md`.
+- Document external references and checked-in non-code assets in `docs/PROVENANCE.md`.
+
+## Architecture decisions
+
+Record architectural or workflow-significant choices under:
+- `docs/adr/`

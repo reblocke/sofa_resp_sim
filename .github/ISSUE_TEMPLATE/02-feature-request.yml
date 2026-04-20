@@ -1,0 +1,39 @@
+name: Feature request
+description: Propose a scoped improvement to scoring, simulation, docs, or repository workflow.
+title: "[Feature] "
+labels: ["enhancement", "triage"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - respiratory scoring
+        - simulation
+        - Streamlit applet
+        - packaging/tooling
+        - documentation
+        - governance/repo metadata
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What problem or limitation does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks or trade-offs

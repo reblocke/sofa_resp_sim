@@ -1,0 +1,50 @@
+name: Bug report
+description: Report a reproducible defect in scoring, simulation, packaging, docs, or the applet.
+title: "[Bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please include enough detail to reproduce it.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - respiratory scoring
+        - simulation
+        - Streamlit applet
+        - packaging/tooling
+        - documentation
+        - governance/repo metadata
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include commands, inputs, or UI steps.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, setup path, and any relevant package versions.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs, screenshots, or artifact references

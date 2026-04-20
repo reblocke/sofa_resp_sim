@@ -1,105 +1,101 @@
-# TcCO2 Accuracy (Python): Respiratory SOFA SQL-Parity + Simulation
+# sofa_resp_sim
 
-This repository currently contains a Python implementation of respiratory SOFA
-scoring logic that matches the project SQL rules, plus a simulation framework to
-stress-test scoring behavior under different observation and support patterns.
+Respiratory SOFA scoring, simulation, and Streamlit-based validation applet.
 
-## Current functionality
+This repository contains:
+- a respiratory SOFA scoring engine with event-level diagnostic outputs,
+- a simulation framework for respiratory observation/support scenarios,
+- a Streamlit applet for deterministic exploration, comparison, and uncertainty views.
 
-- Score respiratory SOFA from event-level observations (`SpO2`, optional measured
-  `PaO2`, FiO2 fields, support modality, room-air indicator, flow rate).
-- Preserve SQL-parity intermediate fields for debugging and validation
-  (FiO2 lookbacks/look-forward, PaO2 source priority, PF ratio, rubric score,
-  measures-stage gating fields).
-- Apply acute/baseline respiratory selection and suppression rules, returning:
-  `sofa_pulm`, `sofa_pulm_bl`, `sofa_pulm_delta`, and qualifying PF counts.
-- Simulate synthetic encounters and run Monte Carlo sweeps to estimate score
-  distributions as assumptions change (frequency, noise, support thresholds).
-- Validate behavior with unit tests and golden fixtures that encode SQL-parity
-  expectations.
+## Repository status
 
-## Key modules
+This is research software.
+It is intended for:
+- method development,
+- internal validation,
+- reproducible simulation and documentation of respiratory SOFA behavior.
 
-- `python/src/tcco2_accuracy/resp_scoring.py`
-  - Core scoring function: `score_respiratory(...)`
-  - Returns `RespiratoryScoreResult`, including `event_level` diagnostics.
-- `python/src/tcco2_accuracy/resp_simulation.py`
-  - Encounter simulator plus `run_replicates(...)` and `run_parameter_sweep(...)`.
-- `python/src/tcco2_accuracy/resp_sofa_runner.py`
-  - CLI runner for simulation sweeps.
-- `python/src/tcco2_accuracy/resp_utils.py`
-  - Oracle-style rounding and SpO2 to PaO2 conversion helper.
+It is **not** presented as a medical device or as stand-alone clinical decision support.
+
+See:
+- `docs/CLINICAL_SCOPE.md`
+- `docs/VALIDATION.md`
+- `docs/PROVENANCE.md`
+
+## Package layout
+
+- `python/src/sofa_resp_sim/resp_scoring.py`
+  - respiratory SOFA scoring and SQL-parity diagnostics
+- `python/src/sofa_resp_sim/resp_utils.py`
+  - helper functions such as Oracle-style rounding and SpO2→PaO2 conversion
+- `python/src/sofa_resp_sim/resp_simulation.py`
+  - simulation and replicate/sweep helpers
+- `python/src/sofa_resp_sim/resp_sofa_runner.py`
+  - CLI entrypoint for simulation sweeps
+- `python/src/sofa_resp_sim/web/`
+  - Streamlit applet, request normalization, service orchestration, presets, and reference handling
+- `python/tests/`
+  - package and app tests
+- `tests/`
+  - repository contract tests
+- `artifacts/`
+  - small checked-in validation summaries
+- `docs/`
+  - canonical architecture, validation, scope, provenance, and ADRs
 
 ## Quickstart
 
-```bash
-# 1) Create environment (mamba or conda)
-mamba env create -f environment.yml
-mamba activate proj-env
+### Canonical setup path
 
-# 2) Optional dev hooks
-pre-commit install
-
-# 3) Run tests and lint
-python -m pytest
-ruff check .
-```
-
-## Run the simulation CLI
-
-From repo root:
+This repository uses `uv` as the canonical environment manager.
 
 ```bash
-PYTHONPATH=python/src python -m tcco2_accuracy.resp_sofa_runner \
-  --replicates 200 \
-  --obs-freq 15 \
-  --noise-sd 1.0 \
-  --room-air-threshold 94 \
-  --seed 0
+uv sync --dev
+uv run pytest -q
+uv run ruff check .
 ```
 
-Expected output:
-
-- A one-row or multi-row summary table (depending on parameter list sizes) with:
-  `obs_freq_minutes`, `noise_sd`, `room_air_threshold`, `n_reps`,
-  `mean_count_pf_ratio_acute`, `p_single_pf_suppressed`, and `p_sofa_0..p_sofa_4`.
-
-To write CSV instead of printing:
+### Run the CLI
 
 ```bash
-PYTHONPATH=python/src python -m tcco2_accuracy.resp_sofa_runner --output artifacts/resp_sofa_sim_summary.csv
+uv run resp-sofa-sim --help
+uv run resp-sofa-sim --replicates 200 --obs-freq 15 --noise-sd 1.0 --room-air-threshold 94 --seed 0
 ```
 
-## Respiratory SOFA SQL-parity notes
+### Run the Streamlit applet
 
-- `sofa_ts` is a 24-hour bin anchored to `admit_dts` day boundaries.
-- `quartile` splits each `sofa_ts` into 6-hour bins labeled `1..4`.
-- FiO2 association is selected in this order:
-  minute lookback (`-14 to -1 min`), minute look-forward (`0 to +5 min`),
-  then 24-hour lookback, with room air defaulting to 21%.
-- Measures-stage gating caps non-IMV/NIPPV respiratory scores at 2.
-- Acute single-PF suppression can set acute respiratory score to 0 when only one
-  qualifying PF record exists and no IMV/NIPPV support is present.
-
-## Testing
-
-- Run `python -m pytest` from repo root.
-- Golden fixtures: `python/tests/test_resp_scoring_golden_fixtures.py`.
-- Core tests: `python/tests/test_resp_scoring.py`.
-- Smoke test: `tests/test_smoke.py`.
-
-## Repository layout
-
-```text
-python/src/tcco2_accuracy/   # Python package (scoring + simulation)
-python/tests/                # SQL-parity and unit tests
-tests/                       # Project-level smoke test(s)
-artifacts/                   # Small generated summaries/tables
-docs/                        # Runbooks and notes
-data/                        # Placeholder data directory
-environment.yml              # Conda/mamba environment
-pyproject.toml               # Tooling config + script entrypoint metadata
+```bash
+uv run streamlit run python/src/sofa_resp_sim/web/applet_streamlit.py
 ```
+
+## Development commands
+
+```bash
+make sync
+make lint
+make test
+make check
+make app
+```
+
+## Validation
+
+Core validation lives in:
+- `python/tests/test_resp_scoring.py`
+- `python/tests/test_resp_scoring_golden_fixtures.py`
+- `python/tests/test_web_*.py`
+
+See:
+- `docs/VALIDATION.md`
+- `artifacts/README.md`
+
+## Contribution guidance
+
+See:
+- `CONTRIBUTING.md`
+- `SECURITY.md`
+- `SUPPORT.md`
+- `CODE_OF_CONDUCT.md`
 
 ## Citation and license
 
