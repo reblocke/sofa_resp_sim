@@ -1,132 +1,133 @@
 # sofa_resp_sim
 
-Respiratory SOFA scoring, simulation, and Streamlit-based validation applet.
+Respiratory SOFA scoring, simulation, and static browser validation app.
 
 This repository contains:
-- a respiratory SOFA scoring engine with event-level diagnostic outputs,
-- a simulation framework for respiratory observation/support scenarios,
-- a Streamlit applet for deterministic exploration, reference comparison, uncertainty views, parameter sweeps, presets, and CSV exports.
+- a Python respiratory SOFA scoring engine with diagnostic outputs,
+- deterministic simulation helpers for respiratory observation/support scenarios,
+- a static GitHub Pages app that runs the Python package in Pyodide,
+- small checked-in validation artifacts and contract tests.
 
-## Repository status
-
-This is research software.
-It is intended for:
-- method development,
-- internal validation,
-- reproducible simulation and documentation of respiratory SOFA behavior.
-
-It is **not** presented as a medical device or as stand-alone clinical decision support.
-
-See:
-- `docs/CLINICAL_SCOPE.md`
-- `docs/VALIDATION.md`
-- `docs/PROVENANCE.md`
-- `docs/PUBLIC_RELEASE_AUDIT.md`
-
-## Package layout
-
-- `python/src/sofa_resp_sim/resp_scoring.py`
-  - respiratory SOFA scoring and SQL-parity diagnostics
-- `python/src/sofa_resp_sim/resp_utils.py`
-  - helper functions such as Oracle-style rounding and SpO2→PaO2 conversion
-- `python/src/sofa_resp_sim/resp_simulation.py`
-  - simulation and replicate/sweep helpers
-- `python/src/sofa_resp_sim/resp_sofa_runner.py`
-  - CLI entrypoint for simulation sweeps
-- `python/src/sofa_resp_sim/web/`
-  - Streamlit applet, request normalization, service orchestration, presets, and reference handling
-- `python/scripts/profile_applet_performance.py`
-  - local single-scenario app-service benchmark helper
-- `python/tests/`
-  - package and app tests
-- `tests/`
-  - repository contract tests
-- `artifacts/`
-  - small checked-in validation summaries
-- `docs/`
-  - canonical architecture, validation, scope, provenance, and ADRs
+This is research software. It is not a medical device, standalone clinical
+decision support, or a replacement for clinician judgment.
 
 ## Quickstart
 
-### Canonical setup path
-
-This repository uses `uv` as the canonical environment manager.
-
 ```bash
 uv sync --dev
-uv run pytest -q
-uv run ruff check .
+make test
+make stage-web
+make serve
 ```
 
-### Run the CLI
+Then open the local server URL printed by `python3 -m http.server`.
+
+## Common commands
+
+```bash
+make sync       # uv sync --locked --dev
+make test       # Python tests, excluding browser e2e
+make e2e        # Playwright browser smoke test for the static app
+make verify     # stage web assets, format check, lint, tests, e2e
+make build      # build the Python package
+make sim-help   # show CLI help
+```
+
+## Package layout
+
+- `src/sofa_resp_sim/core/`
+  - pure scoring, simulation, and utility modules.
+- `src/sofa_resp_sim/resp_scoring.py`, `resp_simulation.py`, `resp_utils.py`
+  - compatibility wrappers for existing imports.
+- `src/sofa_resp_sim/reporting/`
+  - browser-safe request normalization, presets, reference comparison,
+    uncertainty summaries, and export formatting.
+- `src/sofa_resp_sim/browser_contract.py`
+  - the narrow Pyodide-facing API used by the static app.
+- `src/sofa_resp_sim/workflows/cli.py`
+  - `resp-sofa-sim` console entrypoint.
+- `web/`
+  - static HTML/CSS/JavaScript and the Pyodide worker.
+- `scripts/stage_web_python.py`
+  - reproducibly stages allowlisted Python/data assets into `web/assets/`.
+- `tests/`
+  - core, contract, workflow, and browser e2e tests.
+
+## Python API
+
+Existing imports remain valid:
+
+```python
+from sofa_resp_sim import score_respiratory
+from sofa_resp_sim.resp_simulation import SimulationConfig, run_parameter_sweep
+```
+
+The browser app calls only:
+
+```python
+from sofa_resp_sim.browser_contract import (
+    get_app_config_payload,
+    run_scenario_payload,
+    run_sweep_payload,
+)
+```
+
+## CLI
 
 ```bash
 uv run resp-sofa-sim --help
 uv run resp-sofa-sim --replicates 200 --obs-freq 15 --noise-sd 1.0 --room-air-threshold 94 --seed 0
 ```
 
-### Run the Streamlit applet
+## Web app
+
+The GitHub Pages app is static. JavaScript collects inputs, renders returned
+tables/charts, and downloads CSV/JSON exports. Scoring and simulation logic run
+inside Pyodide from staged Python source.
 
 ```bash
-uv run streamlit run python/src/sofa_resp_sim/web/applet_streamlit.py
+make stage-web
+make serve
+make e2e
 ```
 
-The applet supports single-scenario runs, parameter sweeps, built-in presets,
-reference-distribution comparison, uncertainty summaries, guardrails for large
-sweeps, and CSV export. See `docs/APPLET_RUNBOOK.md`.
-
-## Development commands
-
-```bash
-make sync
-make lint
-make test
-make check
-make app
-make build
-```
+Generated staged assets under `web/assets/py/` and `web/assets/data/` are
+ignored because they are reproducible from source and artifacts.
 
 ## Validation
 
-Current automated validation includes:
-- `python/tests/test_resp_scoring.py`
-- `python/tests/test_resp_scoring_golden_fixtures.py`
-- `python/tests/test_web_*.py`
-- `python/tests/test_streamlit_app_smoke.py`
-- `python/tests/test_cli_contract.py`
-- `tests/test_repository_contract.py`
-
-See:
-- `docs/VALIDATION.md`
-- `artifacts/README.md`
-
-For release checks, run:
+Primary validation commands:
 
 ```bash
-make check
+make test
+make e2e
+make verify
 uv run python -m build
 uv run resp-sofa-sim --help
-uv run pytest -q python/tests/test_streamlit_app_smoke.py
 ```
+
+See `docs/VALIDATION.md` and `artifacts/README.md`.
 
 ## Public release posture
 
-The current tracked tree is intended to contain only source code, docs, tests,
-and small synthetic or aggregate artifacts. Local literature PDFs are ignored by
+The tracked tree is intended to contain only source code, docs, tests, and small
+synthetic or aggregate artifacts. Local literature PDFs are ignored by
 `docs/*.pdf`.
 
 Before making an existing hosted repository public, review
 `docs/PUBLIC_RELEASE_AUDIT.md`: the current tree has no known PHI, but earlier
-GitHub history/PR refs may still contain PDF blobs that should be purged or
-avoided by publishing from a clean history.
+GitHub history/PR refs may still contain publisher PDF blobs.
 
-## Contribution guidance
+## More documentation
 
-See:
-- `CONTRIBUTING.md`
-- `SECURITY.md`
-- `SUPPORT.md`
-- `CODE_OF_CONDUCT.md`
+- `docs/ARCHITECTURE.md`
+- `docs/WEB_APP.md`
+- `docs/DEPLOY_PAGES.md`
+- `docs/VALIDATION.md`
+- `docs/CLINICAL_SCOPE.md`
+- `docs/PROVENANCE.md`
+- `docs/DECISIONS.md`
+- `docs/PUBLIC_RELEASE_AUDIT.md`
 
 ## Citation and license
 

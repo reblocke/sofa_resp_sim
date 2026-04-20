@@ -23,6 +23,6 @@ Verification checklist:
 
 For this repo, start with:
 ```bash
-uv run pytest -q python/tests/test_resp_scoring.py python/tests/test_resp_scoring_golden_fixtures.py
-uv run pytest -q
+uv run pytest -q tests/core/test_resp_scoring.py tests/core/test_resp_scoring_golden_fixtures.py
+make test
 ```

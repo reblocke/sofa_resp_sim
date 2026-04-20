@@ -1,5 +1,7 @@
 * @reblocke
 /docs/ @reblocke
-/python/src/sofa_resp_sim/ @reblocke
-/python/tests/ @reblocke
+/src/sofa_resp_sim/ @reblocke
+/tests/ @reblocke
+/web/ @reblocke
+/scripts/ @reblocke
 /.github/ @reblocke
