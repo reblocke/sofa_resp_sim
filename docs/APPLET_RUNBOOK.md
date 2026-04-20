@@ -4,14 +4,19 @@
 From repo root:
 
 ```bash
-conda run -n proj-env env PYTHONPATH=python/src streamlit run python/src/sofa_resp_sim/web/applet_streamlit.py
+uv sync --dev
+uv run streamlit run python/src/sofa_resp_sim/web/applet_streamlit.py
 ```
 
-If `resp-sofa-applet` script is installed in the active environment:
+Or use the Makefile wrapper:
 
 ```bash
-conda run -n proj-env env PYTHONPATH=python/src resp-sofa-applet
+make app
 ```
+
+Do not use `uv run resp-sofa-applet` as the normal launch path. That console
+script executes the app module in bare mode and Streamlit will warn that it
+should be run through `streamlit run`.
 
 ## 2) Sidebar control workflow
 1. Choose `Run mode` (`Single scenario` or `Parameter sweep`).
@@ -27,24 +32,35 @@ Preset schema version is shown in the sidebar. This version is used by preset se
 Run these from repo root before release:
 
 ```bash
-conda run -n proj-env python -m pytest
-conda run -n proj-env python -m ruff check python/src/sofa_resp_sim/web python/tests/test_web_*
+make check
+uv run pytest -q python/tests/test_streamlit_app_smoke.py
+uv run pytest -q python/tests/test_web_*
 ```
 
 ## 4) Performance profiling
 Profile single-scenario runtime:
 
 ```bash
-conda run -n proj-env env PYTHONPATH=python/src \\
-  python python/scripts/profile_applet_performance.py \\
+uv run python python/scripts/profile_applet_performance.py \\
   --n-reps 1000 --repeats 5 --seed 0 --target-seconds 2.0 \\
   --output-csv artifacts/resp_applet_m4_performance.csv
 ```
 
-## 5) Smoke test (headless)
+## 5) Smoke tests
+
+Native Streamlit smoke coverage runs inside pytest without a browser:
+
 ```bash
-conda run -n proj-env env PYTHONPATH=python/src streamlit run /tmp/sofa_resp_sim_applet_launcher.py \\
-  --server.headless true --server.address 127.0.0.1 --server.port 8511
+uv run pytest -q python/tests/test_streamlit_app_smoke.py
+```
+
+For a manual headless server check:
+
+```bash
+uv run streamlit run python/src/sofa_resp_sim/web/applet_streamlit.py \\
+  --server.headless true \\
+  --server.address 127.0.0.1 \\
+  --server.port 8511
 ```
 
 Open [http://127.0.0.1:8511](http://127.0.0.1:8511) to verify:

@@ -19,7 +19,7 @@ This file maps system invariants to concrete tests and checked-in evidence.
 | Uncertainty table schema is stable | `python/tests/test_web_uncertainty.py` |
 | Root docs and metadata do not drift to stale identities | `tests/test_repository_contract.py` |
 | CLI help contract remains valid | `python/tests/test_cli_contract.py` |
-| Streamlit render contract remains valid | `python/tests/test_streamlit_app_smoke.py` (to be added) |
+| Streamlit render contract remains valid | `python/tests/test_streamlit_app_smoke.py` |
 
 ## Canonical commands
 
@@ -27,6 +27,17 @@ This file maps system invariants to concrete tests and checked-in evidence.
 uv sync --dev
 uv run pytest -q
 uv run ruff check .
+uv run python -m build
+uv run resp-sofa-sim --help
+uv run pytest -q python/tests/test_streamlit_app_smoke.py
+```
+
+The Makefile wraps the common local checks:
+
+```bash
+make check
+make app
+make build
 ```
 
 ## Artifact evidence
@@ -36,6 +47,14 @@ Checked-in validation artifacts live under:
 
 See:
 - `artifacts/README.md`
+
+## Release-oriented checks
+
+Before a release or public visibility change:
+- run the canonical commands above,
+- confirm `git status --short --branch` has no tracked changes,
+- inspect `docs/PUBLIC_RELEASE_AUDIT.md` for PHI/confidentiality and history-cleanup notes,
+- regenerate or document any changed artifacts in `artifacts/README.md`.
 
 ## When to update this file
 
