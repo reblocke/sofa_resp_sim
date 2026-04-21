@@ -25,133 +25,197 @@
         <button class="tab-button" type="button" data-tab="about">About / Safety</button>
       </nav>
 
+      <section class="context-strip" aria-label="Simulation context">
+        <div>
+          <h2>What this app does</h2>
+          <p>
+            Explore synthetic respiratory SOFA scoring scenarios in your browser. The app runs
+            staged Python locally through Pyodide, compares simulated score probabilities with the
+            reference distribution, and is not clinical decision support.
+          </p>
+        </div>
+        <ul>
+          <li>No patient-level data or server backend.</li>
+          <li>Scenario runs test one parameter set.</li>
+          <li>Sweeps compare a small grid of parameter values.</li>
+        </ul>
+      </section>
+
+      <section class="mode-guide" aria-label="Scenario and sweep guidance">
+        <div>
+          <h2>Scenario vs Sweep</h2>
+          <p>
+            Use Scenario to test one parameter set and inspect the resulting respiratory SOFA
+            probability distribution. Use Sweep to test sensitivity across plausible observation
+            intervals, measurement-noise levels, and room-air thresholds.
+          </p>
+        </div>
+        <p class="state-note">
+          Switching panes keeps values in place during the current browser session. Scenario and
+          Sweep use separate controls; Scenario edits do not automatically become the Sweep base.
+          Refresh or Reset restores defaults.
+        </p>
+      </section>
+
       <section class="workspace active" id="scenario-tab">
         <aside class="control-panel">
           <div class="panel-heading">
-            <h2>Scenario inputs</h2>
+            <div>
+              <h2>Scenario inputs</h2>
+              <p class="panel-kicker">Run one parameter set and compare it with the reference distribution.</p>
+            </div>
             <button class="secondary" type="button" id="reset-scenario">Reset</button>
           </div>
-          <label>
-            Preset
-            <select id="scenario-preset"></select>
-          </label>
-          <div class="field-grid two">
-            <label>
-              Replicates
-              <input id="scenario-n-reps" type="number" min="1" step="1" />
-            </label>
-            <label>
-              Seed
-              <input id="scenario-seed" type="number" min="0" step="1" />
-            </label>
+          <div class="control-group">
+            <h3>Run</h3>
+            <div class="field" data-help-for="scenario-preset">
+              <div class="label-row"><label for="scenario-preset">Preset</label></div>
+              <select id="scenario-preset"></select>
+            </div>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-n-reps">
+                <div class="label-row"><label for="scenario-n-reps">Replicates</label></div>
+                <input id="scenario-n-reps" type="number" min="1" step="1" />
+              </div>
+              <div class="field" data-help-for="scenario-seed">
+                <div class="label-row"><label for="scenario-seed">Seed</label></div>
+                <input id="scenario-seed" type="number" min="0" step="1" />
+              </div>
+            </div>
           </div>
-          <div class="field-grid two">
-            <label>
-              Observation minutes
-              <input id="scenario-obs-freq" type="number" min="1" step="1" />
-            </label>
-            <label>
-              Room-air threshold
-              <input id="scenario-room-air" type="number" step="0.1" />
-            </label>
+
+          <div class="control-group">
+            <h3>Oxygenation</h3>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-obs-freq">
+                <div class="label-row"><label for="scenario-obs-freq">Observation minutes</label></div>
+                <input id="scenario-obs-freq" type="number" min="1" step="1" />
+              </div>
+              <div class="field" data-help-for="scenario-room-air">
+                <div class="label-row"><label for="scenario-room-air">Room-air threshold</label></div>
+                <input id="scenario-room-air" type="number" step="0.1" />
+              </div>
+            </div>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-spo2-mean">
+                <div class="label-row"><label for="scenario-spo2-mean">SpO2 mean</label></div>
+                <input id="scenario-spo2-mean" type="number" step="0.1" />
+              </div>
+              <div class="field" data-help-for="scenario-spo2-sd">
+                <div class="label-row"><label for="scenario-spo2-sd">SpO2 SD</label></div>
+                <input id="scenario-spo2-sd" type="number" min="0.1" step="0.1" />
+              </div>
+            </div>
           </div>
-          <div class="field-grid two">
-            <label>
-              SpO2 mean
-              <input id="scenario-spo2-mean" type="number" step="0.1" />
-            </label>
-            <label>
-              SpO2 SD
-              <input id="scenario-spo2-sd" type="number" min="0.1" step="0.1" />
-            </label>
-          </div>
-          <div class="field-grid two">
-            <label>
-              AR(1)
-              <input id="scenario-ar1" type="number" min="-0.99" max="0.99" step="0.01" />
-            </label>
-            <label>
-              Measurement SD
-              <input id="scenario-measurement-sd" type="number" min="0" step="0.1" />
-            </label>
-          </div>
-          <div class="field-grid two">
-            <label>
-              Desat probability
-              <input id="scenario-desat-prob" type="number" min="0" max="1" step="0.001" />
-            </label>
-            <label>
-              Desat depth
-              <input id="scenario-desat-depth" type="number" min="0" step="0.1" />
-            </label>
-          </div>
-          <div class="field-grid two">
-            <label>
-              Desat duration
-              <input id="scenario-desat-duration" type="number" min="1" step="1" />
-            </label>
-            <label>
-              SpO2 rounding
+
+          <div class="control-group">
+            <h3>Observation noise</h3>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-ar1">
+                <div class="label-row"><label for="scenario-ar1">AR(1)</label></div>
+                <input id="scenario-ar1" type="number" min="-0.99" max="0.99" step="0.01" />
+              </div>
+              <div class="field" data-help-for="scenario-measurement-sd">
+                <div class="label-row"><label for="scenario-measurement-sd">Measurement SD</label></div>
+                <input id="scenario-measurement-sd" type="number" min="0" step="0.1" />
+              </div>
+            </div>
+            <div class="field" data-help-for="scenario-rounding">
+              <div class="label-row"><label for="scenario-rounding">SpO2 rounding</label></div>
               <select id="scenario-rounding"></select>
-            </label>
+            </div>
           </div>
-          <div class="field-grid two">
-            <label>
-              FiO2 measured probability
-              <input id="scenario-fio2-prob" type="number" min="0" max="1" step="0.01" />
-            </label>
-            <label>
-              Altitude factor
-              <input id="scenario-altitude" type="number" min="0.1" step="0.01" />
-            </label>
+
+          <div class="control-group">
+            <h3>Desaturation events</h3>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-desat-prob">
+                <div class="label-row"><label for="scenario-desat-prob">Desat probability</label></div>
+                <input id="scenario-desat-prob" type="number" min="0" max="1" step="0.001" />
+              </div>
+              <div class="field" data-help-for="scenario-desat-depth">
+                <div class="label-row"><label for="scenario-desat-depth">Desat depth</label></div>
+                <input id="scenario-desat-depth" type="number" min="0" step="0.1" />
+              </div>
+            </div>
+            <div class="field" data-help-for="scenario-desat-duration">
+              <div class="label-row"><label for="scenario-desat-duration">Desat duration</label></div>
+              <input id="scenario-desat-duration" type="number" min="1" step="1" />
+            </div>
           </div>
-          <div class="field-grid two">
-            <label>
-              Acute start hours
-              <input id="scenario-acute-start" type="number" step="0.5" />
-            </label>
-            <label>
-              Acute end hours
-              <input id="scenario-acute-end" type="number" step="0.5" />
-            </label>
+
+          <div class="control-group">
+            <h3>Support and FiO2</h3>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-fio2-prob">
+                <div class="label-row"><label for="scenario-fio2-prob">FiO2 measured probability</label></div>
+                <input id="scenario-fio2-prob" type="number" min="0" max="1" step="0.01" />
+              </div>
+              <div class="field" data-help-for="scenario-altitude">
+                <div class="label-row"><label for="scenario-altitude">Altitude factor</label></div>
+                <input id="scenario-altitude" type="number" min="0.1" step="0.01" />
+              </div>
+            </div>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-flow-min">
+                <div class="label-row"><label for="scenario-flow-min">O2 flow minimum</label></div>
+                <input id="scenario-flow-min" type="number" min="0" step="0.1" />
+              </div>
+              <div class="field" data-help-for="scenario-flow-max">
+                <div class="label-row"><label for="scenario-flow-max">O2 flow maximum</label></div>
+                <input id="scenario-flow-max" type="number" min="0" step="0.1" />
+              </div>
+            </div>
+            <div class="field check-field" data-help-for="scenario-support-observed">
+              <div class="checkline">
+                <input id="scenario-support-observed" type="checkbox" />
+                <div class="label-row"><label for="scenario-support-observed">Support follows observed SpO2</label></div>
+              </div>
+            </div>
           </div>
-          <div class="field-grid two">
-            <label>
-              O2 flow minimum
-              <input id="scenario-flow-min" type="number" min="0" step="0.1" />
-            </label>
-            <label>
-              O2 flow maximum
-              <input id="scenario-flow-max" type="number" min="0" step="0.1" />
-            </label>
+
+          <div class="control-group">
+            <h3>Time windows</h3>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-acute-start">
+                <div class="label-row"><label for="scenario-acute-start">Acute start hours</label></div>
+                <input id="scenario-acute-start" type="number" step="0.5" />
+              </div>
+              <div class="field" data-help-for="scenario-acute-end">
+                <div class="label-row"><label for="scenario-acute-end">Acute end hours</label></div>
+                <input id="scenario-acute-end" type="number" step="0.5" />
+              </div>
+            </div>
+            <div class="field check-field" data-help-for="scenario-include-baseline">
+              <div class="checkline">
+                <input id="scenario-include-baseline" type="checkbox" />
+                <div class="label-row"><label for="scenario-include-baseline">Include baseline window</label></div>
+              </div>
+            </div>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-baseline-days">
+                <div class="label-row"><label for="scenario-baseline-days">Baseline days before</label></div>
+                <input id="scenario-baseline-days" type="number" min="1" step="1" />
+              </div>
+              <div class="field" data-help-for="scenario-baseline-hours">
+                <div class="label-row"><label for="scenario-baseline-hours">Baseline hours</label></div>
+                <input id="scenario-baseline-hours" type="number" min="0.5" step="0.5" />
+              </div>
+            </div>
           </div>
-          <label class="checkline">
-            <input id="scenario-support-observed" type="checkbox" />
-            Support follows observed SpO2
-          </label>
-          <label class="checkline">
-            <input id="scenario-include-baseline" type="checkbox" />
-            Include baseline window
-          </label>
-          <div class="field-grid two">
-            <label>
-              Baseline days before
-              <input id="scenario-baseline-days" type="number" min="1" step="1" />
-            </label>
-            <label>
-              Baseline hours
-              <input id="scenario-baseline-hours" type="number" min="0.5" step="0.5" />
-            </label>
-          </div>
-          <div class="field-grid two">
-            <label>
-              Bootstrap samples
-              <input id="scenario-bootstrap" type="number" min="1" step="1" />
-            </label>
-            <label>
-              CI level
-              <input id="scenario-ci-level" type="number" min="0.5" max="0.999" step="0.01" />
-            </label>
+
+          <div class="control-group">
+            <h3>Uncertainty</h3>
+            <div class="field-grid two">
+              <div class="field" data-help-for="scenario-bootstrap">
+                <div class="label-row"><label for="scenario-bootstrap">Bootstrap samples</label></div>
+                <input id="scenario-bootstrap" type="number" min="1" step="1" />
+              </div>
+              <div class="field" data-help-for="scenario-ci-level">
+                <div class="label-row"><label for="scenario-ci-level">CI level</label></div>
+                <input id="scenario-ci-level" type="number" min="0.5" max="0.999" step="0.01" />
+              </div>
+            </div>
           </div>
           <div class="button-row">
             <button class="primary" type="button" id="run-scenario" data-testid="run-scenario">
@@ -179,13 +243,28 @@
               </button>
             </div>
           </div>
-          <div class="metric-strip" id="scenario-metrics"></div>
+          <div class="metric-strip" id="scenario-metrics">
+            <p class="empty-state">Run a scenario to populate key probability and divergence results.</p>
+          </div>
           <div class="chart-block">
             <h3>SOFA probability vs reference</h3>
-            <div id="scenario-chart" class="probability-chart" data-testid="scenario-chart"></div>
+            <p class="chart-note">
+              Bars show the simulated scenario probability for each respiratory SOFA score. The
+              vertical marker shows the reference probability.
+            </p>
+            <div class="chart-legend" aria-label="Probability chart legend">
+              <span><span class="legend-swatch scenario"></span>Scenario probability</span>
+              <span><span class="legend-swatch reference"></span>Reference probability</span>
+            </div>
+            <div id="scenario-chart" class="probability-chart" data-testid="scenario-chart">
+              <p class="empty-state">The probability comparison appears after a completed scenario run.</p>
+            </div>
           </div>
           <div class="chart-block">
             <h3>Uncertainty</h3>
+            <p class="chart-note">
+              Bootstrap intervals summarize uncertainty across simulated replicates for each score probability.
+            </p>
             <div class="table-wrap">
               <table id="uncertainty-table"></table>
             </div>
@@ -196,39 +275,52 @@
       <section class="workspace" id="sweep-tab">
         <aside class="control-panel">
           <div class="panel-heading">
-            <h2>Sweep inputs</h2>
+            <div>
+              <h2>Sweep inputs</h2>
+              <p class="panel-kicker">
+                Each grid combination reruns the Python simulation. Workload is combinations
+                multiplied by base replicates.
+              </p>
+            </div>
             <button class="secondary" type="button" id="reset-sweep">Reset</button>
           </div>
-          <label>
-            Preset
-            <select id="sweep-preset"></select>
-          </label>
-          <div class="field-grid two">
-            <label>
-              Base replicates
-              <input id="sweep-n-reps" type="number" min="1" step="1" />
-            </label>
-            <label>
-              Base seed
-              <input id="sweep-seed" type="number" min="0" step="1" />
-            </label>
+          <div class="control-group">
+            <h3>Run</h3>
+            <div class="field" data-help-for="sweep-preset">
+              <div class="label-row"><label for="sweep-preset">Preset</label></div>
+              <select id="sweep-preset"></select>
+            </div>
+            <div class="field-grid two">
+              <div class="field" data-help-for="sweep-n-reps">
+                <div class="label-row"><label for="sweep-n-reps">Base replicates</label></div>
+                <input id="sweep-n-reps" type="number" min="1" step="1" />
+              </div>
+              <div class="field" data-help-for="sweep-seed">
+                <div class="label-row"><label for="sweep-seed">Base seed</label></div>
+                <input id="sweep-seed" type="number" min="0" step="1" />
+              </div>
+            </div>
           </div>
-          <label>
-            Observation minutes
-            <input id="sweep-obs-values" type="text" />
-          </label>
-          <label>
-            Noise SD values
-            <input id="sweep-noise-values" type="text" />
-          </label>
-          <label>
-            Room-air thresholds
-            <input id="sweep-room-values" type="text" />
-          </label>
-          <label>
-            Heatmap metric
-            <select id="sweep-metric"></select>
-          </label>
+
+          <div class="control-group">
+            <h3>Grid</h3>
+            <div class="field" data-help-for="sweep-obs-values">
+              <div class="label-row"><label for="sweep-obs-values">Observation minutes</label></div>
+              <input id="sweep-obs-values" type="text" placeholder="15, 30, 60" />
+            </div>
+            <div class="field" data-help-for="sweep-noise-values">
+              <div class="label-row"><label for="sweep-noise-values">Noise SD values</label></div>
+              <input id="sweep-noise-values" type="text" placeholder="0.5, 1.0, 2.0" />
+            </div>
+            <div class="field" data-help-for="sweep-room-values">
+              <div class="label-row"><label for="sweep-room-values">Room-air thresholds</label></div>
+              <input id="sweep-room-values" type="text" placeholder="92, 94, 96" />
+            </div>
+            <div class="field" data-help-for="sweep-metric">
+              <div class="label-row"><label for="sweep-metric">Heatmap metric</label></div>
+              <select id="sweep-metric"></select>
+            </div>
+          </div>
           <p class="workload" id="sweep-workload">Workload estimate unavailable.</p>
           <div class="button-row">
             <button class="primary" type="button" id="run-sweep" data-testid="run-sweep">
@@ -243,6 +335,10 @@
             <div>
               <h2>Sweep results</h2>
               <p id="sweep-summary-note">Waiting for a completed sweep.</p>
+              <p class="pane-note">
+                Sweeps are useful when you want to know whether conclusions are robust to charting
+                frequency, measurement noise, or room-air classification assumptions.
+              </p>
             </div>
             <div class="export-row">
               <button class="secondary" type="button" id="download-sweep-summary" disabled>
@@ -253,13 +349,24 @@
               </button>
             </div>
           </div>
-          <div class="metric-strip" id="sweep-metrics"></div>
+          <div class="metric-strip" id="sweep-metrics">
+            <p class="empty-state">Run a sweep to populate workload and maximum probability results.</p>
+          </div>
           <div class="chart-block">
             <h3>Heatmap-ready rows</h3>
-            <div id="sweep-heatmap" class="heatmap" data-testid="sweep-heatmap"></div>
+            <p class="chart-note">
+              Each cell is one sweep combination. Darker cells indicate higher values for the
+              selected metric, not necessarily better or worse performance.
+            </p>
+            <div id="sweep-heatmap" class="heatmap" data-testid="sweep-heatmap">
+              <p class="empty-state">The sweep heatmap appears after a completed sweep.</p>
+            </div>
           </div>
           <div class="chart-block">
             <h3>Summary table</h3>
+            <p class="chart-note">
+              The table lists the first 100 sweep rows and keeps CSV downloads available for full exports.
+            </p>
             <div class="table-wrap">
               <table id="sweep-table"></table>
             </div>

@@ -79,6 +79,97 @@ def test_static_app_runs_scenario_and_sweep(page: Page, web_server: str) -> None
     assert browser_errors == []
 
 
+def test_input_help_tooltips_are_accessible(page: Page, web_server: str) -> None:
+    page.goto(web_server, wait_until="domcontentloaded")
+
+    expected_help_ids = [
+        "scenario-preset",
+        "scenario-n-reps",
+        "scenario-seed",
+        "scenario-obs-freq",
+        "scenario-room-air",
+        "scenario-spo2-mean",
+        "scenario-spo2-sd",
+        "scenario-ar1",
+        "scenario-measurement-sd",
+        "scenario-rounding",
+        "scenario-desat-prob",
+        "scenario-desat-depth",
+        "scenario-desat-duration",
+        "scenario-fio2-prob",
+        "scenario-altitude",
+        "scenario-flow-min",
+        "scenario-flow-max",
+        "scenario-support-observed",
+        "scenario-acute-start",
+        "scenario-acute-end",
+        "scenario-include-baseline",
+        "scenario-baseline-days",
+        "scenario-baseline-hours",
+        "scenario-bootstrap",
+        "scenario-ci-level",
+        "sweep-preset",
+        "sweep-n-reps",
+        "sweep-seed",
+        "sweep-obs-values",
+        "sweep-noise-values",
+        "sweep-room-values",
+        "sweep-metric",
+    ]
+
+    expect(page.get_by_text("What this app does")).to_be_visible()
+    expect(page.locator(".help-button")).to_have_count(len(expected_help_ids))
+    for help_id in expected_help_ids:
+        assert page.get_by_test_id(f"help-{help_id}").count() == 1
+
+    scenario_help = page.get_by_test_id("help-scenario-n-reps")
+    scenario_tooltip = page.locator("#tooltip-scenario-n-reps")
+    expect(scenario_help).to_be_visible()
+
+    scenario_help.hover()
+    expect(scenario_tooltip).to_be_visible()
+    expect(scenario_tooltip).to_contain_text("Number of simulated encounters")
+
+    page.keyboard.press("Escape")
+    expect(scenario_tooltip).to_be_hidden()
+
+    scenario_help.focus()
+    expect(scenario_tooltip).to_be_visible()
+    page.keyboard.press("Escape")
+    expect(scenario_tooltip).to_be_hidden()
+
+    page.get_by_role("button", name="Sweep").click()
+    sweep_help = page.get_by_test_id("help-sweep-obs-values")
+    sweep_tooltip = page.locator("#tooltip-sweep-obs-values")
+
+    sweep_help.click()
+    expect(sweep_tooltip).to_be_visible()
+    expect(sweep_tooltip).to_contain_text("Comma-separated observation intervals")
+
+
+def test_mode_guidance_and_tab_values_persist_in_session(page: Page, web_server: str) -> None:
+    page.goto(web_server, wait_until="domcontentloaded")
+
+    expect(page.get_by_text("Scenario vs Sweep")).to_be_visible()
+    expect(page.get_by_text("Use Scenario to test one parameter set")).to_be_visible()
+    expect(page.get_by_text("Switching panes keeps values in place")).to_be_visible()
+
+    page.locator("#scenario-n-reps").fill("7")
+    page.get_by_role("button", name="Sweep").click()
+
+    expect(page.get_by_text("conclusions are robust to charting frequency")).to_be_visible()
+    expect(page.get_by_text("not necessarily better or worse performance")).to_be_visible()
+    page.locator("#sweep-n-reps").fill("3")
+    page.locator("#sweep-obs-values").fill("10, 20")
+
+    page.get_by_role("button", name="Scenario").click()
+    expect(page.locator("#scenario-n-reps")).to_have_value("7")
+
+    page.get_by_role("button", name="Sweep").click()
+    expect(page.locator("#sweep-n-reps")).to_have_value("3")
+    expect(page.locator("#sweep-obs-values")).to_have_value("10, 20")
+
+
 def test_worker_error_rejects_pending_init_request(page: Page, web_server: str) -> None:
     page.route(
         "**/pyodide_worker.js",
