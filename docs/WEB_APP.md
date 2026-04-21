@@ -44,6 +44,11 @@ Then open the local HTTP server URL. Opening `web/index.html` directly from the
 filesystem is not a supported runtime because Pyodide and worker fetches require
 HTTP semantics.
 
+The browser UI provides inline help for each scenario and sweep input. The help
+copy is static presentation text in `web/assets/js/app.js`; scoring, simulation,
+reference comparison, and uncertainty calculations still come from the Python
+browser contract.
+
 ## Browser contract
 
 Public functions:

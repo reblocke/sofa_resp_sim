@@ -7,6 +7,138 @@ const state = {
   sweep: null,
 };
 
+const inputHelp = {
+  "scenario-preset": {
+    label: "Scenario preset",
+    description: "Loads a saved set of scenario values. You can edit any value after selecting a preset.",
+  },
+  "scenario-n-reps": {
+    label: "Replicates",
+    description: "Number of simulated encounters for this scenario. Higher values are more stable but slower.",
+  },
+  "scenario-seed": {
+    label: "Scenario seed",
+    description: "Random seed. Use the same seed to reproduce the same simulated run.",
+  },
+  "scenario-obs-freq": {
+    label: "Scenario observation minutes",
+    description: "Minutes between SpO2 observations in the simulated record.",
+  },
+  "scenario-room-air": {
+    label: "Scenario room-air threshold",
+    description: "Observed SpO2 at or above this value is treated as room air for support assignment.",
+  },
+  "scenario-spo2-mean": {
+    label: "SpO2 mean",
+    description: "Baseline average true SpO2 used to generate each simulated encounter.",
+  },
+  "scenario-spo2-sd": {
+    label: "SpO2 SD",
+    description: "Within-encounter variability around the true SpO2 process.",
+  },
+  "scenario-ar1": {
+    label: "AR(1)",
+    description: "Autocorrelation from one observation to the next. Higher values make SpO2 more persistent.",
+  },
+  "scenario-measurement-sd": {
+    label: "Measurement SD",
+    description: "Random measurement noise added to true SpO2 before rounding and support assignment.",
+  },
+  "scenario-rounding": {
+    label: "SpO2 rounding",
+    description: "How observed SpO2 values are rounded before scoring and support logic run.",
+  },
+  "scenario-desat-prob": {
+    label: "Desat probability",
+    description: "Probability that a desaturation episode starts at an observation.",
+  },
+  "scenario-desat-depth": {
+    label: "Desat depth",
+    description: "SpO2 drop applied during a modeled desaturation episode.",
+  },
+  "scenario-desat-duration": {
+    label: "Desat duration",
+    description: "Approximate duration of a modeled desaturation episode in minutes.",
+  },
+  "scenario-fio2-prob": {
+    label: "FiO2 measured probability",
+    description: "Probability that FiO2 is charted as measured rather than inferred from set or ordered support.",
+  },
+  "scenario-altitude": {
+    label: "Altitude factor",
+    description: "Adjustment factor used by the SpO2-to-PaO2 conversion for altitude.",
+  },
+  "scenario-flow-min": {
+    label: "O2 flow minimum",
+    description: "Minimum low-flow oxygen rate sampled when low-flow support is assigned.",
+  },
+  "scenario-flow-max": {
+    label: "O2 flow maximum",
+    description: "Maximum low-flow oxygen rate sampled when low-flow support is assigned.",
+  },
+  "scenario-support-observed": {
+    label: "Support follows observed SpO2",
+    description:
+      "When enabled, support category is assigned from noisy observed SpO2; otherwise it uses underlying true SpO2.",
+  },
+  "scenario-acute-start": {
+    label: "Acute start hours",
+    description: "Start of the acute scoring window relative to admission time; negative values begin before admission.",
+  },
+  "scenario-acute-end": {
+    label: "Acute end hours",
+    description: "End of the acute scoring window relative to admission time.",
+  },
+  "scenario-include-baseline": {
+    label: "Include baseline window",
+    description: "Adds a pre-admission baseline window and computes baseline respiratory SOFA for delta outputs.",
+  },
+  "scenario-baseline-days": {
+    label: "Baseline days before",
+    description: "How many days before admission the baseline window starts.",
+  },
+  "scenario-baseline-hours": {
+    label: "Baseline hours",
+    description: "Length of the baseline window.",
+  },
+  "scenario-bootstrap": {
+    label: "Bootstrap samples",
+    description: "Number of bootstrap resamples used to estimate uncertainty intervals. Higher values are slower.",
+  },
+  "scenario-ci-level": {
+    label: "CI level",
+    description: "Width of the uncertainty interval, such as 0.95 for a 95% interval.",
+  },
+  "sweep-preset": {
+    label: "Sweep preset",
+    description: "Loads a saved sweep grid. You can edit the grid values after selecting a preset.",
+  },
+  "sweep-n-reps": {
+    label: "Base replicates",
+    description: "Replicates run for each sweep grid cell.",
+  },
+  "sweep-seed": {
+    label: "Base seed",
+    description: "Seed used to make the sweep reproducible.",
+  },
+  "sweep-obs-values": {
+    label: "Sweep observation minutes",
+    description: "Comma-separated observation intervals to test, for example 15, 30, 60.",
+  },
+  "sweep-noise-values": {
+    label: "Noise SD values",
+    description: "Comma-separated measurement-noise levels to test.",
+  },
+  "sweep-room-values": {
+    label: "Room-air thresholds",
+    description: "Comma-separated room-air thresholds to test.",
+  },
+  "sweep-metric": {
+    label: "Heatmap metric",
+    description: "Summary metric used to color the sweep heatmap.",
+  },
+};
+
 const scenarioFields = {
   admit_dts: null,
   acute_start_hours: "scenario-acute-start",
@@ -66,11 +198,86 @@ const integerScenarioFields = new Set([
 const booleanScenarioFields = new Set(["include_baseline", "support_based_on_observed"]);
 
 document.addEventListener("DOMContentLoaded", () => {
+  initializeHelpTooltips();
   bindTabs();
   bindControls();
   resetWorker();
   initializeApp();
 });
+
+function initializeHelpTooltips() {
+  for (const [controlId, help] of Object.entries(inputHelp)) {
+    const field = document.querySelector(`[data-help-for="${controlId}"]`);
+    const labelRow = field?.querySelector(".label-row");
+    if (!labelRow) continue;
+
+    const tooltipId = `tooltip-${controlId}`;
+    const button = document.createElement("button");
+    button.id = `help-button-${controlId}`;
+    button.className = "help-button";
+    button.type = "button";
+    button.textContent = "i";
+    button.setAttribute("aria-label", `${help.label} explanation`);
+    button.setAttribute("aria-describedby", tooltipId);
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("data-testid", `help-${controlId}`);
+
+    const tooltip = document.createElement("span");
+    tooltip.id = tooltipId;
+    tooltip.className = "help-tooltip";
+    tooltip.setAttribute("role", "tooltip");
+    tooltip.hidden = true;
+    tooltip.textContent = help.description;
+
+    button.addEventListener("mouseenter", () => openHelpTooltip(button));
+    button.addEventListener("focus", () => openHelpTooltip(button));
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      openHelpTooltip(button);
+    });
+    button.addEventListener("blur", () => closeHelpTooltip(button));
+    labelRow.addEventListener("mouseleave", () => closeHelpTooltip(button));
+
+    labelRow.append(button, tooltip);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeAllHelpTooltips();
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".label-row")) {
+      closeAllHelpTooltips();
+    }
+  });
+}
+
+function openHelpTooltip(button) {
+  closeAllHelpTooltips(button);
+  const tooltip = byId(button.getAttribute("aria-describedby"));
+  if (!tooltip) return;
+  tooltip.hidden = false;
+  button.dataset.open = "true";
+  button.setAttribute("aria-expanded", "true");
+}
+
+function closeHelpTooltip(button) {
+  const tooltip = byId(button.getAttribute("aria-describedby"));
+  if (!tooltip) return;
+  tooltip.hidden = true;
+  button.dataset.open = "false";
+  button.setAttribute("aria-expanded", "false");
+}
+
+function closeAllHelpTooltips(exceptButton = null) {
+  for (const button of document.querySelectorAll(".help-button")) {
+    if (button !== exceptButton) {
+      closeHelpTooltip(button);
+    }
+  }
+}
 
 function bindTabs() {
   for (const button of document.querySelectorAll(".tab-button")) {
