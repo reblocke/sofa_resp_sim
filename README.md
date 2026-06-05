@@ -138,6 +138,10 @@ GitHub history/PR refs may still contain publisher PDF blobs.
 
 ## Repository Notes
 
+### Description
+
+Simulation to explore SOFA respiratory score generation from EHR data at elevation
+
 ### Project Status
 
 No manuscript version is expected. Code and simulation text are repository-authored unless otherwise noted.
