@@ -20,7 +20,8 @@ checked-in evidence.
 | Uncertainty table schema is stable | `tests/contracts/test_reporting_uncertainty.py` |
 | Browser payloads are JSON serializable and structured | `tests/contracts/test_browser_contract.py` |
 | Web staging is allowlist-based and reproducible | `tests/contracts/test_stage_web_python.py` |
-| CLI help contract remains valid | `tests/workflows/test_cli_contract.py` |
+| Tracked tree, staged app data, and browser-visible keys remain public-safe | `tests/contracts/test_public_release_hygiene.py` |
+| CLI help, happy-path, and invalid-input contracts remain valid | `tests/workflows/test_cli_contract.py` |
 | Root docs and metadata do not drift to stale identities | `tests/contracts/test_repository_contract.py` |
 | Static app initializes and runs scenario/sweep workflows | `tests/e2e/test_web_app.py` |
 

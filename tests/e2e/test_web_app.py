@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import socket
 import subprocess
 import sys
@@ -10,6 +11,12 @@ from pathlib import Path
 
 import pytest
 from playwright.sync_api import Page, expect
+
+from sofa_resp_sim.browser_contract import (
+    get_app_config_payload,
+    run_scenario_payload,
+    run_sweep_payload,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 WEB_ROOT = ROOT / "web"
@@ -145,6 +152,211 @@ def test_input_help_tooltips_are_accessible(page: Page, web_server: str) -> None
     sweep_help.click()
     expect(sweep_tooltip).to_be_visible()
     expect(sweep_tooltip).to_contain_text("Comma-separated observation intervals")
+
+
+def test_run_buttons_show_in_place_busy_state(page: Page, web_server: str) -> None:
+    config_payload = get_app_config_payload()
+    scenario_payload = run_scenario_payload(
+        {
+            "request": {
+                **config_payload["defaults"],
+                "n_reps": 5,
+                "seed": 0,
+            },
+            "n_bootstrap": 10,
+            "ci_level": 0.9,
+            "uncertainty_seed": 0,
+        }
+    )
+    sweep_payload = run_sweep_payload(
+        {
+            "base_request": {
+                **config_payload["defaults"],
+                "n_reps": 2,
+                "seed": 0,
+            },
+            "obs_freq_minutes_values": [15, 60],
+            "noise_sd_values": [0.5],
+            "room_air_threshold_values": [92.0],
+            "heatmap_metric": "p_sofa_3plus",
+        }
+    )
+
+    worker_script = f"""
+const configPayload = {json.dumps(config_payload)};
+const scenarioPayload = {json.dumps(scenario_payload)};
+const sweepPayload = {json.dumps(sweep_payload)};
+self.onmessage = (event) => {{
+  const {{ id, type }} = event.data || {{}};
+  if (type === "init") {{
+    self.postMessage({{ id, type, payload: configPayload }});
+    return;
+  }}
+  if (type === "scenario") {{
+    setTimeout(() => {{
+      self.postMessage({{ id, type, payload: scenarioPayload }});
+    }}, 250);
+    return;
+  }}
+  if (type === "sweep") {{
+    setTimeout(() => {{
+      self.postMessage({{ id, type, payload: sweepPayload }});
+    }}, 250);
+  }}
+}};
+"""
+
+    page.route(
+        "**/pyodide_worker.js",
+        lambda route: route.fulfill(
+            status=200,
+            content_type="application/javascript",
+            body=worker_script,
+        ),
+    )
+
+    page.goto(web_server, wait_until="domcontentloaded")
+    expect(page.get_by_test_id("runtime-status")).to_contain_text("ready", timeout=10_000)
+
+    run_scenario = page.get_by_test_id("run-scenario")
+    run_sweep = page.get_by_test_id("run-sweep")
+    scenario_note = page.get_by_test_id("scenario-run-status")
+    sweep_note = page.get_by_test_id("sweep-run-status")
+
+    run_scenario.click()
+    expect(run_scenario).to_have_text("Running scenario...")
+    expect(run_scenario).to_have_attribute("aria-busy", "true")
+    expect(run_sweep).to_have_text("Scenario running...")
+    expect(run_sweep).to_be_disabled()
+    expect(scenario_note).to_contain_text("Scenario simulation in progress")
+
+    page.get_by_role("button", name="Sweep").click()
+    expect(sweep_note).to_contain_text("Scenario simulation is running in the other pane")
+    expect(page.get_by_test_id("runtime-status")).to_contain_text(
+        "Scenario complete",
+        timeout=10_000,
+    )
+    expect(run_scenario).to_have_text("Run scenario")
+    expect(run_scenario).to_be_enabled()
+    expect(run_sweep).to_have_text("Run sweep")
+    expect(scenario_note).to_be_hidden()
+    expect(sweep_note).to_be_hidden()
+
+    run_sweep.click()
+    expect(run_sweep).to_have_text("Running sweep...")
+    expect(run_sweep).to_have_attribute("aria-busy", "true")
+    expect(run_scenario).to_have_text("Sweep running...")
+
+    page.get_by_role("button", name="Scenario").click()
+    expect(scenario_note).to_contain_text("Sweep simulation is running in the other pane")
+    expect(page.get_by_test_id("runtime-status")).to_contain_text(
+        "Sweep complete",
+        timeout=10_000,
+    )
+    expect(run_scenario).to_have_text("Run scenario")
+    expect(run_sweep).to_have_text("Run sweep")
+    expect(scenario_note).to_be_hidden()
+    expect(sweep_note).to_be_hidden()
+
+
+def test_cancel_keeps_buttons_disabled_during_worker_reinitialization(
+    page: Page,
+    web_server: str,
+) -> None:
+    config_payload = get_app_config_payload()
+    scenario_payload = run_scenario_payload(
+        {
+            "request": {
+                **config_payload["defaults"],
+                "n_reps": 5,
+                "seed": 0,
+            },
+            "n_bootstrap": 10,
+            "ci_level": 0.9,
+            "uncertainty_seed": 0,
+        }
+    )
+    sweep_payload = run_sweep_payload(
+        {
+            "base_request": {
+                **config_payload["defaults"],
+                "n_reps": 2,
+                "seed": 0,
+            },
+            "obs_freq_minutes_values": [15, 60],
+            "noise_sd_values": [0.5],
+            "room_air_threshold_values": [92.0],
+            "heatmap_metric": "p_sofa_3plus",
+        }
+    )
+    worker_script = f"""
+const configPayload = {json.dumps(config_payload)};
+const scenarioPayload = {json.dumps(scenario_payload)};
+const sweepPayload = {json.dumps(sweep_payload)};
+self.onmessage = (event) => {{
+  const {{ id, type }} = event.data || {{}};
+  if (type === "init") {{
+    self.postMessage({{ type: "status", payload: {{ message: "Mock init pending" }} }});
+    setTimeout(() => {{
+      self.postMessage({{ id, type, payload: configPayload }});
+    }}, 500);
+    return;
+  }}
+  if (type === "scenario") {{
+    setTimeout(() => {{
+      self.postMessage({{ id, type, payload: scenarioPayload }});
+    }}, 1000);
+    return;
+  }}
+  if (type === "sweep") {{
+    setTimeout(() => {{
+      self.postMessage({{ id, type, payload: sweepPayload }});
+    }}, 1000);
+  }}
+}};
+"""
+
+    page.route(
+        "**/pyodide_worker.js",
+        lambda route: route.fulfill(
+            status=200,
+            content_type="application/javascript",
+            body=worker_script,
+        ),
+    )
+
+    page.goto(web_server, wait_until="domcontentloaded")
+    runtime_status = page.get_by_test_id("runtime-status")
+    run_scenario = page.get_by_test_id("run-scenario")
+    run_sweep = page.get_by_test_id("run-sweep")
+    toast = page.locator("#toast")
+
+    expect(runtime_status).to_contain_text("ready", timeout=10_000)
+
+    run_scenario.click()
+    expect(run_scenario).to_have_text("Running scenario...")
+    page.locator("#cancel-scenario").click()
+    expect(runtime_status).to_contain_text("Mock init pending")
+    expect(run_scenario).to_be_disabled()
+    expect(run_sweep).to_be_disabled()
+    expect(runtime_status).not_to_contain_text("Worker reset")
+    expect(toast).not_to_contain_text("Worker reset")
+    expect(runtime_status).to_contain_text("ready", timeout=10_000)
+    expect(run_scenario).to_be_enabled()
+    expect(run_sweep).to_be_enabled()
+
+    page.get_by_role("button", name="Sweep").click()
+    run_sweep.click()
+    expect(run_sweep).to_have_text("Running sweep...")
+    page.locator("#cancel-sweep").click()
+    expect(runtime_status).to_contain_text("Mock init pending")
+    expect(run_scenario).to_be_disabled()
+    expect(run_sweep).to_be_disabled()
+    expect(runtime_status).not_to_contain_text("Worker reset")
+    expect(toast).not_to_contain_text("Worker reset")
+    expect(runtime_status).to_contain_text("ready", timeout=10_000)
+    expect(run_scenario).to_be_enabled()
+    expect(run_sweep).to_be_enabled()
 
 
 def test_mode_guidance_and_tab_values_persist_in_session(page: Page, web_server: str) -> None:

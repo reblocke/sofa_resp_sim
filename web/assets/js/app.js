@@ -5,6 +5,8 @@ const state = {
   config: null,
   scenario: null,
   sweep: null,
+  busyKind: "idle",
+  operationGeneration: 0,
 };
 
 const inputHelp = {
@@ -136,6 +138,81 @@ const inputHelp = {
   "sweep-metric": {
     label: "Heatmap metric",
     description: "Summary metric used to color the sweep heatmap.",
+  },
+};
+
+const runControlStates = {
+  idle: {
+    scenario: {
+      label: "Run scenario",
+      disabled: false,
+      spinner: false,
+      ariaBusy: false,
+      busyKind: "idle",
+      note: "",
+    },
+    sweep: {
+      label: "Run sweep",
+      disabled: false,
+      spinner: false,
+      ariaBusy: false,
+      busyKind: "idle",
+      note: "",
+    },
+  },
+  initializing: {
+    scenario: {
+      label: "Run scenario",
+      disabled: true,
+      spinner: false,
+      ariaBusy: false,
+      busyKind: "initializing",
+      note: "",
+    },
+    sweep: {
+      label: "Run sweep",
+      disabled: true,
+      spinner: false,
+      ariaBusy: false,
+      busyKind: "initializing",
+      note: "",
+    },
+  },
+  scenario: {
+    scenario: {
+      label: "Running scenario...",
+      disabled: true,
+      spinner: true,
+      ariaBusy: true,
+      busyKind: "active",
+      note: "Scenario simulation in progress. Buttons re-enable when the worker finishes or you cancel.",
+    },
+    sweep: {
+      label: "Scenario running...",
+      disabled: true,
+      spinner: false,
+      ariaBusy: false,
+      busyKind: "blocked",
+      note: "Scenario simulation is running in the other pane. Wait for completion or cancel before starting a sweep.",
+    },
+  },
+  sweep: {
+    scenario: {
+      label: "Sweep running...",
+      disabled: true,
+      spinner: false,
+      ariaBusy: false,
+      busyKind: "blocked",
+      note: "Sweep simulation is running in the other pane. Wait for completion or cancel before starting a scenario.",
+    },
+    sweep: {
+      label: "Running sweep...",
+      disabled: true,
+      spinner: true,
+      ariaBusy: true,
+      busyKind: "active",
+      note: "Sweep simulation in progress. Buttons re-enable when the worker finishes or you cancel.",
+    },
   },
 };
 
@@ -307,10 +384,11 @@ function bindControls() {
 }
 
 async function initializeApp() {
+  const operationToken = startOperation("initializing");
   setRuntimeStatus("loading", "Starting Pyodide");
-  setBusy(true);
   try {
     const config = await requestWorker("init");
+    if (!isCurrentOperation(operationToken)) return;
     if (!config.ok) {
       throw new Error(config.error?.message || "Configuration failed.");
     }
@@ -322,10 +400,12 @@ async function initializeApp() {
     renderGuardrails(config.browser_guardrails);
     setRuntimeStatus("ready", "Pyodide ready");
   } catch (error) {
-    setRuntimeStatus("error", error.message);
-    toast(error.message);
+    if (isCurrentOperation(operationToken)) {
+      setRuntimeStatus("error", error.message);
+      toast(error.message);
+    }
   } finally {
-    setBusy(false);
+    finishOperation(operationToken);
   }
 }
 
@@ -351,8 +431,6 @@ function rejectPendingRequests(error) {
 
 function cancelWork() {
   resetWorker();
-  setRuntimeStatus("loading", "Worker reset");
-  setBusy(false);
   initializeApp();
 }
 
@@ -438,7 +516,7 @@ function collectScenarioRequest() {
 
 async function runScenario() {
   if (!state.config) return;
-  setBusy(true);
+  const operationToken = startOperation("scenario");
   setRuntimeStatus("loading", "Running scenario");
   try {
     const payload = await requestWorker("scenario", {
@@ -447,6 +525,7 @@ async function runScenario() {
       ci_level: Number(byId("scenario-ci-level").value),
       uncertainty_seed: Number(byId("scenario-seed").value),
     });
+    if (!isCurrentOperation(operationToken)) return;
     if (!payload.ok) {
       throw new Error(payload.error?.message || "Scenario failed.");
     }
@@ -454,10 +533,12 @@ async function runScenario() {
     renderScenario(payload);
     setRuntimeStatus("ready", "Scenario complete");
   } catch (error) {
-    setRuntimeStatus("error", error.message);
-    toast(error.message);
+    if (isCurrentOperation(operationToken)) {
+      setRuntimeStatus("error", error.message);
+      toast(error.message);
+    }
   } finally {
-    setBusy(false);
+    finishOperation(operationToken);
   }
 }
 
@@ -543,10 +624,11 @@ function updateSweepWorkload() {
 
 async function runSweep() {
   if (!state.config) return;
-  setBusy(true);
+  const operationToken = startOperation("sweep");
   setRuntimeStatus("loading", "Running sweep");
   try {
     const payload = await requestWorker("sweep", collectSweepRequest());
+    if (!isCurrentOperation(operationToken)) return;
     if (!payload.ok) {
       throw new Error(payload.error?.message || "Sweep failed.");
     }
@@ -554,10 +636,12 @@ async function runSweep() {
     renderSweep(payload);
     setRuntimeStatus("ready", "Sweep complete");
   } catch (error) {
-    setRuntimeStatus("error", error.message);
-    toast(error.message);
+    if (isCurrentOperation(operationToken)) {
+      setRuntimeStatus("error", error.message);
+      toast(error.message);
+    }
   } finally {
-    setBusy(false);
+    finishOperation(operationToken);
   }
 }
 
@@ -713,10 +797,43 @@ function bindDownload(id, filename, text, type = "text/csv") {
   };
 }
 
-function setBusy(isBusy) {
-  for (const id of ["run-scenario", "run-sweep"]) {
-    byId(id).disabled = isBusy;
+function startOperation(kind) {
+  const operationToken = ++state.operationGeneration;
+  setBusyState(kind);
+  return operationToken;
+}
+
+function isCurrentOperation(operationToken) {
+  return operationToken === state.operationGeneration;
+}
+
+function finishOperation(operationToken) {
+  if (isCurrentOperation(operationToken)) {
+    setBusyState("idle");
   }
+}
+
+function setBusyState(kind) {
+  state.busyKind = kind;
+  const controls = runControlStates[kind] || runControlStates.idle;
+  updateRunControl("run-scenario", "scenario-run-status", controls.scenario);
+  updateRunControl("run-sweep", "sweep-run-status", controls.sweep);
+}
+
+function updateRunControl(buttonId, noteId, config) {
+  const button = byId(buttonId);
+  const label = button.querySelector(".button-label");
+  const spinner = button.querySelector(".button-spinner");
+  const note = byId(noteId);
+
+  label.textContent = config.label;
+  button.disabled = config.disabled;
+  button.dataset.busyKind = config.busyKind;
+  button.setAttribute("aria-busy", String(config.ariaBusy));
+  spinner.hidden = !config.spinner;
+
+  note.textContent = config.note;
+  note.hidden = !config.note;
 }
 
 function setRuntimeStatus(stateName, message) {

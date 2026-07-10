@@ -76,16 +76,28 @@ from sofa_resp_sim.browser_contract import (
 
 ## CLI
 
+The CLI is the batch/export surface for local or scripted runs. It accepts
+comma-separated values for `--obs-freq`, `--noise-sd`, and
+`--room-air-threshold`, so a single command can run a small parameter sweep.
+Single values produce a one-cell sweep.
+
 ```bash
 uv run resp-sofa-sim --help
 uv run resp-sofa-sim --replicates 200 --obs-freq 15 --noise-sd 1.0 --room-air-threshold 94 --seed 0
+uv run resp-sofa-sim --replicates 100 --obs-freq 15,30,60 --noise-sd 0.5,1.0 --room-air-threshold 92,94 --seed 0 --output /tmp/sofa_resp_sweep.csv
 ```
+
+The first example is a one-cell sweep / single-configuration run. The second
+writes a multi-cell sweep summary to CSV.
+
+Invalid CLI inputs fail fast with validation errors printed to stderr instead of
+uncaught Python tracebacks.
 
 ## Web app
 
-The GitHub Pages app is static. JavaScript collects inputs, renders returned
-tables/charts, and downloads CSV/JSON exports. Scoring and simulation logic run
-inside Pyodide from staged Python source.
+The GitHub Pages app is the main interactive surface. JavaScript collects
+inputs, renders returned tables/charts, and downloads CSV/JSON exports. Scoring
+and simulation logic run inside Pyodide from staged Python source.
 
 ```bash
 make stage-web

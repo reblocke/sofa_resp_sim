@@ -218,11 +218,25 @@
             </div>
           </div>
           <div class="button-row">
-            <button class="primary" type="button" id="run-scenario" data-testid="run-scenario">
-              Run scenario
+            <button
+              class="primary run-button"
+              type="button"
+              id="run-scenario"
+              data-testid="run-scenario"
+              data-busy-kind="idle"
+            >
+              <span class="button-spinner" aria-hidden="true" hidden></span>
+              <span class="button-label">Run scenario</span>
             </button>
             <button class="secondary" type="button" id="cancel-scenario">Cancel</button>
           </div>
+          <p
+            class="run-status-note"
+            id="scenario-run-status"
+            data-testid="scenario-run-status"
+            aria-live="polite"
+            hidden
+          ></p>
         </aside>
 
         <section class="result-panel" aria-live="polite">
@@ -323,11 +337,25 @@
           </div>
           <p class="workload" id="sweep-workload">Workload estimate unavailable.</p>
           <div class="button-row">
-            <button class="primary" type="button" id="run-sweep" data-testid="run-sweep">
-              Run sweep
+            <button
+              class="primary run-button"
+              type="button"
+              id="run-sweep"
+              data-testid="run-sweep"
+              data-busy-kind="idle"
+            >
+              <span class="button-spinner" aria-hidden="true" hidden></span>
+              <span class="button-label">Run sweep</span>
             </button>
             <button class="secondary" type="button" id="cancel-sweep">Cancel</button>
           </div>
+          <p
+            class="run-status-note"
+            id="sweep-run-status"
+            data-testid="sweep-run-status"
+            aria-live="polite"
+            hidden
+          ></p>
         </aside>
 
         <section class="result-panel" aria-live="polite">
