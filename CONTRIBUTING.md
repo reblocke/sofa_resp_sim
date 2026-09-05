@@ -29,17 +29,13 @@ make serve
 - Summarize validation performed in the PR body.
 - Update canonical docs when behavior, commands, or outputs change.
 
-## Required checks before review
+## Checks before review
 
-```bash
-make test
-```
-
-If browser-facing code changed, also run:
-
-```bash
-make e2e
-```
+Documentation-only changes need affected-reference checks and `git diff --check`.
+For code changes, run affected tests and lint/format checks for touched code.
+Use `make test` when shared scoring/simulation behavior or broader integration changes.
+Browser code, worker, staging, or payload changes also require `make e2e`, which stages assets first.
+The full release checks remain in `docs/VALIDATION.md`.
 
 ## Code standards
 

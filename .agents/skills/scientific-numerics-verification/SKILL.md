@@ -6,7 +6,7 @@ description: Use when changing respiratory SOFA scoring, SpO2-to-PaO2 conversion
 Verification checklist:
 
 1. Run targeted scoring and simulation tests first.
-2. Re-run the full pytest suite after targeted checks pass.
+2. Run the full pytest suite when shared scoring/simulation behavior or reference distributions change, or targeted failures indicate wider impact. A fixture explanation or assertion-only edit needs the affected tests.
 3. Confirm invariants explicitly:
    - conversion edge behavior,
    - FiO2 prioritization/lookback logic,

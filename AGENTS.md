@@ -23,10 +23,9 @@ The static app lives in:
 3. Keep package metadata, docs, commands, and staged assets aligned with the real layout.
 4. Never commit PHI, patient-level raw extracts, restricted data, secrets, or publisher PDFs.
 
-## Use these skills
+## Task-specific workflows
+Use the relevant workflow under `.agents/skills/` when the named surface changes:
 
-- Use `$implementation-strategy` when changing scoring logic, simulation assumptions,
-  public schemas, package layout, browser payloads, or CLI contracts.
 - Use `$scientific-numerics-verification` when changing core scoring/simulation,
   scoring fixtures, reference distributions, or simulation assumptions.
 - Use `$pages-pyodide-verification` when changing `web/`,
@@ -40,9 +39,9 @@ The static app lives in:
   or documented artifact-generation evidence.
 - Use `$repo-governance-sync` when changing `.github/*`, contribution/security/
   support files, conduct files, or citation metadata.
-- Use `$pr-draft-summary` when work is ready for review.
 
 ## Canonical commands
+Select the command for the affected surface; this list is not an execution sequence for every change.
 
 ```bash
 uv sync --dev
@@ -78,7 +77,7 @@ uv run resp-sofa-sim --help
 
 ## Definition of done
 
-A change is not done until:
+An implementation request covers local edits, applicable verification, and fixes for regressions it causes. Resolve scientific changes to scoring/assumptions and publication decisions before dependent work. Documentation-only edits need affected-reference checks and `git diff --check`. For affected code or public behavior:
 - relevant tests pass,
 - lint/format checks pass for touched code,
 - canonical docs are updated if behavior or workflow changed,

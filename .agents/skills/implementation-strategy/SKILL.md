@@ -1,29 +1,13 @@
 ---
 name: implementation-strategy
-description: Use when changing respiratory scoring logic, simulation assumptions, public schemas, CLI contracts, package layout, or any other change that alters system behavior rather than presentation alone. Do not use for small doc-only or comment-only edits.
+description: Plan changes to respiratory scoring, simulation assumptions, public contracts, or package boundaries.
 ---
 
-Before editing code:
+# Implementation Strategy
 
-1. Identify the source-of-truth module(s).
-2. State the invariant(s) that must remain true.
-3. Identify:
-   - tests to update or add,
-   - docs to update,
-   - artifacts to update,
-   - any API or schema surfaces affected.
-4. Choose the smallest cohesive change set.
-5. Only then edit.
+Use a plan when scientific or interface choices need resolving. Inspect the affected source, invariants, tests, and evidence; identify the contract to preserve and the verification needed. Continue with authorized implementation once those choices are clear.
 
-Outputs to produce during the task:
-- a short plan,
-- the changed files,
-- the verification commands,
-- any unresolved risks.
-
-Specific to this repo:
-- scoring truth lives in `src/sofa_resp_sim/core/resp_scoring.py`,
-  `src/sofa_resp_sim/core/resp_utils.py`, and
-  `src/sofa_resp_sim/core/resp_simulation.py`
-- browser-facing code must call the Python contract instead of duplicating model logic
-- package identity must remain `sofa_resp_sim`
+- Scoring truth lives in `src/sofa_resp_sim/core/resp_scoring.py`, `src/sofa_resp_sim/core/resp_utils.py`, and `src/sofa_resp_sim/core/resp_simulation.py`.
+- Browser-facing code calls the Python contract instead of duplicating model logic.
+- Package identity remains `sofa_resp_sim`.
+- Changes to scoring assumptions or public schemas require an explicit decision; update affected docs and artifacts when that decision changes behavior.
