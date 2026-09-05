@@ -10,9 +10,9 @@ Checklist:
 3. Ensure the README and CONTRIBUTING use the same canonical commands.
 4. Ensure console scripts point at the correct modules.
 5. Ensure tests do not depend on stale package names or undocumented path hacks.
-6. If a lockfile is in use, refresh it in a connected environment.
+6. Update the lockfile only when dependency or build inputs require it; preserve unrelated locked versions.
 
-Suggested commands:
+For setup-prose edits, verify the affected command and path. For installation, dependency, or entrypoint changes, choose relevant checks from:
 ```bash
 uv sync --dev
 uv run python -c "import sofa_resp_sim"

@@ -11,25 +11,18 @@
 
 ## Review standards
 
-Every substantive change should include:
-- code changes,
-- validation evidence,
-- doc updates if behavior or workflow changed.
+Substantive changes should include relevant validation evidence and documentation
+updates when behavior or workflow changes.
 
-Minimum local verification for ordinary changes:
-
-```bash
-make test
-```
-
-For packaging, browser-facing, release, or public-facing documentation changes,
-also run:
-
-```bash
-make verify
-uv run python -m build
-uv run resp-sofa-sim --help
-```
+- Documentation-only edits need affected-reference checks and `git diff --check`.
+- Code changes need affected tests and lint/format checks for touched code. Use
+  `make test` for shared numerical behavior or broader integration changes.
+- Browser code, staging, worker, or payload changes need `make e2e`, which stages
+  assets first; verify returned Python results and export contracts.
+- Installation/build changes need `uv run python -m build`; console-entrypoint
+  changes need `uv run resp-sofa-sim --help` and the affected CLI tests.
+- Broad integration changes need `make verify`. Release/public-visibility work
+  retains the complete checks in `docs/VALIDATION.md`.
 
 ## Repository truthfulness rule
 

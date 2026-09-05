@@ -3,7 +3,7 @@ name: pages-pyodide-verification
 description: Use when changing `web/`, `scripts/stage_web_python.py`, `src/sofa_resp_sim/browser_contract.py`, browser presets/defaults, request validation, app exports, or Pages/Pyodide docs. Do not use for math-only changes that do not touch the browser-facing layer.
 ---
 
-Verification checklist:
+For documentation-only edits, check affected commands and references. Use the following checks when browser code, staging, presets, payloads, or runtime behavior changes:
 
 1. Re-run browser contract and staging tests.
 2. Re-stage web assets from source.
