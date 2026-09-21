@@ -34,7 +34,7 @@ def write_json(path, data):
 def write_csv(path, rows):
     fields = list(dict.fromkeys(k for row in rows for k in row))
     with path.open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields)
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(
             {k: json.dumps(v) if isinstance(v, (list, dict)) else v for k, v in row.items()}
@@ -413,6 +413,8 @@ def figures(contrasts):
         for extension in ("png", "svg"):
             p = OUT / f"{mechanism}.{extension}"
             fig.savefig(p, dpi=160)
+            if extension == "svg":
+                p.write_text("\n".join(line.rstrip() for line in p.read_text().splitlines()) + "\n")
             outputs.append({"path": p.name, "sha256": sha(p)})
         plt.close(fig)
         all_figures.append(

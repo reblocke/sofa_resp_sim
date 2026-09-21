@@ -1,12 +1,12 @@
 {
-  "table_provenance_sha256": "c39abbe26aea320b672d127c26f9bd3117aa5341cd36d538b9d02f51c66c55e8",
+  "table_provenance_sha256": "232f760997297a5d72ffd70701ef0324d6f5102da5a66af06bd272398c6c1f96",
   "figures": [
     {
       "mechanism": "density",
       "primary_outcome": "sofa_eligibility_C0",
       "selected_rows": 8,
       "source_table": "paired_contrasts.csv",
-      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "source_table_sha256": "9263d906a51ef9b51d89f3c01ae4852a8881fc85e0f205f7fb735da0186722df",
       "outputs": [
         {
           "path": "density.png",
@@ -14,7 +14,7 @@
         },
         {
           "path": "density.svg",
-          "sha256": "a092789056be8250be6ab10b61b8f610d6fa0872c95e1580bba2e488f8cd4de1"
+          "sha256": "9ec5a96e0496ac7053eaa85d4c0dfc40d0c17c120be8e4a3f87dfefd0aaca99c"
         }
       ],
       "visual_review_status": "reviewed_png",
@@ -29,7 +29,7 @@
       "primary_outcome": "eligible_observation_fraction",
       "selected_rows": 8,
       "source_table": "paired_contrasts.csv",
-      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "source_table_sha256": "9263d906a51ef9b51d89f3c01ae4852a8881fc85e0f205f7fb735da0186722df",
       "outputs": [
         {
           "path": "missing.png",
@@ -37,7 +37,7 @@
         },
         {
           "path": "missing.svg",
-          "sha256": "d96ce2401634b61c69d1fe45a01672a8a73c641737d5c26dd6eb5ffd833d375c"
+          "sha256": "931f8c1bd625c5e711eb4f61764d2775004396e03a6349f971a24cc771725577"
         }
       ],
       "visual_review_status": "reviewed_png",
@@ -52,7 +52,7 @@
       "primary_outcome": "eligible_observation_fraction",
       "selected_rows": 8,
       "source_table": "paired_contrasts.csv",
-      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "source_table_sha256": "9263d906a51ef9b51d89f3c01ae4852a8881fc85e0f205f7fb735da0186722df",
       "outputs": [
         {
           "path": "timing.png",
@@ -60,7 +60,7 @@
         },
         {
           "path": "timing.svg",
-          "sha256": "4c42b43e8d324ebe588a8995cd4f90da785f8dedfc1910dffe58e01ba6452b5c"
+          "sha256": "1ffe91b609ac379f95752df6d97249fcb59938313f920e70cd1d4e43debcb846"
         }
       ],
       "visual_review_status": "reviewed_png",
@@ -75,7 +75,7 @@
       "primary_outcome": "delta_evaluable_ge1",
       "selected_rows": 8,
       "source_table": "paired_contrasts.csv",
-      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "source_table_sha256": "9263d906a51ef9b51d89f3c01ae4852a8881fc85e0f205f7fb735da0186722df",
       "outputs": [
         {
           "path": "baseline_density.png",
@@ -83,7 +83,7 @@
         },
         {
           "path": "baseline_density.svg",
-          "sha256": "f7946ec7620fddde40b0e183b67a30142fd641622a84d30c9383d35606c0fa61"
+          "sha256": "5fbddaf08f592d1ef3b84b99d604820233c18b6b0f7c99d58b7565af87b25124"
         }
       ],
       "visual_review_status": "reviewed_png",
@@ -98,7 +98,7 @@
       "primary_outcome": "delta_evaluable_ge1",
       "selected_rows": 8,
       "source_table": "paired_contrasts.csv",
-      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "source_table_sha256": "9263d906a51ef9b51d89f3c01ae4852a8881fc85e0f205f7fb735da0186722df",
       "outputs": [
         {
           "path": "history.png",
@@ -106,7 +106,7 @@
         },
         {
           "path": "history.svg",
-          "sha256": "8e5da876d29201271e24aa69cf429b7df6ac1e867196eea776532f656e82504b"
+          "sha256": "ba2a763af5953f75b0b6ef8984abb1949086b1be689098f9352a41202ec384bf"
         }
       ],
       "visual_review_status": "reviewed_png",
@@ -121,7 +121,7 @@
       "primary_outcome": "delta_evaluable_ge1",
       "selected_rows": 8,
       "source_table": "paired_contrasts.csv",
-      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "source_table_sha256": "9263d906a51ef9b51d89f3c01ae4852a8881fc85e0f205f7fb735da0186722df",
       "outputs": [
         {
           "path": "alignment.png",
@@ -129,7 +129,7 @@
         },
         {
           "path": "alignment.svg",
-          "sha256": "d646c7d24ee6aa05ed3d0f19cd63405a2eb8566d1f7857377dc16628ee5d12ec"
+          "sha256": "b0ad00146e963eb8c702e6cd545c838ce93c12a532cc87a414cf98bf914b32cd"
         }
       ],
       "visual_review_status": "reviewed_png",

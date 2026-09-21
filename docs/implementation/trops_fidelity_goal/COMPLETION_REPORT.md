@@ -27,7 +27,7 @@ remain preserved. No SQL, grants, real records or restricted adapters were added
 
 ## Verification and reproducibility
 
-- Final code checkpoint: `3640987c8ca9d63443afa9fc03af89d0af67bfd6`.
+- Scientific and browser code checkpoint: `3640987c8ca9d63443afa9fc03af89d0af67bfd6`.
 - Exact full-reference package checkpoint: `fc1f3b142f25e6bfd5a2f72d294246ef0b782182`.
   References ran from identical uncommitted package bytes before that checkpoint
   was created. Final formatting/import ordering changed two byte hashes;
@@ -47,7 +47,9 @@ remain preserved. No SQL, grants, real records or restricted adapters were added
 [Verification receipts](../../../artifacts/trops_sensitivity_v1/acceptance/verification_runs.json)
 retain commands, logs, runtime/source hashes and the resolved initial browser
 failure. [Source revisions](../../../artifacts/trops_sensitivity_v1/acceptance/source_revision.json)
-identify exact reproduction requirements. No push, merge or deployment was
+identify exact reproduction requirements. Compact CSV line endings and SVG trailing whitespace were subsequently normalized
+for Git-portable hashes; artifact checks and both evidence tests passed again.
+No push, merge or deployment was
 performed for this phase; remote CI is not claimed.
 
 ## Reference findings

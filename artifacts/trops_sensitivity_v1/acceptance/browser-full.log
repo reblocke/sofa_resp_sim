@@ -12,8 +12,8 @@ investigation_server = 'http://127.0.0.1:64795'
         expect(page.locator("#runtime")).to_have_text("Python ready", timeout=120000)
 >       page.locator("#entry").select_option("H_missing_historical")
 
-tests/e2e/test_experiment_app.py:360: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/e2e/test_experiment_app.py:360:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .venv/lib/python3.11/site-packages/playwright/sync_api/_generated.py:17630: in select_option
     self._sync(
 .venv/lib/python3.11/site-packages/playwright/_impl/_locator.py:597: in select_option
@@ -23,7 +23,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .venv/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
     return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <playwright._impl._connection.Connection object at 0x10a5a7410>
 cb = <function Channel.send.<locals>.<lambda> at 0x10c805800>
@@ -38,7 +38,7 @@ is_internal = False, title = None
         st: List[inspect.FrameInfo] = getattr(
             task, "__pw_stack__", None
         ) or inspect.stack(0)
-    
+
         parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
         self._api_zone.set(parsed_st)
         try:

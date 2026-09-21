@@ -11,5 +11,6 @@
   "all_ledger_evidence_paths_resolve": true,
   "canonical_links_resolve": true,
   "verification_log_hashes_match": true,
-  "code_unchanged_from_tested_checkpoint": "3640987c8ca9d63443afa9fc03af89d0af67bfd6"
+  "scientific_browser_and_test_code_unchanged_from_checkpoint": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+  "evidence_portability": "CSV LF and SVG trailing-whitespace normalization only; artifact verification and two evidence tests repeated successfully."
 }

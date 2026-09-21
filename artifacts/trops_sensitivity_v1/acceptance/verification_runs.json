@@ -44,11 +44,12 @@
       "command": "uv run pytest -q tests/e2e",
       "exit_code": 1,
       "log": "artifacts/trops_sensitivity_v1/acceptance/browser-full.log",
-      "log_sha256": "e5a36f5c95328565e9cf320c9b8ad7444beaa16cca2d39b96fd2407c4e7d8c2f",
+      "log_sha256": "6cb983330be1d00f3534138b5081b7aaac5f5404a32ef2e6291f96c1ad54cdb2",
       "scope": "20 passed; the new historical selector case failed because saved v2 catalogue was not refreshed. Resolved by browser-final plus startup regression tests.",
       "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
       "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
-      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00",
+      "log_normalization": "Trailing whitespace removed from retained log; original full log remains locally in /tmp/sofa-historical-browser.log."
     },
     {
       "id": "browser-final",
