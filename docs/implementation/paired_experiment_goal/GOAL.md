@@ -1,9 +1,9 @@
 # Paired respiratory SOFA workbench goal
 
-Status: active implementation goal, adopted after preparation on 2026-09-20.
+Status: implementation acceptance complete on 2026-09-21; adopted after preparation on 2026-09-20.
 Progress and verified scope are recorded in `../sofa_experiment_v2_status.md`.
 
-The text below defines the active implementation endpoint. The companion
+The text below defines the accepted implementation endpoint. The companion
 [plan](PLAN.md) specifies the sequence and end state; the
 [acceptance ledger](ACCEPTANCE.json) defines the evidence required for completion.
 The acceptance ledger records implementation state without treating partial

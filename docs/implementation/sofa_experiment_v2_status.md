@@ -3,7 +3,11 @@
 The accepted goal is `paired_experiment_goal/PLAN.md`; the original source pack
 remains preserved under `paired_experiment_goal/source/`. Work is on
 `codex/paired-experiment-workbench`, based on commit
-`76ac9c3b670543380c19957450c215581b508f6f`. The goal is active, not certified complete.
+`76ac9c3b670543380c19957450c215581b508f6f`. Implementation acceptance is complete at commit
+`7479034585f31bd70e41d0374373e80a4992a054`. All A01–A28 and G01–G06 pass.
+[Matching-commit CI](https://github.com/reblocke/sofa_resp_sim/actions/runs/35574543590)
+passed all steps; `paired_experiment_goal/COMPLETION_RECEIPT.json` preserves the
+counts, runtime versions and receipt hashes.
 
 ## Implemented
 
@@ -32,7 +36,7 @@ The historical scenario/sweep interface remains at `web/legacy.html`.
 CI now includes formatting, lint, catalogue checks, native/scientific tests,
 Chromium E2E/native-Pyodide parity and clean-wheel reproduction. Pages calls the
 same-commit reusable CI workflow before building or deploying. Local Actionlint
-validation passes; actual remote CI remains required.
+validation and matching-commit remote CI pass.
 
 ## Verified evidence
 
@@ -46,8 +50,9 @@ validation passes; actual remote CI remains required.
   `artifacts/local/acceptance/final_integration_checkpoint.json`. Its 96-file
   source snapshot was rechecked unchanged after completion.
 - Subsequent acceptance review added one direct source-label scoring assertion;
-  all 28 scoring-profile tests pass (`source_label_audit.xml`). Only that test
-  file changed after the full checkpoint; scientific/browser code is unchanged.
+  all 28 scoring-profile tests pass (`source_label_audit.xml`). The subsequent
+  full remote suite includes that assertion and the audited portability fixtures;
+  scientific/browser code is unchanged.
 - Actual native/Pyodide comparison checks exact discrete fields and unrounded
   floats at prespecified atol/rtol 1e-10. Runtime float-byte checksums remain
   separate from scientific patient identity.
@@ -63,7 +68,7 @@ validation passes; actual remote CI remains required.
   `artifacts/local/acceptance/preview_runtime.json`. These are not idle-machine
   latency guarantees; window heap measurements do not measure worker/Wasm peak.
 
-## Remaining acceptance work
+## Final acceptance audit
 
 Compact reference tables, fixed traces, all 36 primary figures and findings have
 been generated. All 36 primary PNGs and eight deterministic PNGs have exact-hash
@@ -75,12 +80,24 @@ ventilation titles; all regenerated primary images were inspected again.
 The fixed patient-0 trace selection spans E1-E6 and all four strata without
 selection by observed effect size.
 
-The requirement-by-requirement local audit is complete: A01–A28 and G01–G04/G06
-pass with test, runtime, artifact and visual evidence in the acceptance ledger.
-Git attributes preserve exact reference CSV and supplied source bytes; staged
-hash checks and public-file hygiene pass. G05 remains open until the reviewed
-implementation is committed and matching-commit remote CI passes. The goal is
-not complete until that evidence and the final delivery report are recorded.
+The requirement-by-requirement audit is complete. Remote Linux CI passed 314
+native/scientific tests and 19 browser/parity tests with no failures or skips,
+plus locked installation, formatting, lint, staging, frozen catalogue, reviewed
+reference verification, package build and fresh-wheel reproduction. Native versus
+Pyodide latent outputs had maximum absolute difference 0 in this run, within the
+prespecified 1e-10 absolute/relative bounds; discrete comparisons were exact.
+
+The first Linux run exposed five last-bit FiO2 differences in one legacy seed
+and Git's historical CSV line-ending normalization. The legacy numerical modules
+remain byte-unchanged from baseline. Exact audited Mac and Linux snapshot hashes
+and original/canonical CSV hashes now cover these known platform differences;
+new unexpected differences still fail. See `docs/VALIDATION.md`.
+
+Git attributes preserve reference CSV and supplied source bytes. The final
+source pack hash audit, public-file hygiene and artifact provenance checks pass.
+Delivery is on `codex/paired-experiment-workbench`; merge, release and hosted
+publication are separate decisions. The final documentation commit is subjected
+to the same CI before the goal is closed; its run is reported with delivery.
 
 ## Scientific limits and decisions
 

@@ -1,0 +1,212 @@
+{
+  "implementation_commit": "7479034585f31bd70e41d0374373e80a4992a054",
+  "ci_url": "https://github.com/reblocke/sofa_resp_sim/actions/runs/35574543590",
+  "conclusion": "success",
+  "native_tests": 314,
+  "browser_tests": 19,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "runtime_parity": {
+    "scope": "v2 paired API, generation, documentation, scoring and interval components",
+    "status": "passed",
+    "pyodide": "0.29.0",
+    "python": "3.11.16",
+    "native_versions": {
+      "numpy": "2.4.4",
+      "pandas": "3.0.2",
+      "scipy": "1.17.1",
+      "tzdata": "2026.1"
+    },
+    "browser_versions": {
+      "numpy": "2.2.5",
+      "pandas": "2.3.2",
+      "scipy": "1.14.1",
+      "tzdata": "2025.2"
+    },
+    "staging_manifest_sha256": "22d28830a1a38e45146c7578e8bc8e30495c4b6ed8accb7104e397e78b87c2b1",
+    "atol": 1e-10,
+    "rtol": 1e-10,
+    "max_absolute_latent_difference": 0.0
+  },
+  "clean_wheel_reproduction": {
+    "status": "verified",
+    "scientific_data_sha256": "c53f7d300778b3d7f43fca381e84fa3b17b02878967be5cd68996b373de0342b",
+    "scope": "Fresh locked wheel outside checkout; exact scientific reproduction",
+    "imported_package": "/tmp/sofa-clean-install-1gobms9i/venv/lib/python3.11/site-packages/sofa_resp_sim/__init__.py",
+    "commands": [
+      {
+        "command": [
+          "uv",
+          "export",
+          "--locked",
+          "--no-dev",
+          "--no-emit-project",
+          "--format",
+          "requirements-txt"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "uv",
+          "venv",
+          "--python",
+          "/home/runner/work/sofa_resp_sim/sofa_resp_sim/.venv/bin/python",
+          "/tmp/sofa-clean-install-1gobms9i/venv"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "uv",
+          "pip",
+          "install",
+          "--python",
+          "/tmp/sofa-clean-install-1gobms9i/venv/bin/python",
+          "-r",
+          "/tmp/sofa-clean-install-1gobms9i/requirements.txt",
+          "/home/runner/work/sofa_resp_sim/sofa_resp_sim/dist/sofa_resp_sim-0.1.0-py3-none-any.whl"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/tmp/sofa-clean-install-1gobms9i/venv/bin/python",
+          "-c",
+          "import sofa_resp_sim; print(sofa_resp_sim.__file__)"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/home/runner/work/sofa_resp_sim/sofa_resp_sim/.venv/bin/python",
+          "-m",
+          "sofa_resp_sim.workflows.experiment_cli",
+          "run",
+          "--request",
+          "/tmp/sofa-clean-install-1gobms9i/request.json",
+          "--output",
+          "/tmp/sofa-clean-install-1gobms9i/original"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/tmp/sofa-clean-install-1gobms9i/venv/bin/resp-sofa-experiment",
+          "--help"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/tmp/sofa-clean-install-1gobms9i/venv/bin/resp-sofa-experiment",
+          "reproduce",
+          "/tmp/sofa-clean-install-1gobms9i/original",
+          "--output",
+          "/tmp/sofa-clean-install-1gobms9i/reproduced.zip"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/tmp/sofa-clean-install-1gobms9i/venv/bin/resp-sofa-experiment",
+          "verify-bundle",
+          "/tmp/sofa-clean-install-1gobms9i/reproduced.zip"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "log_path": "/home/runner/work/sofa_resp_sim/sofa_resp_sim/artifacts/local/acceptance/clean_experiment_install.log",
+    "temporary_environment_removed_after_check": true
+  },
+  "receipt_sha256": {
+    "ci_native.xml": "7367ba038e8e298a2daec731254708b2012e4660d122c5bbc46ba75616bcb4c3",
+    "ci_browser.xml": "02bb1f8f260413a0fd425f8944b9951ee1dd4106240eff308132e803adbba0a7",
+    "runtime_probe.json": "f612ae3e136258ddfc13a538529884ffbd684a5499e1645f2df885bd014e8158",
+    "clean_experiment_install.json": "1ea613379d9b01b279229044cab4a6fe144370ffdc379c61b2303d9054d9f365"
+  },
+  "reference_evidence": {
+    "source_bundles": 72,
+    "primary_figures_reviewed": 36,
+    "rule_figures_reviewed": 8
+  },
+  "ci_steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Check out repository",
+      "conclusion": "success"
+    },
+    {
+      "name": "Set up Python",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install uv",
+      "conclusion": "success"
+    },
+    {
+      "name": "Sync environment",
+      "conclusion": "success"
+    },
+    {
+      "name": "Stage web assets",
+      "conclusion": "success"
+    },
+    {
+      "name": "Check formatting",
+      "conclusion": "success"
+    },
+    {
+      "name": "Lint",
+      "conclusion": "success"
+    },
+    {
+      "name": "Check frozen experiment catalogue",
+      "conclusion": "success"
+    },
+    {
+      "name": "Native and scientific tests",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify reviewed reference evidence",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install browser",
+      "conclusion": "success"
+    },
+    {
+      "name": "Browser behavior and native-Pyodide parity",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build and reproduce from a fresh locked wheel",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve validation receipts",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Install uv",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Set up Python",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Check out repository",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ]
+}

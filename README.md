@@ -200,7 +200,7 @@ new manifest. Unknown scientific versions still fail.
 Use `make experiments-smoke` for native mechanism/bundle checks and
 `make experiments-install-check` for an isolated locked wheel reproduction.
 The full reference collection is in `artifacts/experiments_v2/`, with reviewed
-figures, source hashes and interpretation. The final delivery audit remains pending.
+figures, source hashes and interpretation. The completed delivery audit is recorded in `docs/implementation/sofa_experiment_v2_status.md`.
 
 `make experiments-reference` runs the complete frozen catalogue at 2,000 paired
 patients per stochastic stratum (one for the deterministic episode). It retains
