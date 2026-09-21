@@ -36,6 +36,10 @@ def test_seeded_legacy_snapshots(case):
     )
     observed = simulate_encounter(config, np.random.default_rng(case["seed"]))
     encoded = observed.to_json(orient="records", double_precision=15, date_format="epoch").encode()
+    if hashlib.sha256(encoded).hexdigest() != case["observation_json_sha256"]:
+        output = ROOT / "artifacts/local/acceptance"
+        output.mkdir(parents=True, exist_ok=True)
+        (output / f"legacy_observation_mismatch_seed_{case['seed']}.json").write_bytes(encoded)
     assert hashlib.sha256(encoded).hexdigest() == case["observation_json_sha256"]
 
 

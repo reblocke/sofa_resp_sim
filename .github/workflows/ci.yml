@@ -43,6 +43,9 @@ jobs:
       - name: Native and scientific tests
         run: uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/ci_native.xml
 
+      - name: Verify reviewed reference evidence
+        run: uv run python scripts/verify_experiment_evidence.py
+
       - name: Install browser
         run: uv run playwright install --with-deps chromium
 

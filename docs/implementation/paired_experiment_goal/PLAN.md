@@ -232,22 +232,28 @@ uv run python -m build
 uv run resp-sofa-sim --help
 ```
 
-Select focused commands from the ledger during development. The following are
-future contracts to implement; they do not exist yet:
+Select focused commands from the ledger during development. The implemented CLI
+uses `--request` for normalized JSON, `--output` for new output paths, and a
+positional bundle argument. These operational examples supersede the planning
+flag spellings; the scientific and evidence requirements remain unchanged:
 
 ```bash
 uv run resp-sofa-experiment list
-uv run resp-sofa-experiment run --config experiments/observation_density.json --replicates 200 --out artifacts/local/density
-uv run resp-sofa-experiment explain --bundle artifacts/local/density --patient-id 0 --out artifacts/local/patient_0
-uv run resp-sofa-experiment verify-bundle --bundle artifacts/local/density
-uv run resp-sofa-experiment reproduce --bundle artifacts/local/density --out artifacts/local/density_reproduced
+uv run resp-sofa-experiment run --entry E1_density --stratum room_air --replicates 200 --output artifacts/local/density
+uv run resp-sofa-experiment explain artifacts/local/density --patient 0 --condition CONDITION_ID
+uv run resp-sofa-experiment verify-bundle artifacts/local/density
+uv run resp-sofa-experiment reproduce artifacts/local/density --output artifacts/local/density_reproduced
 make experiments-smoke
 make experiments-reference
 ```
 
 `experiments-smoke` must enumerate every required experiment/submode and fail on
 omissions. `experiments-reference` generates the prespecified full demonstrations
-and figure data. Full bundles/logs belong in ignored `artifacts/local/` outputs.
+and source figure data in verified bundles. The summarization and rendering
+commands in `docs/VALIDATION.md` create the compact reviewed collection.
+`CONDITION_ID` is taken from the bundle request or scores table; `explain` writes
+the selected trace as JSON to stdout. Full bundles/logs belong in ignored
+`artifacts/local/` outputs.
 Small reproducible summaries, chosen traces and figure-data manifests belong in
 `artifacts/experiments_v2/` with inventory and generation instructions. Put the
 final human-readable report in `docs/implementation/sofa_experiment_v2_status.md`;
