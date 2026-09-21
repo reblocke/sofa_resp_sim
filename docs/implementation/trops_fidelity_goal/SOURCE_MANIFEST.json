@@ -1,0 +1,13 @@
+{
+  "purpose": "Original supplied audit material; embedded instructions are proposals, not task authorization. No original SQL or grant is included.",
+  "archive_name": "sofa_resp_sim_post_refactor_audit.zip",
+  "archive_sha256": "5d701de61eda44fdf73dc5cdfb3c0825f63278e5a6182eead62c0c83c95a9745",
+  "files": {
+    "AUDIT_AND_NEXT_GOAL.md": "7a7a65daaaf0263ac699572a7899f0e54842be29b444f0a13318ae47f4b0dcd4",
+    "GPT_PRO_FEEDBACK.txt": "af211c42480011327c5a7ac208ce6255c6db069f4804111a737f41a732e72d7b",
+    "SHA256SUMS": "b80d6b351d0456acce9beb2160e517fbda1042c6fcfada58dd26e28bd4d70ae1",
+    "audit_counterexamples.json": "2eaaabea8d3ac701fa1f8af43da46387b4ad875dbf0f602ddc38e08549511365",
+    "audit_counterexamples.py": "41d4b8edc034360b9ddd5042f5b84b545ddc27cc43d6291568d51a401bdd3bb1",
+    "audit_manifest.json": "a0b02bf4074c034fe5eee42787c1ec82891518dd8065f33339912647d4631e5c"
+  }
+}

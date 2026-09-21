@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "indexed_artifact_files_byte_identical_to_verified_worktree": 103,
+  "reviewed_png_hashes_unchanged": true,
+  "normalization": "Compact evidence CSV uses LF; SVG and retained failure log have no trailing whitespace. Raw source packet and original v2 evidence unchanged.",
+  "script": "scripts/build_historical_evidence.py",
+  "script_sha256": "947167cfdce06ec4b6343cda2f2939e4590922f94037cea87ba1dd217fe2857b",
+  "tests": "uv run pytest -q tests/workflows/test_historical_evidence.py",
+  "test_exit_code": 0,
+  "test_log": "artifacts/trops_sensitivity_v1/acceptance/portability-tests.log",
+  "test_log_sha256": "99db33d5c94c6f7da021687c7391181685cc33299c5435b1c861e2db3be3ec87"
+}

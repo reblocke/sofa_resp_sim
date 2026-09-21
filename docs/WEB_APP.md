@@ -161,3 +161,12 @@ The baseline-opportunity matrix uses a declared color range. Signed probability
 changes share a -100 to +100 percentage-point range centered on white zero;
 unavailable cells are gray and labeled U. Count outcomes use a labeled symmetric
 range for paired differences. Numeric labels remain visible independently of color.
+
+## Historical sensitivity extension
+
+The v3 historical profile, normalized context boundary, conditional C views and
+qualification limits are documented in [TROPS_SCORING_CONTRACT.md](TROPS_SCORING_CONTRACT.md).
+The original v2 contract and reference evidence remain preserved. New frozen
+requests live in `experiments/trops_v1/`; new evidence uses
+`artifacts/trops_sensitivity_v1/`. Historical mapping is not SQL execution
+validation or current-production equivalence.

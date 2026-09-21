@@ -9,10 +9,31 @@ import numpy as np
 
 from ..core.experiment_config import fingerprint
 from ..core.experiment_scoring import score_documented_events
+from ..core.historical_trops import profile_provenance, synthetic_context
 from ..core.observation import document_patient, support_trajectory
 from ..core.paired_simulation import generate_patient
-from .experiment_request import ExperimentRequest, normalize_experiment_request
+from .experiment_request import V3, ExperimentRequest, normalize_experiment_request
 from .experiment_results import summarize_paired_scores
+from .historical_results import score_diagnostics, summarize_v3
+
+
+def result_schema(request):
+    return "experiment_result_v3" if request.schema_version == V3 else "experiment_result_v2"
+
+
+def summarize_request(request, scores):
+    return (summarize_v3 if request.schema_version == V3 else summarize_paired_scores)(
+        scores, request.comparator.condition_id
+    )
+
+
+def _document(request, patient, config):
+    events = document_patient(patient, config)
+    return (
+        synthetic_context(events, config.horizon.admit_dts)
+        if request.schema_version == V3
+        else events
+    )
 
 
 def _conditions(request):
@@ -49,6 +70,7 @@ def _score_row(request, patient_id, condition, latent_id, support_id, result):
     acute, baseline = result["acute"], result["baseline"]
     return {
         "experiment_run_id": request.run_id,
+        **(score_diagnostics(result) if request.schema_version == V3 else {}),
         "patient_id": patient_id,
         "condition_id": condition.condition_id,
         "condition_label": condition.label,
@@ -97,7 +119,7 @@ def _iter_patient_results(
             observation_config.pop("scoring")
             event_key = fingerprint(observation_config)
             if event_key not in event_cache:
-                event_cache[event_key] = document_patient(patient, config)
+                event_cache[event_key] = _document(request, patient, config)
             support_key = fingerprint(
                 {
                     "latent": latent_key,
@@ -159,7 +181,7 @@ def run_experiment(
             raise ValueError("Append must increase N without changing the original request")
         expected = {(p, c) for p in range(old.replicates) for c in _conditions(old)}
         if (
-            previous.get("schema_version") != "experiment_result_v2"
+            previous.get("schema_version") != result_schema(request)
             or previous.get("completed_patients") != old.replicates
             or previous.get("attempted_patients") != old.replicates
             or previous.get("experiment_run_id") != old.run_id
@@ -207,11 +229,21 @@ def run_experiment(
     ):
         warnings.append("Support assignment stress test; not a physiological treatment response")
     return {
-        "schema_version": "experiment_result_v2",
+        "schema_version": result_schema(request),
+        **(
+            {
+                "profile_provenance": {
+                    c.condition_id: profile_provenance(c.config.scoring)
+                    for c in _conditions(request).values()
+                }
+            }
+            if request.schema_version == V3
+            else {}
+        ),
         "experiment_run_id": request.run_id,
         "request": request.to_dict(),
         "scores": scores,
-        **summarize_paired_scores(scores, request.comparator.condition_id),
+        **summarize_request(request, scores),
         "completed_patients": request.replicates,
         "attempted_patients": request.replicates,
         "append_parent_run_id": previous["experiment_run_id"] if previous else None,
@@ -244,7 +276,7 @@ def explain_patient(
     config = condition.config
     patient = generate_patient(config.generator, config.horizon, request.seed, patient_id)
     result = score_documented_events(
-        document_patient(patient, config), config.horizon.admit_dts, config.scoring
+        _document(request, patient, config), config.horizon.admit_dts, config.scoring
     )
     row = _score_row(
         request, patient_id, condition, patient.identity, _support_identity(patient, config), result

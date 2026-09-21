@@ -1,0 +1,422 @@
+[
+  {
+    "entry": "H_alignment_experimental",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_alignment_experimental__hfnc__patient0.json",
+    "sha256": "74882d69327a1a516f2bd1d8a9261bb41056d15d7104e27164e927f96fbfe03e"
+  },
+  {
+    "entry": "H_alignment_experimental",
+    "stratum": "hfnc",
+    "patient_id": 338,
+    "path": "traces/H_alignment_experimental__hfnc__patient338.json",
+    "sha256": "2c380d17d4ea1f149a06add05e569b6c81020523a6fdeb6da8fa79b12d8cc551"
+  },
+  {
+    "entry": "H_alignment_experimental",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_alignment_experimental__imv__patient0.json",
+    "sha256": "1a3fa7a6b3d46b5270b68b57696b603923cda77feb5b4b52c5be49708249c3d0"
+  },
+  {
+    "entry": "H_alignment_experimental",
+    "stratum": "imv",
+    "patient_id": 338,
+    "path": "traces/H_alignment_experimental__imv__patient338.json",
+    "sha256": "f39e719347b663b62b423567bc44560acc250febdc883ddf472767caba9d9966"
+  },
+  {
+    "entry": "H_alignment_experimental",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_alignment_experimental__low_flow__patient0.json",
+    "sha256": "31c4b9e5740ffa7ed54c057ed94d35681a947d156e35a24672bf9c7753a0619d"
+  },
+  {
+    "entry": "H_alignment_experimental",
+    "stratum": "low_flow",
+    "patient_id": 338,
+    "path": "traces/H_alignment_experimental__low_flow__patient338.json",
+    "sha256": "6504271b969b06afe595e15a2f215fba2af9fd8748dbec3e50bb2f54bb693e62"
+  },
+  {
+    "entry": "H_alignment_experimental",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_alignment_experimental__room_air__patient0.json",
+    "sha256": "32f4b385241992cfa66f38e401975dc3372876459798da0631022d6cfd34fe07"
+  },
+  {
+    "entry": "H_alignment_experimental",
+    "stratum": "room_air",
+    "patient_id": 338,
+    "path": "traces/H_alignment_experimental__room_air__patient338.json",
+    "sha256": "676534eae329e695e0b01f338095164e350ae9f7570f157df08350cdc3f01d49"
+  },
+  {
+    "entry": "H_alignment_historical",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_alignment_historical__hfnc__patient0.json",
+    "sha256": "cf3bcce890bac9051b0a3ca9c2a3eb8d5b66d558df12a7c26e80e180d18530a2"
+  },
+  {
+    "entry": "H_alignment_historical",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_alignment_historical__imv__patient0.json",
+    "sha256": "e0b1f5099927c93c5b4b961b4aaf6b60d29c33993de95ad1202ddbf7daeee6c6"
+  },
+  {
+    "entry": "H_alignment_historical",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_alignment_historical__low_flow__patient0.json",
+    "sha256": "a1b1c36d528dbbc8085f79a5fa1c0916db956beedeb45920055137f12407087c"
+  },
+  {
+    "entry": "H_alignment_historical",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_alignment_historical__room_air__patient0.json",
+    "sha256": "884435332585b1447d70d4851777809e31924da9919aaf2b606675d9ab46c5da"
+  },
+  {
+    "entry": "H_baseline_density_experimental",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_baseline_density_experimental__hfnc__patient0.json",
+    "sha256": "94ad662b3b454fa93a6bfb4e139e483c1ee410099432bd568f3ac3ca82a83b2d"
+  },
+  {
+    "entry": "H_baseline_density_experimental",
+    "stratum": "hfnc",
+    "patient_id": 271,
+    "path": "traces/H_baseline_density_experimental__hfnc__patient271.json",
+    "sha256": "95525df225bcb17166c14ddce2f030634844bb833fe159453a94c1e5fc118fbf"
+  },
+  {
+    "entry": "H_baseline_density_experimental",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_baseline_density_experimental__imv__patient0.json",
+    "sha256": "1965dd6055f34c58386c4349951893676e8030af83d51a47ddd5b7dd6b59bdaf"
+  },
+  {
+    "entry": "H_baseline_density_experimental",
+    "stratum": "imv",
+    "patient_id": 271,
+    "path": "traces/H_baseline_density_experimental__imv__patient271.json",
+    "sha256": "a9bc689b83bcb7b71d4eabdbb2d5d308266c3c257f0f4371e428210fe9ca6008"
+  },
+  {
+    "entry": "H_baseline_density_experimental",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_baseline_density_experimental__low_flow__patient0.json",
+    "sha256": "e29497e44ae4f06497499c1b593e9fc4f6fa0be631897cd03f5067293f42f777"
+  },
+  {
+    "entry": "H_baseline_density_experimental",
+    "stratum": "low_flow",
+    "patient_id": 271,
+    "path": "traces/H_baseline_density_experimental__low_flow__patient271.json",
+    "sha256": "64be08f8fccd4ab82fcbcd0c1cc96cd5cea1780a8076b6dd44affcc8dcbd6ecb"
+  },
+  {
+    "entry": "H_baseline_density_experimental",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_baseline_density_experimental__room_air__patient0.json",
+    "sha256": "3cd0a15fb08bc3d8b536235e8512504e17c3b68a3575a6af80595f6eddf0a614"
+  },
+  {
+    "entry": "H_baseline_density_experimental",
+    "stratum": "room_air",
+    "patient_id": 271,
+    "path": "traces/H_baseline_density_experimental__room_air__patient271.json",
+    "sha256": "ef9d7cc1ea822018679e86b354046ebf0a4cb0b9bab5d49e7becc859d8490ca7"
+  },
+  {
+    "entry": "H_baseline_density_historical",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_baseline_density_historical__hfnc__patient0.json",
+    "sha256": "dee27760765dc51e63b35ed3121b73a8ca5fae1ee0fb0547041a6fe5926b169d"
+  },
+  {
+    "entry": "H_baseline_density_historical",
+    "stratum": "hfnc",
+    "patient_id": 69,
+    "path": "traces/H_baseline_density_historical__hfnc__patient69.json",
+    "sha256": "67980e9e88f11aed573fcef3172bad6275ebcd14b06f5942781ea8fa9f262b9d"
+  },
+  {
+    "entry": "H_baseline_density_historical",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_baseline_density_historical__imv__patient0.json",
+    "sha256": "7f5798a20794b8a38ac9d3e0ee121866150b1f0f3a254b706192fcfc243bf76a"
+  },
+  {
+    "entry": "H_baseline_density_historical",
+    "stratum": "imv",
+    "patient_id": 69,
+    "path": "traces/H_baseline_density_historical__imv__patient69.json",
+    "sha256": "f6299b94179912c1c739329600b027bf94df114bf42144819996eb900df6e52a"
+  },
+  {
+    "entry": "H_baseline_density_historical",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_baseline_density_historical__low_flow__patient0.json",
+    "sha256": "bc668952c4570a5cc5911843fc7d54c6d1a80e049167fba8629a0bd82abc7c5f"
+  },
+  {
+    "entry": "H_baseline_density_historical",
+    "stratum": "low_flow",
+    "patient_id": 69,
+    "path": "traces/H_baseline_density_historical__low_flow__patient69.json",
+    "sha256": "a11d147b99800bd98cb192c3a8291d751a974aec014d6881d4368d6ff8360687"
+  },
+  {
+    "entry": "H_baseline_density_historical",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_baseline_density_historical__room_air__patient0.json",
+    "sha256": "8e2dcaab9354a89133c5b7b78a758d66e6dd3b619dd523b823b5da73911cc5fd"
+  },
+  {
+    "entry": "H_baseline_density_historical",
+    "stratum": "room_air",
+    "patient_id": 69,
+    "path": "traces/H_baseline_density_historical__room_air__patient69.json",
+    "sha256": "a26cc62118c4a2142d1939d40cc9de26697877982d3037f1b283f002b4254d12"
+  },
+  {
+    "entry": "H_density_experimental",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_density_experimental__hfnc__patient0.json",
+    "sha256": "1b076379a10c23b501269d3127da307fde70b627d01ec1b56b63175ec816988e"
+  },
+  {
+    "entry": "H_density_experimental",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_density_experimental__imv__patient0.json",
+    "sha256": "5957f7e659bb216b6a92e9cba2b67e39d4211cf596b9c6ff3a98cc74573c6910"
+  },
+  {
+    "entry": "H_density_experimental",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_density_experimental__low_flow__patient0.json",
+    "sha256": "ce5e603d5fda6b3f9823121d2aabe346034cc4530f984308029ddb5bd630f684"
+  },
+  {
+    "entry": "H_density_experimental",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_density_experimental__room_air__patient0.json",
+    "sha256": "b6b56c27d3f77e1e699645c85d27a6be05cacb32cccf380222f66d2ccd4141f4"
+  },
+  {
+    "entry": "H_density_historical",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_density_historical__hfnc__patient0.json",
+    "sha256": "ca199e7be07e019eaf82587ea55fd8c683fbf6ce2ef1023db67911db8f95b53b"
+  },
+  {
+    "entry": "H_density_historical",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_density_historical__imv__patient0.json",
+    "sha256": "58173d5334037fe1abfbfd100fa2a7421f0d34bbc62192469b8c7fc4c0653185"
+  },
+  {
+    "entry": "H_density_historical",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_density_historical__low_flow__patient0.json",
+    "sha256": "69516e1ce09e7f0560f6d5dfc7e16a36721f9a546259973d4a0b68726632dca1"
+  },
+  {
+    "entry": "H_density_historical",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_density_historical__room_air__patient0.json",
+    "sha256": "abf23999b5188cb253dca516e924be5b3f8d74dd3864785522d29b4564058b0d"
+  },
+  {
+    "entry": "H_history_experimental",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_history_experimental__hfnc__patient0.json",
+    "sha256": "fe83bec4d94b5c3006e41adfccb14e53c27d88c40b738d293e06f524a1840f88"
+  },
+  {
+    "entry": "H_history_experimental",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_history_experimental__imv__patient0.json",
+    "sha256": "e923f2412bbfca15198748ee0c11bb568baacd094d30730434ca019e51acdb41"
+  },
+  {
+    "entry": "H_history_experimental",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_history_experimental__low_flow__patient0.json",
+    "sha256": "01566fc9ac11e9f3a7390acd197da54d31eafefe3fa443ef41a9c1237914b320"
+  },
+  {
+    "entry": "H_history_experimental",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_history_experimental__room_air__patient0.json",
+    "sha256": "93c9fff9ba720fb44a1b81d68423a6d6fcf290157225d4a5c12ee4d6bb07d38e"
+  },
+  {
+    "entry": "H_history_historical",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_history_historical__hfnc__patient0.json",
+    "sha256": "2fb8b7b0992a55e27e412344834a2ee742ca3b2b3e6b79eb93ed810fac40a7bc"
+  },
+  {
+    "entry": "H_history_historical",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_history_historical__imv__patient0.json",
+    "sha256": "cadcf5c5c4bf81701c8dcebb13dcc5e9e91b9cff4efb7d17efdd0a13efd5583c"
+  },
+  {
+    "entry": "H_history_historical",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_history_historical__low_flow__patient0.json",
+    "sha256": "f983208fdc7b2764f43ec59fbee0e0a085d68d67478555bbc57c214519b78e0f"
+  },
+  {
+    "entry": "H_history_historical",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_history_historical__room_air__patient0.json",
+    "sha256": "4ddcc7026a3f7b872bcc9b18f6e151c221502788123271304c58a2fc29091b02"
+  },
+  {
+    "entry": "H_missing_experimental",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_missing_experimental__hfnc__patient0.json",
+    "sha256": "03d27fe98acd6490db6e8a98593837ba3e2bae2f4ae9f989b785b921ab747567"
+  },
+  {
+    "entry": "H_missing_experimental",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_missing_experimental__imv__patient0.json",
+    "sha256": "dc49c8a062fd9b333ee2ea9a04eed7831c584fad638078c30a47230c81295567"
+  },
+  {
+    "entry": "H_missing_experimental",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_missing_experimental__low_flow__patient0.json",
+    "sha256": "bf0327b1a6c7fc1f9f18e864f7eb3389230ee4496d7199e4d4da07649ff254c2"
+  },
+  {
+    "entry": "H_missing_experimental",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_missing_experimental__room_air__patient0.json",
+    "sha256": "d227f0cce07cde994b05a6a209644a882dc2f32248877e7ebf264e13fcf8c5a8"
+  },
+  {
+    "entry": "H_missing_historical",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_missing_historical__hfnc__patient0.json",
+    "sha256": "c671c2bbe1dc3e9a14fe4f4d5565ff38eaf457f3067537764d943c79454a57a4"
+  },
+  {
+    "entry": "H_missing_historical",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_missing_historical__imv__patient0.json",
+    "sha256": "c4a407e1681841b5b5a327350b87e89651c67f2aeb938fa1cf7788ffff0cf29b"
+  },
+  {
+    "entry": "H_missing_historical",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_missing_historical__low_flow__patient0.json",
+    "sha256": "4ebf03e5d122a06cc0c4c305f537d94d6d2efd69bcddef790b9f78e87c836719"
+  },
+  {
+    "entry": "H_missing_historical",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_missing_historical__room_air__patient0.json",
+    "sha256": "a3f993a450c489ded79fc104b36bee58b9678ce221db8125280621b364291810"
+  },
+  {
+    "entry": "H_timing_experimental",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_timing_experimental__hfnc__patient0.json",
+    "sha256": "ac6fa5d91006032744c29cd03ae55727d2abe6ff943b89f8474cdfd229e93f0b"
+  },
+  {
+    "entry": "H_timing_experimental",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_timing_experimental__imv__patient0.json",
+    "sha256": "a89f4ad81452b834141349dd43f3f5cdae879b7eb1d690a3d1a52a06a73ca764"
+  },
+  {
+    "entry": "H_timing_experimental",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_timing_experimental__low_flow__patient0.json",
+    "sha256": "eef0956ec2f6aac164cc12cf6de6a1ce900355d30b4ffda6c6c83d68aad158a0"
+  },
+  {
+    "entry": "H_timing_experimental",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_timing_experimental__room_air__patient0.json",
+    "sha256": "968b29162eaa3d5621b0cd7180ca20e5799e9fcba5c4d71805d50750178c3016"
+  },
+  {
+    "entry": "H_timing_historical",
+    "stratum": "hfnc",
+    "patient_id": 0,
+    "path": "traces/H_timing_historical__hfnc__patient0.json",
+    "sha256": "5293a0e6034ad8c30d50a77c00227b625dac047ad23ee105e47cb25f700f3d64"
+  },
+  {
+    "entry": "H_timing_historical",
+    "stratum": "imv",
+    "patient_id": 0,
+    "path": "traces/H_timing_historical__imv__patient0.json",
+    "sha256": "a1ad85e69912727d7173ce7d9b295b14a9fa9f43f17b8f118adb816b3ff6ef3c"
+  },
+  {
+    "entry": "H_timing_historical",
+    "stratum": "low_flow",
+    "patient_id": 0,
+    "path": "traces/H_timing_historical__low_flow__patient0.json",
+    "sha256": "591d5c8b7c6e62beef2688cd31bad88e97714eb5dcac54071d02d31a1c698eb1"
+  },
+  {
+    "entry": "H_timing_historical",
+    "stratum": "room_air",
+    "patient_id": 0,
+    "path": "traces/H_timing_historical__room_air__patient0.json",
+    "sha256": "c6498160b55e45aefa0adb34252397e3256e44e14e3fc4d8eea46eb660f9f2d9"
+  }
+]

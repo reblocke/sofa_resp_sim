@@ -13,11 +13,11 @@ import platform
 import zipfile
 from datetime import UTC, datetime
 
-from ..core.experiment_config import GENERATOR_VERSION, RNG_VERSION, SCHEMA_VERSION, fingerprint
+from ..core.experiment_config import GENERATOR_VERSION, RNG_VERSION, fingerprint
+from ..core.historical_trops import profile_provenance
 from .experiment_catalogue import CATALOGUE_VERSION
-from .experiment_request import normalize_experiment_request
-from .experiment_results import summarize_paired_scores
-from .experiment_service import explain_patient
+from .experiment_request import V3, normalize_experiment_request
+from .experiment_service import explain_patient, result_schema, summarize_request
 
 BUNDLE_VERSION = "experiment_bundle_v2"
 MAX_BUNDLE_BYTES = 64 * 1024 * 1024
@@ -172,7 +172,7 @@ def _validate_scores(request, scores):
 def build_bundle(result: dict, *, environment=None, selected_patient=0) -> dict[str, str]:
     request = normalize_experiment_request(result["request"])
     if (
-        result.get("schema_version") != "experiment_result_v2"
+        result.get("schema_version") != result_schema(request)
         or result.get("experiment_run_id") != request.run_id
     ):
         raise ValueError("Unsupported result version or mismatched run identity")
@@ -183,7 +183,7 @@ def build_bundle(result: dict, *, environment=None, selected_patient=0) -> dict[
         raise ValueError("Incomplete runs cannot be exported as completed bundles")
     scores = result["scores"]
     _validate_scores(request, scores)
-    recalculated = summarize_paired_scores(scores, request.comparator.condition_id)
+    recalculated = summarize_request(request, scores)
     for key in (*TABLES[:-2], "reclassification", "metric_dictionary"):
         compare_scientific_values(recalculated[key], result[key], path=key)
     result = {**result, **recalculated}
@@ -242,12 +242,18 @@ def build_bundle(result: dict, *, environment=None, selected_patient=0) -> dict[
     )
     files["manifest.json"] = _json(
         {
-            "bundle_version": BUNDLE_VERSION,
-            "request_schema": SCHEMA_VERSION,
-            "algorithm_version": "bounded_analysis_v2",
+            "bundle_version": "experiment_bundle_v3"
+            if request.schema_version == V3
+            else BUNDLE_VERSION,
+            "request_schema": request.schema_version,
+            "algorithm_version": "profiled_analysis_v3"
+            if request.schema_version == V3
+            else "bounded_analysis_v2",
             "generator_version": GENERATOR_VERSION,
             "rng_version": RNG_VERSION,
-            "catalogue_version": CATALOGUE_VERSION,
+            "catalogue_version": "trops_sensitivity_v1"
+            if request.schema_version == V3
+            else CATALOGUE_VERSION,
             "reference_version": "none_uncalibrated",
             "status": "complete",
             "experiment_run_id": request.run_id,
@@ -265,6 +271,16 @@ def build_bundle(result: dict, *, environment=None, selected_patient=0) -> dict[
             "table_schemas": schemas,
             "scientific_hashes": scientific_hashes,
             "scientific_data_sha256": fingerprint(scientific_hashes),
+            **(
+                {
+                    "profile_provenance": {
+                        c.condition_id: profile_provenance(c.config.scoring)
+                        for c in (request.comparator, *request.conditions)
+                    }
+                }
+                if request.schema_version == V3
+                else {}
+            ),
             "generation_and_target_windows": {
                 c.condition_id: {
                     "horizon": c.config.horizon.to_dict(),
@@ -287,13 +303,27 @@ def verify_bundle(files: dict[str, str]) -> dict:
     if files["SHA256SUMS"] != expected_sums:
         raise ValueError("Bundle content hash mismatch; obtain the intact original bundle")
     manifest = json.loads(files["manifest.json"])
+    request = normalize_experiment_request(json.loads(files["request.json"]))
+    if request.schema_version == V3:
+        expected_profiles = {
+            c.condition_id: profile_provenance(c.config.scoring)
+            for c in (request.comparator, *request.conditions)
+        }
+        if manifest.get("profile_provenance") != expected_profiles:
+            raise ValueError("Profile source or qualification identity mismatch")
     versions = {
-        "bundle_version": BUNDLE_VERSION,
-        "request_schema": SCHEMA_VERSION,
-        "algorithm_version": "bounded_analysis_v2",
+        "bundle_version": "experiment_bundle_v3"
+        if request.schema_version == V3
+        else BUNDLE_VERSION,
+        "request_schema": request.schema_version,
+        "algorithm_version": "profiled_analysis_v3"
+        if request.schema_version == V3
+        else "bounded_analysis_v2",
         "generator_version": GENERATOR_VERSION,
         "rng_version": RNG_VERSION,
-        "catalogue_version": CATALOGUE_VERSION,
+        "catalogue_version": "trops_sensitivity_v1"
+        if request.schema_version == V3
+        else CATALOGUE_VERSION,
         "reference_version": "none_uncalibrated",
     }
     for key, expected in versions.items():
@@ -324,7 +354,7 @@ def verify_bundle(files: dict[str, str]) -> dict:
     if set(tables) != {*TABLES, "selected_events", "episodes"}:
         raise ValueError("Unsupported bundle table set")
     _validate_scores(request, tables["scores"])
-    calculated = summarize_paired_scores(tables["scores"], request.comparator.condition_id)
+    calculated = summarize_request(request, tables["scores"])
     for key in (*TABLES[:-2], "reclassification"):
         encoded, schema = encode_table(calculated[key])
         compare_scientific_values(decode_table(encoded, schema), tables[key], path=key)
@@ -343,7 +373,12 @@ def verify_bundle(files: dict[str, str]) -> dict:
         "algorithm_zero_convention": calculated["algorithm_zero_convention"],
         "uncertainty_scope": manifest["uncertainty_scope"],
         "warnings": manifest["warnings"],
-        "schema_version": "experiment_result_v2",
+        "schema_version": result_schema(request),
+        **(
+            {"profile_provenance": manifest["profile_provenance"]}
+            if request.schema_version == V3
+            else {}
+        ),
         "experiment_run_id": request.run_id,
         "completed_patients": request.replicates,
         "attempted_patients": request.replicates,

@@ -1,0 +1,17 @@
+profile,spo2_pct,pao2_mmhg,exclusion,score
+trops_historical_e8b4de0_v1,49.999,,conversion_unavailable,0
+trops_historical_e8b4de0_v1,50,26.9,,4
+trops_historical_e8b4de0_v1,50.001,26.9,,4
+trops_historical_e8b4de0_v1,95.999,81.9,,4
+trops_historical_e8b4de0_v1,96,81.9,,4
+trops_historical_e8b4de0_v1,96.001,,conversion_unavailable,0
+trops_historical_e8b4de0_v1,97,,conversion_unavailable,0
+trops_historical_e8b4de0_v1,100,,conversion_unavailable,0
+bounded_analysis_v2,49.999,,conversion_unavailable,0
+bounded_analysis_v2,50,26.9,,4
+bounded_analysis_v2,50.001,26.9,,4
+bounded_analysis_v2,95.999,81.9,,4
+bounded_analysis_v2,96,81.9,,4
+bounded_analysis_v2,96.001,,conversion_unavailable,0
+bounded_analysis_v2,97,,conversion_unavailable,0
+bounded_analysis_v2,100,,conversion_unavailable,0

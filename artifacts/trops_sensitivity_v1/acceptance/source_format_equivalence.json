@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "scope": "Reference source and final source differ only in formatting and independent module-import ordering; normalized ASTs identical for every Python module. Final source receives integration tests.",
+  "changed": [
+    {
+      "path": "src/sofa_resp_sim/browser_contract.py",
+      "reference_bytes_sha256": "87755ece9995fbe6fb1b8b91e54eaa69da56fed436300565e345460a03705904",
+      "final_bytes_sha256": "6f088e074b4ea75085d102189bebb145cee814f552799303c9902e80cc5f3c87",
+      "ast_import_order_normalized_sha256": "7a73a014f5b51c8b4018f04cdb24824dae57974e706d291eeff6578c250584b6"
+    },
+    {
+      "path": "src/sofa_resp_sim/reporting/historical_catalogue.py",
+      "reference_bytes_sha256": "10e52a56293e29cf6cf371cd9e60aa36282ea6935f9c97cef9d54eb6056f8733",
+      "final_bytes_sha256": "67d5d2431eb2f68222b04a63a0696c92dca2381c0c4c5278cca6bc690a32398a",
+      "ast_import_order_normalized_sha256": "4bc0b6edf892431fd08362fd2465d1e59215afee1eb2739235a12e5508fc4d17"
+    }
+  ],
+  "exact_reference_source_commit": "fc1f3b142f25e6bfd5a2f72d294246ef0b782182"
+}

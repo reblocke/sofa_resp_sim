@@ -13,6 +13,7 @@ from typing import get_args
 import pandas as pd
 
 from .experiment_config import ScoringProfile, SupportLabel
+from .historical_trops import PROFILE, historical_time, profile_provenance, validate_context
 from .resp_scoring import _apply_resp_detail_cap, _assign_fio2_priority, _assign_sofa_rubric
 from .resp_utils import oracle_round, spo2_to_pao2
 
@@ -37,7 +38,7 @@ def _finite(value, field, low=None, high=None):
     return float(value)
 
 
-def _validate_events(events):
+def _validate_events(events, historical=False):
     records, ids, patients = [], set(), set()
     for original in events:
         row = dict(original)
@@ -53,7 +54,10 @@ def _validate_events(events):
             raise ValueError("Unknown documented event type")
         for field in ("measurement_minute", "available_minute"):
             row[field] = _finite(row.get(field), field)
-        if row.get("support_type", "UNKNOWN") not in get_args(SupportLabel):
+        if row.get("support_type", "UNKNOWN") not in (
+            *get_args(SupportLabel),
+            *(("OSA",) if historical else ()),
+        ):
             raise ValueError("Unknown support_type")
         row.setdefault("support_type", "UNKNOWN")
         for field, low, high in [
@@ -70,17 +74,19 @@ def _validate_events(events):
                     raise ValueError("Measured PaO2 must be positive")
         if "is_room_air" in row and type(row["is_room_air"]) is not bool:
             raise ValueError("is_room_air must be boolean")
+        if historical:
+            validate_context(row)
         records.append(row)
     if len(patients) > 1:
         raise ValueError("Score one patient at a time; do not join patients' context streams")
     return sorted(records, key=lambda e: (e["measurement_minute"], e["event_id"]))
 
 
-def _fio2_context(row):
+def _fio2_context(row, historical=False):
     """Explicit fraction-to-percent adapter to the shared legacy priority function."""
     compatible = {
         "is_room_air": row.get("is_room_air", False),
-        "invasive_ind": row["support_type"] in INVA,
+        "invasive_ind": row["invasive_ind"] if historical else row["support_type"] in INVA,
         "oxygen_flow_rate": row.get("flow_lpm"),
     }
     for source in ("set", "meas", "abg"):
@@ -108,20 +114,30 @@ def _fio2_context(row):
 
 
 class EvidenceIndex:
-    def __init__(self, records):
-        self.groups = {False: [], True: []}
+    def __init__(self, records, historical=False):
+        self.historical = historical
+        self.groups = {False: [], True: []} if not historical else {}
         for row in records:
             if row["event_type"] == "fio2":
-                context = _fio2_context(row)
+                context = _fio2_context(row, historical)
                 if context is not None:
-                    self.groups[context["invasive_ind"]].append(context)
+                    key = (
+                        (context["ce_admit_dts"], context["invasive_ind"])
+                        if historical
+                        else context["invasive_ind"]
+                    )
+                    self.groups.setdefault(key, []).append(context)
         self.times = {
             key: [r["measurement_minute"] for r in rows] for key, rows in self.groups.items()
         }
 
     def lookup(self, event, profile):
-        key = event["support_type"] in INVA
-        rows, times = self.groups[key], self.times[key]
+        key = (
+            (event["ce_admit_dts"], event["invasive_ind"])
+            if self.historical
+            else event["support_type"] in INVA
+        )
+        rows, times = self.groups.get(key, []), self.times.get(key, [])
         minute = event["measurement_minute"]
 
         def window(low, high, reverse=False):
@@ -234,8 +250,15 @@ def score_documented_events(
     admit = admit.tz_convert(profile.timezone)
     baseline_begin = admit.normalize() - pd.DateOffset(months=profile.baseline_months)
     baseline_end = admit.normalize() - pd.DateOffset(days=profile.baseline_end_days)
-    records = _validate_events(events)
-    index = EvidenceIndex(records)
+    historical = profile.profile == PROFILE
+    records = _validate_events(events, historical)
+    index = EvidenceIndex(records, historical)
+    quarter_evidence = set()
+    if historical:
+        for row in records:
+            if row["event_type"] == "fio2" and _fio2_context(row, True) is not None:
+                _, day, quarter, _ = historical_time(row["measurement_minute"], admit, profile)
+                quarter_evidence.add((row["ce_admit_dts"], day, quarter))
     trace = []
     for original in records:
         if original["event_type"] != "oxygenation":
@@ -253,6 +276,14 @@ def score_documented_events(
         in_baseline = (
             minute < profile.acute_begin_minute and baseline_begin <= bin_start <= baseline_end
         )
+        if historical:
+            timestamp, day, quarter, in_acute = historical_time(minute, admit, profile)
+            if profile.binning == "admission":
+                day = math.floor(
+                    (timestamp.tz_localize(None) - admit.tz_localize(None)).total_seconds() / 86400
+                )
+            bin_start = admit + pd.DateOffset(days=day)
+            in_baseline = baseline_begin <= timestamp <= baseline_end and not in_acute
         selected, recent, candidates = index.lookup(event, profile)
         measured, saturation = event.get("pao2_meas"), event.get("spo2_obs")
         converted = None
@@ -264,6 +295,14 @@ def score_documented_events(
             "measured" if measured is not None else "estimated" if converted is not None else None
         )
         fio2 = selected["chosen_fio2_fraction"] if selected else None
+        inferred_room_air = bool(
+            historical
+            and fio2 is None
+            and pao2_source == "estimated"
+            and (event["ce_admit_dts"], day, quarter) not in quarter_evidence
+        )
+        if inferred_room_air:
+            fio2 = 0.21
         pf = None if pao2 is None or fio2 is None else oracle_round(pao2 / fio2, 2)
         rubric = (
             None
@@ -282,8 +321,10 @@ def score_documented_events(
                 _apply_resp_detail_cap(
                     {
                         "sofa_resp_rubric": rubric,
-                        "invasive_ind": label in INVA,
-                        "support_ind": label in {"HFNC", "NIPPV"},
+                        "invasive_ind": event["invasive_ind"] if historical else label in INVA,
+                        "support_ind": event["support_ind"]
+                        if historical
+                        else label in {"HFNC", "NIPPV"},
                     }
                 )
             )
@@ -329,7 +370,11 @@ def score_documented_events(
                 else "forward"
                 if source_age < 0
                 else "current",
-                "fio2_inference_method": selected["inference_method"] if selected else None,
+                "fio2_inference_method": selected["inference_method"]
+                if selected
+                else "historical_quarter_room_air_fallback"
+                if inferred_room_air
+                else None,
                 "fio2_lookup_candidates": {
                     key: value["event_id"] if value else None for key, value in candidates.items()
                 },
@@ -353,12 +398,21 @@ def score_documented_events(
                 "selected_baseline": False,
             }
         )
+        if historical:
+            event.update(
+                {
+                    "historical_day_index": day,
+                    "historical_quarter": quarter,
+                    "historical_room_air_fallback": inferred_room_air,
+                }
+            )
         trace.append(event)
     acute = _period_record(trace, "acute", profile)
     baseline = _period_record(trace, "baseline", profile)
     signed = acute["algorithm_score"] - baseline["algorithm_score"]
     evaluable = acute["qualifying_pf_count"] > 0 and baseline["qualifying_pf_count"] > 0
     return {
+        **({"profile_provenance": profile_provenance(profile)} if historical else {}),
         "profile": profile.to_dict(),
         "acute": acute,
         "baseline": baseline,
@@ -373,7 +427,7 @@ def score_documented_events(
             "timezone": profile.timezone,
             "binning": profile.binning,
             "acute_begin": (admit + pd.Timedelta(minutes=profile.acute_begin_minute)).isoformat(),
-            "acute_end_exclusive": (
+            ("acute_end_inclusive" if historical else "acute_end_exclusive"): (
                 admit + pd.Timedelta(minutes=profile.acute_end_minute)
             ).isoformat(),
             "baseline_begin_inclusive": baseline_begin.isoformat(),

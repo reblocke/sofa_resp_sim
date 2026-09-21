@@ -350,3 +350,57 @@ def test_baseline_matrix_uses_signed_scale_and_white_zero(page: Page, investigat
     for cell in zeros.all():
         if cell.inner_text() == "0 percentage points":
             expect(cell).to_have_css("background-color", "rgb(255, 255, 255)")
+
+
+def test_historical_criterion_c_view_trace_and_export(page: Page, investigation_server):
+    errors = []
+    page.on("pageerror", lambda e: errors.append(str(e)))
+    page.goto(investigation_server)
+    expect(page.locator("#runtime")).to_have_text("Python ready", timeout=120000)
+    page.locator("#entry").select_option("H_missing_historical")
+    page.locator("#replicates").fill("3")
+    page.locator("#replicates").press("Tab")
+    page.locator("#run").click()
+    expect(page.locator("#result-status")).to_contain_text(
+        "Completed preview; 3 paired patients", timeout=120000
+    )
+    expect(page.locator("#profile-qualification")).to_contain_text("not execution-validated")
+    expect(page.locator("#common-pair-table")).to_contain_text("Common")
+    before = page.locator("#result-request").text_content()
+    progress = page.locator("#progress-note").text_content()
+    page.locator("#c-view").select_option("ge2")
+    expect(page.locator("#eligibility-result")).to_contain_text("100% → 100%")
+    assert page.locator("#result-request").text_content() == before
+    assert page.locator("#progress-note").text_content() == progress
+    expect(page.locator("#result-status")).not_to_contain_text("Stale")
+    page.locator("#transitions button:not([disabled])").first.click()
+    expect(page.locator("#trace-summary")).to_contain_text("Saved score", timeout=120000)
+    expect(page.locator("#trace-events")).to_contain_text("Resolved partition")
+    expect(page.locator("#trace-opportunity")).to_contain_text("Scheduled")
+    path = ROOT / "artifacts/local/acceptance/screenshots"
+    path.mkdir(parents=True, exist_ok=True)
+    page.screenshot(path=str(path / "historical_desktop.png"), full_page=True)
+    page.set_viewport_size({"width": 390, "height": 844})
+    page.screenshot(path=str(path / "historical_mobile.png"), full_page=True)
+    page.get_by_role("button", name="Methods and export", exact=True).click()
+    with page.expect_download() as download:
+        page.locator("#download-bundle").click()
+    archive = path / "historical_browser_result.zip"
+    download.value.save_as(archive)
+    page.locator("#import-bundle").set_input_files(archive)
+    expect(page.locator("#result-status")).to_contain_text(
+        "Imported synthetic bundle", timeout=120000
+    )
+    assert (
+        json.loads(page.locator("#result-request").text_content())["schema_version"]
+        == "experiment_request_v3"
+    )
+    page.get_by_role("button", name="Experiment", exact=True).click()
+    page.get_by_text("Advanced scenario and comparison settings", exact=True).click()
+    page.locator("#outcome").select_option("delta_evaluable_ge2")
+    page.locator("#run").click()
+    expect(page.locator("#result-status")).to_contain_text(
+        "Completed preview; 3 paired patients", timeout=120000
+    )
+    expect(page.locator("#primary-result")).to_contain_text("Evaluable delta ≥2")
+    assert not errors

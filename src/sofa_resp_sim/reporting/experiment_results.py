@@ -139,11 +139,16 @@ METRICS = _metrics()
 
 
 def _eligible(row, population):
+    if population.startswith("nonmissing:"):
+        return row[population.split(":", 1)[1]] is not None
     return population == "all_patients" or row["delta_evaluable"] is not None
 
 
-def summarize_paired_scores(scores: list[dict], comparator_id: str) -> dict:
+def summarize_paired_scores(
+    scores: list[dict], comparator_id: str, *, metrics=None, common_probabilities=False
+) -> dict:
     """Reject incomplete/duplicate pairs; never replace computation failures with zeros."""
+    metrics = METRICS if metrics is None else metrics
     grouped = defaultdict(dict)
     run_ids = set()
     for row in scores:
@@ -163,7 +168,7 @@ def summarize_paired_scores(scores: list[dict], comparator_id: str) -> dict:
     summary, contrasts, transitions, reclassification = [], [], [], []
     for condition_id, rows in sorted(grouped.items()):
         common = {"experiment_run_id": run_id, "condition_id": condition_id}
-        for metric, (unit, value, population) in METRICS.items():
+        for metric, (unit, value, population) in metrics.items():
             eligible = [r for r in rows.values() if _eligible(r, population)]
             values = [value(r) for r in eligible]
             estimate = (
@@ -191,12 +196,27 @@ def summarize_paired_scores(scores: list[dict], comparator_id: str) -> dict:
             # Only identical normalized configurations prove structural identity.
             if unit == "probability":
                 estimate["structural_identity"] = condition_id == comparator_id
+            paired_marginals = {}
+            if common_probabilities:
+                cvalues, vvalues = [value(c) for c, _ in pairs], [value(v) for _, v in pairs]
+                paired_marginals = {
+                    "common_pair_comparator_estimate": float(np.mean(cvalues)) if pairs else None,
+                    "common_pair_variant_estimate": float(np.mean(vvalues)) if pairs else None,
+                    "common_pair_comparator_numerator": sum(cvalues)
+                    if unit == "probability"
+                    else None,
+                    "common_pair_variant_numerator": sum(vvalues)
+                    if unit == "probability"
+                    else None,
+                    "common_pair_denominator": len(pairs),
+                }
             contrasts.append(
                 {
+                    **paired_marginals,
                     **common,
                     "comparator_id": comparator_id,
                     "metric": metric,
-                    "unit": "probability_difference" if unit == "probability" else "records",
+                    "unit": "probability_difference" if unit == "probability" else unit,
                     "population": population,
                     "direction": "variant_minus_comparator",
                     **estimate,
@@ -269,6 +289,6 @@ def summarize_paired_scores(scores: list[dict], comparator_id: str) -> dict:
         ),
         "metric_dictionary": {
             name: {"unit": unit, "population": population}
-            for name, (unit, _, population) in METRICS.items()
+            for name, (unit, _, population) in metrics.items()
         },
     }

@@ -1,0 +1,131 @@
+{
+  "status": "verified",
+  "checks": [
+    {
+      "status": "verified",
+      "scientific_data_sha256": "c53f7d300778b3d7f43fca381e84fa3b17b02878967be5cd68996b373de0342b"
+    },
+    {
+      "status": "verified",
+      "scientific_data_sha256": "02b3d24f459fee40266ddca3f23039938ef2ea3dfd8aa9c5adeb09fc866959e7"
+    }
+  ],
+  "scope": "Fresh locked wheel outside checkout; exact scientific reproduction",
+  "imported_package": "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/venv/lib/python3.11/site-packages/sofa_resp_sim/__init__.py",
+  "commands": [
+    {
+      "command": [
+        "uv",
+        "export",
+        "--locked",
+        "--no-dev",
+        "--no-emit-project",
+        "--format",
+        "requirements-txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "venv",
+        "--python",
+        "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim/.venv/bin/python3",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/venv"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/venv/bin/python",
+        "-r",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/requirements.txt",
+        "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim/dist/sofa_resp_sim-0.1.0-py3-none-any.whl"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/venv/bin/python",
+        "-c",
+        "import sofa_resp_sim; print(sofa_resp_sim.__file__)"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/venv/bin/resp-sofa-experiment",
+        "--help"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim/.venv/bin/python3",
+        "-m",
+        "sofa_resp_sim.workflows.experiment_cli",
+        "run",
+        "--request",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/E1_density.json",
+        "--output",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/E1_density"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/venv/bin/resp-sofa-experiment",
+        "reproduce",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/E1_density",
+        "--output",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/E1_density.zip"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/venv/bin/resp-sofa-experiment",
+        "verify-bundle",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/E1_density.zip"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim/.venv/bin/python3",
+        "-m",
+        "sofa_resp_sim.workflows.experiment_cli",
+        "run",
+        "--request",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/H_missing_historical.json",
+        "--output",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/H_missing_historical"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/venv/bin/resp-sofa-experiment",
+        "reproduce",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/H_missing_historical",
+        "--output",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/H_missing_historical.zip"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/venv/bin/resp-sofa-experiment",
+        "verify-bundle",
+        "/var/folders/vf/n84t7b8171lf64smq4ddvw1m0000gn/T/sofa-clean-install-b73rok36/H_missing_historical.zip"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "log_path": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim/artifacts/local/acceptance/clean_experiment_install.log",
+  "temporary_environment_removed_after_check": true
+}

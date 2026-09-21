@@ -293,7 +293,7 @@ class SupportConfig(ScientificConfig):
 
 @dataclass(frozen=True)
 class ScoringProfile(ScientificConfig):
-    profile: Literal["bounded_analysis_v2"] = EXPERIMENT_PROFILE
+    profile: Literal["bounded_analysis_v2", "trops_historical_e8b4de0_v1"] = EXPERIMENT_PROFILE
     threshold_factor: float = 1.0
     timezone: str = "UTC"
     binning: Literal["calendar", "admission"] = "calendar"
@@ -358,4 +358,4 @@ class ScenarioConfig(ScientificConfig):
             if group not in data or not isinstance(values, dict):
                 raise ValueError(f"Unknown or invalid scientific override group: {group}")
             data[group].update(values)
-        return ScenarioConfig.from_dict(data)
+        return type(self).from_dict(data)

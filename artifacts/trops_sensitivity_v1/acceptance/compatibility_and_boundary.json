@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "old_evidence_changed_paths": [],
+  "audit_source_packet_hashes_verified": true,
+  "public_boundary": "Only synthetic records, derived specifications and permitted source hashes; no source SQL, grants or restricted adapters were added.",
+  "external_sql_execution": "not performed",
+  "current_production_equivalence": "not asserted",
+  "old_evidence_paths_checked": [
+    "artifacts/experiments_v2",
+    "artifacts/saved_experiment_v2.json",
+    "experiments/catalogue.json",
+    "experiments/E1.json",
+    "experiments/E2.json",
+    "experiments/E3.json",
+    "experiments/E4.json",
+    "experiments/E5.json",
+    "experiments/E6.json"
+  ],
+  "old_request_file_sha256": {
+    "experiments/E2.json": "921fd74ba84000295e41d9844fe9a41cf959ac376a4cbb8be1f5eab47c518cd2",
+    "experiments/E3.json": "6c0ce96b7c7fd1b27b4a227b4f885d4fe5c9a1d038300224620d70f8dc2eb095",
+    "experiments/E4.json": "e2ee6b8b2f3537659bca3fd22deb2642e3807d7b0151facdd16b9ecc096fc4ac",
+    "experiments/E5.json": "1a8d00d5df2dffcd6dc4130f6c7c2c72e171a65374d343795e43868f2c0a137a",
+    "experiments/catalogue.json": "e4599234197bc144b85471ebdd34b99f1d6cf4096c307ba7c09c3be0ce536d16",
+    "experiments/E6.json": "6167212f6a6c6d8df4411ffa78584ded0a64c5d465b980c6ed4b1fddcc8b23c7",
+    "experiments/E1.json": "209f22041ea4006ad044885d1ab37107437dfd5c420c007ebcc2fc748628be5b"
+  }
+}

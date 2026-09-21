@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "scope": "v3 historical generation, scoring, common-pair eligibility, trace and bundle verification",
+  "native_python": "3.11.10",
+  "pyodide": "0.29.0",
+  "patients": 3,
+  "atol": 1e-10,
+  "rtol": 1e-10,
+  "staging_manifest_sha256": "f79ca7315d7245164538c58e2e3a1035a44a5209cea6287aa1a1b0e4094cd4d7"
+}

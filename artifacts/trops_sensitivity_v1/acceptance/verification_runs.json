@@ -1,0 +1,133 @@
+{
+  "status": "passed_after_documented_browser_fix",
+  "final_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+  "runtime": {
+    "python": "3.11.10",
+    "dependencies": {
+      "sofa-resp-sim": "0.1.0",
+      "numpy": "2.4.4",
+      "pandas": "3.0.2",
+      "scipy": "1.17.1",
+      "tzdata": "2026.1"
+    },
+    "git_commit": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+    "dirty_tree": true,
+    "source_provenance_note": "Git state of the source checkout",
+    "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5"
+  },
+  "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+  "runs": [
+    {
+      "id": "native",
+      "command": "make test",
+      "exit_code": 0,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/native.log",
+      "log_sha256": "786585a7982e83bee42cb1cdd7868bf22156479860ec1454668f89b265d23362",
+      "scope": "429 native tests passed before three additional delivery tests were added.",
+      "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+      "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+    },
+    {
+      "id": "delivery",
+      "command": "uv run pytest -q tests/workflows/test_historical_evidence.py tests/workflows/test_experiment_cli.py",
+      "exit_code": 0,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/delivery.log",
+      "log_sha256": "c4b808d34f4db00b333696dec1f3a43a2887d8bfe0cb7af07a3cb98ff43a7830",
+      "scope": "Four passed, covering the three additional native tests and existing CLI integration.",
+      "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+      "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+    },
+    {
+      "id": "browser-full",
+      "command": "uv run pytest -q tests/e2e",
+      "exit_code": 1,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/browser-full.log",
+      "log_sha256": "6cb983330be1d00f3534138b5081b7aaac5f5404a32ef2e6291f96c1ad54cdb2",
+      "scope": "20 passed; the new historical selector case failed because saved v2 catalogue was not refreshed. Resolved by browser-final plus startup regression tests.",
+      "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+      "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00",
+      "log_normalization": "Trailing whitespace removed from retained log; original full log remains locally in /tmp/sofa-historical-browser.log."
+    },
+    {
+      "id": "browser-final",
+      "command": "uv run pytest -q tests/e2e/test_experiment_app.py::test_historical_criterion_c_view_trace_and_export",
+      "exit_code": 0,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/browser-final.log",
+      "log_sha256": "423b1d0e014eb1eab96f4420f7b344c2615be505dd574b756ac884826ca74f2d",
+      "scope": "Historical preset/C/outcome/trace/export/import workflow passed after catalogue refresh fix.",
+      "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+      "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+    },
+    {
+      "id": "browser-regressions",
+      "command": "uv run pytest -q tests/e2e/test_experiment_app.py::test_saved_example_precedes_python_and_new_run_trace_and_bundle tests/e2e/test_experiment_app.py::test_cancel_preserves_edited_request_and_reinitializes tests/e2e/test_experiment_app.py::test_worker_crash_preserves_request_and_prior_result",
+      "exit_code": 0,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/browser-regressions.log",
+      "log_sha256": "cf426ab35f3b06fccef8290fde5325d90af130a79da1d1752031518df77c4236",
+      "scope": "All three startup/stale/export/cancellation/recovery cases passed on corrected browser code.",
+      "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+      "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+    },
+    {
+      "id": "checks",
+      "command": "make stage-web fmt-check lint",
+      "exit_code": 0,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/checks.log",
+      "log_sha256": "0739371e535db72d654549c7f641cfe221e99818d21ac7e3a431384c09f4cbe4",
+      "scope": "28 staged Python files, formatting and lint passed.",
+      "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+      "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+    },
+    {
+      "id": "references",
+      "command": "uv run python scripts/run_historical_references.py --workers 4",
+      "exit_code": 0,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/references.log",
+      "log_sha256": "589a2b7da122e9445ba112b1327e5022ac8a948210aeeeb1506a8282e3cbca9d",
+      "scope": "All 48 N=2000 frozen requests verified. Source bytes preserved at reference checkpoint.",
+      "source_code_revision": "fc1f3b142f25e6bfd5a2f72d294246ef0b782182",
+      "source_sha256": "094dcfeeaf0936dfc003f3267941975e41951ab42795ef0acf293fbe0cce6f78",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+    },
+    {
+      "id": "evidence",
+      "command": "uv run --group figures python scripts/build_historical_evidence.py",
+      "exit_code": 0,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/evidence.log",
+      "log_sha256": "bc61c2a5205c56634c1553ffaf35c9f7528e5d09f4564de7b6330d8fd2c885d9",
+      "scope": "All 48 collected; subsequent lossless trace compaction and figure rerender were visually reviewed.",
+      "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+      "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+    },
+    {
+      "id": "artifact-verification",
+      "command": "uv run python scripts/verify_experiment_evidence.py",
+      "exit_code": 0,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/artifact-verification.log",
+      "log_sha256": "7f78fa2d8155797131cbae6d1830cf35a063393418f38fdb56c1b2258f8b535a",
+      "scope": "Both old and new namespaces verified, all six new figure reviews bound to current hashes.",
+      "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+      "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+    },
+    {
+      "id": "wheel",
+      "command": "make experiments-install-check",
+      "exit_code": 0,
+      "log": "artifacts/trops_sensitivity_v1/acceptance/wheel.log",
+      "log_sha256": "a18e3dd1eb9ec515a92ec3f9307d816df70d64dfbe90d9a4dadeb2d0fb4b3996",
+      "scope": "Fresh locked wheel outside checkout exactly reproduced v2 and v3 scientific bundles.",
+      "source_code_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+      "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5",
+      "recorded_at_utc": "2026-09-21T18:39:12.186907+00:00"
+    }
+  ],
+  "coverage": "432 native and 21 browser cases covered by full suites plus documented regression reruns; actual Pyodide v2 and v3 parity passed."
+}

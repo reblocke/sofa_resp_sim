@@ -1,0 +1,1729 @@
+{
+  "schema_version": "implementation_target_v1",
+  "plan_version": "2.0",
+  "status": "passed",
+  "purpose": "Completed historical software endpoint; external SQL execution remains a separate unperformed milestone.",
+  "planning_baseline_commit": "944a45eb801cc4f96e0a98d80f62af63dd452afe",
+  "source_manifest": "SOURCE_MANIFEST.json",
+  "planning_checks": "PLANNING_CHECKS.json",
+  "path_convention": "Actual test IDs are pytest node IDs. Evidence and verification log paths are repository-relative. Preserved planning checks are historical planning evidence only.",
+  "allowed_statuses": [
+    "not_started",
+    "in_progress",
+    "blocked",
+    "failed",
+    "passed"
+  ],
+  "source_decisions": [
+    {
+      "id": "D01",
+      "status": "resolved_by_user",
+      "resolution": "User selected historical e8b4de0, not current-production authority."
+    },
+    {
+      "id": "D02",
+      "status": "resolved_by_user",
+      "resolution": "Active historical zero-fill and componentwise nonnegative delta; separate evidence."
+    },
+    {
+      "id": "D03",
+      "status": "resolved_by_user",
+      "resolution": "Normalized timestamp/support inputs and resolved encounter partitions; upstream classification excluded."
+    },
+    {
+      "id": "D04",
+      "status": "resolved_by_user",
+      "resolution": "SQL execution explicitly deferred as nonblocking future work."
+    },
+    {
+      "id": "D05",
+      "status": "resolved_by_user",
+      "resolution": "V3 requests/bundles; v2 meanings preserved."
+    },
+    {
+      "id": "D06",
+      "status": "resolved_by_user",
+      "resolution": "Conditional C strata and 48 frozen stationary references, N=2000 seed173203."
+    }
+  ],
+  "milestones": [
+    {
+      "id": "M0",
+      "status": "passed"
+    },
+    {
+      "id": "M1",
+      "status": "passed"
+    },
+    {
+      "id": "M2",
+      "status": "passed"
+    },
+    {
+      "id": "M3",
+      "status": "passed"
+    },
+    {
+      "id": "M4",
+      "status": "passed"
+    }
+  ],
+  "verification_run_required_fields": [
+    "command",
+    "source_code_revision",
+    "source_sha256",
+    "runtime",
+    "exit_code",
+    "recorded_at_utc",
+    "log",
+    "log_sha256"
+  ],
+  "completion_rule": {
+    "required_acceptance_ids": [
+      "T01",
+      "T02",
+      "T03",
+      "T04",
+      "T05",
+      "T06",
+      "T07",
+      "T08",
+      "T09",
+      "T10",
+      "T11",
+      "T12",
+      "T13",
+      "T14",
+      "T15",
+      "T16",
+      "T17",
+      "T18",
+      "T19",
+      "T20",
+      "T21",
+      "T22",
+      "T23",
+      "T24"
+    ],
+    "required_gate_ids": [
+      "Q01",
+      "Q03",
+      "Q04"
+    ],
+    "required_status": "passed",
+    "nonempty_actual_verification_and_evidence": true,
+    "source_and_fixture_hashes_match_tested_implementation": true,
+    "proposed_targets_are_not_implemented_coverage": true,
+    "planning_baseline_checks_do_not_pass_requirements": true,
+    "scope_change_requires_explicit_owner_receipt": true,
+    "software_ready_milestone": "Historical source-mapped software: T01-T24 and Q01/Q03/Q04; approved-study SQL execution is follow-up only.",
+    "full_target": "Historical source-mapped software: T01-T24 and Q01/Q03/Q04; approved-study SQL execution is follow-up only.",
+    "source_hash_evidence": "artifacts/trops_sensitivity_v1/acceptance/source_revision.json"
+  },
+  "criteria": [
+    {
+      "id": "T01",
+      "milestone": "M0",
+      "title": "Preserve legacy and v2 contracts",
+      "required": true,
+      "status": "passed",
+      "depends_on": [],
+      "audit_findings": [
+        "F01"
+      ],
+      "acceptance": "Existing legacy/v2 requests, seeded patients, intermediates, scores, CLI behavior and historical artifact bytes retain their frozen meanings; old v2 bundles remain verifiable and readable without rewriting scientific hashes.",
+      "verification_design": [
+        "Run frozen baseline tests before edits and after integration. Compare source/result fixtures and original catalogue/artifact hashes. Exercise old bundle import and the declared pinned-runtime reproduction route."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_bundle.py",
+        "tests/experiments/test_legacy_compatibility.py",
+        "tests/workflows/test_experiment_cli.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "compatibility_and_boundary.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_bundle.py::test_roundtrip_hashes_and_versions",
+        "tests/experiments/test_bundle.py::test_typed_csv_preserves_zero_null_empty_and_nested_values",
+        "tests/experiments/test_bundle.py::test_corruption_unknown_versions_and_incomplete_runs_fail",
+        "tests/experiments/test_bundle.py::test_float_tolerance_cannot_hide_changed_discrete_fields",
+        "tests/experiments/test_bundle.py::test_append_only_generates_new_patients_and_preserves_prior_rows",
+        "tests/experiments/test_legacy_compatibility.py::test_legacy_entrypoints",
+        "tests/experiments/test_legacy_compatibility.py::test_seeded_legacy_snapshots[case0]",
+        "tests/experiments/test_legacy_compatibility.py::test_seeded_legacy_snapshots[case1]",
+        "tests/experiments/test_legacy_compatibility.py::test_seeded_legacy_snapshots[case2]",
+        "tests/experiments/test_legacy_compatibility.py::test_historical_artifacts_are_preserved",
+        "tests/workflows/test_experiment_cli.py::test_installed_cli_directory_zip_reproduce_append_explain",
+        "tests/workflows/test_experiment_cli.py::test_v3_evaluable_outcomes_roundtrip_through_cli"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/acceptance/compatibility_and_boundary.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T02",
+      "milestone": "M0",
+      "title": "Pin historical source identity and execution boundary",
+      "required": true,
+      "status": "passed",
+      "depends_on": [],
+      "audit_findings": [
+        "F02",
+        "F10"
+      ],
+      "acceptance": "Pin historical e8b4de0 active source and hashes; normalized context input boundary; explicitly not currently approved or execution-validated.",
+      "verification_design": [
+        "Inspect source version/hash, historical qualification, explicit clock metadata and declared input boundary. Confirm historical versus current identity rather than inferring deployment from Git."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "TROPS_SCORING_CONTRACT.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_partition_and_invasive_flags_are_explicit",
+        "tests/experiments/test_historical_trops.py::test_endpoint_generation_and_profile_label"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "docs/TROPS_SCORING_CONTRACT.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T03",
+      "milestone": "M0",
+      "title": "Complete rule-to-source crosswalk",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T02"
+      ],
+      "audit_findings": [
+        "F02"
+      ],
+      "acceptance": "Every required rule has a source locator/hash, input/unit/clock/null semantics, implementation location, fixture IDs and historical qualification status. There are no unresolved semantic rows presented as approved.",
+      "verification_design": [
+        "Validate coverage of conversion, rounding, priority, lookbacks, transfer partitions, support, endpoints, quarter fallback, ranking, suppression/ties and component deltas. Validate crosswalk fixture references."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py",
+        "tests/experiments/test_scoring_profiles.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "TROPS_SCORING_CONTRACT.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_january_ranking_and_component_delta",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[-0.001-True]",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[0-True]",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[0.001-False]",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[720-False]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[-360.001-False]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[-360-True]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[1439.999-True]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[1440-True]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[1440.001-False]",
+        "tests/experiments/test_historical_trops.py::test_exact_negative_integer_day_and_quarter",
+        "tests/experiments/test_historical_trops.py::test_room_air_fallback_requires_estimate_and_empty_partition_quarter",
+        "tests/experiments/test_historical_trops.py::test_partition_and_invasive_flags_are_explicit",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[OSA-0]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[NIPPV-3]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[HFNC-0]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[SURG IMV-0]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[IMV-3]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_component_truncation_and_invalid_c",
+        "tests/experiments/test_historical_trops.py::test_v3_pipeline_and_common_pair_probabilities",
+        "tests/experiments/test_historical_trops.py::test_endpoint_generation_and_profile_label",
+        "tests/experiments/test_historical_trops.py::test_generated_endpoint_is_documented_and_scored",
+        "tests/experiments/test_historical_trops.py::test_nine_transitions_are_exhaustive_disjoint_and_c_ge2_invariant",
+        "tests/experiments/test_historical_trops.py::test_c_changes_reuse_patient_and_scoring_identity",
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[historical]",
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[experimental]",
+        "tests/experiments/test_historical_trops.py::test_e3_counts_reconcile_and_low_flow_truth_is_unavailable",
+        "tests/experiments/test_historical_trops.py::test_historical_source_priority[False-0.5]",
+        "tests/experiments/test_historical_trops.py::test_historical_source_priority[True-0.8]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-14.001-False]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-14-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-1-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-0.999-False]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[0-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[5-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[5.001-False]",
+        "tests/experiments/test_historical_trops.py::test_flags_are_not_inferred_from_display_or_tracheostomy_context",
+        "tests/experiments/test_historical_trops.py::test_original_96_total_50_latest_date_and_exact_replay_are_preserved",
+        "tests/experiments/test_historical_trops.py::test_v3_empty_common_denominator_is_unavailable",
+        "tests/experiments/test_historical_trops.py::test_v3_reorder_extension_and_rule_changes_preserve_pairing",
+        "tests/experiments/test_scoring_profiles.py::test_threshold_factor_preserves_conversion",
+        "tests/experiments/test_scoring_profiles.py::test_identical_fio2_source_label_preserves_numerical_scores",
+        "tests/experiments/test_scoring_profiles.py::test_measured_pao2_priority_and_strict_cutpoints",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[49-None]",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[50-26.9]",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[96-81.9]",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[97-None]",
+        "tests/experiments/test_scoring_profiles.py::test_low_flow_singleton_and_two_record_fixture",
+        "tests/experiments/test_scoring_profiles.py::test_normal_missing_and_suppressed_are_distinct",
+        "tests/experiments/test_scoring_profiles.py::test_remove_entire_fio2_evidence_bundle",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[HFNC]",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[NIPPV]",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[IMV]",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[SURG IMV]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-1-True-True]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-0.999-True-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-14-True-True]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-14.001-True-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[5-True-True]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[5.001-False-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-1440-True-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-1440.001-False-False]",
+        "tests/experiments/test_scoring_profiles.py::test_current_priority_and_asof_availability_are_explicit",
+        "tests/experiments/test_scoring_profiles.py::test_bounded_acute_endpoints_and_context_only_records",
+        "tests/experiments/test_scoring_profiles.py::test_duplicate_and_coincident_events_preserve_counts",
+        "tests/experiments/test_scoring_profiles.py::test_calendar_admission_and_dst",
+        "tests/experiments/test_scoring_profiles.py::test_exact_replay_zero_and_baseline_counts",
+        "tests/experiments/test_scoring_profiles.py::test_named_suppression_conversion_and_baseline_variants"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "docs/TROPS_SCORING_CONTRACT.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T04",
+      "milestone": "M1",
+      "title": "Isolate profile identity and qualification",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T01",
+        "T03"
+      ],
+      "audit_findings": [
+        "F02"
+      ],
+      "acceptance": "New profile behavior is explicit and source-pinned. Existing profile defaults remain unchanged. Source-mapped versus execution-validated scope survives CLI/browser/bundle roundtrip; an edited rule profile cannot inherit the unmodified historical-profile badge.",
+      "verification_design": [
+        "Roundtrip new/old profiles. Reject unknown versions. Change a scientific rule and verify identity changes and qualification invalidates. Change an administrative receipt without reseeding physiology."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "TROPS_SCORING_CONTRACT.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_endpoint_generation_and_profile_label",
+        "tests/experiments/test_historical_trops.py::test_c_changes_reuse_patient_and_scoring_identity"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "docs/TROPS_SCORING_CONTRACT.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T05",
+      "milestone": "M1",
+      "title": "Match temporal windows and baseline ordering",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T03",
+        "T04"
+      ],
+      "audit_findings": [
+        "F03"
+      ],
+      "acceptance": "Historical boundary/ranking semantics pass before/equal/after fixtures, negative integer-day cases, month/timezone cases and the audit anchors. Generated new-profile runs can actually contain the inclusive endpoint when specified.",
+      "verification_design": [
+        "Verify January baseline ranking 2 versus historical 0 as specified historically; cutoff noon exclusion and +24h inclusion under historical rules; retain v2 behavior. Check TRUNC(-n)-1 versus floor(-n). Run end-to-end generator/documentation/scorer endpoint coverage."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "TROPS_SCORING_CONTRACT.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_january_ranking_and_component_delta",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[-0.001-True]",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[0-True]",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[0.001-False]",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[720-False]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[-360.001-False]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[-360-True]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[1439.999-True]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[1440-True]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[1440.001-False]",
+        "tests/experiments/test_historical_trops.py::test_exact_negative_integer_day_and_quarter",
+        "tests/experiments/test_historical_trops.py::test_generated_endpoint_is_documented_and_scored"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "docs/TROPS_SCORING_CONTRACT.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T06",
+      "milestone": "M1",
+      "title": "Match denominator selection, fallback and numeric rules",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T03",
+        "T04"
+      ],
+      "audit_findings": [
+        "F04"
+      ],
+      "acceptance": "Conversion, measured priority, rounding, source hierarchy, lookback edges and baseline quarter fallback match the historical rule and emit selected IDs/reasons; missing denominator never becomes room air outside that explicit rule.",
+      "verification_design": [
+        "Test empty quarter, denominator elsewhere in same/different quarter, boundary timestamps, measured PaO2 and conversion unavailable, set/measured/flow/room-air conflicts, ties and stale/forward/as-of context."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py",
+        "tests/experiments/test_scoring_profiles.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "TROPS_SCORING_CONTRACT.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_room_air_fallback_requires_estimate_and_empty_partition_quarter",
+        "tests/experiments/test_historical_trops.py::test_historical_source_priority[False-0.5]",
+        "tests/experiments/test_historical_trops.py::test_historical_source_priority[True-0.8]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-14.001-False]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-14-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-1-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-0.999-False]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[0-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[5-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[5.001-False]",
+        "tests/experiments/test_scoring_profiles.py::test_threshold_factor_preserves_conversion",
+        "tests/experiments/test_scoring_profiles.py::test_identical_fio2_source_label_preserves_numerical_scores",
+        "tests/experiments/test_scoring_profiles.py::test_measured_pao2_priority_and_strict_cutpoints",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[49-None]",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[50-26.9]",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[96-81.9]",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[97-None]",
+        "tests/experiments/test_scoring_profiles.py::test_low_flow_singleton_and_two_record_fixture",
+        "tests/experiments/test_scoring_profiles.py::test_normal_missing_and_suppressed_are_distinct",
+        "tests/experiments/test_scoring_profiles.py::test_remove_entire_fio2_evidence_bundle",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[HFNC]",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[NIPPV]",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[IMV]",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[SURG IMV]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-1-True-True]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-0.999-True-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-14-True-True]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-14.001-True-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[5-True-True]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[5.001-False-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-1440-True-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-1440.001-False-False]",
+        "tests/experiments/test_scoring_profiles.py::test_current_priority_and_asof_availability_are_explicit",
+        "tests/experiments/test_scoring_profiles.py::test_bounded_acute_endpoints_and_context_only_records",
+        "tests/experiments/test_scoring_profiles.py::test_duplicate_and_coincident_events_preserve_counts",
+        "tests/experiments/test_scoring_profiles.py::test_calendar_admission_and_dst",
+        "tests/experiments/test_scoring_profiles.py::test_exact_replay_zero_and_baseline_counts",
+        "tests/experiments/test_scoring_profiles.py::test_named_suppression_conversion_and_baseline_variants"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "docs/TROPS_SCORING_CONTRACT.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T07",
+      "milestone": "M1",
+      "title": "Respect constituent-encounter partitions",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T03",
+        "T04"
+      ],
+      "audit_findings": [
+        "F04"
+      ],
+      "acceptance": "FiO2 lookup uses the resolved encounter and invasive-status partition, including transfers. Missing required partition keys cannot silently pool distinct encounters.",
+      "verification_design": [
+        "Place differing denominator values at identical times across two encounters. Assert selected source IDs and eligibility; vary invasive status, equal admission timestamps and missing partition IDs."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "TROPS_SCORING_CONTRACT.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_room_air_fallback_requires_estimate_and_empty_partition_quarter",
+        "tests/experiments/test_historical_trops.py::test_partition_and_invasive_flags_are_explicit"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "docs/TROPS_SCORING_CONTRACT.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T08",
+      "milestone": "M1",
+      "title": "Qualify support inputs at the declared boundary",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T02",
+        "T03",
+        "T04"
+      ],
+      "audit_findings": [
+        "F04"
+      ],
+      "acceptance": "Test supplied normalized support flags/episodes for OSA, NIPPV, HFNC, surgical IMV, tracheostomy and unknown support. Raw classifier and private adapter reconstruction are outside this phase.",
+      "verification_design": [
+        "Exercise supplied normalized support flags independently of display labels, including OSA, NIPPV, HFNC, surgery and tracheostomy context. Explicitly exclude clinical-documentation classification and private adapters."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "TROPS_SCORING_CONTRACT.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[OSA-0]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[NIPPV-3]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[HFNC-0]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[SURG IMV-0]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[IMV-3]",
+        "tests/experiments/test_historical_trops.py::test_flags_are_not_inferred_from_display_or_tracheostomy_context"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "docs/TROPS_SCORING_CONTRACT.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T09",
+      "milestone": "M1",
+      "title": "Explain every differential fixture",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T05",
+        "T06",
+        "T07",
+        "T08"
+      ],
+      "audit_findings": [
+        "F02",
+        "F03",
+        "F04"
+      ],
+      "acceptance": "Synthetic fixture traces reproduce final scores from intermediate decisions and expose selection, partitions, caps, suppression, ties, baseline and component deltas. Independent expected results have provenance separate from the new scorer.",
+      "verification_design": [
+        "Perturb one source/clock/rule at a time; verify expected changed intermediates and preserved held-fixed values. Include one/two/repeated oxygenation records and equal-score ties. Never generate expected outputs solely from the new implementation."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py",
+        "tests/experiments/test_scoring_profiles.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "TROPS_SCORING_CONTRACT.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_january_ranking_and_component_delta",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[-0.001-True]",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[0-True]",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[0.001-False]",
+        "tests/experiments/test_historical_trops.py::test_actual_baseline_cutoff[720-False]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[-360.001-False]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[-360-True]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[1439.999-True]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[1440-True]",
+        "tests/experiments/test_historical_trops.py::test_inclusive_acute_endpoints[1440.001-False]",
+        "tests/experiments/test_historical_trops.py::test_exact_negative_integer_day_and_quarter",
+        "tests/experiments/test_historical_trops.py::test_room_air_fallback_requires_estimate_and_empty_partition_quarter",
+        "tests/experiments/test_historical_trops.py::test_partition_and_invasive_flags_are_explicit",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[OSA-0]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[NIPPV-3]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[HFNC-0]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[SURG IMV-0]",
+        "tests/experiments/test_historical_trops.py::test_support_detail_final_cap_and_singleton[IMV-3]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_component_truncation_and_invalid_c",
+        "tests/experiments/test_historical_trops.py::test_v3_pipeline_and_common_pair_probabilities",
+        "tests/experiments/test_historical_trops.py::test_endpoint_generation_and_profile_label",
+        "tests/experiments/test_historical_trops.py::test_generated_endpoint_is_documented_and_scored",
+        "tests/experiments/test_historical_trops.py::test_nine_transitions_are_exhaustive_disjoint_and_c_ge2_invariant",
+        "tests/experiments/test_historical_trops.py::test_c_changes_reuse_patient_and_scoring_identity",
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[historical]",
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[experimental]",
+        "tests/experiments/test_historical_trops.py::test_e3_counts_reconcile_and_low_flow_truth_is_unavailable",
+        "tests/experiments/test_historical_trops.py::test_historical_source_priority[False-0.5]",
+        "tests/experiments/test_historical_trops.py::test_historical_source_priority[True-0.8]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-14.001-False]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-14-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-1-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[-0.999-False]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[0-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[5-True]",
+        "tests/experiments/test_historical_trops.py::test_historical_lookup_edges[5.001-False]",
+        "tests/experiments/test_historical_trops.py::test_flags_are_not_inferred_from_display_or_tracheostomy_context",
+        "tests/experiments/test_historical_trops.py::test_original_96_total_50_latest_date_and_exact_replay_are_preserved",
+        "tests/experiments/test_historical_trops.py::test_v3_empty_common_denominator_is_unavailable",
+        "tests/experiments/test_historical_trops.py::test_v3_reorder_extension_and_rule_changes_preserve_pairing",
+        "tests/experiments/test_scoring_profiles.py::test_threshold_factor_preserves_conversion",
+        "tests/experiments/test_scoring_profiles.py::test_identical_fio2_source_label_preserves_numerical_scores",
+        "tests/experiments/test_scoring_profiles.py::test_measured_pao2_priority_and_strict_cutpoints",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[49-None]",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[50-26.9]",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[96-81.9]",
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges[97-None]",
+        "tests/experiments/test_scoring_profiles.py::test_low_flow_singleton_and_two_record_fixture",
+        "tests/experiments/test_scoring_profiles.py::test_normal_missing_and_suppressed_are_distinct",
+        "tests/experiments/test_scoring_profiles.py::test_remove_entire_fio2_evidence_bundle",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[HFNC]",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[NIPPV]",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[IMV]",
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate[SURG IMV]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-1-True-True]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-0.999-True-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-14-True-True]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-14.001-True-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[5-True-True]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[5.001-False-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-1440-True-False]",
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries[-1440.001-False-False]",
+        "tests/experiments/test_scoring_profiles.py::test_current_priority_and_asof_availability_are_explicit",
+        "tests/experiments/test_scoring_profiles.py::test_bounded_acute_endpoints_and_context_only_records",
+        "tests/experiments/test_scoring_profiles.py::test_duplicate_and_coincident_events_preserve_counts",
+        "tests/experiments/test_scoring_profiles.py::test_calendar_admission_and_dst",
+        "tests/experiments/test_scoring_profiles.py::test_exact_replay_zero_and_baseline_counts",
+        "tests/experiments/test_scoring_profiles.py::test_named_suppression_conversion_and_baseline_variants"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "docs/TROPS_SCORING_CONTRACT.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T10",
+      "milestone": "M2",
+      "title": "Compute componentwise criterion and C strata",
+      "required": true,
+      "status": "passed",
+      "depends_on": [],
+      "audit_findings": [
+        "F05"
+      ],
+      "acceptance": "R is the profile-defined nonnegative respiratory change and criterion is C+R>=2. C=0/1/>=2 are conditional reporting strata using the same patient IDs, with no inferred prevalence or duplicated independent sample count.",
+      "verification_design": [
+        "Exhaust respiratory baseline/acute scores 0..4 and C strata (75 cases). Verify [1,-2,1,0,0,0] gives 2, not 0. Reject negative/fractional/bool/unknown C. C>=2 never flips under respiratory-only changes."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_component_truncation_and_invalid_c",
+        "tests/experiments/test_historical_trops.py::test_c_changes_reuse_patient_and_scoring_identity"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T11",
+      "milestone": "M2",
+      "title": "Separate algorithm convention and evidence sufficiency",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T10",
+        "T02"
+      ],
+      "audit_findings": [
+        "F05"
+      ],
+      "acceptance": "Algorithm eligibility follows historical source null/fallback rules. The conservative evidence view is indeterminate for unevaluable R when C=0/1, but eligible for C>=2; respiratory missing/suppression flags remain visible.",
+      "verification_design": [
+        "Exhaust missing acute, missing baseline, both missing, normal and suppressed records across C. Distinguish zero from unavailable and evidence-supported from algorithm outputs."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[0-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[1-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[2-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[3-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-0-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-1-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-2-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-3-ge2]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-0]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-1]",
+        "tests/experiments/test_historical_trops.py::test_all_75_component_criterion_cases[4-4-ge2]",
+        "tests/experiments/test_historical_trops.py::test_nine_transitions_are_exhaustive_disjoint_and_c_ge2_invariant",
+        "tests/experiments/test_historical_trops.py::test_v3_empty_common_denominator_is_unavailable"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T12",
+      "milestone": "M2",
+      "title": "Reconcile full paired eligibility and evidence transitions",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T10",
+        "T11"
+      ],
+      "audit_findings": [
+        "F05"
+      ],
+      "acceptance": "All nine eligible/ineligible/indeterminate cells reconcile to all patients exactly once; determined flips are separated from evidence gains/losses and unchanged indeterminate. Algorithm transitions are separately labeled.",
+      "verification_design": [
+        "Hand-count a synthetic cohort covering every cell, empty cells, all indeterminate and C>=2. Verify counts, denominators, patient lists and selected trace membership. Reject incomplete or duplicate pairs."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py",
+        "tests/workflows/test_historical_evidence.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_nine_transitions_are_exhaustive_disjoint_and_c_ge2_invariant",
+        "tests/workflows/test_historical_evidence.py::test_historical_inventory_and_tampered_completion"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T13",
+      "milestone": "M2",
+      "title": "Return common-pair probabilities beside contrasts",
+      "required": true,
+      "status": "passed",
+      "depends_on": [],
+      "audit_findings": [
+        "F09"
+      ],
+      "acceptance": "Conditional contrasts return both common-pair probabilities/numerators and intersection denominator; separate condition marginals retain their own denominators. Difference of common-pair probabilities equals paired contrast.",
+      "verification_design": [
+        "Use [1,null] versus [1,0]: marginal 1 and .5, common pair 1 and 1, difference 0, N=1. Test N=0, identical sets and disjoint/unequal eligible sets for every conditional metric."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_v3_pipeline_and_common_pair_probabilities",
+        "tests/experiments/test_historical_trops.py::test_v3_empty_common_denominator_is_unavailable"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T14",
+      "milestone": "M2",
+      "title": "Preserve paired uncertainty and analysis units",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T10",
+        "T12",
+        "T13"
+      ],
+      "audit_findings": [
+        "F05",
+        "F06",
+        "F09"
+      ],
+      "acceptance": "Binary probabilities/contrasts retain patient-level Wilson/paired-discordance uncertainty. Record retention uses patient-level fraction/MCSE, with any pooled record fraction labeled descriptive. N<2 has no claimed interval.",
+      "verification_design": [
+        "Verify hand-counted discordances, zero flips and interval bounds; demonstrate repeated records and repeated C views do not increase independent N. Test changing per-patient scheduled counts."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/contracts/test_reporting_uncertainty.py",
+        "tests/experiments/test_historical_trops.py",
+        "tests/experiments/test_results.py",
+        "tests/experiments/test_uncertainty.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/contracts/test_reporting_uncertainty.py::test_uncertainty_delta_equals_scenario_minus_reference",
+        "tests/experiments/test_historical_trops.py::test_v3_pipeline_and_common_pair_probabilities",
+        "tests/experiments/test_historical_trops.py::test_e3_counts_reconcile_and_low_flow_truth_is_unavailable",
+        "tests/experiments/test_results.py::test_transition_and_denominator_reconciliation",
+        "tests/experiments/test_results.py::test_failed_and_duplicate_pairs_are_not_silently_dropped",
+        "tests/experiments/test_uncertainty.py::test_wilson_boundary_cases",
+        "tests/experiments/test_uncertainty.py::test_paired_discordance_anchor",
+        "tests/experiments/test_uncertainty.py::test_zero_discordance_does_not_prove_identity",
+        "tests/experiments/test_uncertainty.py::test_small_n_is_explicitly_unavailable[0]",
+        "tests/experiments/test_uncertainty.py::test_small_n_is_explicitly_unavailable[1]",
+        "tests/experiments/test_uncertainty.py::test_invalid_discordance_counts_fail[args0]",
+        "tests/experiments/test_uncertainty.py::test_invalid_discordance_counts_fail[args1]",
+        "tests/experiments/test_uncertainty.py::test_invalid_discordance_counts_fail[args2]"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T15",
+      "milestone": "M3",
+      "title": "Expose existing evaluable metrics across all entrypoints",
+      "required": true,
+      "status": "passed",
+      "depends_on": [],
+      "audit_findings": [
+        "F08"
+      ],
+      "acceptance": "Evaluable delta >=1/>=2 and missing-baseline outcomes normalize, run, display and export through CLI and browser, with correct units, denominator and immutable-request semantics.",
+      "verification_design": [
+        "Roundtrip every new outcome through validation, CLI, browser and bundle. Exercise no baseline, stale results and UI edits. Confirm outcome allowlist and renderer registry agree."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/e2e/test_experiment_app.py",
+        "tests/workflows/test_experiment_cli.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/e2e/test_experiment_app.py::test_historical_criterion_c_view_trace_and_export[chromium]",
+        "tests/workflows/test_experiment_cli.py::test_v3_evaluable_outcomes_roundtrip_through_cli"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T16",
+      "milestone": "M3",
+      "title": "Make E3 measure documentation mechanisms",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T14"
+      ],
+      "audit_findings": [
+        "F06"
+      ],
+      "acceptance": "E3 primary metrics include target scheduled-to-eligible patient fractions/counts with stage/exclusion reconciliation and source/value age. No-data remains secondary. Denominator definitions precede missingness.",
+      "verification_design": [
+        "Dense partial missingness must change retention even when encounter no-data stays zero. Reconcile scheduled/recorded/convertible/linked/eligible stages, forward/stale source ages and conditional source-error availability for low flow."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/e2e/test_experiment_app.py",
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/e2e/test_experiment_app.py::test_historical_criterion_c_view_trace_and_export[chromium]",
+        "tests/experiments/test_historical_trops.py::test_e3_counts_reconcile_and_low_flow_truth_is_unavailable"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T17",
+      "milestone": "M3",
+      "title": "Disentangle baseline opportunity mechanisms",
+      "required": true,
+      "status": "passed",
+      "depends_on": [],
+      "audit_findings": [
+        "F07"
+      ],
+      "acceptance": "E5 has separate density, matched-end history and boundary-alignment comparisons; displays actual selected-day opportunities and null selection when absent; preserves exact replay and old 96/50 example.",
+      "verification_design": [
+        "Assert held-fixed schedules/windows for each mechanism, 96 total versus 50 latest-date counts for old case, and exact-replay zero delta. Show independent stationary draws are not constrained to zero."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "table_provenance.json",
+        "figure_data_manifest.json",
+        "FINDINGS.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[historical]",
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[experimental]",
+        "tests/experiments/test_historical_trops.py::test_original_96_total_50_latest_date_and_exact_replay_are_preserved"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/table_provenance.json",
+        "artifacts/trops_sensitivity_v1/figure_data_manifest.json",
+        "artifacts/trops_sensitivity_v1/FINDINGS.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T18",
+      "milestone": "M3",
+      "title": "Give E6 outcomes that can respond to its rules",
+      "required": true,
+      "status": "passed",
+      "depends_on": [],
+      "audit_findings": [
+        "F06"
+      ],
+      "acceptance": "Acute/source/support and baseline-rule comparisons are separate catalogue entries or explicitly scoped variants. Baseline comparisons lead with baseline/delta/criterion rather than an acute-only outcome.",
+      "verification_design": [
+        "Baseline-only rule change leaves acute score/trace unchanged but changes the intended baseline/delta fixture. Cover inactive and active rules and reject incompatible primary metric assignments."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "table_provenance.json",
+        "figure_data_manifest.json",
+        "FINDINGS.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_january_ranking_and_component_delta",
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[historical]",
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[experimental]"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/table_provenance.json",
+        "artifacts/trops_sensitivity_v1/figure_data_manifest.json",
+        "artifacts/trops_sensitivity_v1/FINDINGS.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T19",
+      "milestone": "M3",
+      "title": "Freeze a finite informative catalogue before execution",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T16",
+        "T17",
+        "T18"
+      ],
+      "audit_findings": [
+        "F06",
+        "F07"
+      ],
+      "acceptance": "All full requests, seed/N, held-fixed quantities, clock alignment, expected opportunity counts, grid cells, analysis units and trace selection are frozen before outcome inspection; original v2 requests/nulls remain.",
+      "verification_design": [
+        "Verify 48 stochastic requests across two profiles with the accepted historical specification, 336 deterministic rubric cells, 16 conversion cells and 75 algebra cases; reject duplicates or undeclared additions. Use N=2000 for stochastic references and N=1/no intervals for deterministic cases."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/experiments/test_historical_trops.py",
+        "tests/workflows/test_historical_evidence.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "table_provenance.json",
+        "figure_data_manifest.json",
+        "FINDINGS.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[historical]",
+        "tests/experiments/test_historical_trops.py::test_e5_controlled_schedules_and_e6_negative_control[experimental]",
+        "tests/workflows/test_historical_evidence.py::test_historical_inventory_and_tampered_completion"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/table_provenance.json",
+        "artifacts/trops_sensitivity_v1/figure_data_manifest.json",
+        "artifacts/trops_sensitivity_v1/FINDINGS.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T20",
+      "milestone": "M3",
+      "title": "Present criterion, transitions and linked explanations",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T04",
+        "T12",
+        "T13",
+        "T15",
+        "T19"
+      ],
+      "audit_findings": [
+        "F05",
+        "F08",
+        "F09"
+      ],
+      "acceptance": "New study views show C, source/profile qualification, criterion crossings, evidence/score table and linked mechanism trace in the existing layout. Common-pair and separate marginals are visually distinct.",
+      "verification_design": [
+        "Operate real desktop/mobile browser: change profile/C/outcome, select transitions, reconstruct member patient and verify displayed results/denominators. Verify immutable old result, stale exports, saved example, failure/cancel recovery and accessible units."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/e2e/test_experiment_app.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "historical_runtime_probe.json",
+        "clean_experiment_install.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/e2e/test_experiment_app.py::test_saved_example_precedes_python_and_new_run_trace_and_bundle[chromium]",
+        "tests/e2e/test_experiment_app.py::test_saved_example_is_available_without_starting_python[chromium]",
+        "tests/e2e/test_experiment_app.py::test_edited_base_stale_export_and_rule_explorer[chromium]",
+        "tests/e2e/test_experiment_app.py::test_cancel_preserves_edited_request_and_reinitializes[chromium]",
+        "tests/e2e/test_experiment_app.py::test_metric_units_are_declared_not_guessed[chromium]",
+        "tests/e2e/test_experiment_app.py::test_low_flow_trace_keeps_flow_and_fraction_separate[chromium]",
+        "tests/e2e/test_experiment_app.py::test_oversized_preview_is_blocked_and_can_be_reduced[chromium]",
+        "tests/e2e/test_experiment_app.py::test_worker_crash_preserves_request_and_prior_result[chromium]",
+        "tests/e2e/test_experiment_app.py::test_oversized_import_is_rejected_before_reading_file[chromium]",
+        "tests/e2e/test_experiment_app.py::test_structured_run_failure_is_not_left_labeled_running[chromium]",
+        "tests/e2e/test_experiment_app.py::test_every_advanced_control_reaches_the_resolved_request[chromium]",
+        "tests/e2e/test_experiment_app.py::test_baseline_matrix_uses_signed_scale_and_white_zero[chromium]",
+        "tests/e2e/test_experiment_app.py::test_historical_criterion_c_view_trace_and_export[chromium]"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/acceptance/historical_runtime_probe.json",
+        "artifacts/trops_sensitivity_v1/acceptance/clean_experiment_install.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T21",
+      "milestone": "M4",
+      "title": "Version and reproduce new bundles without corrupting old ones",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T04",
+        "T12",
+        "T13",
+        "T16"
+      ],
+      "audit_findings": [
+        "F01",
+        "F05",
+        "F09"
+      ],
+      "acceptance": "New bundles include normalized request, profile/source/qualification identity, C, eligibility/evidence rows, common-pair statistics and opportunity diagnostics with strict types/hashes. Old v2 imports still work. Fresh-wheel new-profile reproduction is exact within its declared runtime.",
+      "verification_design": [
+        "Native/browser ZIP roundtrip and null/type checks; tamper profile/source fields; unknown version rejection; changed rules invalidate relevant identity; reproduce outside checkout and verify traces/summaries from data."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/e2e/test_experiment_app.py",
+        "tests/e2e/test_pyodide_parity.py",
+        "tests/experiments/test_historical_trops.py",
+        "tests/workflows/test_experiment_cli.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "historical_runtime_probe.json",
+        "clean_experiment_install.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/e2e/test_experiment_app.py::test_historical_criterion_c_view_trace_and_export[chromium]",
+        "tests/e2e/test_pyodide_parity.py::test_historical_v3_native_pyodide_bundle_and_trace[chromium]",
+        "tests/experiments/test_historical_trops.py::test_c_changes_reuse_patient_and_scoring_identity",
+        "tests/workflows/test_experiment_cli.py::test_v3_evaluable_outcomes_roundtrip_through_cli"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/acceptance/historical_runtime_probe.json",
+        "artifacts/trops_sensitivity_v1/acceptance/clean_experiment_install.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T22",
+      "milestone": "M4",
+      "title": "Preserve pairing and actual native-Pyodide parity",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T04",
+        "T10",
+        "T21"
+      ],
+      "audit_findings": [
+        "F01",
+        "F02"
+      ],
+      "acceptance": "Profile/reporting changes do not reseed patients; reordering, isolation, added conditions, chunking and extension invariants hold. Actual Pyodide executes new fixtures with exact discrete/null fields and prespecified float tolerance.",
+      "verification_design": [
+        "Run append/reorder tests and show C changes are post-scoring. Execute source/window/eligibility/common-pair/bundle cases in native and Pyodide; record both runtimes and staging hashes."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/e2e/test_pyodide_parity.py",
+        "tests/experiments/test_historical_trops.py",
+        "tests/experiments/test_pairing.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "historical_runtime_probe.json",
+        "clean_experiment_install.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/e2e/test_pyodide_parity.py::test_pyodide_foundation_and_interval_components[chromium]",
+        "tests/e2e/test_pyodide_parity.py::test_historical_v3_native_pyodide_bundle_and_trace[chromium]",
+        "tests/experiments/test_historical_trops.py::test_v3_reorder_extension_and_rule_changes_preserve_pairing",
+        "tests/experiments/test_pairing.py::test_condition_order_and_isolation",
+        "tests/experiments/test_pairing.py::test_chunk_and_append_invariance",
+        "tests/experiments/test_pairing.py::test_physiology_is_generated_once_and_progress_is_real",
+        "tests/experiments/test_pairing.py::test_single_patient_reconstruction",
+        "tests/experiments/test_pairing.py::test_browser_contract_roundtrip_and_structured_errors"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/acceptance/historical_runtime_probe.json",
+        "artifacts/trops_sensitivity_v1/acceptance/clean_experiment_install.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T23",
+      "milestone": "M4",
+      "title": "Produce reviewed decision-focused reference evidence",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T19",
+        "T20",
+        "T21",
+        "T22"
+      ],
+      "audit_findings": [
+        "F06",
+        "F07",
+        "F09"
+      ],
+      "acceptance": "All prespecified requests/cells complete and verify; compact findings, six primary mechanism figures, appendix grids and selected traces retain nulls/ceilings with correct denominators/uncertainty. Each final figure has a hash-bound visual review.",
+      "verification_design": [
+        "Verify complete inventory and provenance against normalized requests/source. Recalculate compact results from bundles. Check all nine transition cells and traces. Review every figure at intended size; no effect-size-selected headline or seed tuning."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/workflows/test_historical_evidence.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "table_provenance.json",
+        "figure_data_manifest.json",
+        "FINDINGS.md"
+      ],
+      "actual_test_node_ids": [
+        "tests/workflows/test_historical_evidence.py::test_historical_inventory_and_tampered_completion",
+        "tests/workflows/test_historical_evidence.py::test_compact_trace_preserves_null_absent_values_types_and_order"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/table_provenance.json",
+        "artifacts/trops_sensitivity_v1/figure_data_manifest.json",
+        "artifacts/trops_sensitivity_v1/FINDINGS.md"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "T24",
+      "milestone": "M4",
+      "title": "Publish truthful methods and completion evidence",
+      "required": true,
+      "status": "passed",
+      "depends_on": [
+        "T03",
+        "T20",
+        "T23"
+      ],
+      "audit_findings": [
+        "F01",
+        "F02",
+        "F10"
+      ],
+      "acceptance": "Canonical docs, CLI help, browser labels, source scope and completion report agree. All proposed targets are replaced with actual test IDs/commands/evidence before passing; pending execution qualification stays visible.",
+      "verification_design": [
+        "Run affected-reference checks and git diff --check. Audit claim language for study-source, synthetic execution, clinical/calibration and treatment distinctions. Verify all ledger references resolve and receipts match tested code."
+      ],
+      "proposed_test_or_review_targets": [
+        "tests/contracts/test_repository_contract.py",
+        "tests/workflows/test_historical_evidence.py"
+      ],
+      "expected_evidence_names": [
+        "source_revision.json",
+        "verification_runs.json",
+        "TROPS_SCORING_CONTRACT.md",
+        "compatibility_and_boundary.json"
+      ],
+      "actual_test_node_ids": [
+        "tests/contracts/test_repository_contract.py::test_readme_uses_current_package_name",
+        "tests/contracts/test_repository_contract.py::test_pyproject_metadata_is_not_placeholder",
+        "tests/contracts/test_repository_contract.py::test_agents_file_does_not_use_stale_continuity_ledger",
+        "tests/contracts/test_repository_contract.py::test_citation_file_is_not_placeholder",
+        "tests/contracts/test_repository_contract.py::test_active_docs_do_not_reference_streamlit_runtime",
+        "tests/workflows/test_historical_evidence.py::test_historical_inventory_and_tampered_completion"
+      ],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "docs/TROPS_SCORING_CONTRACT.md",
+        "artifacts/trops_sensitivity_v1/acceptance/compatibility_and_boundary.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    }
+  ],
+  "delivery_gates": [
+    {
+      "id": "Q01",
+      "title": "Integrated software checks",
+      "required": true,
+      "status": "passed",
+      "acceptance": "All affected native/scientific/legacy, lint/format, real browser/native-Pyodide, staging, artifact and clean-wheel checks pass for the final scientific implementation. No skipped requirement passes by a stub or schema-only test.",
+      "verification_design": [
+        "Run PLAN.md canonical commands and actual new catalogue/reference commands. Bind output logs, versions and source/commit hashes."
+      ],
+      "actual_test_node_ids": [],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/acceptance/compatibility_and_boundary.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "Q02",
+      "title": "Approved-implementation execution qualification",
+      "required": false,
+      "status": "not_started",
+      "acceptance": "D01-D04 resolve and identical wholly synthetic fixture inputs execute through the approved study implementation and Python at the declared boundary; all specified discrete/intermediate fields and prespecified numeric tolerances match. An approved operator receipt may satisfy external execution; source reconstruction alone cannot.",
+      "verification_design": [
+        "Retain engine/source/fixture/adapter/code hashes, operator/scope attestation, commands or approved job identity, output comparison and unresolved differences. Repeat affected fixtures after scientific/source changes; qualify only the tested boundary."
+      ],
+      "actual_test_node_ids": [],
+      "verification_runs": [],
+      "evidence": [],
+      "blocker": "Separate future qualification milestone, excluded by user instruction.",
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "Q03",
+      "title": "Public/restricted boundary",
+      "required": true,
+      "status": "passed",
+      "acceptance": "Tracked files, staged browser assets and bundles contain only authorized derived specifications, wholly synthetic records and permitted attestations. No raw study SQL, grants, identifying traces, secrets, real extracts or restricted adapter code are exposed.",
+      "verification_design": [
+        "Inspect changed tracked/public/staged paths and verify fixture provenance, source references and sharing approval. Keep restricted execution receipts in approved storage with permitted public pointers only."
+      ],
+      "actual_test_node_ids": [],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/acceptance/compatibility_and_boundary.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "Q04",
+      "title": "Delivery tied to tested revision",
+      "required": true,
+      "status": "passed",
+      "acceptance": "Delivery identifies the tested local revision and scientific source hashes; if pushed, verify matching-SHA remote CI. Merge/release/deployment are separate delivery actions. External SQL qualification is nonblocking follow-up.",
+      "verification_design": [
+        "Record tested commit and intended tree, runtime and source hashes. Check remote CI if a push is performed. Do not imply Oracle validation or production deployment."
+      ],
+      "actual_test_node_ids": [],
+      "verification_runs": [
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json"
+      ],
+      "evidence": [
+        "artifacts/trops_sensitivity_v1/acceptance/source_revision.json",
+        "artifacts/trops_sensitivity_v1/acceptance/verification_runs.json",
+        "artifacts/trops_sensitivity_v1/acceptance/compatibility_and_boundary.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    }
+  ],
+  "tested_revision": "3640987c8ca9d63443afa9fc03af89d0af67bfd6"
+}

@@ -39,6 +39,13 @@ const names = {
   qualifying_pf_count: "Qualifying P/F count",
   delta_legacy_ge1: "Legacy delta ≥1",
   delta_legacy_ge2: "Legacy delta ≥2",
+  delta_evaluable_ge1: "Evaluable delta ≥1",
+  delta_evaluable_ge2: "Evaluable delta ≥2",
+  missing_baseline: "Missing baseline evidence",
+  eligible_observation_fraction: "Scheduled observations eligible",
+  baseline_score: "Baseline score",
+  sofa_eligibility_C0: "Algorithm SOFA eligibility criterion (C=0)",
+  sofa_eligibility_evaluable_C0: "Evidence-supported SOFA eligibility (C=0)",
 };
 const fields = [
   ["generator.mean_pct", "Background SpO2 mean (%)", 0.1],
@@ -78,6 +85,9 @@ export function formatMetric(value, unit) {
   if (unit === "records")
     return `${n.toLocaleString(undefined, { maximumFractionDigits: 2 })} records`;
   if (unit === "mmHg") return `${n.toFixed(2)} mmHg`;
+  if (unit === "fraction") return `${n.toFixed(3)} fraction`;
+  if (unit === "minutes") return `${n.toFixed(2)} minutes`;
+  if (unit === "score") return `${n.toFixed(2)} score`;
   return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
 const metric = formatMetric;
@@ -257,6 +267,13 @@ async function startWorker() {
   try {
     await call("init");
     if (generation !== state.generation) return;
+    const fresh = await call("catalogue");
+    if (generation !== state.generation) return;
+    state.catalogue = fresh.catalogue;
+    for (const entry of state.catalogue.entries) {
+      if (![...$("entry").options].some(option => option.value === entry.id))
+        $("entry").add(new Option(entry.title, entry.id));
+    }
     state.ready = true;
     $("runtime").textContent = "Python ready";
     await updateWorkload();
@@ -285,7 +302,8 @@ async function operation(fn) {
 async function expandBase(all = false) {
   const revision = state.version,
     selected = new Set(state.request.conditions.map((c) => c.label)),
-    outcome = state.request.primary_outcome;
+    outcome = state.request.primary_outcome,
+    schema = state.request.schema_version;
   const response = await call("catalogue", {
     entry_id: state.entry,
     stratum: state.stratum,
@@ -297,6 +315,10 @@ async function expandBase(all = false) {
   state.allConditions = clone(response.request.conditions);
   state.request = response.request;
   state.request.primary_outcome = outcome;
+  if (schema === "experiment_request_v3") {
+    state.request.schema_version = schema;
+    state.request.nonrespiratory_contribution = "0";
+  }
   if (!all)
     state.request.conditions = state.request.conditions.filter((c) =>
       selected.has(c.label),
@@ -455,7 +477,7 @@ function renderResults() {
   const first =
     paired.find((x) => x.condition_id !== x.comparator_id) || paired[0];
   $("interval-note").textContent =
-    summaries[0].unit === "records"
+    summaries[0].unit !== "probability"
       ? "Mean/count estimates report empirical MCSE in the table; no confidence interval is asserted."
       : "95% pointwise Monte Carlo intervals are conditional on the model. Empty evidence is not normal oxygenation; inspect the U state below.";
   $("primary-result").textContent =
@@ -473,10 +495,23 @@ function renderResults() {
       paired,
       paired[0].unit === "probability_difference"
         ? "Variant minus comparator — percentage points (pp)"
-        : "Variant minus comparator — records",
+        : `Variant minus comparator — ${paired[0].unit}`,
       paired[0].unit,
       true,
     );
+  const v3 = r.schema_version === "experiment_result_v3";
+  $("c-view-label").hidden = !v3;
+  $("profile-qualification").textContent = v3
+    ? [...new Set(Object.values(r.profile_provenance || {}).map(p => p.qualification))].join("; ")
+    : "Declared experimental profile; no TROPS execution-equivalence claim.";
+  for (const option of [...$("transition-table").options])
+    if (option.value.startsWith("eligibility_")) option.remove();
+  if (v3) {
+    for (const c of ["0", "1", "ge2"])
+      $("transition-table").add(new Option(`SOFA eligibility C=${c === "ge2" ? "≥2" : c}`, `eligibility_C${c}`));
+    $("transition-table").value = `eligibility_C${$("c-view").value}`;
+  }
+  renderEligibility();
   const prior = $("transition-condition").value;
   $("transition-condition").innerHTML = cs
     .map((c) => `<option value="${esc(c.id)}">${esc(c.label)}</option>`)
@@ -486,11 +521,16 @@ function renderResults() {
     : (cs.find((c) => c.id !== r.paired_contrasts[0].comparator_id) || cs[0])
         .id;
   renderTransitions();
+  $("common-pair-table").innerHTML = v3 ? table(
+    ["Condition", "Metric", "Common-pair comparator", "Common-pair variant", "Common-pair N", "Separate comparator N", "Separate variant N"],
+    paired.map(p => [p.label, metricName, metric(p.common_pair_comparator_estimate, summaries[0].unit), metric(p.common_pair_variant_estimate, summaries[0].unit), p.common_pair_denominator, summaries.find(s => s.condition_id === p.comparator_id)?.denominator, summaries.find(s => s.condition_id === p.condition_id)?.denominator])
+  ) : "";
   $("summary-table").innerHTML = table(
     [
       "Condition",
       "Metric",
-      "Absolute estimate",
+      "Condition-specific estimate",
+      ...(v3 ? ["Condition-specific N", "Common-pair comparator", "Common-pair variant"] : []),
       "Paired difference",
       "Paired N",
       "MCSE",
@@ -504,6 +544,7 @@ function renderResults() {
         cs.find((c) => c.id === s.condition_id)?.label,
         s.metric,
         metric(s.estimate, s.unit),
+        ...(v3 ? [s.denominator, metric(p.common_pair_comparator_estimate, s.unit), metric(p.common_pair_variant_estimate, s.unit)] : []),
         metric(p.estimate, p.unit),
         p.denominator,
         p.mcse ?? "Unavailable",
@@ -512,6 +553,23 @@ function renderResults() {
     }),
   );
 }
+function renderEligibility() {
+  const r = state.result;
+  if (r?.schema_version !== "experiment_result_v3") { $("eligibility-result").textContent = ""; return; }
+  const c = $("c-view").value;
+  const contrast = r.paired_contrasts.find(x => x.condition_id === $("transition-condition").value && x.metric === `sofa_eligibility_evaluable_C${c}`)
+    || r.paired_contrasts.find(x => x.condition_id !== x.comparator_id && x.metric === `sofa_eligibility_evaluable_C${c}`)
+    || r.paired_contrasts.find(x => x.metric === `sofa_eligibility_evaluable_C${c}`);
+  $("eligibility-result").textContent = contrast
+    ? `SOFA eligibility criterion, C=${c === "ge2" ? "≥2" : c}: ${metric(contrast.common_pair_comparator_estimate, "probability")} → ${metric(contrast.common_pair_variant_estimate, "probability")} on common determined pairs (N=${contrast.denominator}); newly eligible ${contrast.n_plus}, no longer eligible ${contrast.n_minus}. Evidence gains/losses remain separate in the transition table. This is not the full TROPS inclusion rule or a sepsis diagnosis.`
+    : "No paired eligibility estimate available.";
+}
+$("c-view").onchange = () => {
+  renderEligibility();
+  if (state.trace?.score.experiment_run_id === state.result?.experiment_run_id) renderTrace();
+  $("transition-table").value = `eligibility_C${$("c-view").value}`;
+  renderTransitions();
+};
 function renderTransitions() {
   if (!state.result) return;
   const id = $("transition-condition").value,
@@ -615,6 +673,13 @@ function renderTrace() {
   const determining = new Set(t.scoring[block].tied_event_ids);
   $("trace-summary").textContent =
     `Saved score ${t.score.algorithm_score}; ${t.score.score_status}. Qualifying P/F count ${t.score.qualifying_pf_count}. Selected event ${t.score.selected_event_id ?? "none"}. Tied determining events: ${t.scoring.acute.tied_event_ids.length}.`;
+  if (state.result.schema_version === "experiment_result_v3") {
+    const c = $("c-view").value;
+    const cell = state.result.transitions.find(r =>
+      r.condition_id === t.score.condition_id && r.table === `eligibility_C${c}` &&
+      r.patient_ids.includes(t.score.patient_id));
+    $("trace-summary").textContent += ` ${state.result.profile_provenance[t.score.condition_id].qualification}. Baseline algorithm score ${t.score.baseline_algorithm_score} (${t.score.baseline_score_status}); signed delta ${t.score.delta_signed ?? "U"}; nonnegative algorithm respiratory contribution R=${t.score.delta_legacy}. C=${c === "ge2" ? "≥2" : c}; evidence-supported criterion ${cell?.comparator_state ?? "U"} → ${cell?.variant_state ?? "U"}. Algorithm criterion uses C + R ≥ 2; zero-filled missing scores are not observed normal values.`;
+  }
   if (latent.length) {
     const lo = latent[0].minute,
       hi = latent.at(-1).minute;
@@ -725,6 +790,11 @@ function renderTrace() {
       "Exclusion / selection",
       "FiO2 source",
       "Source age (min)",
+      "Value age (min)",
+      "Resolved partition",
+      "Invasive / support flags",
+      "Historical day / quarter",
+      "Room-air fallback",
       "Suppressed",
     ],
     events.map((e) => [
@@ -745,6 +815,11 @@ function renderTrace() {
             : "Eligible / unselected"),
       e.fio2_source_event_id ?? "none",
       e.fio2_source_age_minutes ?? "U",
+      e.fio2_value_age_minutes ?? "U",
+      e.ce_admit_dts ?? "—",
+      e.invasive_ind === undefined ? "—" : `${e.invasive_ind} / ${e.support_ind}`,
+      e.historical_day_index === undefined ? "—" : `${e.historical_day_index} / ${e.historical_quarter}`,
+      e.historical_room_air_fallback ?? "—",
       e.singleton_suppressed,
     ]),
   );
@@ -789,6 +864,10 @@ async function explain() {
     });
     $("trace-context").textContent =
       `Synthetic patient ${patient}; ${row.condition_label}. Reconstructed from the immutable ${state.resultKind.toLowerCase()} request.`;
+    $("trace-opportunity").innerHTML = row.scheduled_oxygenation_count === undefined ? "" : table(
+      ["Scheduled acute", "Recorded", "Convertible", "Denominator linked", "Eligible", "Baseline scheduled", "Selected-day scheduled", "Selected-day qualifying"],
+      [[row.scheduled_oxygenation_count, row.recorded_oxygenation_count, row.convertible_oxygenation_count, row.denominator_linked_count, row.eligible_oxygenation_count, row.baseline_scheduled_count, row.selected_day_scheduled_count ?? "U", row.selected_day_qualifying_count ?? "U"]]
+    );
     renderTrace();
     view("explain");
   });
@@ -823,6 +902,10 @@ $("replicates").oninput = () => {
 $("replicates").onchange = updateWorkload;
 $("outcome").onchange = () => {
   state.request.primary_outcome = $("outcome").value;
+  if (!["score_ge1", "score_ge2", "score_ge3", "score_eq4", "no_qualifying_data", "suppressed_only", "qualifying_pf_count", "delta_legacy_ge1", "delta_legacy_ge2"].includes(state.request.primary_outcome)) {
+    state.request.schema_version = "experiment_request_v3";
+    state.request.nonrespiratory_contribution = "0";
+  }
   changed();
 };
 $("advanced-fields").oninput = (e) => {
@@ -876,7 +959,7 @@ $("cancel").onclick = () => {
   startWorker();
 };
 $("restart").onclick = startWorker;
-$("transition-condition").onchange = renderTransitions;
+$("transition-condition").onchange = () => { renderTransitions(); renderEligibility(); };
 $("transition-table").onchange = renderTransitions;
 $("transitions").onclick = (e) => {
   const b = e.target.closest("[data-patient]");

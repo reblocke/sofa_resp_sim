@@ -67,3 +67,18 @@ The compact collection is approximately 18 MB. Full per-patient reference bundle
 and execution logs remain local. `uv run python scripts/verify_experiment_evidence.py`
 checks collection completeness, source hashes and current image-review records;
 it does not establish clinical calibration or independent scoring equivalence.
+
+## Historical sensitivity v1
+
+`experiments/trops_v1/manifest.json` freezes 48 N=2000 requests before execution.
+`artifacts/trops_sensitivity_v1/` contains new compact tables, synthetic patient
+explanations, deterministic grids, findings and six mechanism figures. It is
+historical source-mapped synthetic acceptance evidence, not SQL execution or
+clinical qualification. Original v2 evidence is preserved byte-for-byte.
+
+Generation: `uv run python scripts/run_historical_references.py --workers 4`, then
+`uv run --group figures python scripts/build_historical_evidence.py`. Full ZIP
+bundles stay under ignored `artifacts/local/historical_references/`; compact
+provenance retains their hashes and runtime/source identities. Review each PNG
+and bind its review to its hash before running
+`uv run python scripts/verify_experiment_evidence.py` (checks both namespaces).

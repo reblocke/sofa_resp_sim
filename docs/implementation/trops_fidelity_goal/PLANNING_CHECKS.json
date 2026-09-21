@@ -1,0 +1,44 @@
+{
+  "scope": "Planning baseline checks only; not TROPS source approval or execution parity",
+  "simulator_commit": "944a45eb801cc4f96e0a98d80f62af63dd452afe",
+  "python": "3.11.10",
+  "archive_sha256": "5d701de61eda44fdf73dc5cdfb3c0825f63278e5a6182eead62c0c83c95a9745",
+  "archive_checksums": "all four passed",
+  "independent_audit_replay": "All values match supplied JSON with float atol=1e-10; reviewed script executed only in a temporary directory",
+  "native_probes": {
+    "baseline_calendar_score": 2,
+    "acute_score": 2,
+    "delta_signed": 0,
+    "cutoff_noon_included": true,
+    "acute_plus_24h_included": false,
+    "E5_oxygenation_count": 96,
+    "E5_latest_date_count": 50,
+    "computed_metrics_rejected_as_primary_outcomes": [
+      "delta_evaluable_ge1",
+      "delta_evaluable_ge2",
+      "missing_baseline"
+    ]
+  },
+  "study_source": "Historical SQL not re-read or executed during planning; source claims remain audit-reported.",
+  "focused_tests": {
+    "command": "uv run pytest -q tests/experiments/test_scoring_profiles.py tests/experiments/test_results.py tests/experiments/test_catalogue.py",
+    "exit_code": 0
+  },
+  "planning_package_validation": {
+    "recorded_at_utc": "2026-09-21T11:04:34.528680+00:00",
+    "status": "passed",
+    "scope": [
+      "28 unique not-started requirements; complete completion-ID sets and dependency references",
+      "all six preserved source hashes",
+      "Git clean-filter bytes equal original source bytes",
+      "top-level Markdown links resolve",
+      "all new files pass whitespace checks; git diff --check passes for tracked edits"
+    ],
+    "baseline_probe_script_sha256": "2cdc0647f711c7a9c5835b7a4b641652ba9a976697b73b6349566ffb7c89258a",
+    "baseline_probe_command": "uv run python artifacts/local/post_refactor_planning/check_baseline.py",
+    "baseline_probe_exit_code": 0,
+    "source_authority_not_verified": true,
+    "full_suite_not_rerun_during_planning": true,
+    "application_code_changed": false
+  }
+}

@@ -246,3 +246,12 @@ deterministic figure sets, the fixed trace collection, source and image hashes,
 findings coverage, and visual reviews bound to current PNG hashes. Both PNG and
 SVG files must exist. The verifier checks completeness and freshness; it does
 not infer scientific validity or replace the requirement-by-requirement audit.
+
+## Historical sensitivity extension
+
+The v3 historical profile, normalized context boundary, conditional C views and
+qualification limits are documented in [TROPS_SCORING_CONTRACT.md](TROPS_SCORING_CONTRACT.md).
+The original v2 contract and reference evidence remain preserved. New frozen
+requests live in `experiments/trops_v1/`; new evidence uses
+`artifacts/trops_sensitivity_v1/`. Historical mapping is not SQL execution
+validation or current-production equivalence.

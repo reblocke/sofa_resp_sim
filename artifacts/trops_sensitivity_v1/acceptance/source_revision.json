@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "exact_reference_source_commit": "fc1f3b142f25e6bfd5a2f72d294246ef0b782182",
+  "reference_source_sha256": "094dcfeeaf0936dfc003f3267941975e41951ab42795ef0acf293fbe0cce6f78",
+  "final_code_commit": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+  "final_environment": {
+    "python": "3.11.10",
+    "dependencies": {
+      "sofa-resp-sim": "0.1.0",
+      "numpy": "2.4.4",
+      "pandas": "3.0.2",
+      "scipy": "1.17.1",
+      "tzdata": "2026.1"
+    },
+    "git_commit": "3640987c8ca9d63443afa9fc03af89d0af67bfd6",
+    "dirty_tree": true,
+    "source_provenance_note": "Git state of the source checkout",
+    "source_sha256": "043c95e83cf4efc9d83c3467733f23f4b8f300b8f62148177be9f34357f29fd5"
+  },
+  "explanation": "References executed from a dirty checkout; the exact package bytes are now preserved in the reference checkpoint commit. Final source differs only in two formatting/import-order changes, verified by normalized AST and integration checks. Exact source-strict CLI reproduction of original full references uses the reference checkpoint."
+}

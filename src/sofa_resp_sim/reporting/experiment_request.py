@@ -6,6 +6,9 @@ import math
 from dataclasses import dataclass
 
 from ..core.experiment_config import RNG_VERSION, SCHEMA_VERSION, ScenarioConfig, fingerprint
+from ..core.historical_trops import PROFILE, ScenarioV3
+
+V3 = "experiment_request_v3"
 
 OUTCOMES = (
     "score_ge1",
@@ -39,10 +42,17 @@ class ExperimentRequest:
     replicates: int
     seed: int
     primary_outcome: str
+    schema_version: str = SCHEMA_VERSION
+    nonrespiratory_contribution: str = "0"
 
     def to_dict(self) -> dict:
         return {
-            "schema_version": SCHEMA_VERSION,
+            "schema_version": self.schema_version,
+            **(
+                {"nonrespiratory_contribution": self.nonrespiratory_contribution}
+                if self.schema_version == V3
+                else {}
+            ),
             "rng_version": RNG_VERSION,
             "experiment_id": self.experiment_id,
             "base": self.base.to_dict(),
@@ -77,17 +87,20 @@ def normalize_experiment_request(payload: dict) -> ExperimentRequest:
         "seed",
         "primary_outcome",
     }
+    schema = payload.get("schema_version")
+    if schema == V3:
+        allowed.add("nonrespiratory_contribution")
     unknown = set(payload) - allowed
     if unknown:
         raise ValueError(f"Unknown experiment keys: {sorted(unknown)}")
-    if payload.get("schema_version") != SCHEMA_VERSION:
+    if schema not in (SCHEMA_VERSION, V3):
         raise ValueError(f"Unsupported schema_version; expected {SCHEMA_VERSION}")
     if payload.get("rng_version", RNG_VERSION) != RNG_VERSION:
         raise ValueError(f"Unsupported rng_version; expected {RNG_VERSION}")
     experiment_id = payload.get("experiment_id", "custom")
     if not isinstance(experiment_id, str) or not experiment_id.strip():
         raise ValueError("experiment_id must be a nonempty string")
-    base = ScenarioConfig.from_dict(payload.get("base", {}))
+    base = (ScenarioV3 if schema == V3 else ScenarioConfig).from_dict(payload.get("base", {}))
 
     def condition(raw):
         if not isinstance(raw, dict) or set(raw) - {"label", "overrides"}:
@@ -106,8 +119,15 @@ def normalize_experiment_request(payload: dict) -> ExperimentRequest:
     if len(labels) != len(set(labels)):
         raise ValueError("Condition labels must be unique")
     outcome = payload.get("primary_outcome", "score_ge2")
-    if outcome not in OUTCOMES:
+    from .historical_results import metrics_v3
+
+    if schema != V3 and any(c.config.scoring.profile == PROFILE for c in (comparator, *conditions)):
+        raise ValueError("Historical profile requires a v3 request")
+    if outcome not in (metrics_v3() if schema == V3 else OUTCOMES):
         raise ValueError(f"Unsupported primary_outcome: {outcome}")
+    c = payload.get("nonrespiratory_contribution", "0")
+    if type(c) is not str or c not in ("0", "1", "ge2"):
+        raise ValueError("C must be one of 0, 1, ge2")
     return ExperimentRequest(
         experiment_id,
         base,
@@ -116,6 +136,8 @@ def normalize_experiment_request(payload: dict) -> ExperimentRequest:
         _integer(payload.get("replicates", 200), "replicates", minimum=1),
         _integer(payload.get("seed", 0), "seed", minimum=0),
         outcome,
+        schema,
+        c,
     )
 
 

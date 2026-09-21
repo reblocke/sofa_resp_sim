@@ -118,3 +118,12 @@ preserved at `web/legacy.html`. See
 4. Web staging is allowlist-based and excludes tests, docs, workflow-only code,
    caches, and raw artifacts.
 5. Checked-in artifacts remain small, aggregate/synthetic, and documented.
+
+## Historical sensitivity extension
+
+The v3 historical profile, normalized context boundary, conditional C views and
+qualification limits are documented in [TROPS_SCORING_CONTRACT.md](TROPS_SCORING_CONTRACT.md).
+The original v2 contract and reference evidence remain preserved. New frozen
+requests live in `experiments/trops_v1/`; new evidence uses
+`artifacts/trops_sensitivity_v1/`. Historical mapping is not SQL execution
+validation or current-production equivalence.
