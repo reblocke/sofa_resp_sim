@@ -62,24 +62,30 @@ def main():
             [python, "-c", "import sofa_resp_sim; print(sofa_resp_sim.__file__)"]
         ).strip()
         assert str(work / "venv") in imported
-        request = catalogue_request("E1_density", "hfnc", replicates=3)
-        (work / "request.json").write_text(json.dumps(request.to_dict()))
-        run(
-            [
-                sys.executable,
-                "-m",
-                "sofa_resp_sim.workflows.experiment_cli",
-                "run",
-                "--request",
-                work / "request.json",
-                "--output",
-                work / "original",
-            ]
-        )
         cli = work / "venv/bin/resp-sofa-experiment"
         run([cli, "--help"])
-        run([cli, "reproduce", work / "original", "--output", work / "reproduced.zip"])
-        receipt = json.loads(run([cli, "verify-bundle", work / "reproduced.zip"]))
+        checks = []
+        for entry in ("E1_density", "H_missing_historical"):
+            request = catalogue_request(entry, "hfnc", replicates=3)
+            request_path = work / f"{entry}.json"
+            request_path.write_text(json.dumps(request.to_dict()))
+            original = work / entry
+            reproduced = work / f"{entry}.zip"
+            run(
+                [
+                    sys.executable,
+                    "-m",
+                    "sofa_resp_sim.workflows.experiment_cli",
+                    "run",
+                    "--request",
+                    request_path,
+                    "--output",
+                    original,
+                ]
+            )
+            run([cli, "reproduce", original, "--output", reproduced])
+            checks.append(json.loads(run([cli, "verify-bundle", reproduced])))
+        receipt = {"status": "verified", "checks": checks}
         receipt.update(
             {
                 "scope": "Fresh locked wheel outside checkout; exact scientific reproduction",

@@ -333,7 +333,7 @@ def get_experiment_catalogue_payload(payload: dict) -> dict:
             seed=payload.get("seed", REFERENCE_SEED),
             base=payload.get("base"),
         )
-        return _ok({"catalogue": catalogue_metadata(), "request": request.to_dict()})
+        return _ok({"catalogue": catalogue_metadata(include_historical=True), "request": request.to_dict()})
     except Exception as exc:
         return _error(exc)
 

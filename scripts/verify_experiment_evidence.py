@@ -122,10 +122,107 @@ def verify(root):
     }
 
 
+def verify_historical(root):
+    from sofa_resp_sim.core.historical_trops import SOURCE_HASHES
+    from sofa_resp_sim.reporting.experiment_request import normalize_experiment_request
+    from sofa_resp_sim.reporting.historical_catalogue import MECHANISMS, REFERENCE_ENTRIES
+
+    repo = Path(__file__).resolve().parents[1]
+    frozen_path = repo / "experiments/trops_v1/manifest.json"
+    frozen = json.loads(frozen_path.read_text())
+    manifest = json.loads((root / "table_provenance.json").read_text())
+    check_hash(repo, "experiments/trops_v1/manifest.json", manifest["catalogue_manifest_sha256"])
+    check_hash(
+        repo,
+        "experiments/trops_v1/deterministic_manifest.json",
+        manifest["deterministic_manifest_sha256"],
+    )
+    if manifest["source_files_sha256"] != SOURCE_HASHES:
+        raise ValueError("Historical source hash mismatch")
+    expected = {
+        f"experiments/trops_v1/{entry}__{stratum}.json"
+        for entry in REFERENCE_ENTRIES
+        for stratum in STRATA
+    }
+    if len(frozen["requests"]) != 48 or {r["path"] for r in frozen["requests"]} != expected:
+        raise ValueError("Frozen historical inventory is incomplete")
+    sources = manifest["sources"]
+    if len(sources) != 48 or {r["path"] for r in sources} != expected:
+        raise ValueError("Historical reference inventory is incomplete")
+    for item in sources:
+        check_hash(repo, item["path"], item["sha256"])
+        request = normalize_experiment_request(json.loads((repo / item["path"]).read_text()))
+        if request.run_id != item["run_id"] or item["completed_patients"] != 2000:
+            raise ValueError("Historical reference identity or N differs")
+    for name, digest in manifest["file_sha256"].items():
+        check_hash(root, name, digest)
+    if manifest["deterministic"] != {
+        "pf_cells": 336,
+        "conversion_cells": 16,
+        "eligibility_cells": 75,
+        "monte_carlo": False,
+    }:
+        raise ValueError("Historical deterministic grids differ")
+    traces = json.loads((root / "trace_index.json").read_text())
+    for item in traces:
+        check_hash(root, item["path"], item["sha256"])
+    if {(r["entry"], r["stratum"]) for r in traces if r["patient_id"] == 0} != {
+        (e, s) for e in REFERENCE_ENTRIES for s in STRATA
+    }:
+        raise ValueError("Historical patient-zero trace inventory differs")
+    with (root / "eligibility_transitions.csv").open() as stream:
+        cells = list(csv.DictReader(stream))
+    groups = {}
+    for r in cells:
+        key = (r["entry"], r["stratum"], r["table"])
+        groups.setdefault(key, []).append(r)
+    if len(groups) != 144:
+        raise ValueError("Conditional transition groups are incomplete")
+    for key, rows in groups.items():
+        patients = [p for r in rows for p in json.loads(r["patient_ids"])]
+        if (
+            len(rows) != 9
+            or sorted(patients) != list(range(2000))
+            or any(
+                int(r["count"]) != len(json.loads(r["patient_ids"]))
+                or int(r["denominator"]) != 2000
+                for r in rows
+            )
+        ):
+            raise ValueError("Transition counts/patients do not reconcile")
+        selected = {r["patient_id"] for r in traces if (r["entry"], r["stratum"]) == key[:2]}
+        if not all(
+            not json.loads(r["patient_ids"]) or min(json.loads(r["patient_ids"])) in selected
+            for r in rows
+        ):
+            raise ValueError("Missing prespecified transition-member trace")
+    figures = json.loads((root / "figure_data_manifest.json").read_text())
+    check_hash(root, "table_provenance.json", figures["table_provenance_sha256"])
+    if len(figures["figures"]) != 6 or {f["mechanism"] for f in figures["figures"]} != set(
+        MECHANISMS
+    ):
+        raise ValueError("Historical mechanism figures incomplete")
+    for f in figures["figures"]:
+        check_hash(root, f["source_table"], f["source_table_sha256"])
+        if f["primary_outcome"] != MECHANISMS[f["mechanism"]][2] or f["selected_rows"] != 8:
+            raise ValueError("Historical figure selection differs")
+    reviewed_figures(root, figures)
+    return {
+        "status": "verified_artifact_completeness",
+        "sources": 48,
+        "mechanism_figures": 6,
+        "scope": "Historical synthetic source mapping, no SQL execution",
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=Path("artifacts/experiments_v2"))
-    print(json.dumps(verify(parser.parse_args().input)))
+    args = parser.parse_args()
+    results = {"v2": verify(args.input)}
+    if args.input == Path("artifacts/experiments_v2"):
+        results["v3"] = verify_historical(Path("artifacts/trops_sensitivity_v1"))
+    print(json.dumps(results))
 
 
 if __name__ == "__main__":

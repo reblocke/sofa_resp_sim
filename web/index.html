@@ -59,6 +59,11 @@
         <div id="stochastic-results">
           <div id="result-status" class="result-status" role="status"></div>
           <div id="primary-result" class="primary-result"></div>
+          <p id="profile-qualification"></p>
+          <label id="c-view-label" hidden>Nonrespiratory contribution C (view only; all strata export)
+            <select id="c-view"><option value="0">C = 0</option><option value="1">C = 1</option><option value="ge2">C ≥ 2</option></select>
+          </label>
+          <p id="eligibility-result"></p>
           <div id="outcome-plots" class="plots"></div>
           <p class="hint" id="interval-note">
             95% pointwise Monte Carlo intervals are conditional on the model.
@@ -80,6 +85,13 @@
                 </option>
                 <option value="delta_legacy_ge1">Legacy delta ≥1</option>
                 <option value="delta_legacy_ge2">Legacy delta ≥2</option>
+                <option value="delta_evaluable_ge1">Evaluable delta ≥1</option>
+                <option value="delta_evaluable_ge2">Evaluable delta ≥2</option>
+                <option value="missing_baseline">Missing baseline evidence</option>
+                <option value="eligible_observation_fraction">Scheduled observations eligible (fraction)</option>
+                <option value="baseline_score">Baseline score</option>
+                <option value="sofa_eligibility_C0">SOFA criterion, C=0 (algorithm)</option>
+                <option value="sofa_eligibility_evaluable_C0">SOFA criterion, C=0 (evaluable)</option>
               </select></label
             ><button id="expand" disabled>
               Expand comparisons from edited base</button
@@ -108,6 +120,7 @@
           <details>
             <summary>All condition estimates and paired contrasts</summary>
             <div id="summary-table" class="table-scroll"></div>
+            <div id="common-pair-table" class="table-scroll"></div>
           </details>
         </div>
         <section id="rule-panel" hidden>
@@ -168,6 +181,7 @@
       </section>
       <section id="explain-view" hidden>
         <h2>Explain a synthetic encounter</h2>
+        <div id="trace-opportunity" class="table-scroll"></div>
         <p id="trace-context">
           Select a transition cell, or enter a stable patient ID.
         </p>

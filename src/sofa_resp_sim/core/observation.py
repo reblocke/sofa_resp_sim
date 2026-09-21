@@ -106,7 +106,9 @@ def document_patient(patient: LatentPatient, config: ScenarioConfig) -> list[dic
             patient.seed, patient.patient_id, block.rng_block_id, "source_label"
         ).random(n)
         if block.name == "baseline":
-            origin = int(block.minutes[0])
+            origin = int(block.minutes[0]) + getattr(
+                observation, "baseline_start_offset_minutes", 0
+            )
             interval = observation.baseline_interval_minutes
             stop = origin + observation.baseline_exposure_minutes
         else:
@@ -135,6 +137,17 @@ def document_patient(patient: LatentPatient, config: ScenarioConfig) -> list[dic
                         else _round_observation(observed[i], observation.rounding),
                         "pao2_meas": None if missing else observation.measured_pao2_mmhg,
                         "documentation_missing": bool(missing),
+                        **(
+                            {
+                                "synthetic_delivered_fio2_fraction": _number(
+                                    support.fio2_fraction[i]
+                                )
+                                if label != "LOW_FLOW"
+                                else None
+                            }
+                            if hasattr(observation, "baseline_start_offset_minutes")
+                            else {}
+                        ),
                         "units": "SpO2 percent; PaO2 mmHg",
                     }
                 )

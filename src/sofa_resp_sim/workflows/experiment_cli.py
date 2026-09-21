@@ -141,7 +141,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == "list":
-            print(json.dumps(catalogue_metadata(), indent=2))
+            print(json.dumps(catalogue_metadata(include_historical=True), indent=2))
             return 0
         if args.command == "run":
             if args.request:

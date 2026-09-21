@@ -19,7 +19,8 @@ def call(tmp_path, *args, ok=True):
 
 def test_installed_cli_directory_zip_reproduce_append_explain(tmp_path):
     listing = json.loads(call(tmp_path, "list").stdout)
-    assert len(listing["entries"]) == 18
+    assert len(listing["entries"]) == 32
+    assert any(e["id"] == "H_history_historical" for e in listing["entries"])
     original = tmp_path / "original"
     call(tmp_path, "run", "--entry", "E1_episode", "--output", original)
     call(tmp_path, "verify-bundle", original)

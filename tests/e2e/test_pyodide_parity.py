@@ -261,3 +261,60 @@ def test_pyodide_foundation_and_interval_components(page: Page):
     output = ROOT / "artifacts/local/acceptance/runtime_probe.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(receipt, indent=2) + "\n")
+
+
+def test_historical_v3_native_pyodide_bundle_and_trace(page: Page):
+    probe = """
+import json, platform
+from sofa_resp_sim.reporting.historical_catalogue import historical_request
+from sofa_resp_sim.reporting.experiment_service import run_experiment, explain_patient
+from sofa_resp_sim.reporting.experiment_bundle import build_bundle, verify_bundle
+request = historical_request("H_alignment_historical", "hfnc", replicates=3)
+output = run_experiment(request)
+trace = explain_patient(request, 0, request.conditions[0].condition_id)
+bundle = build_bundle(output)
+verified = verify_bundle(bundle)
+# Raw floating-point hashes are runtime-specific; numerical outputs compare below.
+output.pop("runtime_provenance")
+result = {"output": output, "trace": trace, "verified": verified["scores"]}
+"""
+    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=ROOT / "web")
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        base = f"http://127.0.0.1:{server.server_port}"
+        page.route("**/parity-host", lambda route: route.fulfill(body="<html></html>"))
+        page.goto(base + "/parity-host")
+        response = page.evaluate(WORKER_RUN, {"base": base, "python": probe})
+        assert response["ok"], response.get("error")
+        native = {}
+        exec(probe, native)
+        expected = json.loads(json.dumps(native["result"], allow_nan=False))
+        _compare(expected, response["result"])
+        out = ROOT / "artifacts/local/acceptance/historical_runtime_probe.json"
+        out.write_text(
+            json.dumps(
+                {
+                    "status": "passed",
+                    ("scope"): (
+                        "v3 historical generation, scoring, common-pair eligibility, trace and "
+                        "bundle verification"
+                    ),
+                    "native_python": platform.python_version(),
+                    "pyodide": "0.29.0",
+                    "patients": 3,
+                    "atol": 1e-10,
+                    "rtol": 1e-10,
+                    "staging_manifest_sha256": hashlib.sha256(
+                        (ROOT / "web/assets/py/manifest.json").read_bytes()
+                    ).hexdigest(),
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join()

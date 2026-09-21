@@ -52,3 +52,11 @@ experiments-install-check: build
 experiments-reference:
 	$(PYTHON) scripts/freeze_experiment_catalogue.py --check
 	$(PYTHON) scripts/run_experiment_references.py
+
+.PHONY: historical-reference historical-evidence
+historical-reference:
+	$(PYTHON) scripts/run_historical_references.py --workers 4
+
+historical-evidence:
+	$(UV) run --group figures python scripts/build_historical_evidence.py
+	$(PYTHON) scripts/verify_experiment_evidence.py

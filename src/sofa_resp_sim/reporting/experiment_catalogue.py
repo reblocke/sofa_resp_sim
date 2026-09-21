@@ -335,19 +335,28 @@ CATALOGUE = {
 }
 
 
-def catalogue_metadata() -> dict:
+def catalogue_metadata(*, include_historical=False) -> dict:
+    entries = [{"id": key, **deepcopy(value)} for key, value in CATALOGUE.items()]
+    if include_historical:
+        from .historical_catalogue import metadata_entries
+
+        entries.extend(metadata_entries())
     return {
         "version": CATALOGUE_VERSION,
         "reference_n_per_stratum": REFERENCE_N,
         "reference_seed": REFERENCE_SEED,
         "strata": list(STRATA),
-        "entries": [{"id": key, **deepcopy(value)} for key, value in CATALOGUE.items()],
+        "entries": entries,
     }
 
 
 def catalogue_request(
     entry_id: str, stratum: str, *, replicates=200, seed=REFERENCE_SEED, base: dict | None = None
 ):
+    if entry_id.startswith("H_"):
+        from .historical_catalogue import historical_request
+
+        return historical_request(entry_id, stratum, replicates=replicates, seed=seed, base=base)
     if entry_id not in CATALOGUE or stratum not in STRATA:
         raise ValueError("Unknown catalogue entry or support stratum")
     entry = CATALOGUE[entry_id]
