@@ -1,0 +1,6 @@
+uv run python scripts/stage_web_python.py
+Staged 28 Python files and 2 data files under /Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim/web
+uv run ruff format --check src tests scripts
+79 files already formatted
+uv run ruff check src tests scripts
+All checks passed!

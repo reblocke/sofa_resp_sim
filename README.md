@@ -207,3 +207,13 @@ patients per stochastic stratum (one for the deterministic episode). It retains
 verified bundles and logs under `artifacts/local/references_v2/` and resumes
 matching completed bundles. This can take substantially longer than a preview.
 See `docs/VALIDATION.md` for resumption and reference-evidence rules.
+
+The completed historical phase is documented in the
+[TROPS eligibility sensitivity target and acceptance ledger](docs/implementation/trops_fidelity_goal/GOAL.md).
+See the [completion report](docs/implementation/trops_fidelity_goal/COMPLETION_REPORT.md)
+and [reference findings](artifacts/trops_sensitivity_v1/FINDINGS.md). External
+SQL execution is separate future work.
+
+The v3 historical TROPS sensitivity profile is described in
+[the source-mapped contract](docs/TROPS_SCORING_CONTRACT.md). It is historical and
+not execution-validated; C=0/1/≥2 are conditional scenarios, not population weights.

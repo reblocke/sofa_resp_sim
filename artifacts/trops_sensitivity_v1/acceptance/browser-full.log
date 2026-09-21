@@ -1,0 +1,109 @@
+............F........                                                    [100%]
+=================================== FAILURES ===================================
+_________ test_historical_criterion_c_view_trace_and_export[chromium] __________
+
+page = <Page url='http://127.0.0.1:64795/'>
+investigation_server = 'http://127.0.0.1:64795'
+
+    def test_historical_criterion_c_view_trace_and_export(page: Page, investigation_server):
+        errors = []
+        page.on("pageerror", lambda e: errors.append(str(e)))
+        page.goto(investigation_server)
+        expect(page.locator("#runtime")).to_have_text("Python ready", timeout=120000)
+>       page.locator("#entry").select_option("H_missing_historical")
+
+tests/e2e/test_experiment_app.py:360: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.11/site-packages/playwright/sync_api/_generated.py:17630: in select_option
+    self._sync(
+.venv/lib/python3.11/site-packages/playwright/_impl/_locator.py:597: in select_option
+    return await self._frame.select_option(
+.venv/lib/python3.11/site-packages/playwright/_impl/_frame.py:781: in select_option
+    return await self._channel.send("selectOption", self._timeout, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x10a5a7410>
+cb = <function Channel.send.<locals>.<lambda> at 0x10c805800>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for locator("#entry")
+E               - locator resolved to <select disabled id="entry">…</select>
+E             - attempting select option action
+E               2 × waiting for element to be visible and enabled
+E                 - element is not enabled
+E               - retrying select option action
+E               - waiting 20ms
+E               2 × waiting for element to be visible and enabled
+E                 - element is not enabled
+E               - retrying select option action
+E                 - waiting 100ms
+E               4 × waiting for element to be visible and enabled
+E                 - element is not enabled
+E               - retrying select option action
+E                 - waiting 500ms
+E               54 × waiting for element to be visible and enabled
+E                  - did not find some options
+E                - retrying select option action
+E                  - waiting 500ms
+
+.venv/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [21/Sep/2026 12:10:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:10:06] "GET /assets/js/investigation.js HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:10:06] "GET /assets/css/investigation.css HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:10:06] "GET /assets/data/saved_experiment_v2.json HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:10:06] "GET /pyodide_worker.js HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/manifest.json HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/__init__.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/browser_contract.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/resp_scoring.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/resp_simulation.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/resp_utils.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/core/__init__.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/core/resp_scoring.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/core/resp_simulation.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/core/resp_utils.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/core/experiment_config.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/core/paired_simulation.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/core/observation.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/core/experiment_scoring.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/core/historical_trops.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/__init__.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/app_services.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/presets.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/reference.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/view_model.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/experiment_request.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/experiment_service.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/experiment_results.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/historical_results.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/historical_catalogue.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/experiment_bundle.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/experiment_workload.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/experiment_catalogue.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/py/sofa_resp_sim/reporting/rule_explorer.py HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/data/resp_sofa_sim_summary.csv HTTP/1.1" 200 -
+127.0.0.1 - - [21/Sep/2026 12:11:43] "GET /assets/data/saved_experiment_v2.json HTTP/1.1" 200 -
+=========================== short test summary info ============================
+FAILED tests/e2e/test_experiment_app.py::test_historical_criterion_c_view_trace_and_export[chromium]

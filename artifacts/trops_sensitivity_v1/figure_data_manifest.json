@@ -1,0 +1,143 @@
+{
+  "table_provenance_sha256": "c39abbe26aea320b672d127c26f9bd3117aa5341cd36d538b9d02f51c66c55e8",
+  "figures": [
+    {
+      "mechanism": "density",
+      "primary_outcome": "sofa_eligibility_C0",
+      "selected_rows": 8,
+      "source_table": "paired_contrasts.csv",
+      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "outputs": [
+        {
+          "path": "density.png",
+          "sha256": "f2757f3c9791559749c9a1be23c2bc1293de976d8836c74998cfc09a482ad266"
+        },
+        {
+          "path": "density.svg",
+          "sha256": "a092789056be8250be6ab10b61b8f610d6fa0872c95e1580bba2e488f8cd4de1"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewed_png_sha256": "f2757f3c9791559749c9a1be23c2bc1293de976d8836c74998cfc09a482ad266",
+        "reviewer": "Codex visual inspection",
+        "checks": "Reviewed all six rendered PNGs: readable labels and units, valid probability axes, distinct profiles/conditions, uncertainty and common N, no clipping, explicit historical and Monte Carlo qualification; nulls retained."
+      }
+    },
+    {
+      "mechanism": "missing",
+      "primary_outcome": "eligible_observation_fraction",
+      "selected_rows": 8,
+      "source_table": "paired_contrasts.csv",
+      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "outputs": [
+        {
+          "path": "missing.png",
+          "sha256": "a43163d3a2a09df4abefe322f0af8f3c0895b48f54c97f2e6b3197734cd9756e"
+        },
+        {
+          "path": "missing.svg",
+          "sha256": "d96ce2401634b61c69d1fe45a01672a8a73c641737d5c26dd6eb5ffd833d375c"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewed_png_sha256": "a43163d3a2a09df4abefe322f0af8f3c0895b48f54c97f2e6b3197734cd9756e",
+        "reviewer": "Codex visual inspection",
+        "checks": "Reviewed all six rendered PNGs: readable labels and units, valid probability axes, distinct profiles/conditions, uncertainty and common N, no clipping, explicit historical and Monte Carlo qualification; nulls retained."
+      }
+    },
+    {
+      "mechanism": "timing",
+      "primary_outcome": "eligible_observation_fraction",
+      "selected_rows": 8,
+      "source_table": "paired_contrasts.csv",
+      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "outputs": [
+        {
+          "path": "timing.png",
+          "sha256": "0ebe3bceadc964558029ca8ae53c585f20d9f83810c50b934ff0588c50f5f985"
+        },
+        {
+          "path": "timing.svg",
+          "sha256": "4c42b43e8d324ebe588a8995cd4f90da785f8dedfc1910dffe58e01ba6452b5c"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewed_png_sha256": "0ebe3bceadc964558029ca8ae53c585f20d9f83810c50b934ff0588c50f5f985",
+        "reviewer": "Codex visual inspection",
+        "checks": "Reviewed all six rendered PNGs: readable labels and units, valid probability axes, distinct profiles/conditions, uncertainty and common N, no clipping, explicit historical and Monte Carlo qualification; nulls retained."
+      }
+    },
+    {
+      "mechanism": "baseline_density",
+      "primary_outcome": "delta_evaluable_ge1",
+      "selected_rows": 8,
+      "source_table": "paired_contrasts.csv",
+      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "outputs": [
+        {
+          "path": "baseline_density.png",
+          "sha256": "26126ad2c4e0d3f56bb19de0be3b1958420f41f388ac9953adbc77a41c3ed08a"
+        },
+        {
+          "path": "baseline_density.svg",
+          "sha256": "f7946ec7620fddde40b0e183b67a30142fd641622a84d30c9383d35606c0fa61"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewed_png_sha256": "26126ad2c4e0d3f56bb19de0be3b1958420f41f388ac9953adbc77a41c3ed08a",
+        "reviewer": "Codex visual inspection",
+        "checks": "Reviewed all six rendered PNGs: readable labels and units, valid probability axes, distinct profiles/conditions, uncertainty and common N, no clipping, explicit historical and Monte Carlo qualification; nulls retained."
+      }
+    },
+    {
+      "mechanism": "history",
+      "primary_outcome": "delta_evaluable_ge1",
+      "selected_rows": 8,
+      "source_table": "paired_contrasts.csv",
+      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "outputs": [
+        {
+          "path": "history.png",
+          "sha256": "51d3b4b2fcfa8348d92b69dd31423a5c6833eddb962aa50db5906742a83781ea"
+        },
+        {
+          "path": "history.svg",
+          "sha256": "8e5da876d29201271e24aa69cf429b7df6ac1e867196eea776532f656e82504b"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewed_png_sha256": "51d3b4b2fcfa8348d92b69dd31423a5c6833eddb962aa50db5906742a83781ea",
+        "reviewer": "Codex visual inspection",
+        "checks": "Reviewed all six rendered PNGs: readable labels and units, valid probability axes, distinct profiles/conditions, uncertainty and common N, no clipping, explicit historical and Monte Carlo qualification; nulls retained."
+      }
+    },
+    {
+      "mechanism": "alignment",
+      "primary_outcome": "delta_evaluable_ge1",
+      "selected_rows": 8,
+      "source_table": "paired_contrasts.csv",
+      "source_table_sha256": "26f798753a3daa4d8e438cfda7d31524881fec1e9b508a3d2cc166bd6daa2f04",
+      "outputs": [
+        {
+          "path": "alignment.png",
+          "sha256": "d0e94b4c65278a5d1126ebde1cc64994a3bd996f70be4779706351c7ad91b221"
+        },
+        {
+          "path": "alignment.svg",
+          "sha256": "d646c7d24ee6aa05ed3d0f19cd63405a2eb8566d1f7857377dc16628ee5d12ec"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewed_png_sha256": "d0e94b4c65278a5d1126ebde1cc64994a3bd996f70be4779706351c7ad91b221",
+        "reviewer": "Codex visual inspection",
+        "checks": "Reviewed all six rendered PNGs: readable labels and units, valid probability axes, distinct profiles/conditions, uncertainty and common N, no clipping, explicit historical and Monte Carlo qualification; nulls retained."
+      }
+    }
+  ]
+}

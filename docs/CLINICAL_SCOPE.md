@@ -53,3 +53,12 @@ held independent of observation noise; the separately labeled assignment stress
 test is not treatment physiology. Pointwise Monte Carlo intervals quantify finite
 synthetic-patient sampling conditional on the model, not clinical or parameter
 uncertainty. Delta outcomes are score changes, not sepsis incidence.
+
+## Historical sensitivity extension
+
+The v3 historical profile, normalized context boundary, conditional C views and
+qualification limits are documented in [TROPS_SCORING_CONTRACT.md](TROPS_SCORING_CONTRACT.md).
+The original v2 contract and reference evidence remain preserved. New frozen
+requests live in `experiments/trops_v1/`; new evidence uses
+`artifacts/trops_sensitivity_v1/`. Historical mapping is not SQL execution
+validation or current-production equivalence.

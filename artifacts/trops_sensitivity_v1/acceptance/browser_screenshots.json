@@ -1,0 +1,15 @@
+{
+  "screenshots": [
+    {
+      "path": "artifacts/local/acceptance/screenshots/historical_desktop.png",
+      "sha256": "8b111e7e0abb9520816fecadbdf13d00dc5d4df58234588288cf02caacdbe4c9",
+      "scope": "Real Chromium desktop/mobile patient explanation; automated workflow and DOM assertions passed."
+    },
+    {
+      "path": "artifacts/local/acceptance/screenshots/historical_mobile.png",
+      "sha256": "68007973bec5e6acb9b17e2e1b7a2ed53c74c6324fe414497aafbb6249bbf5d0",
+      "scope": "Real Chromium desktop/mobile patient explanation; automated workflow and DOM assertions passed."
+    }
+  ],
+  "automated_cases": "tests/e2e/test_experiment_app.py::test_historical_criterion_c_view_trace_and_export"
+}

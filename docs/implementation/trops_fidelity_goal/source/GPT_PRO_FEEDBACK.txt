@@ -1,0 +1,189 @@
+## Overall assessment
+
+**The refactor is substantive and largely completes the software goal. The remaining work is to make it a faithful, decision-relevant investigation of TROPS, rather than a general demonstration of respiratory SOFA sensitivity.**
+
+The paired engine, evidence-aware outcomes, diagnostic traces, experiment catalogue, export/import workflow, and redesigned interface are now present. The current commit’s CI and Pages runs succeeded. The completion record reports **314 native/scientific tests and 19 browser tests**, and I verified that the current CI logs include those test runs, reference-artifact checks, package building, and fresh-wheel reproduction.
+
+**The most important remaining gap is not another refactor:** neither preserving `legacy_py_v1` nor passing the new tests establishes that the simulator reproduces TROPS’s actual SOFA calculation. Recovering the historical TROPS SQL revealed several consequential differences.
+
+[Download the audit packet and proposed next goal](sandbox:/mnt/data/sofa_resp_sim_post_refactor_audit.zip) · [Read the audit and next-goal specification](sandbox:/mnt/data/sofa_refactor_audit/AUDIT_AND_NEXT_GOAL.md)
+
+### Audit scope
+
+I reviewed `sofa_resp_sim` at **`944a45e`**, including the numerical implementation, reporting, catalogue, interface markup, pairing tests, bundle logic, and GitHub Actions evidence. I independently reconstructed selected numerical and temporal-boundary examples. I did **not** rerun the entire repository or operate the deployed browser app here: the local clone failed because this runtime could not resolve GitHub.
+
+For TROPS, I read the current sharing policy and recovered the SOFA code and grant-context documentation from historical commit **`e8b4de0`**. That is an accessible historical specification, not proof of which SQL is currently deployed. I located the original grant PDF but did not read it; the grant cross-check below uses the repository’s grant-context summary. No repository files or issues were changed.
+
+## 1. What is working and substantially completed
+
+| Area                               | What is now implemented                                                                                                                                                           | Assessment                                                                                                                    |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Paired simulation**              | Physiology is generated on a fixed one-minute grid, separately from charting frequency. Desaturations are applied independently of the autoregressive background.                 | The central scientific defect from the original audit has been addressed.                                                     |
+| **Randomness and reproducibility** | Separate random streams, stable patient identities, condition-level caching, and preserved patients when extending a run.                                                         | Meaningful invariance tests now cover condition reordering, isolation, additional conditions, chunking, and cohort extension. |
+| **Observation and documentation**  | Separate SpO₂ and FiO₂ events, missingness, source disagreement, timestamp errors, availability delays, and stale values. Fixed support is distinct from assignment stress tests. | These are actual mechanisms now, not merely additional input labels.                                                          |
+| **Evidence-aware scoring**         | Observed scores, suppressed singletons, and no qualifying data are distinct. Signed/evaluable deltas and evidence-aware transition tables are available.                          | The zero-score ambiguity is substantially resolved.                                                                           |
+| **Experimental interface**         | Experiment, encounter explanation, and methods/export views; advanced controls are collapsed; transition cells link to synthetic patients.                                        | The new organization follows the scientific question much better than the old Scenario/Sweep split.                           |
+| **Reproduction and verification**  | Immutable requests, complete bundles, selected traces, import validation, CLI reproduction, native/Pyodide checks, and browser tests in CI.                                       | This is now a credible reusable research-software foundation.                                                                 |
+
+These are supported by the implementation, not only the completion checklist. The pairing tests, for example, compare patient-condition results after reordering or adding conditions and verify that reconstructing one patient generates only that patient. The export code checks cohort completeness and recalculates summaries before writing a completed bundle.
+
+The statistical reporting is also materially better. Binary contrasts use **paired discordances**, not independent-arm standard errors; individual probabilities use Wilson intervals; and the output explicitly distinguishes Monte Carlo uncertainty from clinical uncertainty. I did not find an obvious error in those formulas.
+
+**Keep this architecture.** The remaining changes should mostly add a study-specific scoring profile, better-targeted experiments, and a TROPS-relevant outcome.
+
+## 2. Highest priority: establish what “TROPS-equivalent” means
+
+The recovered TROPS pipeline contains respiratory-detail construction, encounter-level SOFA selection, component-level delta calculation, and a subsequent cohort-criterion update. The simulator reproduces selected parts of that logic, but not the complete contract.
+
+### Consequential differences
+
+| Mechanism                     | Historical TROPS SQL                                                                                                      | Current experimental implementation                                                                                                     |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **Baseline-day ranking**      | Uses admission-relative integer day indices.                                                                              | Defaults to calendar dates. An admission-binning variant exists, but should not be assumed equivalent to every SQL boundary convention. |
+| **Seven-day baseline cutoff** | Applies the cutoff to the actual event timestamp.                                                                         | Applies baseline eligibility to the bin start, potentially admitting later records on the cutoff date.                                  |
+| **Acute endpoint**            | Includes an observation exactly 24 hours after admission.                                                                 | Uses a half-open interval that excludes that observation.                                                                               |
+| **Missing baseline FiO₂**     | Can infer room air for estimated PaO₂ when the relevant quarter-block condition permits it.                               | The new scorer does not reproduce that fallback; absent denominator evidence produces no P/F.                                           |
+| **FiO₂ lookup partitions**    | Includes the constituent encounter admission, `ce_admit_dts`, as well as invasive status.                                 | The new evidence index partitions the patient’s context events by invasive status, without that constituent-encounter partition.        |
+| **Support classification**    | Derives support episodes from clinical documentation, including OSA, surgical ventilation, and tracheostomy distinctions. | Uses supplied support labels/segments or a simplified assignment stress test.                                                           |
+
+The timing, partitioning, and fallback differences are visible directly in the source. These are **not all refactor bugs**: several reflect deliberate experimental simplifications. They become a problem when an experiment is interpreted as reproducing the TROPS pipeline.
+
+### A concrete example: identical records, different baseline scores
+
+Consider this **synthetic** example:
+
+* Admission: January 31, 2026, at noon.
+* Baseline observation on January 20 at 08:00: respiratory score **2**.
+* Baseline observation on January 20 at 18:00: respiratory score **0**.
+
+Calendar-day selection puts both observations on the same day and chooses its maximum: **baseline score 2**.
+
+The recovered SQL assigns admission-relative day indices of **−12 and −11**. It therefore chooses the later day: **baseline score 0**.
+
+With an acute respiratory score of 2, the resulting respiratory delta is **0 versus 2**. This is an independently reconstructed consequence of the two ordering rules, not an observed patient result or an Oracle execution.
+
+That difference is large enough to matter for the motivating study.
+
+### Required next step
+
+Add a named, source-pinned **TROPS scoring profile**. Keep it separate from both:
+
+* `legacy_py_v1`, meaning “the original Python behavior”; and
+* `bounded_analysis_v2`, meaning “the declared experimental behavior.”
+
+Before claiming equivalence, compare synthetic fixtures through the **currently approved study implementation**. Source inspection can establish a crosswalk; it cannot establish execution equivalence by itself.
+
+## 3. The missing TROPS endpoint is the SOFA eligibility criterion
+
+The recovered SQL calculates total delta SOFA by summing **nonnegative component-level changes**. It then sets the SOFA cohort flag when that sum is **at least 2**. It does not simply take the positive part of the difference between total acute and total baseline SOFA.
+
+This suggests a small, high-value extension.
+
+Let:
+
+* **R** be the nonnegative respiratory component delta.
+* **C** be the sum of the other nonnegative component deltas.
+
+Then investigate the criterion:
+
+$$
+C+R\geq 2
+$$
+
+| Nonrespiratory contribution | What respiratory scoring can change                                         |
+| --------------------------- | --------------------------------------------------------------------------- |
+| **C = 0**                   | Eligibility depends on respiratory delta reaching **2**.                    |
+| **C = 1**                   | Eligibility depends on respiratory delta reaching **1**.                    |
+| **C ≥ 2**                   | The SOFA criterion is already satisfied without a respiratory contribution. |
+
+**You do not need five additional organ-system simulators to implement this.** Condition on these three nonrespiratory strata, then combine results with approved aggregate counts or restricted study data downstream.
+
+The primary result should become:
+
+> Under the specified observation or scoring change, how many otherwise-identical encounters newly satisfy, cease to satisfy, or retain the SOFA eligibility criterion?
+
+Keep this explicitly labeled as the **SOFA eligibility criterion**, not a stand-alone sepsis diagnosis or the entirety of TROPS inclusion criteria.
+
+This would connect the workbench’s existing paired transitions to the actual decision that motivated the project.
+
+## 4. Some experiments still hide the mechanism they are supposed to investigate
+
+The reference collection is substantial: the repository documents 72 configurations across four support strata. Its interpretation file is appropriately candid that many results are near 0% or 100%, and that some null primary outcomes conceal changes in P/F or qualifying-record counts.
+
+The problem is not that the results are null. It is that **some primary outcomes are poorly matched to their perturbations**.
+
+### Documentation experiments need record-level outcomes
+
+E3 missingness and timing primarily report the probability that an encounter has **no qualifying data**. In a densely observed encounter, substantial documentation loss can leave that probability at zero. The repository’s own interpretation notes exactly this limitation.
+
+For these experiments, lead with the fraction of scheduled oxygenation observations that remain eligible, the selected FiO₂ source and its age, and the resulting score/delta transitions. Retain “no qualifying encounter data” as an important secondary outcome.
+
+### Baseline-rule experiments should not lead with acute score
+
+E6’s default primary outcome is **acute score ≥2**, including when the variant changes the baseline-selection rule. A baseline-only rule cannot change the acute score. It can change the baseline score, delta, and downstream eligibility criterion.
+
+**Split the rule comparisons by target or assign an appropriate outcome to each variant.** Otherwise, a structurally irrelevant endpoint can make an important rule look harmless.
+
+### Add informative scenarios without selecting for positive findings
+
+The supported strata are often already at the ceiling for score ≥2. The current catalogue’s default generator has mean saturation 94%, and the support strata impose fixed oxygen settings. That is a transparent illustrative construction, but it is not a calibrated TROPS population.
+
+Preserve those demonstrations and their null results. Add a **prespecified near-normal, fixed-support, no-deterioration scenario**, plus a declared grid around relevant classification boundaries. The purpose is to characterize where mechanisms operate, not to search for a seed that produces a dramatic effect.
+
+## 5. Baseline “observation opportunity” needs a more exact definition
+
+There is a subtle interaction in E5.
+
+Its default 24-hour baseline starts at the admission clock time, **12:37**, and therefore crosses two calendar dates. With calendar-latest-day selection, only the latest date can determine the baseline score. The nominal observation duration and the duration contributing to the selected baseline are therefore different.
+
+My reconstruction of the default schedule gives **96 scheduled observations**, of which **50 lie on the latest calendar date**. These are scheduled counts; actual qualifying counts also depend on conversion and documentation.
+
+Consequently, changing baseline exposure from 6 to 24 hours changes more than the number of measurements. It can also change **which scoring day is selected**.
+
+That interaction is worth studying, but should not be hidden inside a generic exposure-duration comparison.
+
+**Revise E5 to separate three mechanisms:** observation density within a fixed scoring window, duration of available history, and alignment of observations to the baseline-selection day. Display the actual selected-day opportunities, not only “1 h / 6 h / 24 h.”
+
+The exact-replay negative control remains useful and should be retained.
+
+## 6. Two smaller reporting changes would improve interpretability
+
+**Expose the outcomes already calculated.** The engine calculates evaluable deltas and missing-baseline probabilities, but the main HTML outcome selector offers legacy delta thresholds without the corresponding evaluable-delta or missing-baseline choices. Add them before adding more general controls.
+
+**Align conditional marginal estimates with paired contrasts.** For evaluable-delta outcomes, each condition’s summary uses its own eligible patients. The paired contrast uses patients eligible in **both** conditions. That is a defensible paired estimand, but its estimate need not equal the difference between the two condition-specific marginal probabilities.
+
+For example, a comparator can show 100% among one evaluable patient, a variant 50% among two, and the common-patient paired difference be zero. Return the comparator and variant probabilities **on the common paired denominator** beside that contrast. Keep the separate marginal estimates available, but label them distinctly.
+
+This is a reporting clarification, not an error in the paired standard-error formula.
+
+## 7. Alignment with the TROPS research program
+
+TROPS’s grant-context documentation describes three aims: practice-pattern characterization for sepsis-related myocardial injury, CAD risk prediction after sepsis-associated troponin elevation, and comparative-effectiveness analyses involving aspirin/anticoagulants. It explicitly identifies the repository as data/NLP workflow support rather than the complete inferential analysis system.
+
+My inference from that framing is that the simulator’s highest-value contribution is **testing the robustness of cohort ascertainment and respiratory severity measurement**.
+
+| Study purpose                          | Most useful simulator contribution                                                                                                                                                                     |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Practice-pattern analyses**          | Determine whether different observation/documentation practices change who satisfies the SOFA criterion, despite the same simulated respiratory state.                                                 |
+| **Risk prediction**                    | Identify which severity features and missingness states represent physiology versus measurement opportunity. Distinguish contemporaneous classification from information available at prediction time. |
+| **Comparative-effectiveness analyses** | Supply a versioned severity/cohort-definition sensitivity analysis. Do not turn synthetic score sensitivity into a treatment-effect conclusion.                                                        |
+
+This argues against expanding the simulator into a whole-body physiological model or moving the cardiac NLP work into it. It argues for a **small, precise connection between the simulator and the study’s approved measurement pipeline**.
+
+The current TROPS sharing policy also matters: grant and legacy SOFA materials are deliberately excluded from the shared tree. Keep restricted adapters, real records, and identifying traces in approved study storage. Do not restore those materials to the collaborator-facing repository merely to support simulator development.
+
+## Recommended next implementation goal
+
+**Connect the existing workbench to a versioned TROPS scoring contract and a SOFA cohort-criterion sensitivity analysis, without redesigning its architecture.**
+
+I would organize the next work into three bounded deliverables:
+
+| Priority                      | Deliverable                                                                                                                                                                    | Evidence required for completion                                                                                                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. TROPS fidelity**         | Confirm the currently approved specification; implement a named profile or validated adapter; reconcile baseline ranking, cutoffs, fallback, support, and transfer partitions. | Source crosswalk and synthetic differential fixtures, including the baseline counterexamples above. Execution comparison against the approved study implementation when available. |
+| **2. Study-relevant outcome** | Propagate respiratory changes through the componentwise total-delta rule, stratified by nonrespiratory contribution.                                                           | Paired transitions of the SOFA eligibility flag, with evidence availability and denominators kept separate.                                                                        |
+| **3. Useful demonstrations**  | Correct E3/E6 endpoint selection, separate baseline opportunity mechanisms, expose evaluable outcomes, and add declared informative scenarios.                                 | A compact results table, linked mechanism traces, and existing-format reproduction bundles.                                                                                        |
+
+**What should not be repeated:** the general architecture work, the broad interface reorganization, or another round of generic repository scaffolding.
+
+**The project has moved forward. The next uncertainty to resolve is whether the model represents TROPS’s measurement process and whether the displayed results reveal its consequences for the study.**

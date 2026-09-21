@@ -1,0 +1,97 @@
+{
+  "stationary_AR_equation": {
+    "expected_marginal_sd": 1.5,
+    "empirical_marginal_sd": 1.4907602592751843,
+    "expected_lag30_correlation": 0.36787944117144233,
+    "empirical_lag30_correlation": 0.3648811408694248,
+    "scope": "Independent reconstruction of the published v2 equation; not pipeline execution"
+  },
+  "episode_observation_schedules": {
+    "5": {
+      "observations": 24,
+      "minimum_observed": 91.0
+    },
+    "15": {
+      "observations": 8,
+      "minimum_observed": 91.0
+    },
+    "30": {
+      "observations": 4,
+      "minimum_observed": 91.0
+    },
+    "60": {
+      "observations": 2,
+      "minimum_observed": 96.0
+    }
+  },
+  "Monte_Carlo_calculations": {
+    "paired_difference": 0.2,
+    "paired_MCSE": 0.06030226891555272,
+    "conservative_paired_95_bounds": [
+      0.013763053206362341,
+      0.3700078964050354
+    ],
+    "Wilson_zero_of_2000_95_bounds": [
+      0.0,
+      0.0019170472812529344
+    ]
+  },
+  "baseline_selection_counterexample": {
+    "admission": "2026-01-31T12:00:00+00:00",
+    "events": [
+      {
+        "event": "synthetic_morning",
+        "time": "2026-01-20T08:00:00+00:00",
+        "score": 2,
+        "calendar_day": "2026-01-20T00:00:00+00:00",
+        "SQL_day_index": -12
+      },
+      {
+        "event": "synthetic_evening",
+        "time": "2026-01-20T18:00:00+00:00",
+        "score": 0,
+        "calendar_day": "2026-01-20T00:00:00+00:00",
+        "SQL_day_index": -11
+      }
+    ],
+    "v2_calendar_baseline_score": 2,
+    "historical_SQL_baseline_score": 0,
+    "scope": "Ordering-key reconstruction, not execution against the warehouse"
+  },
+  "baseline_cutoff_counterexample": {
+    "cutoff": "2026-01-24T00:00:00+00:00",
+    "event_time": "2026-01-24T12:00:00+00:00",
+    "historical_SQL_eligible": false,
+    "v2_calendar_eligible": true
+  },
+  "acute_endpoint": {
+    "minute": 1440,
+    "historical_SQL_inclusive": true,
+    "bounded_analysis_v2_half_open": false,
+    "interpretation": "Intentional profile difference, not a newly introduced regression"
+  },
+  "componentwise_delta": {
+    "synthetic_signed_component_changes": [
+      1,
+      -2,
+      1,
+      0,
+      0,
+      0
+    ],
+    "sum_of_nonnegative_component_deltas": 2,
+    "nonnegative_delta_of_total_scores": 0
+  },
+  "E5_calendar_opportunity": {
+    "baseline_start": "2023-12-02T12:37:00+00:00",
+    "total_scheduled_oxygenation_records": 96,
+    "latest_calendar_date_records": 50,
+    "caveat": "Scheduled records only; actual qualifying counts also depend on conversion/documentation"
+  },
+  "evaluable_denominator_example": {
+    "comparator_marginal_probability": 1.0,
+    "variant_marginal_probability": 0.5,
+    "common_evaluable_paired_difference": 0.0,
+    "paired_denominator": 1
+  }
+}
