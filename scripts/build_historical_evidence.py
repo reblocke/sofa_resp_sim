@@ -134,6 +134,32 @@ def grids():
     }
 
 
+def compact_records(records):
+    """Lossless columnar trace groups retain absent versus null and original order."""
+    groups = {}
+    for index, row in enumerate(records):
+        columns = tuple(sorted(row))
+        group = groups.setdefault(columns, {"columns": list(columns), "indices": [], "rows": []})
+        group["indices"].append(index)
+        group["rows"].append([row[key] for key in columns])
+    return list(groups.values())
+
+
+def write_trace(path, traces):
+    for trace in traces:
+        for field in ("events", "context_events"):
+            trace["scoring"][field] = compact_records(trace["scoring"][field])
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(
+            {"encoding": "columnar_groups_v1", "traces": traces},
+            separators=(",", ":"),
+            allow_nan=False,
+        )
+        + "\n"
+    )
+
+
 def collect():
     frozen_path = ROOT / "experiments/trops_v1/manifest.json"
     frozen = json.loads(frozen_path.read_text())
@@ -199,7 +225,7 @@ def collect():
                     }
                 )
             relative = f"traces/{path.stem}__patient{patient}.json"
-            write_json(OUT / relative, traces)
+            write_trace(OUT / relative, traces)
             trace_index.append(
                 {
                     "entry": entry,
@@ -276,7 +302,7 @@ def figures(contrasts):
         ),
         "|---|---:|---:|---:|",
     ]
-    for mechanism, (title, changed, metric) in MECHANISMS.items():
+    for mechanism, (title, _changed, metric) in MECHANISMS.items():
         selected = [
             r
             for r in contrasts
@@ -299,7 +325,10 @@ def figures(contrasts):
             color = "#225F85" if historical else "#A24A16"
             marker = "o" if historical else "s"
             profile_label = "historical" if historical else "experimental"
-            label = f"{row['stratum'].replace('_', ' ')} · {profile_label}"
+            support_label = row["stratum"].replace("_", " ")
+            if support_label in ("hfnc", "imv"):
+                support_label = support_label.upper()
+            label = f"{support_label} · {profile_label}"
             labels.append(label)
             a, b = row["common_pair_comparator_estimate"], row["common_pair_variant_estimate"]
             if a is not None and b is not None:
@@ -359,7 +388,14 @@ def figures(contrasts):
             ax.grid(axis="x", alpha=0.2)
             ax.spines[["top", "right"]].set_visible(False)
             ax.margins(y=0.13, x=0.18)
-        fig.suptitle(f"{title}\n{metric}: {changed}", fontsize=14, y=0.99)
+        outcome_label = {
+            "sofa_eligibility_C0": "SOFA eligibility criterion, C=0",
+            "eligible_observation_fraction": "Scheduled-to-eligible observation retention",
+            "delta_evaluable_ge1": "Evaluable respiratory delta ≥1",
+        }[metric]
+        left.set_xlim((-2, 102) if binary else (-0.02, 1.02))
+        left.set_xticks([0, 25, 50, 75, 100] if binary else [0, 0.25, 0.5, 0.75, 1])
+        fig.suptitle(f"{title}\n{outcome_label}", fontsize=14, y=0.99)
         fig.text(
             0.02,
             0.015,
@@ -367,7 +403,8 @@ def figures(contrasts):
                 "Stationary synthetic patients; no population weighting. Historical "
                 "profile is source-mapped, not SQL execution-validated.\nHistorical "
                 "circles / experimental squares. Pointwise Monte Carlo uncertainty; "
-                "common pairs only. Nulls retained."
+                "common pairs only. Nulls retained.\n"
+                "HFNC: high-flow nasal cannula; IMV: invasive mechanical ventilation."
             ),
             fontsize=10,
         )

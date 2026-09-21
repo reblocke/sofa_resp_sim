@@ -1,8 +1,8 @@
 """Finite historical/experimental sensitivity catalogue, fixed before reference runs."""
 
+from ..core.historical_trops import PROFILE, ScenarioV3
 from .experiment_catalogue import REFERENCE_SEED, STRATA, condition
 from .experiment_request import V3, normalize_experiment_request
-from ..core.historical_trops import PROFILE, ScenarioV3
 
 VERSION = "trops_sensitivity_v1"
 MECHANISMS = {
@@ -63,8 +63,15 @@ def metadata_entries():
                 "mechanism": changed,
                 "primary_outcome": outcome,
                 "deterministic": False,
-                "held_fixed": "Same synthetic patients, fixed support and stationary latent paths; only named overrides vary.",
-                "limitations": "Historical source-mapped, not execution-validated. Conditional C scenarios, no population weights; pointwise Monte Carlo uncertainty only.",
+                "held_fixed": (
+                    "Same synthetic patients, fixed support and stationary latent paths; "
+                    "only named overrides vary."
+                ),
+                "limitations": (
+                    "Historical source-mapped, not execution-validated. "
+                    "Conditional C scenarios, no population weights; "
+                    "pointwise Monte Carlo uncertainty only."
+                ),
             }
         )
     return entries

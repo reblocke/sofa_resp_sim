@@ -267,6 +267,13 @@ async function startWorker() {
   try {
     await call("init");
     if (generation !== state.generation) return;
+    const fresh = await call("catalogue");
+    if (generation !== state.generation) return;
+    state.catalogue = fresh.catalogue;
+    for (const entry of state.catalogue.entries) {
+      if (![...$("entry").options].some(option => option.value === entry.id))
+        $("entry").add(new Option(entry.title, entry.id));
+    }
     state.ready = true;
     $("runtime").textContent = "Python ready";
     await updateWorkload();
@@ -671,7 +678,7 @@ function renderTrace() {
     const cell = state.result.transitions.find(r =>
       r.condition_id === t.score.condition_id && r.table === `eligibility_C${c}` &&
       r.patient_ids.includes(t.score.patient_id));
-    $("trace-summary").textContent += ` Baseline algorithm score ${t.score.baseline_algorithm_score} (${t.score.baseline_score_status}); signed delta ${t.score.delta_signed ?? "U"}; nonnegative algorithm respiratory contribution R=${t.score.delta_legacy}. C=${c === "ge2" ? "≥2" : c}; evidence-supported criterion ${cell?.comparator_state ?? "U"} → ${cell?.variant_state ?? "U"}. Algorithm criterion uses C + R ≥ 2; zero-filled missing scores are not observed normal values.`;
+    $("trace-summary").textContent += ` ${state.result.profile_provenance[t.score.condition_id].qualification}. Baseline algorithm score ${t.score.baseline_algorithm_score} (${t.score.baseline_score_status}); signed delta ${t.score.delta_signed ?? "U"}; nonnegative algorithm respiratory contribution R=${t.score.delta_legacy}. C=${c === "ge2" ? "≥2" : c}; evidence-supported criterion ${cell?.comparator_state ?? "U"} → ${cell?.variant_state ?? "U"}. Algorithm criterion uses C + R ≥ 2; zero-filled missing scores are not observed normal values.`;
   }
   if (latent.length) {
     const lo = latent[0].minute,

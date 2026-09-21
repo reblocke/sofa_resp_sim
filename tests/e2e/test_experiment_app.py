@@ -395,4 +395,12 @@ def test_historical_criterion_c_view_trace_and_export(page: Page, investigation_
         json.loads(page.locator("#result-request").text_content())["schema_version"]
         == "experiment_request_v3"
     )
+    page.get_by_role("button", name="Experiment", exact=True).click()
+    page.get_by_text("Advanced scenario and comparison settings", exact=True).click()
+    page.locator("#outcome").select_option("delta_evaluable_ge2")
+    page.locator("#run").click()
+    expect(page.locator("#result-status")).to_contain_text(
+        "Completed preview; 3 paired patients", timeout=120000
+    )
+    expect(page.locator("#primary-result")).to_contain_text("Evaluable delta ≥2")
     assert not errors

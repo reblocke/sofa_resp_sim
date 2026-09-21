@@ -45,3 +45,26 @@ def test_installed_cli_directory_zip_reproduce_append_explain(tmp_path):
     call(
         tmp_path, "append", original, "--replicates", 1, "--output", tmp_path / "invalid", ok=False
     )
+
+
+def test_v3_evaluable_outcomes_roundtrip_through_cli(tmp_path):
+    from sofa_resp_sim.core.historical_trops import PROFILE
+
+    for outcome in ("delta_evaluable_ge1", "delta_evaluable_ge2", "missing_baseline"):
+        request = {
+            "schema_version": "experiment_request_v3",
+            "replicates": 2,
+            "base": {
+                "horizon": {"start_minute": 0, "end_minute": 16},
+                "observation": {"start_minute": 0},
+                "scoring": {"profile": PROFILE},
+            },
+            "primary_outcome": outcome,
+        }
+        source = tmp_path / (outcome + ".json")
+        source.write_text(json.dumps(request))
+        target = tmp_path / outcome
+        call(tmp_path, "run", "--request", source, "--output", target)
+        result = verify_bundle(read_files(target))
+        assert result["request"]["primary_outcome"] == outcome
+        assert any(r["metric"] == outcome for r in result["condition_summary"])
