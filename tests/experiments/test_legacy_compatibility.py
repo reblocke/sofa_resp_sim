@@ -1,5 +1,6 @@
 import hashlib
 import json
+import platform
 from pathlib import Path
 
 import numpy as np
@@ -36,13 +37,19 @@ def test_seeded_legacy_snapshots(case):
     )
     observed = simulate_encounter(config, np.random.default_rng(case["seed"]))
     encoded = observed.to_json(orient="records", double_precision=15, date_format="epoch").encode()
-    if hashlib.sha256(encoded).hexdigest() != case["observation_json_sha256"]:
+    runtime = f"{platform.system().lower()}_{platform.machine().lower()}"
+    expected = case.get("observation_json_sha256_platform_variants", {}).get(
+        runtime, case["observation_json_sha256"]
+    )
+    if hashlib.sha256(encoded).hexdigest() != expected:
         output = ROOT / "artifacts/local/acceptance"
         output.mkdir(parents=True, exist_ok=True)
         (output / f"legacy_observation_mismatch_seed_{case['seed']}.json").write_bytes(encoded)
-    assert hashlib.sha256(encoded).hexdigest() == case["observation_json_sha256"]
+    assert hashlib.sha256(encoded).hexdigest() == expected
 
 
 def test_historical_artifacts_are_preserved():
     for path, digest in SNAPSHOT["historical_artifact_sha256"].items():
-        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == digest
+        # Preserve both audited representations where Git normalized original CRLF.
+        allowed = {digest, SNAPSHOT.get("git_normalized_artifact_sha256", {}).get(path)}
+        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() in allowed

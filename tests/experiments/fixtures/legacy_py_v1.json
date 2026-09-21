@@ -171,7 +171,11 @@
           "single_pf_suppressed": false
         }
       ],
-      "observation_json_sha256": "588590c2df03c5ffa446c43c700374419f078bc5d6dc302072a8898a328e1fa9"
+      "observation_json_sha256": "588590c2df03c5ffa446c43c700374419f078bc5d6dc302072a8898a328e1fa9",
+      "observation_json_sha256_platform_variants": {
+        "linux_x86_64": "a701b831b4894bae2e2d6bf98711db696f37707430e3d91da70f9a407804e85b"
+      },
+      "platform_variant_note": "Linux CI run 35574241314: five fio2_set doubles differ from the original Mac serialization by at most 7.105427357601002e-15. Every other field and seeded score summary is exact; original legacy source files are unchanged. Exact platform-specific hashes remain mandatory."
     },
     {
       "config": {
@@ -266,5 +270,9 @@
     "artifacts/resp_applet_m4_performance.csv": "1b669dd11e7d19aa7be28b9d5072d8ee03e3e8955b1b90aa7656ceb91fa8b720",
     "artifacts/resp_scoring_fixtures.csv": "4a573266e6e1b23ad50a8e274219a416b366d865e001b44e0aee69e07dbe9803",
     "artifacts/resp_sofa_sim_summary.csv": "53d6cea6d2822aeffec391aa294548c9df14ddbc3e8d756417fb6df1461dbd42"
-  }
+  },
+  "git_normalized_artifact_sha256": {
+    "artifacts/resp_applet_m4_performance.csv": "4b12a87f829426bfbc482da19295c75b123bce6af64c7480c7bb25f917b04ef1"
+  },
+  "artifact_line_ending_note": "The original local performance CSV used CRLF; the audited starting Git commit stores LF. Both exact byte hashes are retained, with identical content after newline normalization."
 }

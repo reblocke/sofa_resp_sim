@@ -5,6 +5,15 @@
 This file maps system invariants to tests, generated browser assets, and
 checked-in evidence.
 
+Legacy observation snapshots retain exact hashes for the original Mac runtime
+and an audited Linux x86-64 variant. In CI run 35574241314, five seed-7 `fio2_set`
+values differed by at most 7.105427357601002e-15; all other observation fields
+and seeded score summaries matched. The legacy numerical source files are
+unchanged from the starting commit. This is a recorded exact platform variant,
+not a relaxed float assertion. The historical performance CSV also retains both
+audited CRLF-local and LF-Git hashes, with identical content after newline
+normalization. Neither exception changes scientific values or scoring rules.
+
 ## Core invariants
 
 | Invariant | Primary evidence |
