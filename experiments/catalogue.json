@@ -1,0 +1,826 @@
+{
+  "version": "illustrative_catalogue_v2.1",
+  "reference_n_per_stratum": 2000,
+  "reference_seed": 173203,
+  "strata": [
+    "room_air",
+    "low_flow",
+    "hfnc",
+    "imv"
+  ],
+  "entries": [
+    {
+      "id": "E1_density",
+      "experiment": "E1",
+      "title": "Observation density",
+      "mechanism": "SpO2 sampling interval",
+      "base_overrides": {},
+      "comparator": {
+        "label": "15 minutes",
+        "overrides": {
+          "observation": {
+            "interval_minutes": 15
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "5 minutes",
+          "overrides": {
+            "observation": {
+              "interval_minutes": 5
+            }
+          }
+        },
+        {
+          "label": "30 minutes",
+          "overrides": {
+            "observation": {
+              "interval_minutes": 30
+            }
+          }
+        },
+        {
+          "label": "60 minutes",
+          "overrides": {
+            "observation": {
+              "interval_minutes": 60
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Denser sampling need not increase every encounter score."
+    },
+    {
+      "id": "E1_episode",
+      "experiment": "E1",
+      "title": "Deterministic sampling opportunity",
+      "mechanism": "SpO2 sampling interval",
+      "base_overrides": {
+        "generator": {
+          "mean_pct": 96,
+          "marginal_sd_pct": 0,
+          "episode_rate_per_hour": 0,
+          "prescribed_episodes": [
+            {
+              "start_minute": 30,
+              "end_minute": 60,
+              "depth_pct_points": 5
+            }
+          ]
+        },
+        "horizon": {
+          "start_minute": 0,
+          "end_minute": 120
+        },
+        "observation": {
+          "noise_sd_pct": 0
+        }
+      },
+      "comparator": {
+        "label": "15 minutes",
+        "overrides": {
+          "observation": {
+            "interval_minutes": 15
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "5 minutes",
+          "overrides": {
+            "observation": {
+              "interval_minutes": 5
+            }
+          }
+        },
+        {
+          "label": "30 minutes",
+          "overrides": {
+            "observation": {
+              "interval_minutes": 30
+            }
+          }
+        },
+        {
+          "label": "60 minutes",
+          "overrides": {
+            "observation": {
+              "interval_minutes": 60
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": true,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. "
+    },
+    {
+      "id": "E2_noise",
+      "experiment": "E2",
+      "title": "Measurement noise",
+      "mechanism": "Measurement noise SD",
+      "base_overrides": {},
+      "comparator": {
+        "label": "SD 0",
+        "overrides": {
+          "observation": {
+            "noise_sd_pct": 0
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "SD 0.5",
+          "overrides": {
+            "observation": {
+              "noise_sd_pct": 0.5
+            }
+          }
+        },
+        {
+          "label": "SD 1",
+          "overrides": {
+            "observation": {
+              "noise_sd_pct": 1
+            }
+          }
+        },
+        {
+          "label": "SD 2",
+          "overrides": {
+            "observation": {
+              "noise_sd_pct": 2
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. "
+    },
+    {
+      "id": "E2_bias",
+      "experiment": "E2",
+      "title": "Measurement bias",
+      "mechanism": "Additive measurement bias",
+      "base_overrides": {},
+      "comparator": {
+        "label": "Bias 0",
+        "overrides": {
+          "observation": {
+            "bias_pct_points": 0
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Bias -2",
+          "overrides": {
+            "observation": {
+              "bias_pct_points": -2
+            }
+          }
+        },
+        {
+          "label": "Bias +2",
+          "overrides": {
+            "observation": {
+              "bias_pct_points": 2
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. "
+    },
+    {
+      "id": "E2_rounding",
+      "experiment": "E2",
+      "title": "Measurement rounding",
+      "mechanism": "Documented saturation rounding",
+      "base_overrides": {},
+      "comparator": {
+        "label": "No rounding",
+        "overrides": {
+          "observation": {
+            "rounding": "none"
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "One decimal",
+          "overrides": {
+            "observation": {
+              "rounding": "one_decimal"
+            }
+          }
+        },
+        {
+          "label": "Integer",
+          "overrides": {
+            "observation": {
+              "rounding": "integer"
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. "
+    },
+    {
+      "id": "E2_assignment",
+      "experiment": "E2",
+      "title": "Support assignment stress test",
+      "mechanism": "Support assignment policy",
+      "base_overrides": {},
+      "comparator": {
+        "label": "Fixed support",
+        "overrides": {
+          "support": {
+            "mode": "fixed"
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Assignment stress test",
+          "overrides": {
+            "support": {
+              "mode": "assignment_stress_test",
+              "thresholds_pct": [
+                94,
+                90,
+                86,
+                82
+              ],
+              "based_on_observed": true
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. The stratum identifies the fixed comparator only. Stress assignment can cross support categories and is not treatment physiology."
+    },
+    {
+      "id": "E3_missing",
+      "experiment": "E3",
+      "title": "Missing FiO2 evidence",
+      "mechanism": "Whole denominator evidence bundle missingness",
+      "base_overrides": {},
+      "comparator": {
+        "label": "Complete documentation",
+        "overrides": {
+          "documentation": {
+            "missing_probability": 0
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Missing 0.25",
+          "overrides": {
+            "documentation": {
+              "missing_probability": 0.25
+            }
+          }
+        },
+        {
+          "label": "Missing 0.5",
+          "overrides": {
+            "documentation": {
+              "missing_probability": 0.5
+            }
+          }
+        },
+        {
+          "label": "Missing 1",
+          "overrides": {
+            "documentation": {
+              "missing_probability": 1
+            }
+          }
+        }
+      ],
+      "primary_outcome": "no_qualifying_data",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. "
+    },
+    {
+      "id": "E3_timing",
+      "experiment": "E3",
+      "title": "Documentation timestamp boundaries",
+      "mechanism": "Documented FiO2 timestamp error",
+      "base_overrides": {
+        "documentation": {
+          "interval_minutes": 60
+        }
+      },
+      "comparator": {
+        "label": "Offset 0",
+        "overrides": {
+          "documentation": {
+            "timestamp_offset_minutes": 0
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Offset -14.001 minutes",
+          "overrides": {
+            "documentation": {
+              "timestamp_offset_minutes": -14.001
+            }
+          }
+        },
+        {
+          "label": "Offset -14 minutes",
+          "overrides": {
+            "documentation": {
+              "timestamp_offset_minutes": -14
+            }
+          }
+        },
+        {
+          "label": "Offset -1 minutes",
+          "overrides": {
+            "documentation": {
+              "timestamp_offset_minutes": -1
+            }
+          }
+        },
+        {
+          "label": "Offset 5 minutes",
+          "overrides": {
+            "documentation": {
+              "timestamp_offset_minutes": 5
+            }
+          }
+        },
+        {
+          "label": "Offset 5.001 minutes",
+          "overrides": {
+            "documentation": {
+              "timestamp_offset_minutes": 5.001
+            }
+          }
+        }
+      ],
+      "primary_outcome": "no_qualifying_data",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Timestamp error differs from record availability delay."
+    },
+    {
+      "id": "E3_sources",
+      "experiment": "E3",
+      "title": "FiO2 source disagreement",
+      "mechanism": "Measured/set source disagreement",
+      "base_overrides": {
+        "documentation": {
+          "measured_source_probability": 0
+        }
+      },
+      "comparator": {
+        "label": "No disagreement",
+        "overrides": {
+          "documentation": {
+            "disagreement_fraction": 0
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Measured source +0.1",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.1
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Room-air and low-flow proxies do not acquire known delivered FiO2 from this setting."
+    },
+    {
+      "id": "E3_stale",
+      "experiment": "E3",
+      "title": "Stale FiO2 documentation",
+      "mechanism": "Age of documented denominator value",
+      "base_overrides": {},
+      "comparator": {
+        "label": "Current value",
+        "overrides": {
+          "documentation": {
+            "stale_minutes": 0
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "30-minute-old value",
+          "overrides": {
+            "documentation": {
+              "stale_minutes": 30
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Prescribed support/FiO2 step demonstrates stale values; room air is an inert control."
+    },
+    {
+      "id": "E3_labels",
+      "experiment": "E3",
+      "title": "FiO2 source-label control",
+      "mechanism": "Identical values labeled measured versus set",
+      "base_overrides": {},
+      "comparator": {
+        "label": "Set source",
+        "overrides": {
+          "documentation": {
+            "measured_source_probability": 0,
+            "disagreement_fraction": 0
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Measured source",
+          "overrides": {
+            "documentation": {
+              "measured_source_probability": 1,
+              "disagreement_fraction": 0
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Identical values without conflict change provenance only; room-air/flow sources are unaffected."
+    },
+    {
+      "id": "E3_zero",
+      "experiment": "E3",
+      "title": "Zero-perturbation control",
+      "mechanism": "Explicit zero documentation perturbations",
+      "base_overrides": {},
+      "comparator": {
+        "label": "Original",
+        "overrides": {}
+      },
+      "conditions": [
+        {
+          "label": "Explicit zeros",
+          "overrides": {
+            "documentation": {
+              "missing_probability": 0,
+              "timestamp_offset_minutes": 0,
+              "stale_minutes": 0,
+              "disagreement_fraction": 0,
+              "recorded_delay_minutes": 0
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Identical normalized configurations share scientific rows by construction."
+    },
+    {
+      "id": "E4_estimated",
+      "experiment": "E4",
+      "title": "Threshold factors with estimated PaO2",
+      "mechanism": "Scoring threshold factor",
+      "base_overrides": {
+        "observation": {
+          "measured_pao2_mmhg": null
+        }
+      },
+      "comparator": {
+        "label": "Factor 1",
+        "overrides": {
+          "scoring": {
+            "threshold_factor": 1
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Factor 0.85",
+          "overrides": {
+            "scoring": {
+              "threshold_factor": 0.85
+            }
+          }
+        },
+        {
+          "label": "Factor 0.75",
+          "overrides": {
+            "scoring": {
+              "threshold_factor": 0.75
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Threshold scaling changes neither PaO2 nor P/F and implies no altitude in metres."
+    },
+    {
+      "id": "E4_measured",
+      "experiment": "E4",
+      "title": "Threshold factors with measured PaO2",
+      "mechanism": "Scoring threshold factor",
+      "base_overrides": {
+        "observation": {
+          "measured_pao2_mmhg": 84
+        }
+      },
+      "comparator": {
+        "label": "Factor 1",
+        "overrides": {
+          "scoring": {
+            "threshold_factor": 1
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Factor 0.85",
+          "overrides": {
+            "scoring": {
+              "threshold_factor": 0.85
+            }
+          }
+        },
+        {
+          "label": "Factor 0.75",
+          "overrides": {
+            "scoring": {
+              "threshold_factor": 0.75
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Fixed illustrative PaO2=84 mmHg; threshold scaling is not physiological altitude response."
+    },
+    {
+      "id": "E5_opportunity",
+      "experiment": "E5",
+      "title": "Independent stationary baseline opportunity",
+      "mechanism": "Baseline exposure and observation interval",
+      "base_overrides": {
+        "generator": {
+          "episode_rate_per_hour": 0
+        },
+        "horizon": {
+          "include_baseline": true
+        },
+        "observation": {
+          "interval_minutes": 15
+        }
+      },
+      "comparator": {
+        "label": "24h every 15 minutes",
+        "overrides": {
+          "observation": {
+            "baseline_exposure_minutes": 1440,
+            "baseline_interval_minutes": 15
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "1h every 15 minutes",
+          "overrides": {
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 15
+            }
+          }
+        },
+        {
+          "label": "1h every 60 minutes",
+          "overrides": {
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 60
+            }
+          }
+        },
+        {
+          "label": "6h every 15 minutes",
+          "overrides": {
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 15
+            }
+          }
+        },
+        {
+          "label": "6h every 60 minutes",
+          "overrides": {
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 60
+            }
+          }
+        },
+        {
+          "label": "24h every 60 minutes",
+          "overrides": {
+            "observation": {
+              "baseline_exposure_minutes": 1440,
+              "baseline_interval_minutes": 60
+            }
+          }
+        }
+      ],
+      "primary_outcome": "delta_legacy_ge1",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Independent stationary blocks can have different extrema without deterioration. Delta is not sepsis incidence."
+    },
+    {
+      "id": "E5_replay",
+      "experiment": "E5",
+      "title": "Six-hour exact replay control",
+      "mechanism": "No change: identical six-hour exposure and rules",
+      "base_overrides": {
+        "generator": {
+          "episode_rate_per_hour": 0
+        },
+        "horizon": {
+          "admit_dts": "2024-01-01T06:00:00Z",
+          "include_baseline": true,
+          "baseline_replay": true,
+          "end_minute": 360,
+          "baseline_generation_minutes": 360
+        },
+        "observation": {
+          "noise_sd_pct": 0,
+          "baseline_exposure_minutes": 360,
+          "baseline_interval_minutes": 15
+        },
+        "documentation": {
+          "interval_minutes": 15,
+          "measured_source_probability": 0
+        },
+        "scoring": {
+          "acute_begin_minute": 0,
+          "acute_end_minute": 360
+        }
+      },
+      "comparator": {
+        "label": "Six-hour replay",
+        "overrides": {}
+      },
+      "conditions": [
+        {
+          "label": "Identical replay",
+          "overrides": {}
+        }
+      ],
+      "primary_outcome": "delta_legacy_ge1",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Same full segment at the same UTC time of day within one date, contemporaneous FiO2 and at least two records; only this construction promises zero delta."
+    },
+    {
+      "id": "E6_rules",
+      "experiment": "E6",
+      "title": "Rule contribution",
+      "mechanism": "One scoring rule at a time",
+      "base_overrides": {
+        "horizon": {
+          "include_baseline": true
+        },
+        "documentation": {
+          "recorded_delay_minutes": 5
+        }
+      },
+      "comparator": {
+        "label": "Declared base rules",
+        "overrides": {}
+      },
+      "conditions": [
+        {
+          "label": "No singleton suppression",
+          "overrides": {
+            "scoring": {
+              "single_record_suppression": false
+            }
+          }
+        },
+        {
+          "label": "Expanded support gates",
+          "overrides": {
+            "scoring": {
+              "support_eligibility": "expanded"
+            }
+          }
+        },
+        {
+          "label": "Contemporaneous first",
+          "overrides": {
+            "scoring": {
+              "lookup": "contemporaneous_first"
+            }
+          }
+        },
+        {
+          "label": "As-of availability",
+          "overrides": {
+            "scoring": {
+              "availability": "as_of"
+            }
+          }
+        },
+        {
+          "label": "Measured only",
+          "overrides": {
+            "scoring": {
+              "conversion": "measured_only"
+            }
+          }
+        },
+        {
+          "label": "Maximum eligible baseline",
+          "overrides": {
+            "scoring": {
+              "baseline_selection": "all_eligible_max"
+            }
+          }
+        },
+        {
+          "label": "Admission bins",
+          "overrides": {
+            "scoring": {
+              "binning": "admission"
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. Rules interact; contrasts are not additive attribution. Mechanism fixtures separately cover inactive rules in dense records."
+    },
+    {
+      "id": "E6_singleton",
+      "experiment": "E6",
+      "title": "Singleton suppression mechanism",
+      "mechanism": "Single-record suppression",
+      "base_overrides": {
+        "horizon": {
+          "end_minute": 1
+        },
+        "observation": {
+          "interval_minutes": 15
+        }
+      },
+      "comparator": {
+        "label": "Suppression enabled",
+        "overrides": {}
+      },
+      "conditions": [
+        {
+          "label": "Suppression disabled",
+          "overrides": {
+            "scoring": {
+              "single_record_suppression": false
+            }
+          }
+        }
+      ],
+      "primary_outcome": "score_ge2",
+      "deterministic": false,
+      "held_fixed": "Within a comparison: patient IDs, generator and all settings not explicitly overridden.",
+      "limitations": "Uncalibrated illustrative simulation; strata have no population weights. "
+    }
+  ]
+}

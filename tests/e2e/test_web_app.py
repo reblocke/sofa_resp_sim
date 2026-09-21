@@ -51,7 +51,7 @@ def test_static_app_runs_scenario_and_sweep(page: Page, web_server: str) -> None
         lambda msg: browser_errors.append(msg.text) if msg.type == "error" else None,
     )
 
-    page.goto(web_server, wait_until="domcontentloaded")
+    page.goto(web_server + "/legacy.html", wait_until="domcontentloaded")
     expect(page.get_by_test_id("runtime-status")).to_contain_text("ready", timeout=120_000)
 
     page.locator("#scenario-n-reps").fill("5")
@@ -87,7 +87,7 @@ def test_static_app_runs_scenario_and_sweep(page: Page, web_server: str) -> None
 
 
 def test_input_help_tooltips_are_accessible(page: Page, web_server: str) -> None:
-    page.goto(web_server, wait_until="domcontentloaded")
+    page.goto(web_server + "/legacy.html", wait_until="domcontentloaded")
 
     expected_help_ids = [
         "scenario-preset",
@@ -215,7 +215,7 @@ self.onmessage = (event) => {{
         ),
     )
 
-    page.goto(web_server, wait_until="domcontentloaded")
+    page.goto(web_server + "/legacy.html", wait_until="domcontentloaded")
     expect(page.get_by_test_id("runtime-status")).to_contain_text("ready", timeout=10_000)
 
     run_scenario = page.get_by_test_id("run-scenario")
@@ -325,7 +325,7 @@ self.onmessage = (event) => {{
         ),
     )
 
-    page.goto(web_server, wait_until="domcontentloaded")
+    page.goto(web_server + "/legacy.html", wait_until="domcontentloaded")
     runtime_status = page.get_by_test_id("runtime-status")
     run_scenario = page.get_by_test_id("run-scenario")
     run_sweep = page.get_by_test_id("run-sweep")
@@ -360,7 +360,7 @@ self.onmessage = (event) => {{
 
 
 def test_mode_guidance_and_tab_values_persist_in_session(page: Page, web_server: str) -> None:
-    page.goto(web_server, wait_until="domcontentloaded")
+    page.goto(web_server + "/legacy.html", wait_until="domcontentloaded")
 
     expect(page.get_by_text("Scenario vs Sweep")).to_be_visible()
     expect(page.get_by_text("Use Scenario to test one parameter set")).to_be_visible()
@@ -396,7 +396,7 @@ def test_worker_error_rejects_pending_init_request(page: Page, web_server: str) 
         ),
     )
 
-    page.goto(web_server, wait_until="domcontentloaded")
+    page.goto(web_server + "/legacy.html", wait_until="domcontentloaded")
 
     expect(page.get_by_test_id("runtime-status")).to_contain_text(
         "forced worker crash",

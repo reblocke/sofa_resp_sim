@@ -25,6 +25,7 @@ build/
 *.egg-info/
 htmlcov/
 .coverage
+artifacts/local/
 
 # Generated GitHub Pages staging outputs
 web/assets/py/

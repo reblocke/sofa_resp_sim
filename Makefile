@@ -1,4 +1,4 @@
-.PHONY: sync stage-web lint format fmt-check test e2e serve verify check sim-help build
+.PHONY: sync stage-web lint format fmt-check test e2e serve verify check sim-help build experiment-help experiments-smoke experiments-install-check
 
 UV ?= uv
 PYTHON ?= $(UV) run python
@@ -37,3 +37,18 @@ sim-help:
 
 build:
 	$(UV) run python -m build
+
+experiment-help:
+	$(UV) run resp-sofa-experiment --help
+
+experiments-smoke:
+	$(PYTHON) scripts/freeze_experiment_catalogue.py --check
+	$(UV) run pytest -q tests/experiments tests/workflows/test_experiment_cli.py
+
+experiments-install-check: build
+	$(PYTHON) scripts/check_experiment_install.py
+
+.PHONY: experiments-reference
+experiments-reference:
+	$(PYTHON) scripts/freeze_experiment_catalogue.py --check
+	$(PYTHON) scripts/run_experiment_references.py

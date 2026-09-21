@@ -65,3 +65,31 @@ Stage 1:
 
 Stage 2:
 - add machine-readable REUSE coverage and SPDX headers where appropriate.
+
+## Paired v2 implementation provenance
+
+The accepted implementation pack is preserved verbatim under
+`docs/implementation/paired_experiment_goal/source/`; its planning ledger records
+the archive hash and base commit. Legacy seeded outputs and historical artifact
+hashes are frozen in `tests/experiments/fixtures/legacy_py_v1.json`. Existing
+200-replicate distribution artifacts are saved synthetic benchmarks, not clinical
+reference data. No independent clinical calibration or SQL equivalence has been
+established by the paired implementation.
+
+## Aggregate-reference template
+
+`docs/templates/aggregate_reference.csv` and its matching JSON metadata are
+invented aggregate examples for future local reference comparisons. Validate
+with `sofa_resp_sim.reporting.aggregate_reference.validate_aggregate_reference`.
+Each stratum requires seven explicit cells: observed scores 0-4, suppressed zero,
+and no-qualifying-data zero. Include zero-count cells; counts must sum to one
+positive patient denominator per stratum. Strata are validated independently;
+validation does not establish that strata are disjoint.
+
+Metadata requires source, extraction date, cohort and denominator definitions,
+units (`patient_counts`), scoring profile and access class. The validator resolves
+the scoring profile and rejects unknown fields/versions. Access classes are
+`synthetic`, `public_aggregate`, and `restricted_aggregate`; the last is marked
+ineligible for public export. Validation is schema/arithmetic checking, not
+individual-level validation or clinical calibration. Templates are documentation
+and are not automatically staged or uploaded.

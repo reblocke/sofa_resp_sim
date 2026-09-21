@@ -1,2 +1,11 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Exact-byte evidence and supplied source documents retain their recorded hashes.
+artifacts/experiments_v2/**/*.csv -text whitespace=cr-at-eol
+artifacts/experiments_v2/*.csv -text whitespace=cr-at-eol
+docs/implementation/paired_experiment_goal/source/** -text
+
+# Matplotlib path formatting and supplied Markdown hard breaks are intentional.
+artifacts/experiments_v2/**/*.svg whitespace=-blank-at-eol
+docs/implementation/paired_experiment_goal/source/IMPLEMENTATION_TICKET.md whitespace=-blank-at-eol

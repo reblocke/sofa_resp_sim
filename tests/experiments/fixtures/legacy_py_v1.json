@@ -1,0 +1,270 @@
+{
+  "source_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+  "environment": {
+    "numpy": "2.4.4",
+    "pandas": "3.0.2"
+  },
+  "cases": [
+    {
+      "config": {
+        "admit_dts": "2024-01-01 12:37:00",
+        "acute_start_hours": -6.0,
+        "acute_end_hours": 24.0,
+        "obs_freq_minutes": 15,
+        "include_baseline": true,
+        "baseline_days_before": 30,
+        "baseline_duration_hours": 6.0,
+        "spo2_mean": 96,
+        "spo2_sd": 1.5,
+        "ar1": 0.6,
+        "desat_prob": 0.01,
+        "desat_depth": 5.0,
+        "desat_duration_minutes": 30,
+        "measurement_sd": 1.0,
+        "spo2_rounding": "int",
+        "support_policy": {
+          "room_air_threshold": 94.0,
+          "low_flow_threshold": 90.0,
+          "hfnc_threshold": 85.0,
+          "nippv_threshold": 80.0
+        },
+        "fio2_settings": {
+          "HFNC": [
+            40.0,
+            5.0
+          ],
+          "NIPPV": [
+            50.0,
+            5.0
+          ],
+          "IMV": [
+            60.0,
+            8.0
+          ]
+        },
+        "fio2_meas_prob": 0.2,
+        "oxygen_flow_range": [
+          2.0,
+          6.0
+        ],
+        "support_based_on_observed": true,
+        "altitude_factor": 0.85
+      },
+      "seed": 0,
+      "n_reps": 3,
+      "replicates": [
+        {
+          "replicate": 0,
+          "seed": 3653403230,
+          "sofa_pulm": 2,
+          "sofa_pulm_bl": 2,
+          "sofa_pulm_delta": 0,
+          "count_pf_ratio_acute": 69,
+          "n_qualifying_pf_records_acute": 69,
+          "n_qualifying_pf_records_baseline": 19,
+          "single_pf_suppressed": false
+        },
+        {
+          "replicate": 1,
+          "seed": 2735729614,
+          "sofa_pulm": 2,
+          "sofa_pulm_bl": 2,
+          "sofa_pulm_delta": 0,
+          "count_pf_ratio_acute": 70,
+          "n_qualifying_pf_records_acute": 70,
+          "n_qualifying_pf_records_baseline": 13,
+          "single_pf_suppressed": false
+        },
+        {
+          "replicate": 2,
+          "seed": 2195314464,
+          "sofa_pulm": 2,
+          "sofa_pulm_bl": 2,
+          "sofa_pulm_delta": 0,
+          "count_pf_ratio_acute": 65,
+          "n_qualifying_pf_records_acute": 65,
+          "n_qualifying_pf_records_baseline": 19,
+          "single_pf_suppressed": false
+        }
+      ],
+      "observation_json_sha256": "eca0b3423a4e7f81d092e9007397099e568910668eb3a1c749795febe0f87b8c"
+    },
+    {
+      "config": {
+        "admit_dts": "2024-01-01 12:37:00",
+        "acute_start_hours": -6.0,
+        "acute_end_hours": 24.0,
+        "obs_freq_minutes": 15,
+        "include_baseline": true,
+        "baseline_days_before": 30,
+        "baseline_duration_hours": 6.0,
+        "spo2_mean": 89,
+        "spo2_sd": 1.5,
+        "ar1": 0.6,
+        "desat_prob": 0.01,
+        "desat_depth": 5.0,
+        "desat_duration_minutes": 30,
+        "measurement_sd": 1.0,
+        "spo2_rounding": "int",
+        "support_policy": {
+          "room_air_threshold": 94.0,
+          "low_flow_threshold": 90.0,
+          "hfnc_threshold": 85.0,
+          "nippv_threshold": 80.0
+        },
+        "fio2_settings": {
+          "HFNC": [
+            40.0,
+            5.0
+          ],
+          "NIPPV": [
+            50.0,
+            5.0
+          ],
+          "IMV": [
+            60.0,
+            8.0
+          ]
+        },
+        "fio2_meas_prob": 0.2,
+        "oxygen_flow_range": [
+          2.0,
+          6.0
+        ],
+        "support_based_on_observed": true,
+        "altitude_factor": 0.85
+      },
+      "seed": 7,
+      "n_reps": 3,
+      "replicates": [
+        {
+          "replicate": 0,
+          "seed": 4058335882,
+          "sofa_pulm": 3,
+          "sofa_pulm_bl": 2,
+          "sofa_pulm_delta": 1,
+          "count_pf_ratio_acute": 121,
+          "n_qualifying_pf_records_acute": 121,
+          "n_qualifying_pf_records_baseline": 25,
+          "single_pf_suppressed": false
+        },
+        {
+          "replicate": 1,
+          "seed": 2684764584,
+          "sofa_pulm": 4,
+          "sofa_pulm_bl": 2,
+          "sofa_pulm_delta": 2,
+          "count_pf_ratio_acute": 121,
+          "n_qualifying_pf_records_acute": 121,
+          "n_qualifying_pf_records_baseline": 25,
+          "single_pf_suppressed": false
+        },
+        {
+          "replicate": 2,
+          "seed": 2938530452,
+          "sofa_pulm": 4,
+          "sofa_pulm_bl": 3,
+          "sofa_pulm_delta": 1,
+          "count_pf_ratio_acute": 121,
+          "n_qualifying_pf_records_acute": 121,
+          "n_qualifying_pf_records_baseline": 25,
+          "single_pf_suppressed": false
+        }
+      ],
+      "observation_json_sha256": "588590c2df03c5ffa446c43c700374419f078bc5d6dc302072a8898a328e1fa9"
+    },
+    {
+      "config": {
+        "admit_dts": "2024-01-01 12:37:00",
+        "acute_start_hours": -6.0,
+        "acute_end_hours": 24.0,
+        "obs_freq_minutes": 15,
+        "include_baseline": true,
+        "baseline_days_before": 30,
+        "baseline_duration_hours": 6.0,
+        "spo2_mean": 75,
+        "spo2_sd": 1.5,
+        "ar1": 0.6,
+        "desat_prob": 0.01,
+        "desat_depth": 5.0,
+        "desat_duration_minutes": 30,
+        "measurement_sd": 1.0,
+        "spo2_rounding": "int",
+        "support_policy": {
+          "room_air_threshold": 94.0,
+          "low_flow_threshold": 90.0,
+          "hfnc_threshold": 85.0,
+          "nippv_threshold": 80.0
+        },
+        "fio2_settings": {
+          "HFNC": [
+            40.0,
+            5.0
+          ],
+          "NIPPV": [
+            50.0,
+            5.0
+          ],
+          "IMV": [
+            60.0,
+            8.0
+          ]
+        },
+        "fio2_meas_prob": 0.2,
+        "oxygen_flow_range": [
+          2.0,
+          6.0
+        ],
+        "support_based_on_observed": true,
+        "altitude_factor": 0.85
+      },
+      "seed": 23,
+      "n_reps": 3,
+      "replicates": [
+        {
+          "replicate": 0,
+          "seed": 154230835,
+          "sofa_pulm": 4,
+          "sofa_pulm_bl": 4,
+          "sofa_pulm_delta": 0,
+          "count_pf_ratio_acute": 121,
+          "n_qualifying_pf_records_acute": 121,
+          "n_qualifying_pf_records_baseline": 25,
+          "single_pf_suppressed": false
+        },
+        {
+          "replicate": 1,
+          "seed": 2980419886,
+          "sofa_pulm": 4,
+          "sofa_pulm_bl": 4,
+          "sofa_pulm_delta": 0,
+          "count_pf_ratio_acute": 121,
+          "n_qualifying_pf_records_acute": 121,
+          "n_qualifying_pf_records_baseline": 25,
+          "single_pf_suppressed": false
+        },
+        {
+          "replicate": 2,
+          "seed": 1813956752,
+          "sofa_pulm": 4,
+          "sofa_pulm_bl": 4,
+          "sofa_pulm_delta": 0,
+          "count_pf_ratio_acute": 121,
+          "n_qualifying_pf_records_acute": 121,
+          "n_qualifying_pf_records_baseline": 25,
+          "single_pf_suppressed": false
+        }
+      ],
+      "observation_json_sha256": "681227666b4a64429b52134679d4cd06242bc58237cf97674ad1de27d95f6e0c"
+    }
+  ],
+  "historical_artifact_sha256": {
+    "artifacts/package_namespace_migration.csv": "24fe00f9fc38aad03ae8d122615d4a9c7c3450282751c7e4ccaba1b86171182b",
+    "artifacts/resp_applet_m1_validation.csv": "dd619105f54cda59ac4e700c47d8979789a693b5cec0ff6f245f2cdbe8a66227",
+    "artifacts/resp_applet_m2_uncertainty.csv": "27db1af6a195649d55c78e1bd8c1a8bac99a3f1008f232bebf719a2422a38626",
+    "artifacts/resp_applet_m3_sweep_validation.csv": "e766c18f1d89f0f4be0b8c92993eedb8c8636249899eb2efea18de8870c7c691",
+    "artifacts/resp_applet_m4_performance.csv": "1b669dd11e7d19aa7be28b9d5072d8ee03e3e8955b1b90aa7656ceb91fa8b720",
+    "artifacts/resp_scoring_fixtures.csv": "4a573266e6e1b23ad50a8e274219a416b366d865e001b44e0aee69e07dbe9803",
+    "artifacts/resp_sofa_sim_summary.csv": "53d6cea6d2822aeffec391aa294548c9df14ddbc3e8d756417fb6df1461dbd42"
+  }
+}

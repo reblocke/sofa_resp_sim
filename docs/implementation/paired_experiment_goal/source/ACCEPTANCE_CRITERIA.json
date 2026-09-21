@@ -1,0 +1,176 @@
+{
+  "ticket_version": "1.0",
+  "repository": "reblocke/sofa_resp_sim",
+  "issue_number": 11,
+  "starting_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+  "criteria": [
+    {
+      "id": "A01",
+      "given_when": "Existing entry points and fixed legacy fixtures run.",
+      "required_evidence": "Historical scores/intermediates and seeded legacy outputs are preserved in the pinned environment; intentional nonlegacy differences are separately versioned.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A02",
+      "given_when": "E1 samples one cohort at 5/15/30/60 minutes.",
+      "required_evidence": "Latent/support/episode identities match; shared sampled times have identical underlying and noise values.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A03",
+      "given_when": "A constant 96% background has one 5-point episode lasting 30 minutes.",
+      "required_evidence": "Latent values are 91% during that interval and 96% outside it at every observation schedule; no accumulated decrement.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A04",
+      "given_when": "Long unclipped AR background, no desaturations.",
+      "required_evidence": "Empirical marginal SD and correlation at fixed elapsed lags agree with declared values within prespecified stochastic tolerances, not tolerances tuned after failure.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A05",
+      "given_when": "Conditions reordered/isolated/extended; chunks changed; N increased.",
+      "required_evidence": "Same patient-condition rows remain identical; first 200 patients do not change in a 1,000-patient run.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A06",
+      "given_when": "Noise, missingness, or threshold factor changes in fixed-support mode.",
+      "required_evidence": "Latent oxygenation and support/FiO2 are unchanged. A separate stress mode explicitly permits assignment changes.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A07",
+      "given_when": "Identical FiO2 moves between set/measured columns with no conflicts.",
+      "required_evidence": "Provenance changes but all numerical scores and P/F values remain identical.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A08",
+      "given_when": "All FiO2 evidence is removed in a designated non-room-air fixture.",
+      "required_evidence": "No hidden latent value, surviving flow/room-air fallback, or adapter artifact supplies it; eligibility follows the documented profile.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A09",
+      "given_when": "All oxygenation evidence is missing; compare with observed normal data and a suppressed abnormal singleton.",
+      "required_evidence": "Three distinct statuses; old algorithm zeros preserved; tables reconcile without calling no-data records normal.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A10",
+      "given_when": "Two records, SpO2=96, room air, no measured PaO2, at t=0 and +15min.",
+      "required_evidence": "Conversion PaO2=81.9 and P/F=390.00 unchanged across factors; algorithm score 1 at factor 1.0 and 0 at .85.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A11",
+      "given_when": "Same two-record fixture has measured PaO2=84 at both times.",
+      "required_evidence": "Measured-first P/F=400.00 and score 0 at factor 1.0; exact threshold ties use the implemented strict inequalities.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A12",
+      "given_when": "SpO2 49,50,96,97 without measured PaO2.",
+      "required_evidence": "Conversion unavailable at 49/97, available at 50/96. UI represents unavailable explicitly; no high-saturation PaO2 is fabricated.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A13",
+      "given_when": "One low-flow record: SpO2=90, flow=4 L/min, factor=1.0. Then add an identical record 15min later.",
+      "required_evidence": "Inferred FiO2=33%, P/F=177.88, presuppression score 2; legacy singleton reported 0 with suppression, two records reported 2.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A14",
+      "given_when": "HFNC, NIPPV, IMV, SURG IMV fixtures exercise both support gates.",
+      "required_evidence": "Legacy behavior retained. Named support ablation changes all relevant gates, with an event-level explanation.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A15",
+      "given_when": "FiO2 context at exact and just-outside 1/5/14-minute and 24-hour boundaries; conflicting current/previous values.",
+      "required_evidence": "Source event IDs and chosen priority match the versioned rule; no future unavailable evidence in as-of mode.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A16",
+      "given_when": "Admit at 12:37, target endpoints, midnight and DST boundaries.",
+      "required_evidence": "v2 acute membership is explicit and bounded; calendar versus admission bins demonstrably differ when expected; legacy fixture results remain unchanged.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A17",
+      "given_when": "Separate observation and documentation streams with duplicate or coincident timestamps.",
+      "required_evidence": "No Cartesian joins or duplicated P/F counts. Distinct genuine measurements remain distinct; ties use stable event IDs.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A18",
+      "given_when": "Exact replay baseline/acute control with matching exposure and equivalent scoring rules.",
+      "required_evidence": "Signed/evaluable delta is exactly zero. Independent stationary realizations are not falsely constrained to zero.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A19",
+      "given_when": "Binomial counts k=0 and k=N.",
+      "required_evidence": "Wilson intervals have valid nonzero uncertainty width unless structural identity is explicitly proven elsewhere.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A20",
+      "given_when": "Paired binary table has n_plus=30, n_minus=10, N=100.",
+      "required_evidence": "Difference is 0.20 = 20 percentage points; sample MCSE is sqrt((40-100*.2**2)/(99*100)); interval uses paired discordance counts.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A21",
+      "given_when": "No observed discordances between nonidentical stochastic conditions.",
+      "required_evidence": "Observed MCSE may be zero, but reported boundary-safe interval is not asserted to prove equality.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A22",
+      "given_when": "Threshold probability, mean count .5, paired change -.02, and an unscorable cell render.",
+      "required_evidence": "Display 50%, 0.5 records, -2 percentage points, and U/not evaluable respectively; no magnitude-based unit guessing.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A23",
+      "given_when": "User edits a base scenario then expands a sweep or changes controls after a run.",
+      "required_evidence": "Sweep inherits the actual base. Old results are marked stale and exports retain their original immutable request.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A24",
+      "given_when": "User selects a transition cell and a patient.",
+      "required_evidence": "Trace score matches the summary; explanations identify actual determining/excluded evidence without rerunning the cohort.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A25",
+      "given_when": "Export/import/reproduce in a clean pinned environment.",
+      "required_evidence": "Scientific tables match, hashes validate, schema/versions preserved; unsupported versions produce actionable errors.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A26",
+      "given_when": "Same small fixtures run natively and through actual Pyodide.",
+      "required_evidence": "Exact discrete outputs and matching floats within predeclared tolerances; this is not replaced by a Python-only contract test.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A27",
+      "given_when": "Every advertised control/variant is exercised by a relevant fixture.",
+      "required_evidence": "It affects the claimed mechanism or is explicitly documented as provenance-only/inactive; no dead controls or hidden default resets.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    },
+    {
+      "id": "A28",
+      "given_when": "Six named experiments and deterministic explorer complete.",
+      "required_evidence": "Real output tables, configurations, selected traces, plots, and a findings/limitations note exist. No invented positive findings.",
+      "status": "implementation_required_not_tested_by_this_packet"
+    }
+  ]
+}

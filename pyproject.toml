@@ -15,6 +15,8 @@ authors = [
 dependencies = [
   "numpy>=1.26",
   "pandas>=2.2",
+  "scipy>=1.14,<2",
+  "tzdata>=2025.2",
 ]
 
 [project.urls]
@@ -24,6 +26,7 @@ Issues = "https://github.com/reblocke/sofa_resp_sim/issues"
 
 [project.scripts]
 resp-sofa-sim = "sofa_resp_sim.workflows.cli:main"
+resp-sofa-experiment = "sofa_resp_sim.workflows.experiment_cli:main"
 
 [dependency-groups]
 dev = [
@@ -34,6 +37,9 @@ dev = [
   "pytest-cov>=5.0",
   "playwright>=1.55",
   "ruff>=0.7",
+]
+figures = [
+    "matplotlib>=3.10,<4",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -51,6 +57,8 @@ include = [
   "web",
   "docs/*.md",
   "docs/adr/*.md",
+  "docs/templates",
+  "experiments",
   "artifacts",
   "README.md",
   "LICENSE",

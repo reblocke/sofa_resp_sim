@@ -1,0 +1,9 @@
+{
+  "repository": "reblocke/sofa_resp_sim",
+  "issue_number": 11,
+  "url": "https://github.com/reblocke/sofa_resp_sim/issues/11",
+  "title": "Build paired respiratory SOFA experiments with auditable scoring and a question-led interface",
+  "ticket_version": "1.0",
+  "audit_starting_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+  "preparation_scope": "Implementation ticket only; no repository source changes."
+}

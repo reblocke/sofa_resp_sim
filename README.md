@@ -165,3 +165,45 @@ Simulation data only
 ### Contact
 
 Maintainer: Brian W. Locke (`@reblocke`). Use GitHub issues or pull requests for repository-specific questions when the repository is public.
+
+## Paired workbench implementation
+
+The v2 paired Python/worker API is under active implementation alongside the
+existing scenario/sweep workflows. See [implementation status](docs/implementation/sofa_experiment_v2_status.md)
+for completed checks and remaining acceptance and reference-run work.
+
+## Paired experiment CLI and bundles
+
+The default browser page provides Experiment, Explain an encounter, and Methods
+and export views. It displays a saved synthetic example before Python loads.
+The historical scenario/sweep interface remains available at `legacy.html`.
+A small saved bundle includes normalized requests, patient scores, summaries,
+paired contrasts, transitions, reclassification, selected traces and content hashes.
+These are uncalibrated synthetic results.
+
+```bash
+uv run resp-sofa-experiment list
+uv run resp-sofa-experiment run --entry E1_density --stratum room_air --replicates 200 --output artifacts/local/example-bundle
+uv run resp-sofa-experiment verify-bundle artifacts/local/example-bundle
+uv run resp-sofa-experiment reproduce artifacts/local/example-bundle --output artifacts/local/reproduced.zip
+uv run resp-sofa-experiment append artifacts/local/example-bundle --replicates 1000 --output artifacts/local/extended-bundle
+```
+
+`run --request request.json` accepts a fully normalized request; optional
+`--replicates` overrides N explicitly. `explain BUNDLE --patient ID --condition ID`
+regenerates one trace and verifies its saved score. Output paths must be new.
+Exact reproduction/append require the recorded runtime and package source.
+`reproduce --allow-runtime-difference` explicitly permits a cross-runtime check
+with exact discrete values and the declared float tolerance, recorded in the
+new manifest. Unknown scientific versions still fail.
+
+Use `make experiments-smoke` for native mechanism/bundle checks and
+`make experiments-install-check` for an isolated locked wheel reproduction.
+The full reference collection is in `artifacts/experiments_v2/`, with reviewed
+figures, source hashes and interpretation. The final delivery audit remains pending.
+
+`make experiments-reference` runs the complete frozen catalogue at 2,000 paired
+patients per stochastic stratum (one for the deterministic episode). It retains
+verified bundles and logs under `artifacts/local/references_v2/` and resumes
+matching completed bundles. This can take substantially longer than a preview.
+See `docs/VALIDATION.md` for resumption and reference-evidence rules.

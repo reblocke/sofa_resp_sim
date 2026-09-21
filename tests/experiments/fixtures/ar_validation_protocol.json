@@ -1,0 +1,14 @@
+{
+  "version": "ar_protocol_v1",
+  "prespecified_before_first_run": true,
+  "seed": 142857,
+  "patients": 8,
+  "minutes_per_patient": 100000,
+  "mean_pct": 90.0,
+  "marginal_sd_pct": 2.0,
+  "tau_minutes": [0.0, 1.0, 30.0],
+  "lags_minutes": [1, 15, 60],
+  "relative_sd_tolerance": 0.03,
+  "absolute_correlation_tolerance": 0.035,
+  "rationale": "Unclipped stationary Gaussian paths, no episodes. At the slowest tau=30, 800000 minutes across independent patients give roughly 13000 effective observations for means and more for variance. The 3 percent SD and .035 absolute correlation bounds are conservative several-standard-error checks at the declared lags; they are not fitted to observed outputs. Correlations do not include cross-patient boundary pairs."
+}

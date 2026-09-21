@@ -45,3 +45,11 @@ or public language must update:
 - `docs/VALIDATION.md`
 - `docs/PROVENANCE.md`
 - this file
+
+## Paired v2 model
+
+The paired model is an uncalibrated illustrative simulation. Fixed support is
+held independent of observation noise; the separately labeled assignment stress
+test is not treatment physiology. Pointwise Monte Carlo intervals quantify finite
+synthetic-patient sampling conditional on the model, not clinical or parameter
+uncertainty. Delta outcomes are score changes, not sepsis incidence.

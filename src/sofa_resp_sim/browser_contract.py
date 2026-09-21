@@ -256,6 +256,122 @@ def _error(exc: Exception) -> dict[str, Any]:
     }
 
 
+def run_experiment_payload(payload: dict[str, Any], *, on_progress=None) -> dict[str, Any]:
+    """Run a versioned paired request; failures never become clinical missingness."""
+    from .reporting.experiment_request import normalize_experiment_request
+    from .reporting.experiment_service import run_experiment
+    from .reporting.experiment_workload import require_preview_budget
+
+    try:
+        if not isinstance(payload, dict) or set(payload) != {"request"}:
+            raise ValueError("Experiment payload must contain exactly a request object")
+        request = normalize_experiment_request(payload["request"])
+        workload = require_preview_budget(request)
+        return _ok({**run_experiment(request, on_progress=on_progress), "workload": workload})
+    except Exception as exc:
+        return _error(exc)
+
+
+def get_experiment_workload_payload(payload: dict) -> dict:
+    from .reporting.experiment_request import normalize_experiment_request
+    from .reporting.experiment_workload import estimate_workload
+
+    try:
+        if not isinstance(payload, dict) or set(payload) != {"request"}:
+            raise ValueError("Workload requires exactly a request object")
+        return _ok(estimate_workload(normalize_experiment_request(payload["request"])))
+    except Exception as exc:
+        return _error(exc)
+
+
+def explain_experiment_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """Reconstruct one synthetic patient from the immutable completed request."""
+    from .reporting.experiment_request import normalize_experiment_request
+    from .reporting.experiment_service import explain_patient
+
+    try:
+        required = {"request", "patient_id", "condition_id"}
+        if (
+            not isinstance(payload, dict)
+            or not required <= set(payload)
+            or set(payload) - required - {"expected_score"}
+        ):
+            raise ValueError("Explain requires request, patient_id and condition_id")
+        request = normalize_experiment_request(payload["request"])
+        return _ok(
+            explain_patient(
+                request,
+                payload["patient_id"],
+                payload["condition_id"],
+                expected_score=payload.get("expected_score"),
+            )
+        )
+    except Exception as exc:
+        return _error(exc)
+
+
+def get_experiment_catalogue_payload(payload: dict) -> dict:
+    from .reporting.experiment_catalogue import (
+        REFERENCE_SEED,
+        catalogue_metadata,
+        catalogue_request,
+    )
+
+    try:
+        if not isinstance(payload, dict) or set(payload) - {
+            "entry_id",
+            "stratum",
+            "replicates",
+            "seed",
+            "base",
+        }:
+            raise ValueError("Unknown catalogue request fields")
+        request = catalogue_request(
+            payload.get("entry_id", "E1_density"),
+            payload.get("stratum", "room_air"),
+            replicates=payload.get("replicates", 200),
+            seed=payload.get("seed", REFERENCE_SEED),
+            base=payload.get("base"),
+        )
+        return _ok({"catalogue": catalogue_metadata(), "request": request.to_dict()})
+    except Exception as exc:
+        return _error(exc)
+
+
+def run_rule_explorer_payload(payload: dict) -> dict:
+    from .reporting.rule_explorer import explore_rules
+
+    try:
+        return _ok(explore_rules(payload))
+    except Exception as exc:
+        return _error(exc)
+
+
+def export_experiment_bundle_payload(payload: dict) -> dict:
+    from .reporting.experiment_bundle import build_bundle, encode_bundle_archive
+
+    try:
+        if not isinstance(payload, dict) or set(payload) - {"result", "patient_id"}:
+            raise ValueError("Bundle export requires a completed result and optional patient_id")
+        files = build_bundle(payload["result"], selected_patient=payload.get("patient_id", 0))
+        return _ok(
+            {"archive_base64": encode_bundle_archive(files), "filename": "synthetic-experiment.zip"}
+        )
+    except Exception as exc:
+        return _error(exc)
+
+
+def import_experiment_bundle_payload(payload: dict) -> dict:
+    from .reporting.experiment_bundle import decode_bundle_archive, verify_bundle
+
+    try:
+        if not isinstance(payload, dict) or set(payload) != {"archive_base64"}:
+            raise ValueError("Bundle import requires archive_base64")
+        return _ok(verify_bundle(decode_bundle_archive(payload["archive_base64"])))
+    except Exception as exc:
+        return _error(exc)
+
+
 def _positive_int(value: Any, field_name: str) -> int:
     parsed = _nonnegative_int(value, field_name)
     if parsed < 1:

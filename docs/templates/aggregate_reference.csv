@@ -1,0 +1,8 @@
+stratum,score_status,algorithm_score,count,denominator
+synthetic_example,observed_scored,0,50,100
+synthetic_example,observed_scored,1,20,100
+synthetic_example,observed_scored,2,10,100
+synthetic_example,observed_scored,3,5,100
+synthetic_example,observed_scored,4,5,100
+synthetic_example,suppressed_only,0,5,100
+synthetic_example,no_qualifying_data,0,5,100

@@ -1,0 +1,477 @@
+algorithm_score,case,conversion_unavailable,fio2_fraction,input_unit,input_value,pao2_calc_mmhg,pf_ratio_mmhg,qualifying_pf_count,raw_rubric,records,score_status,singleton_suppressed,source,source_event_id,support_adjusted_score,support_label,threshold_factor
+0,spo2_1record_factor1.0,true,0.21,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:0:fio20,,ROOM_AIR,1.0
+0,spo2_1record_factor1.0,true,0.33,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:1:fio20,,LOW_FLOW,1.0
+0,spo2_1record_factor1.0,true,0.4,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:2:fio20,,HFNC,1.0
+0,spo2_1record_factor1.0,true,0.5,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:3:fio20,,IMV,1.0
+0,spo2_1record_factor1.0,true,0.5,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:4:fio20,,NIPPV,1.0
+0,spo2_1record_factor1.0,true,0.5,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:5:fio20,,SURG IMV,1.0
+0,spo2_1record_factor1.0,true,,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+0,spo2_1record_factor1.0,false,0.21,percent,50.0,26.9,128.1,1,3,1,suppressed_only,true,spo2,cell1:0:fio20,2,ROOM_AIR,1.0
+0,spo2_1record_factor1.0,false,0.33,percent,50.0,26.9,81.52,1,4,1,suppressed_only,true,spo2,cell1:1:fio20,2,LOW_FLOW,1.0
+0,spo2_1record_factor1.0,false,0.4,percent,50.0,26.9,67.25,1,4,1,suppressed_only,true,spo2,cell1:2:fio20,2,HFNC,1.0
+4,spo2_1record_factor1.0,false,0.5,percent,50.0,26.9,53.8,1,4,1,observed_scored,false,spo2,cell1:3:fio20,4,IMV,1.0
+4,spo2_1record_factor1.0,false,0.5,percent,50.0,26.9,53.8,1,4,1,observed_scored,false,spo2,cell1:4:fio20,4,NIPPV,1.0
+0,spo2_1record_factor1.0,false,0.5,percent,50.0,26.9,53.8,1,4,1,suppressed_only,true,spo2,cell1:5:fio20,2,SURG IMV,1.0
+0,spo2_1record_factor1.0,false,,percent,50.0,26.9,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+0,spo2_1record_factor1.0,false,0.21,percent,90.0,58.7,279.52,1,2,1,suppressed_only,true,spo2,cell2:0:fio20,2,ROOM_AIR,1.0
+0,spo2_1record_factor1.0,false,0.33,percent,90.0,58.7,177.88,1,3,1,suppressed_only,true,spo2,cell2:1:fio20,2,LOW_FLOW,1.0
+0,spo2_1record_factor1.0,false,0.4,percent,90.0,58.7,146.75,1,3,1,suppressed_only,true,spo2,cell2:2:fio20,2,HFNC,1.0
+3,spo2_1record_factor1.0,false,0.5,percent,90.0,58.7,117.4,1,3,1,observed_scored,false,spo2,cell2:3:fio20,3,IMV,1.0
+3,spo2_1record_factor1.0,false,0.5,percent,90.0,58.7,117.4,1,3,1,observed_scored,false,spo2,cell2:4:fio20,3,NIPPV,1.0
+0,spo2_1record_factor1.0,false,0.5,percent,90.0,58.7,117.4,1,3,1,suppressed_only,true,spo2,cell2:5:fio20,2,SURG IMV,1.0
+0,spo2_1record_factor1.0,false,,percent,90.0,58.7,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+0,spo2_1record_factor1.0,false,0.21,percent,96.0,81.9,390.0,1,1,1,suppressed_only,true,spo2,cell3:0:fio20,1,ROOM_AIR,1.0
+0,spo2_1record_factor1.0,false,0.33,percent,96.0,81.9,248.18,1,2,1,suppressed_only,true,spo2,cell3:1:fio20,2,LOW_FLOW,1.0
+0,spo2_1record_factor1.0,false,0.4,percent,96.0,81.9,204.75,1,2,1,suppressed_only,true,spo2,cell3:2:fio20,2,HFNC,1.0
+3,spo2_1record_factor1.0,false,0.5,percent,96.0,81.9,163.8,1,3,1,observed_scored,false,spo2,cell3:3:fio20,3,IMV,1.0
+3,spo2_1record_factor1.0,false,0.5,percent,96.0,81.9,163.8,1,3,1,observed_scored,false,spo2,cell3:4:fio20,3,NIPPV,1.0
+0,spo2_1record_factor1.0,false,0.5,percent,96.0,81.9,163.8,1,3,1,suppressed_only,true,spo2,cell3:5:fio20,2,SURG IMV,1.0
+0,spo2_1record_factor1.0,false,,percent,96.0,81.9,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+0,spo2_1record_factor1.0,true,0.21,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:0:fio20,,ROOM_AIR,1.0
+0,spo2_1record_factor1.0,true,0.33,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:1:fio20,,LOW_FLOW,1.0
+0,spo2_1record_factor1.0,true,0.4,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:2:fio20,,HFNC,1.0
+0,spo2_1record_factor1.0,true,0.5,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:3:fio20,,IMV,1.0
+0,spo2_1record_factor1.0,true,0.5,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:4:fio20,,NIPPV,1.0
+0,spo2_1record_factor1.0,true,0.5,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:5:fio20,,SURG IMV,1.0
+0,spo2_1record_factor1.0,true,,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+0,spo2_1record_factor0.85,true,0.21,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:0:fio20,,ROOM_AIR,0.85
+0,spo2_1record_factor0.85,true,0.33,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:1:fio20,,LOW_FLOW,0.85
+0,spo2_1record_factor0.85,true,0.4,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:2:fio20,,HFNC,0.85
+0,spo2_1record_factor0.85,true,0.5,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:3:fio20,,IMV,0.85
+0,spo2_1record_factor0.85,true,0.5,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:4:fio20,,NIPPV,0.85
+0,spo2_1record_factor0.85,true,0.5,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,cell0:5:fio20,,SURG IMV,0.85
+0,spo2_1record_factor0.85,true,,percent,49.0,,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+0,spo2_1record_factor0.85,false,0.21,percent,50.0,26.9,128.1,1,3,1,suppressed_only,true,spo2,cell1:0:fio20,2,ROOM_AIR,0.85
+0,spo2_1record_factor0.85,false,0.33,percent,50.0,26.9,81.52,1,4,1,suppressed_only,true,spo2,cell1:1:fio20,2,LOW_FLOW,0.85
+0,spo2_1record_factor0.85,false,0.4,percent,50.0,26.9,67.25,1,4,1,suppressed_only,true,spo2,cell1:2:fio20,2,HFNC,0.85
+4,spo2_1record_factor0.85,false,0.5,percent,50.0,26.9,53.8,1,4,1,observed_scored,false,spo2,cell1:3:fio20,4,IMV,0.85
+4,spo2_1record_factor0.85,false,0.5,percent,50.0,26.9,53.8,1,4,1,observed_scored,false,spo2,cell1:4:fio20,4,NIPPV,0.85
+0,spo2_1record_factor0.85,false,0.5,percent,50.0,26.9,53.8,1,4,1,suppressed_only,true,spo2,cell1:5:fio20,2,SURG IMV,0.85
+0,spo2_1record_factor0.85,false,,percent,50.0,26.9,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+0,spo2_1record_factor0.85,false,0.21,percent,90.0,58.7,279.52,1,1,1,suppressed_only,true,spo2,cell2:0:fio20,1,ROOM_AIR,0.85
+0,spo2_1record_factor0.85,false,0.33,percent,90.0,58.7,177.88,1,2,1,suppressed_only,true,spo2,cell2:1:fio20,2,LOW_FLOW,0.85
+0,spo2_1record_factor0.85,false,0.4,percent,90.0,58.7,146.75,1,3,1,suppressed_only,true,spo2,cell2:2:fio20,2,HFNC,0.85
+3,spo2_1record_factor0.85,false,0.5,percent,90.0,58.7,117.4,1,3,1,observed_scored,false,spo2,cell2:3:fio20,3,IMV,0.85
+3,spo2_1record_factor0.85,false,0.5,percent,90.0,58.7,117.4,1,3,1,observed_scored,false,spo2,cell2:4:fio20,3,NIPPV,0.85
+0,spo2_1record_factor0.85,false,0.5,percent,90.0,58.7,117.4,1,3,1,suppressed_only,true,spo2,cell2:5:fio20,2,SURG IMV,0.85
+0,spo2_1record_factor0.85,false,,percent,90.0,58.7,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+0,spo2_1record_factor0.85,false,0.21,percent,96.0,81.9,390.0,1,0,1,observed_scored,false,spo2,cell3:0:fio20,0,ROOM_AIR,0.85
+0,spo2_1record_factor0.85,false,0.33,percent,96.0,81.9,248.18,1,2,1,suppressed_only,true,spo2,cell3:1:fio20,2,LOW_FLOW,0.85
+0,spo2_1record_factor0.85,false,0.4,percent,96.0,81.9,204.75,1,2,1,suppressed_only,true,spo2,cell3:2:fio20,2,HFNC,0.85
+3,spo2_1record_factor0.85,false,0.5,percent,96.0,81.9,163.8,1,3,1,observed_scored,false,spo2,cell3:3:fio20,3,IMV,0.85
+3,spo2_1record_factor0.85,false,0.5,percent,96.0,81.9,163.8,1,3,1,observed_scored,false,spo2,cell3:4:fio20,3,NIPPV,0.85
+0,spo2_1record_factor0.85,false,0.5,percent,96.0,81.9,163.8,1,3,1,suppressed_only,true,spo2,cell3:5:fio20,2,SURG IMV,0.85
+0,spo2_1record_factor0.85,false,,percent,96.0,81.9,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+0,spo2_1record_factor0.85,true,0.21,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:0:fio20,,ROOM_AIR,0.85
+0,spo2_1record_factor0.85,true,0.33,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:1:fio20,,LOW_FLOW,0.85
+0,spo2_1record_factor0.85,true,0.4,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:2:fio20,,HFNC,0.85
+0,spo2_1record_factor0.85,true,0.5,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:3:fio20,,IMV,0.85
+0,spo2_1record_factor0.85,true,0.5,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:4:fio20,,NIPPV,0.85
+0,spo2_1record_factor0.85,true,0.5,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,cell4:5:fio20,,SURG IMV,0.85
+0,spo2_1record_factor0.85,true,,percent,97.0,,,0,,1,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+0,spo2_2record_factor1.0,true,0.21,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:0:fio20,,ROOM_AIR,1.0
+0,spo2_2record_factor1.0,true,0.33,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:1:fio20,,LOW_FLOW,1.0
+0,spo2_2record_factor1.0,true,0.4,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:2:fio20,,HFNC,1.0
+0,spo2_2record_factor1.0,true,0.5,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:3:fio20,,IMV,1.0
+0,spo2_2record_factor1.0,true,0.5,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:4:fio20,,NIPPV,1.0
+0,spo2_2record_factor1.0,true,0.5,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:5:fio20,,SURG IMV,1.0
+0,spo2_2record_factor1.0,true,,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+2,spo2_2record_factor1.0,false,0.21,percent,50.0,26.9,128.1,2,3,2,observed_scored,false,spo2,cell1:0:fio20,2,ROOM_AIR,1.0
+2,spo2_2record_factor1.0,false,0.33,percent,50.0,26.9,81.52,2,4,2,observed_scored,false,spo2,cell1:1:fio20,2,LOW_FLOW,1.0
+2,spo2_2record_factor1.0,false,0.4,percent,50.0,26.9,67.25,2,4,2,observed_scored,false,spo2,cell1:2:fio20,2,HFNC,1.0
+4,spo2_2record_factor1.0,false,0.5,percent,50.0,26.9,53.8,2,4,2,observed_scored,false,spo2,cell1:3:fio20,4,IMV,1.0
+4,spo2_2record_factor1.0,false,0.5,percent,50.0,26.9,53.8,2,4,2,observed_scored,false,spo2,cell1:4:fio20,4,NIPPV,1.0
+2,spo2_2record_factor1.0,false,0.5,percent,50.0,26.9,53.8,2,4,2,observed_scored,false,spo2,cell1:5:fio20,2,SURG IMV,1.0
+0,spo2_2record_factor1.0,false,,percent,50.0,26.9,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+2,spo2_2record_factor1.0,false,0.21,percent,90.0,58.7,279.52,2,2,2,observed_scored,false,spo2,cell2:0:fio20,2,ROOM_AIR,1.0
+2,spo2_2record_factor1.0,false,0.33,percent,90.0,58.7,177.88,2,3,2,observed_scored,false,spo2,cell2:1:fio20,2,LOW_FLOW,1.0
+2,spo2_2record_factor1.0,false,0.4,percent,90.0,58.7,146.75,2,3,2,observed_scored,false,spo2,cell2:2:fio20,2,HFNC,1.0
+3,spo2_2record_factor1.0,false,0.5,percent,90.0,58.7,117.4,2,3,2,observed_scored,false,spo2,cell2:3:fio20,3,IMV,1.0
+3,spo2_2record_factor1.0,false,0.5,percent,90.0,58.7,117.4,2,3,2,observed_scored,false,spo2,cell2:4:fio20,3,NIPPV,1.0
+2,spo2_2record_factor1.0,false,0.5,percent,90.0,58.7,117.4,2,3,2,observed_scored,false,spo2,cell2:5:fio20,2,SURG IMV,1.0
+0,spo2_2record_factor1.0,false,,percent,90.0,58.7,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+1,spo2_2record_factor1.0,false,0.21,percent,96.0,81.9,390.0,2,1,2,observed_scored,false,spo2,cell3:0:fio20,1,ROOM_AIR,1.0
+2,spo2_2record_factor1.0,false,0.33,percent,96.0,81.9,248.18,2,2,2,observed_scored,false,spo2,cell3:1:fio20,2,LOW_FLOW,1.0
+2,spo2_2record_factor1.0,false,0.4,percent,96.0,81.9,204.75,2,2,2,observed_scored,false,spo2,cell3:2:fio20,2,HFNC,1.0
+3,spo2_2record_factor1.0,false,0.5,percent,96.0,81.9,163.8,2,3,2,observed_scored,false,spo2,cell3:3:fio20,3,IMV,1.0
+3,spo2_2record_factor1.0,false,0.5,percent,96.0,81.9,163.8,2,3,2,observed_scored,false,spo2,cell3:4:fio20,3,NIPPV,1.0
+2,spo2_2record_factor1.0,false,0.5,percent,96.0,81.9,163.8,2,3,2,observed_scored,false,spo2,cell3:5:fio20,2,SURG IMV,1.0
+0,spo2_2record_factor1.0,false,,percent,96.0,81.9,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+0,spo2_2record_factor1.0,true,0.21,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:0:fio20,,ROOM_AIR,1.0
+0,spo2_2record_factor1.0,true,0.33,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:1:fio20,,LOW_FLOW,1.0
+0,spo2_2record_factor1.0,true,0.4,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:2:fio20,,HFNC,1.0
+0,spo2_2record_factor1.0,true,0.5,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:3:fio20,,IMV,1.0
+0,spo2_2record_factor1.0,true,0.5,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:4:fio20,,NIPPV,1.0
+0,spo2_2record_factor1.0,true,0.5,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:5:fio20,,SURG IMV,1.0
+0,spo2_2record_factor1.0,true,,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,1.0
+0,spo2_2record_factor0.85,true,0.21,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:0:fio20,,ROOM_AIR,0.85
+0,spo2_2record_factor0.85,true,0.33,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:1:fio20,,LOW_FLOW,0.85
+0,spo2_2record_factor0.85,true,0.4,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:2:fio20,,HFNC,0.85
+0,spo2_2record_factor0.85,true,0.5,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:3:fio20,,IMV,0.85
+0,spo2_2record_factor0.85,true,0.5,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:4:fio20,,NIPPV,0.85
+0,spo2_2record_factor0.85,true,0.5,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,cell0:5:fio20,,SURG IMV,0.85
+0,spo2_2record_factor0.85,true,,percent,49.0,,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+2,spo2_2record_factor0.85,false,0.21,percent,50.0,26.9,128.1,2,3,2,observed_scored,false,spo2,cell1:0:fio20,2,ROOM_AIR,0.85
+2,spo2_2record_factor0.85,false,0.33,percent,50.0,26.9,81.52,2,4,2,observed_scored,false,spo2,cell1:1:fio20,2,LOW_FLOW,0.85
+2,spo2_2record_factor0.85,false,0.4,percent,50.0,26.9,67.25,2,4,2,observed_scored,false,spo2,cell1:2:fio20,2,HFNC,0.85
+4,spo2_2record_factor0.85,false,0.5,percent,50.0,26.9,53.8,2,4,2,observed_scored,false,spo2,cell1:3:fio20,4,IMV,0.85
+4,spo2_2record_factor0.85,false,0.5,percent,50.0,26.9,53.8,2,4,2,observed_scored,false,spo2,cell1:4:fio20,4,NIPPV,0.85
+2,spo2_2record_factor0.85,false,0.5,percent,50.0,26.9,53.8,2,4,2,observed_scored,false,spo2,cell1:5:fio20,2,SURG IMV,0.85
+0,spo2_2record_factor0.85,false,,percent,50.0,26.9,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+1,spo2_2record_factor0.85,false,0.21,percent,90.0,58.7,279.52,2,1,2,observed_scored,false,spo2,cell2:0:fio20,1,ROOM_AIR,0.85
+2,spo2_2record_factor0.85,false,0.33,percent,90.0,58.7,177.88,2,2,2,observed_scored,false,spo2,cell2:1:fio20,2,LOW_FLOW,0.85
+2,spo2_2record_factor0.85,false,0.4,percent,90.0,58.7,146.75,2,3,2,observed_scored,false,spo2,cell2:2:fio20,2,HFNC,0.85
+3,spo2_2record_factor0.85,false,0.5,percent,90.0,58.7,117.4,2,3,2,observed_scored,false,spo2,cell2:3:fio20,3,IMV,0.85
+3,spo2_2record_factor0.85,false,0.5,percent,90.0,58.7,117.4,2,3,2,observed_scored,false,spo2,cell2:4:fio20,3,NIPPV,0.85
+2,spo2_2record_factor0.85,false,0.5,percent,90.0,58.7,117.4,2,3,2,observed_scored,false,spo2,cell2:5:fio20,2,SURG IMV,0.85
+0,spo2_2record_factor0.85,false,,percent,90.0,58.7,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+0,spo2_2record_factor0.85,false,0.21,percent,96.0,81.9,390.0,2,0,2,observed_scored,false,spo2,cell3:0:fio20,0,ROOM_AIR,0.85
+2,spo2_2record_factor0.85,false,0.33,percent,96.0,81.9,248.18,2,2,2,observed_scored,false,spo2,cell3:1:fio20,2,LOW_FLOW,0.85
+2,spo2_2record_factor0.85,false,0.4,percent,96.0,81.9,204.75,2,2,2,observed_scored,false,spo2,cell3:2:fio20,2,HFNC,0.85
+3,spo2_2record_factor0.85,false,0.5,percent,96.0,81.9,163.8,2,3,2,observed_scored,false,spo2,cell3:3:fio20,3,IMV,0.85
+3,spo2_2record_factor0.85,false,0.5,percent,96.0,81.9,163.8,2,3,2,observed_scored,false,spo2,cell3:4:fio20,3,NIPPV,0.85
+2,spo2_2record_factor0.85,false,0.5,percent,96.0,81.9,163.8,2,3,2,observed_scored,false,spo2,cell3:5:fio20,2,SURG IMV,0.85
+0,spo2_2record_factor0.85,false,,percent,96.0,81.9,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+0,spo2_2record_factor0.85,true,0.21,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:0:fio20,,ROOM_AIR,0.85
+0,spo2_2record_factor0.85,true,0.33,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:1:fio20,,LOW_FLOW,0.85
+0,spo2_2record_factor0.85,true,0.4,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:2:fio20,,HFNC,0.85
+0,spo2_2record_factor0.85,true,0.5,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:3:fio20,,IMV,0.85
+0,spo2_2record_factor0.85,true,0.5,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:4:fio20,,NIPPV,0.85
+0,spo2_2record_factor0.85,true,0.5,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,cell4:5:fio20,,SURG IMV,0.85
+0,spo2_2record_factor0.85,true,,percent,97.0,,,0,,2,no_qualifying_data,false,spo2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,49.99,,238.05,1,2,1,suppressed_only,true,measured_pao2,cell0:0:fio20,2,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,49.99,,151.48,1,3,1,suppressed_only,true,measured_pao2,cell0:1:fio20,2,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,49.99,,124.98,1,3,1,suppressed_only,true,measured_pao2,cell0:2:fio20,2,HFNC,1.0
+4,measured_pao2_1record_factor1.0,false,0.5,mmHg,49.99,,99.98,1,4,1,observed_scored,false,measured_pao2,cell0:3:fio20,4,IMV,1.0
+4,measured_pao2_1record_factor1.0,false,0.5,mmHg,49.99,,99.98,1,4,1,observed_scored,false,measured_pao2,cell0:4:fio20,4,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,49.99,,99.98,1,4,1,suppressed_only,true,measured_pao2,cell0:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,49.99,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,50.0,,238.1,1,2,1,suppressed_only,true,measured_pao2,cell1:0:fio20,2,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,50.0,,151.52,1,3,1,suppressed_only,true,measured_pao2,cell1:1:fio20,2,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,50.0,,125.0,1,3,1,suppressed_only,true,measured_pao2,cell1:2:fio20,2,HFNC,1.0
+3,measured_pao2_1record_factor1.0,false,0.5,mmHg,50.0,,100.0,1,3,1,observed_scored,false,measured_pao2,cell1:3:fio20,3,IMV,1.0
+3,measured_pao2_1record_factor1.0,false,0.5,mmHg,50.0,,100.0,1,3,1,observed_scored,false,measured_pao2,cell1:4:fio20,3,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,50.0,,100.0,1,3,1,suppressed_only,true,measured_pao2,cell1:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,50.0,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,50.01,,238.14,1,2,1,suppressed_only,true,measured_pao2,cell2:0:fio20,2,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,50.01,,151.55,1,3,1,suppressed_only,true,measured_pao2,cell2:1:fio20,2,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,50.01,,125.02,1,3,1,suppressed_only,true,measured_pao2,cell2:2:fio20,2,HFNC,1.0
+3,measured_pao2_1record_factor1.0,false,0.5,mmHg,50.01,,100.02,1,3,1,observed_scored,false,measured_pao2,cell2:3:fio20,3,IMV,1.0
+3,measured_pao2_1record_factor1.0,false,0.5,mmHg,50.01,,100.02,1,3,1,observed_scored,false,measured_pao2,cell2:4:fio20,3,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,50.01,,100.02,1,3,1,suppressed_only,true,measured_pao2,cell2:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,50.01,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,99.99,,476.14,1,0,1,observed_scored,false,measured_pao2,cell3:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,99.99,,303.0,1,1,1,suppressed_only,true,measured_pao2,cell3:1:fio20,1,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,99.99,,249.97,1,2,1,suppressed_only,true,measured_pao2,cell3:2:fio20,2,HFNC,1.0
+3,measured_pao2_1record_factor1.0,false,0.5,mmHg,99.99,,199.98,1,3,1,observed_scored,false,measured_pao2,cell3:3:fio20,3,IMV,1.0
+3,measured_pao2_1record_factor1.0,false,0.5,mmHg,99.99,,199.98,1,3,1,observed_scored,false,measured_pao2,cell3:4:fio20,3,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,99.99,,199.98,1,3,1,suppressed_only,true,measured_pao2,cell3:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,99.99,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,100.0,,476.19,1,0,1,observed_scored,false,measured_pao2,cell4:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,100.0,,303.03,1,1,1,suppressed_only,true,measured_pao2,cell4:1:fio20,1,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,100.0,,250.0,1,2,1,suppressed_only,true,measured_pao2,cell4:2:fio20,2,HFNC,1.0
+2,measured_pao2_1record_factor1.0,false,0.5,mmHg,100.0,,200.0,1,2,1,observed_scored,false,measured_pao2,cell4:3:fio20,2,IMV,1.0
+2,measured_pao2_1record_factor1.0,false,0.5,mmHg,100.0,,200.0,1,2,1,observed_scored,false,measured_pao2,cell4:4:fio20,2,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,100.0,,200.0,1,2,1,suppressed_only,true,measured_pao2,cell4:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,100.0,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,100.01,,476.24,1,0,1,observed_scored,false,measured_pao2,cell5:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,100.01,,303.06,1,1,1,suppressed_only,true,measured_pao2,cell5:1:fio20,1,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,100.01,,250.03,1,2,1,suppressed_only,true,measured_pao2,cell5:2:fio20,2,HFNC,1.0
+2,measured_pao2_1record_factor1.0,false,0.5,mmHg,100.01,,200.02,1,2,1,observed_scored,false,measured_pao2,cell5:3:fio20,2,IMV,1.0
+2,measured_pao2_1record_factor1.0,false,0.5,mmHg,100.01,,200.02,1,2,1,observed_scored,false,measured_pao2,cell5:4:fio20,2,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,100.01,,200.02,1,2,1,suppressed_only,true,measured_pao2,cell5:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,100.01,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,149.99,,714.24,1,0,1,observed_scored,false,measured_pao2,cell6:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,149.99,,454.52,1,0,1,observed_scored,false,measured_pao2,cell6:1:fio20,0,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,149.99,,374.98,1,1,1,suppressed_only,true,measured_pao2,cell6:2:fio20,1,HFNC,1.0
+2,measured_pao2_1record_factor1.0,false,0.5,mmHg,149.99,,299.98,1,2,1,observed_scored,false,measured_pao2,cell6:3:fio20,2,IMV,1.0
+2,measured_pao2_1record_factor1.0,false,0.5,mmHg,149.99,,299.98,1,2,1,observed_scored,false,measured_pao2,cell6:4:fio20,2,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,149.99,,299.98,1,2,1,suppressed_only,true,measured_pao2,cell6:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,149.99,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,150.0,,714.29,1,0,1,observed_scored,false,measured_pao2,cell7:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,150.0,,454.55,1,0,1,observed_scored,false,measured_pao2,cell7:1:fio20,0,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,150.0,,375.0,1,1,1,suppressed_only,true,measured_pao2,cell7:2:fio20,1,HFNC,1.0
+1,measured_pao2_1record_factor1.0,false,0.5,mmHg,150.0,,300.0,1,1,1,observed_scored,false,measured_pao2,cell7:3:fio20,1,IMV,1.0
+1,measured_pao2_1record_factor1.0,false,0.5,mmHg,150.0,,300.0,1,1,1,observed_scored,false,measured_pao2,cell7:4:fio20,1,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,150.0,,300.0,1,1,1,suppressed_only,true,measured_pao2,cell7:5:fio20,1,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,150.0,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,150.01,,714.33,1,0,1,observed_scored,false,measured_pao2,cell8:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,150.01,,454.58,1,0,1,observed_scored,false,measured_pao2,cell8:1:fio20,0,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,150.01,,375.03,1,1,1,suppressed_only,true,measured_pao2,cell8:2:fio20,1,HFNC,1.0
+1,measured_pao2_1record_factor1.0,false,0.5,mmHg,150.01,,300.02,1,1,1,observed_scored,false,measured_pao2,cell8:3:fio20,1,IMV,1.0
+1,measured_pao2_1record_factor1.0,false,0.5,mmHg,150.01,,300.02,1,1,1,observed_scored,false,measured_pao2,cell8:4:fio20,1,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,150.01,,300.02,1,1,1,suppressed_only,true,measured_pao2,cell8:5:fio20,1,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,150.01,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,199.99,,952.33,1,0,1,observed_scored,false,measured_pao2,cell9:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,199.99,,606.03,1,0,1,observed_scored,false,measured_pao2,cell9:1:fio20,0,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,199.99,,499.98,1,0,1,observed_scored,false,measured_pao2,cell9:2:fio20,0,HFNC,1.0
+1,measured_pao2_1record_factor1.0,false,0.5,mmHg,199.99,,399.98,1,1,1,observed_scored,false,measured_pao2,cell9:3:fio20,1,IMV,1.0
+1,measured_pao2_1record_factor1.0,false,0.5,mmHg,199.99,,399.98,1,1,1,observed_scored,false,measured_pao2,cell9:4:fio20,1,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,199.99,,399.98,1,1,1,suppressed_only,true,measured_pao2,cell9:5:fio20,1,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,199.99,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,200.0,,952.38,1,0,1,observed_scored,false,measured_pao2,cell10:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,200.0,,606.06,1,0,1,observed_scored,false,measured_pao2,cell10:1:fio20,0,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,200.0,,500.0,1,0,1,observed_scored,false,measured_pao2,cell10:2:fio20,0,HFNC,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,200.0,,400.0,1,0,1,observed_scored,false,measured_pao2,cell10:3:fio20,0,IMV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,200.0,,400.0,1,0,1,observed_scored,false,measured_pao2,cell10:4:fio20,0,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,200.0,,400.0,1,0,1,observed_scored,false,measured_pao2,cell10:5:fio20,0,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,200.0,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor1.0,false,0.21,mmHg,200.01,,952.43,1,0,1,observed_scored,false,measured_pao2,cell11:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_1record_factor1.0,false,0.33,mmHg,200.01,,606.09,1,0,1,observed_scored,false,measured_pao2,cell11:1:fio20,0,LOW_FLOW,1.0
+0,measured_pao2_1record_factor1.0,false,0.4,mmHg,200.01,,500.03,1,0,1,observed_scored,false,measured_pao2,cell11:2:fio20,0,HFNC,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,200.01,,400.02,1,0,1,observed_scored,false,measured_pao2,cell11:3:fio20,0,IMV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,200.01,,400.02,1,0,1,observed_scored,false,measured_pao2,cell11:4:fio20,0,NIPPV,1.0
+0,measured_pao2_1record_factor1.0,false,0.5,mmHg,200.01,,400.02,1,0,1,observed_scored,false,measured_pao2,cell11:5:fio20,0,SURG IMV,1.0
+0,measured_pao2_1record_factor1.0,false,,mmHg,200.01,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,49.99,,238.05,1,2,1,suppressed_only,true,measured_pao2,cell0:0:fio20,2,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,49.99,,151.48,1,3,1,suppressed_only,true,measured_pao2,cell0:1:fio20,2,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,49.99,,124.98,1,3,1,suppressed_only,true,measured_pao2,cell0:2:fio20,2,HFNC,0.85
+3,measured_pao2_1record_factor0.85,false,0.5,mmHg,49.99,,99.98,1,3,1,observed_scored,false,measured_pao2,cell0:3:fio20,3,IMV,0.85
+3,measured_pao2_1record_factor0.85,false,0.5,mmHg,49.99,,99.98,1,3,1,observed_scored,false,measured_pao2,cell0:4:fio20,3,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,49.99,,99.98,1,3,1,suppressed_only,true,measured_pao2,cell0:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,49.99,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,50.0,,238.1,1,2,1,suppressed_only,true,measured_pao2,cell1:0:fio20,2,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,50.0,,151.52,1,3,1,suppressed_only,true,measured_pao2,cell1:1:fio20,2,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,50.0,,125.0,1,3,1,suppressed_only,true,measured_pao2,cell1:2:fio20,2,HFNC,0.85
+3,measured_pao2_1record_factor0.85,false,0.5,mmHg,50.0,,100.0,1,3,1,observed_scored,false,measured_pao2,cell1:3:fio20,3,IMV,0.85
+3,measured_pao2_1record_factor0.85,false,0.5,mmHg,50.0,,100.0,1,3,1,observed_scored,false,measured_pao2,cell1:4:fio20,3,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,50.0,,100.0,1,3,1,suppressed_only,true,measured_pao2,cell1:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,50.0,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,50.01,,238.14,1,2,1,suppressed_only,true,measured_pao2,cell2:0:fio20,2,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,50.01,,151.55,1,3,1,suppressed_only,true,measured_pao2,cell2:1:fio20,2,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,50.01,,125.02,1,3,1,suppressed_only,true,measured_pao2,cell2:2:fio20,2,HFNC,0.85
+3,measured_pao2_1record_factor0.85,false,0.5,mmHg,50.01,,100.02,1,3,1,observed_scored,false,measured_pao2,cell2:3:fio20,3,IMV,0.85
+3,measured_pao2_1record_factor0.85,false,0.5,mmHg,50.01,,100.02,1,3,1,observed_scored,false,measured_pao2,cell2:4:fio20,3,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,50.01,,100.02,1,3,1,suppressed_only,true,measured_pao2,cell2:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,50.01,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,99.99,,476.14,1,0,1,observed_scored,false,measured_pao2,cell3:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,99.99,,303.0,1,1,1,suppressed_only,true,measured_pao2,cell3:1:fio20,1,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,99.99,,249.97,1,2,1,suppressed_only,true,measured_pao2,cell3:2:fio20,2,HFNC,0.85
+2,measured_pao2_1record_factor0.85,false,0.5,mmHg,99.99,,199.98,1,2,1,observed_scored,false,measured_pao2,cell3:3:fio20,2,IMV,0.85
+2,measured_pao2_1record_factor0.85,false,0.5,mmHg,99.99,,199.98,1,2,1,observed_scored,false,measured_pao2,cell3:4:fio20,2,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,99.99,,199.98,1,2,1,suppressed_only,true,measured_pao2,cell3:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,99.99,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,100.0,,476.19,1,0,1,observed_scored,false,measured_pao2,cell4:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,100.0,,303.03,1,1,1,suppressed_only,true,measured_pao2,cell4:1:fio20,1,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,100.0,,250.0,1,2,1,suppressed_only,true,measured_pao2,cell4:2:fio20,2,HFNC,0.85
+2,measured_pao2_1record_factor0.85,false,0.5,mmHg,100.0,,200.0,1,2,1,observed_scored,false,measured_pao2,cell4:3:fio20,2,IMV,0.85
+2,measured_pao2_1record_factor0.85,false,0.5,mmHg,100.0,,200.0,1,2,1,observed_scored,false,measured_pao2,cell4:4:fio20,2,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,100.0,,200.0,1,2,1,suppressed_only,true,measured_pao2,cell4:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,100.0,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,100.01,,476.24,1,0,1,observed_scored,false,measured_pao2,cell5:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,100.01,,303.06,1,1,1,suppressed_only,true,measured_pao2,cell5:1:fio20,1,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,100.01,,250.03,1,2,1,suppressed_only,true,measured_pao2,cell5:2:fio20,2,HFNC,0.85
+2,measured_pao2_1record_factor0.85,false,0.5,mmHg,100.01,,200.02,1,2,1,observed_scored,false,measured_pao2,cell5:3:fio20,2,IMV,0.85
+2,measured_pao2_1record_factor0.85,false,0.5,mmHg,100.01,,200.02,1,2,1,observed_scored,false,measured_pao2,cell5:4:fio20,2,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,100.01,,200.02,1,2,1,suppressed_only,true,measured_pao2,cell5:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,100.01,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,149.99,,714.24,1,0,1,observed_scored,false,measured_pao2,cell6:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,149.99,,454.52,1,0,1,observed_scored,false,measured_pao2,cell6:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,149.99,,374.98,1,0,1,observed_scored,false,measured_pao2,cell6:2:fio20,0,HFNC,0.85
+1,measured_pao2_1record_factor0.85,false,0.5,mmHg,149.99,,299.98,1,1,1,observed_scored,false,measured_pao2,cell6:3:fio20,1,IMV,0.85
+1,measured_pao2_1record_factor0.85,false,0.5,mmHg,149.99,,299.98,1,1,1,observed_scored,false,measured_pao2,cell6:4:fio20,1,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,149.99,,299.98,1,1,1,suppressed_only,true,measured_pao2,cell6:5:fio20,1,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,149.99,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,150.0,,714.29,1,0,1,observed_scored,false,measured_pao2,cell7:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,150.0,,454.55,1,0,1,observed_scored,false,measured_pao2,cell7:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,150.0,,375.0,1,0,1,observed_scored,false,measured_pao2,cell7:2:fio20,0,HFNC,0.85
+1,measured_pao2_1record_factor0.85,false,0.5,mmHg,150.0,,300.0,1,1,1,observed_scored,false,measured_pao2,cell7:3:fio20,1,IMV,0.85
+1,measured_pao2_1record_factor0.85,false,0.5,mmHg,150.0,,300.0,1,1,1,observed_scored,false,measured_pao2,cell7:4:fio20,1,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,150.0,,300.0,1,1,1,suppressed_only,true,measured_pao2,cell7:5:fio20,1,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,150.0,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,150.01,,714.33,1,0,1,observed_scored,false,measured_pao2,cell8:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,150.01,,454.58,1,0,1,observed_scored,false,measured_pao2,cell8:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,150.01,,375.03,1,0,1,observed_scored,false,measured_pao2,cell8:2:fio20,0,HFNC,0.85
+1,measured_pao2_1record_factor0.85,false,0.5,mmHg,150.01,,300.02,1,1,1,observed_scored,false,measured_pao2,cell8:3:fio20,1,IMV,0.85
+1,measured_pao2_1record_factor0.85,false,0.5,mmHg,150.01,,300.02,1,1,1,observed_scored,false,measured_pao2,cell8:4:fio20,1,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,150.01,,300.02,1,1,1,suppressed_only,true,measured_pao2,cell8:5:fio20,1,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,150.01,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,199.99,,952.33,1,0,1,observed_scored,false,measured_pao2,cell9:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,199.99,,606.03,1,0,1,observed_scored,false,measured_pao2,cell9:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,199.99,,499.98,1,0,1,observed_scored,false,measured_pao2,cell9:2:fio20,0,HFNC,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,199.99,,399.98,1,0,1,observed_scored,false,measured_pao2,cell9:3:fio20,0,IMV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,199.99,,399.98,1,0,1,observed_scored,false,measured_pao2,cell9:4:fio20,0,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,199.99,,399.98,1,0,1,observed_scored,false,measured_pao2,cell9:5:fio20,0,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,199.99,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,200.0,,952.38,1,0,1,observed_scored,false,measured_pao2,cell10:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,200.0,,606.06,1,0,1,observed_scored,false,measured_pao2,cell10:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,200.0,,500.0,1,0,1,observed_scored,false,measured_pao2,cell10:2:fio20,0,HFNC,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,200.0,,400.0,1,0,1,observed_scored,false,measured_pao2,cell10:3:fio20,0,IMV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,200.0,,400.0,1,0,1,observed_scored,false,measured_pao2,cell10:4:fio20,0,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,200.0,,400.0,1,0,1,observed_scored,false,measured_pao2,cell10:5:fio20,0,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,200.0,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_1record_factor0.85,false,0.21,mmHg,200.01,,952.43,1,0,1,observed_scored,false,measured_pao2,cell11:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_1record_factor0.85,false,0.33,mmHg,200.01,,606.09,1,0,1,observed_scored,false,measured_pao2,cell11:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_1record_factor0.85,false,0.4,mmHg,200.01,,500.03,1,0,1,observed_scored,false,measured_pao2,cell11:2:fio20,0,HFNC,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,200.01,,400.02,1,0,1,observed_scored,false,measured_pao2,cell11:3:fio20,0,IMV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,200.01,,400.02,1,0,1,observed_scored,false,measured_pao2,cell11:4:fio20,0,NIPPV,0.85
+0,measured_pao2_1record_factor0.85,false,0.5,mmHg,200.01,,400.02,1,0,1,observed_scored,false,measured_pao2,cell11:5:fio20,0,SURG IMV,0.85
+0,measured_pao2_1record_factor0.85,false,,mmHg,200.01,,,0,,1,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+2,measured_pao2_2record_factor1.0,false,0.21,mmHg,49.99,,238.05,2,2,2,observed_scored,false,measured_pao2,cell0:0:fio20,2,ROOM_AIR,1.0
+2,measured_pao2_2record_factor1.0,false,0.33,mmHg,49.99,,151.48,2,3,2,observed_scored,false,measured_pao2,cell0:1:fio20,2,LOW_FLOW,1.0
+2,measured_pao2_2record_factor1.0,false,0.4,mmHg,49.99,,124.98,2,3,2,observed_scored,false,measured_pao2,cell0:2:fio20,2,HFNC,1.0
+4,measured_pao2_2record_factor1.0,false,0.5,mmHg,49.99,,99.98,2,4,2,observed_scored,false,measured_pao2,cell0:3:fio20,4,IMV,1.0
+4,measured_pao2_2record_factor1.0,false,0.5,mmHg,49.99,,99.98,2,4,2,observed_scored,false,measured_pao2,cell0:4:fio20,4,NIPPV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,49.99,,99.98,2,4,2,observed_scored,false,measured_pao2,cell0:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,49.99,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+2,measured_pao2_2record_factor1.0,false,0.21,mmHg,50.0,,238.1,2,2,2,observed_scored,false,measured_pao2,cell1:0:fio20,2,ROOM_AIR,1.0
+2,measured_pao2_2record_factor1.0,false,0.33,mmHg,50.0,,151.52,2,3,2,observed_scored,false,measured_pao2,cell1:1:fio20,2,LOW_FLOW,1.0
+2,measured_pao2_2record_factor1.0,false,0.4,mmHg,50.0,,125.0,2,3,2,observed_scored,false,measured_pao2,cell1:2:fio20,2,HFNC,1.0
+3,measured_pao2_2record_factor1.0,false,0.5,mmHg,50.0,,100.0,2,3,2,observed_scored,false,measured_pao2,cell1:3:fio20,3,IMV,1.0
+3,measured_pao2_2record_factor1.0,false,0.5,mmHg,50.0,,100.0,2,3,2,observed_scored,false,measured_pao2,cell1:4:fio20,3,NIPPV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,50.0,,100.0,2,3,2,observed_scored,false,measured_pao2,cell1:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,50.0,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+2,measured_pao2_2record_factor1.0,false,0.21,mmHg,50.01,,238.14,2,2,2,observed_scored,false,measured_pao2,cell2:0:fio20,2,ROOM_AIR,1.0
+2,measured_pao2_2record_factor1.0,false,0.33,mmHg,50.01,,151.55,2,3,2,observed_scored,false,measured_pao2,cell2:1:fio20,2,LOW_FLOW,1.0
+2,measured_pao2_2record_factor1.0,false,0.4,mmHg,50.01,,125.02,2,3,2,observed_scored,false,measured_pao2,cell2:2:fio20,2,HFNC,1.0
+3,measured_pao2_2record_factor1.0,false,0.5,mmHg,50.01,,100.02,2,3,2,observed_scored,false,measured_pao2,cell2:3:fio20,3,IMV,1.0
+3,measured_pao2_2record_factor1.0,false,0.5,mmHg,50.01,,100.02,2,3,2,observed_scored,false,measured_pao2,cell2:4:fio20,3,NIPPV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,50.01,,100.02,2,3,2,observed_scored,false,measured_pao2,cell2:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,50.01,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_2record_factor1.0,false,0.21,mmHg,99.99,,476.14,2,0,2,observed_scored,false,measured_pao2,cell3:0:fio20,0,ROOM_AIR,1.0
+1,measured_pao2_2record_factor1.0,false,0.33,mmHg,99.99,,303.0,2,1,2,observed_scored,false,measured_pao2,cell3:1:fio20,1,LOW_FLOW,1.0
+2,measured_pao2_2record_factor1.0,false,0.4,mmHg,99.99,,249.97,2,2,2,observed_scored,false,measured_pao2,cell3:2:fio20,2,HFNC,1.0
+3,measured_pao2_2record_factor1.0,false,0.5,mmHg,99.99,,199.98,2,3,2,observed_scored,false,measured_pao2,cell3:3:fio20,3,IMV,1.0
+3,measured_pao2_2record_factor1.0,false,0.5,mmHg,99.99,,199.98,2,3,2,observed_scored,false,measured_pao2,cell3:4:fio20,3,NIPPV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,99.99,,199.98,2,3,2,observed_scored,false,measured_pao2,cell3:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,99.99,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_2record_factor1.0,false,0.21,mmHg,100.0,,476.19,2,0,2,observed_scored,false,measured_pao2,cell4:0:fio20,0,ROOM_AIR,1.0
+1,measured_pao2_2record_factor1.0,false,0.33,mmHg,100.0,,303.03,2,1,2,observed_scored,false,measured_pao2,cell4:1:fio20,1,LOW_FLOW,1.0
+2,measured_pao2_2record_factor1.0,false,0.4,mmHg,100.0,,250.0,2,2,2,observed_scored,false,measured_pao2,cell4:2:fio20,2,HFNC,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,100.0,,200.0,2,2,2,observed_scored,false,measured_pao2,cell4:3:fio20,2,IMV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,100.0,,200.0,2,2,2,observed_scored,false,measured_pao2,cell4:4:fio20,2,NIPPV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,100.0,,200.0,2,2,2,observed_scored,false,measured_pao2,cell4:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,100.0,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_2record_factor1.0,false,0.21,mmHg,100.01,,476.24,2,0,2,observed_scored,false,measured_pao2,cell5:0:fio20,0,ROOM_AIR,1.0
+1,measured_pao2_2record_factor1.0,false,0.33,mmHg,100.01,,303.06,2,1,2,observed_scored,false,measured_pao2,cell5:1:fio20,1,LOW_FLOW,1.0
+2,measured_pao2_2record_factor1.0,false,0.4,mmHg,100.01,,250.03,2,2,2,observed_scored,false,measured_pao2,cell5:2:fio20,2,HFNC,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,100.01,,200.02,2,2,2,observed_scored,false,measured_pao2,cell5:3:fio20,2,IMV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,100.01,,200.02,2,2,2,observed_scored,false,measured_pao2,cell5:4:fio20,2,NIPPV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,100.01,,200.02,2,2,2,observed_scored,false,measured_pao2,cell5:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,100.01,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_2record_factor1.0,false,0.21,mmHg,149.99,,714.24,2,0,2,observed_scored,false,measured_pao2,cell6:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_2record_factor1.0,false,0.33,mmHg,149.99,,454.52,2,0,2,observed_scored,false,measured_pao2,cell6:1:fio20,0,LOW_FLOW,1.0
+1,measured_pao2_2record_factor1.0,false,0.4,mmHg,149.99,,374.98,2,1,2,observed_scored,false,measured_pao2,cell6:2:fio20,1,HFNC,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,149.99,,299.98,2,2,2,observed_scored,false,measured_pao2,cell6:3:fio20,2,IMV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,149.99,,299.98,2,2,2,observed_scored,false,measured_pao2,cell6:4:fio20,2,NIPPV,1.0
+2,measured_pao2_2record_factor1.0,false,0.5,mmHg,149.99,,299.98,2,2,2,observed_scored,false,measured_pao2,cell6:5:fio20,2,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,149.99,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_2record_factor1.0,false,0.21,mmHg,150.0,,714.29,2,0,2,observed_scored,false,measured_pao2,cell7:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_2record_factor1.0,false,0.33,mmHg,150.0,,454.55,2,0,2,observed_scored,false,measured_pao2,cell7:1:fio20,0,LOW_FLOW,1.0
+1,measured_pao2_2record_factor1.0,false,0.4,mmHg,150.0,,375.0,2,1,2,observed_scored,false,measured_pao2,cell7:2:fio20,1,HFNC,1.0
+1,measured_pao2_2record_factor1.0,false,0.5,mmHg,150.0,,300.0,2,1,2,observed_scored,false,measured_pao2,cell7:3:fio20,1,IMV,1.0
+1,measured_pao2_2record_factor1.0,false,0.5,mmHg,150.0,,300.0,2,1,2,observed_scored,false,measured_pao2,cell7:4:fio20,1,NIPPV,1.0
+1,measured_pao2_2record_factor1.0,false,0.5,mmHg,150.0,,300.0,2,1,2,observed_scored,false,measured_pao2,cell7:5:fio20,1,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,150.0,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_2record_factor1.0,false,0.21,mmHg,150.01,,714.33,2,0,2,observed_scored,false,measured_pao2,cell8:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_2record_factor1.0,false,0.33,mmHg,150.01,,454.58,2,0,2,observed_scored,false,measured_pao2,cell8:1:fio20,0,LOW_FLOW,1.0
+1,measured_pao2_2record_factor1.0,false,0.4,mmHg,150.01,,375.03,2,1,2,observed_scored,false,measured_pao2,cell8:2:fio20,1,HFNC,1.0
+1,measured_pao2_2record_factor1.0,false,0.5,mmHg,150.01,,300.02,2,1,2,observed_scored,false,measured_pao2,cell8:3:fio20,1,IMV,1.0
+1,measured_pao2_2record_factor1.0,false,0.5,mmHg,150.01,,300.02,2,1,2,observed_scored,false,measured_pao2,cell8:4:fio20,1,NIPPV,1.0
+1,measured_pao2_2record_factor1.0,false,0.5,mmHg,150.01,,300.02,2,1,2,observed_scored,false,measured_pao2,cell8:5:fio20,1,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,150.01,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_2record_factor1.0,false,0.21,mmHg,199.99,,952.33,2,0,2,observed_scored,false,measured_pao2,cell9:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_2record_factor1.0,false,0.33,mmHg,199.99,,606.03,2,0,2,observed_scored,false,measured_pao2,cell9:1:fio20,0,LOW_FLOW,1.0
+0,measured_pao2_2record_factor1.0,false,0.4,mmHg,199.99,,499.98,2,0,2,observed_scored,false,measured_pao2,cell9:2:fio20,0,HFNC,1.0
+1,measured_pao2_2record_factor1.0,false,0.5,mmHg,199.99,,399.98,2,1,2,observed_scored,false,measured_pao2,cell9:3:fio20,1,IMV,1.0
+1,measured_pao2_2record_factor1.0,false,0.5,mmHg,199.99,,399.98,2,1,2,observed_scored,false,measured_pao2,cell9:4:fio20,1,NIPPV,1.0
+1,measured_pao2_2record_factor1.0,false,0.5,mmHg,199.99,,399.98,2,1,2,observed_scored,false,measured_pao2,cell9:5:fio20,1,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,199.99,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_2record_factor1.0,false,0.21,mmHg,200.0,,952.38,2,0,2,observed_scored,false,measured_pao2,cell10:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_2record_factor1.0,false,0.33,mmHg,200.0,,606.06,2,0,2,observed_scored,false,measured_pao2,cell10:1:fio20,0,LOW_FLOW,1.0
+0,measured_pao2_2record_factor1.0,false,0.4,mmHg,200.0,,500.0,2,0,2,observed_scored,false,measured_pao2,cell10:2:fio20,0,HFNC,1.0
+0,measured_pao2_2record_factor1.0,false,0.5,mmHg,200.0,,400.0,2,0,2,observed_scored,false,measured_pao2,cell10:3:fio20,0,IMV,1.0
+0,measured_pao2_2record_factor1.0,false,0.5,mmHg,200.0,,400.0,2,0,2,observed_scored,false,measured_pao2,cell10:4:fio20,0,NIPPV,1.0
+0,measured_pao2_2record_factor1.0,false,0.5,mmHg,200.0,,400.0,2,0,2,observed_scored,false,measured_pao2,cell10:5:fio20,0,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,200.0,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+0,measured_pao2_2record_factor1.0,false,0.21,mmHg,200.01,,952.43,2,0,2,observed_scored,false,measured_pao2,cell11:0:fio20,0,ROOM_AIR,1.0
+0,measured_pao2_2record_factor1.0,false,0.33,mmHg,200.01,,606.09,2,0,2,observed_scored,false,measured_pao2,cell11:1:fio20,0,LOW_FLOW,1.0
+0,measured_pao2_2record_factor1.0,false,0.4,mmHg,200.01,,500.03,2,0,2,observed_scored,false,measured_pao2,cell11:2:fio20,0,HFNC,1.0
+0,measured_pao2_2record_factor1.0,false,0.5,mmHg,200.01,,400.02,2,0,2,observed_scored,false,measured_pao2,cell11:3:fio20,0,IMV,1.0
+0,measured_pao2_2record_factor1.0,false,0.5,mmHg,200.01,,400.02,2,0,2,observed_scored,false,measured_pao2,cell11:4:fio20,0,NIPPV,1.0
+0,measured_pao2_2record_factor1.0,false,0.5,mmHg,200.01,,400.02,2,0,2,observed_scored,false,measured_pao2,cell11:5:fio20,0,SURG IMV,1.0
+0,measured_pao2_2record_factor1.0,false,,mmHg,200.01,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,1.0
+2,measured_pao2_2record_factor0.85,false,0.21,mmHg,49.99,,238.05,2,2,2,observed_scored,false,measured_pao2,cell0:0:fio20,2,ROOM_AIR,0.85
+2,measured_pao2_2record_factor0.85,false,0.33,mmHg,49.99,,151.48,2,3,2,observed_scored,false,measured_pao2,cell0:1:fio20,2,LOW_FLOW,0.85
+2,measured_pao2_2record_factor0.85,false,0.4,mmHg,49.99,,124.98,2,3,2,observed_scored,false,measured_pao2,cell0:2:fio20,2,HFNC,0.85
+3,measured_pao2_2record_factor0.85,false,0.5,mmHg,49.99,,99.98,2,3,2,observed_scored,false,measured_pao2,cell0:3:fio20,3,IMV,0.85
+3,measured_pao2_2record_factor0.85,false,0.5,mmHg,49.99,,99.98,2,3,2,observed_scored,false,measured_pao2,cell0:4:fio20,3,NIPPV,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,49.99,,99.98,2,3,2,observed_scored,false,measured_pao2,cell0:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,49.99,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+2,measured_pao2_2record_factor0.85,false,0.21,mmHg,50.0,,238.1,2,2,2,observed_scored,false,measured_pao2,cell1:0:fio20,2,ROOM_AIR,0.85
+2,measured_pao2_2record_factor0.85,false,0.33,mmHg,50.0,,151.52,2,3,2,observed_scored,false,measured_pao2,cell1:1:fio20,2,LOW_FLOW,0.85
+2,measured_pao2_2record_factor0.85,false,0.4,mmHg,50.0,,125.0,2,3,2,observed_scored,false,measured_pao2,cell1:2:fio20,2,HFNC,0.85
+3,measured_pao2_2record_factor0.85,false,0.5,mmHg,50.0,,100.0,2,3,2,observed_scored,false,measured_pao2,cell1:3:fio20,3,IMV,0.85
+3,measured_pao2_2record_factor0.85,false,0.5,mmHg,50.0,,100.0,2,3,2,observed_scored,false,measured_pao2,cell1:4:fio20,3,NIPPV,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,50.0,,100.0,2,3,2,observed_scored,false,measured_pao2,cell1:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,50.0,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+2,measured_pao2_2record_factor0.85,false,0.21,mmHg,50.01,,238.14,2,2,2,observed_scored,false,measured_pao2,cell2:0:fio20,2,ROOM_AIR,0.85
+2,measured_pao2_2record_factor0.85,false,0.33,mmHg,50.01,,151.55,2,3,2,observed_scored,false,measured_pao2,cell2:1:fio20,2,LOW_FLOW,0.85
+2,measured_pao2_2record_factor0.85,false,0.4,mmHg,50.01,,125.02,2,3,2,observed_scored,false,measured_pao2,cell2:2:fio20,2,HFNC,0.85
+3,measured_pao2_2record_factor0.85,false,0.5,mmHg,50.01,,100.02,2,3,2,observed_scored,false,measured_pao2,cell2:3:fio20,3,IMV,0.85
+3,measured_pao2_2record_factor0.85,false,0.5,mmHg,50.01,,100.02,2,3,2,observed_scored,false,measured_pao2,cell2:4:fio20,3,NIPPV,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,50.01,,100.02,2,3,2,observed_scored,false,measured_pao2,cell2:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,50.01,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_2record_factor0.85,false,0.21,mmHg,99.99,,476.14,2,0,2,observed_scored,false,measured_pao2,cell3:0:fio20,0,ROOM_AIR,0.85
+1,measured_pao2_2record_factor0.85,false,0.33,mmHg,99.99,,303.0,2,1,2,observed_scored,false,measured_pao2,cell3:1:fio20,1,LOW_FLOW,0.85
+2,measured_pao2_2record_factor0.85,false,0.4,mmHg,99.99,,249.97,2,2,2,observed_scored,false,measured_pao2,cell3:2:fio20,2,HFNC,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,99.99,,199.98,2,2,2,observed_scored,false,measured_pao2,cell3:3:fio20,2,IMV,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,99.99,,199.98,2,2,2,observed_scored,false,measured_pao2,cell3:4:fio20,2,NIPPV,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,99.99,,199.98,2,2,2,observed_scored,false,measured_pao2,cell3:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,99.99,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_2record_factor0.85,false,0.21,mmHg,100.0,,476.19,2,0,2,observed_scored,false,measured_pao2,cell4:0:fio20,0,ROOM_AIR,0.85
+1,measured_pao2_2record_factor0.85,false,0.33,mmHg,100.0,,303.03,2,1,2,observed_scored,false,measured_pao2,cell4:1:fio20,1,LOW_FLOW,0.85
+2,measured_pao2_2record_factor0.85,false,0.4,mmHg,100.0,,250.0,2,2,2,observed_scored,false,measured_pao2,cell4:2:fio20,2,HFNC,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,100.0,,200.0,2,2,2,observed_scored,false,measured_pao2,cell4:3:fio20,2,IMV,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,100.0,,200.0,2,2,2,observed_scored,false,measured_pao2,cell4:4:fio20,2,NIPPV,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,100.0,,200.0,2,2,2,observed_scored,false,measured_pao2,cell4:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,100.0,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_2record_factor0.85,false,0.21,mmHg,100.01,,476.24,2,0,2,observed_scored,false,measured_pao2,cell5:0:fio20,0,ROOM_AIR,0.85
+1,measured_pao2_2record_factor0.85,false,0.33,mmHg,100.01,,303.06,2,1,2,observed_scored,false,measured_pao2,cell5:1:fio20,1,LOW_FLOW,0.85
+2,measured_pao2_2record_factor0.85,false,0.4,mmHg,100.01,,250.03,2,2,2,observed_scored,false,measured_pao2,cell5:2:fio20,2,HFNC,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,100.01,,200.02,2,2,2,observed_scored,false,measured_pao2,cell5:3:fio20,2,IMV,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,100.01,,200.02,2,2,2,observed_scored,false,measured_pao2,cell5:4:fio20,2,NIPPV,0.85
+2,measured_pao2_2record_factor0.85,false,0.5,mmHg,100.01,,200.02,2,2,2,observed_scored,false,measured_pao2,cell5:5:fio20,2,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,100.01,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_2record_factor0.85,false,0.21,mmHg,149.99,,714.24,2,0,2,observed_scored,false,measured_pao2,cell6:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_2record_factor0.85,false,0.33,mmHg,149.99,,454.52,2,0,2,observed_scored,false,measured_pao2,cell6:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_2record_factor0.85,false,0.4,mmHg,149.99,,374.98,2,0,2,observed_scored,false,measured_pao2,cell6:2:fio20,0,HFNC,0.85
+1,measured_pao2_2record_factor0.85,false,0.5,mmHg,149.99,,299.98,2,1,2,observed_scored,false,measured_pao2,cell6:3:fio20,1,IMV,0.85
+1,measured_pao2_2record_factor0.85,false,0.5,mmHg,149.99,,299.98,2,1,2,observed_scored,false,measured_pao2,cell6:4:fio20,1,NIPPV,0.85
+1,measured_pao2_2record_factor0.85,false,0.5,mmHg,149.99,,299.98,2,1,2,observed_scored,false,measured_pao2,cell6:5:fio20,1,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,149.99,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_2record_factor0.85,false,0.21,mmHg,150.0,,714.29,2,0,2,observed_scored,false,measured_pao2,cell7:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_2record_factor0.85,false,0.33,mmHg,150.0,,454.55,2,0,2,observed_scored,false,measured_pao2,cell7:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_2record_factor0.85,false,0.4,mmHg,150.0,,375.0,2,0,2,observed_scored,false,measured_pao2,cell7:2:fio20,0,HFNC,0.85
+1,measured_pao2_2record_factor0.85,false,0.5,mmHg,150.0,,300.0,2,1,2,observed_scored,false,measured_pao2,cell7:3:fio20,1,IMV,0.85
+1,measured_pao2_2record_factor0.85,false,0.5,mmHg,150.0,,300.0,2,1,2,observed_scored,false,measured_pao2,cell7:4:fio20,1,NIPPV,0.85
+1,measured_pao2_2record_factor0.85,false,0.5,mmHg,150.0,,300.0,2,1,2,observed_scored,false,measured_pao2,cell7:5:fio20,1,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,150.0,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_2record_factor0.85,false,0.21,mmHg,150.01,,714.33,2,0,2,observed_scored,false,measured_pao2,cell8:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_2record_factor0.85,false,0.33,mmHg,150.01,,454.58,2,0,2,observed_scored,false,measured_pao2,cell8:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_2record_factor0.85,false,0.4,mmHg,150.01,,375.03,2,0,2,observed_scored,false,measured_pao2,cell8:2:fio20,0,HFNC,0.85
+1,measured_pao2_2record_factor0.85,false,0.5,mmHg,150.01,,300.02,2,1,2,observed_scored,false,measured_pao2,cell8:3:fio20,1,IMV,0.85
+1,measured_pao2_2record_factor0.85,false,0.5,mmHg,150.01,,300.02,2,1,2,observed_scored,false,measured_pao2,cell8:4:fio20,1,NIPPV,0.85
+1,measured_pao2_2record_factor0.85,false,0.5,mmHg,150.01,,300.02,2,1,2,observed_scored,false,measured_pao2,cell8:5:fio20,1,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,150.01,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_2record_factor0.85,false,0.21,mmHg,199.99,,952.33,2,0,2,observed_scored,false,measured_pao2,cell9:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_2record_factor0.85,false,0.33,mmHg,199.99,,606.03,2,0,2,observed_scored,false,measured_pao2,cell9:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_2record_factor0.85,false,0.4,mmHg,199.99,,499.98,2,0,2,observed_scored,false,measured_pao2,cell9:2:fio20,0,HFNC,0.85
+0,measured_pao2_2record_factor0.85,false,0.5,mmHg,199.99,,399.98,2,0,2,observed_scored,false,measured_pao2,cell9:3:fio20,0,IMV,0.85
+0,measured_pao2_2record_factor0.85,false,0.5,mmHg,199.99,,399.98,2,0,2,observed_scored,false,measured_pao2,cell9:4:fio20,0,NIPPV,0.85
+0,measured_pao2_2record_factor0.85,false,0.5,mmHg,199.99,,399.98,2,0,2,observed_scored,false,measured_pao2,cell9:5:fio20,0,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,199.99,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_2record_factor0.85,false,0.21,mmHg,200.0,,952.38,2,0,2,observed_scored,false,measured_pao2,cell10:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_2record_factor0.85,false,0.33,mmHg,200.0,,606.06,2,0,2,observed_scored,false,measured_pao2,cell10:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_2record_factor0.85,false,0.4,mmHg,200.0,,500.0,2,0,2,observed_scored,false,measured_pao2,cell10:2:fio20,0,HFNC,0.85
+0,measured_pao2_2record_factor0.85,false,0.5,mmHg,200.0,,400.0,2,0,2,observed_scored,false,measured_pao2,cell10:3:fio20,0,IMV,0.85
+0,measured_pao2_2record_factor0.85,false,0.5,mmHg,200.0,,400.0,2,0,2,observed_scored,false,measured_pao2,cell10:4:fio20,0,NIPPV,0.85
+0,measured_pao2_2record_factor0.85,false,0.5,mmHg,200.0,,400.0,2,0,2,observed_scored,false,measured_pao2,cell10:5:fio20,0,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,200.0,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85
+0,measured_pao2_2record_factor0.85,false,0.21,mmHg,200.01,,952.43,2,0,2,observed_scored,false,measured_pao2,cell11:0:fio20,0,ROOM_AIR,0.85
+0,measured_pao2_2record_factor0.85,false,0.33,mmHg,200.01,,606.09,2,0,2,observed_scored,false,measured_pao2,cell11:1:fio20,0,LOW_FLOW,0.85
+0,measured_pao2_2record_factor0.85,false,0.4,mmHg,200.01,,500.03,2,0,2,observed_scored,false,measured_pao2,cell11:2:fio20,0,HFNC,0.85
+0,measured_pao2_2record_factor0.85,false,0.5,mmHg,200.01,,400.02,2,0,2,observed_scored,false,measured_pao2,cell11:3:fio20,0,IMV,0.85
+0,measured_pao2_2record_factor0.85,false,0.5,mmHg,200.01,,400.02,2,0,2,observed_scored,false,measured_pao2,cell11:4:fio20,0,NIPPV,0.85
+0,measured_pao2_2record_factor0.85,false,0.5,mmHg,200.01,,400.02,2,0,2,observed_scored,false,measured_pao2,cell11:5:fio20,0,SURG IMV,0.85
+0,measured_pao2_2record_factor0.85,false,,mmHg,200.01,,,0,,2,no_qualifying_data,false,measured_pao2,,,UNKNOWN,0.85

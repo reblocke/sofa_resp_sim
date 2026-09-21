@@ -1,0 +1,231 @@
+{
+  "schema_version": "rule_figure_manifest_v1",
+  "figures": [
+    {
+      "source": "spo2_1record_factor1.0.json",
+      "source_sha256": "3418a9a63fa2d160d40a5c337baf46bfb44e090b6c5aa3d63b6890972f672d73",
+      "caption": "Deterministic spo2 evidence: 1 record(s), threshold factor 1.0\nStages separate support caps from encounter suppression; no Monte Carlo sampling.\nNumbers: score 0\u20134; gray U: unavailable evidence; 0*: singleton suppression. Unknown support supplies no FiO2.\nFiO2: room air 0.21, HFNC 0.40, IMV/NIPPV/SURG IMV 0.50; low flow 4 L/min uses an inferred fraction.\nHFNC: high-flow nasal cannula; NIPPV: noninvasive positive-pressure ventilation; IMV: invasive mechanical ventilation; SURG: surgical.",
+      "outputs": [
+        {
+          "path": "figures/spo2_1record_factor1.0.svg",
+          "sha256": "7788d244549416784341837f39ef7a91cb35e1524e18eaf0336b5a8fdc1713f5"
+        },
+        {
+          "path": "figures/spo2_1record_factor1.0.png",
+          "sha256": "3c8d18ab6c404312515faebb6d0230e2032344e68e0fed34b299edd53bee8f76"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewer": "Codex visual inspection",
+        "recorded_at_utc": "2026-09-21T07:05:17.095924+00:00",
+        "checks": [
+          "three scoring stages labeled separately",
+          "oxygenation units and support assumptions readable",
+          "gray U distinct from numeric zero",
+          "singleton suppression marked 0*",
+          "all cell labels and panel headings visible"
+        ],
+        "reviewed_png_sha256": "3c8d18ab6c404312515faebb6d0230e2032344e68e0fed34b299edd53bee8f76"
+      }
+    },
+    {
+      "source": "spo2_1record_factor0.85.json",
+      "source_sha256": "0f0364843060504b9dccedc5ef9400631a826a792489f22f28b85d5cf0952e40",
+      "caption": "Deterministic spo2 evidence: 1 record(s), threshold factor 0.85\nStages separate support caps from encounter suppression; no Monte Carlo sampling.\nNumbers: score 0\u20134; gray U: unavailable evidence; 0*: singleton suppression. Unknown support supplies no FiO2.\nFiO2: room air 0.21, HFNC 0.40, IMV/NIPPV/SURG IMV 0.50; low flow 4 L/min uses an inferred fraction.\nHFNC: high-flow nasal cannula; NIPPV: noninvasive positive-pressure ventilation; IMV: invasive mechanical ventilation; SURG: surgical.",
+      "outputs": [
+        {
+          "path": "figures/spo2_1record_factor0.85.svg",
+          "sha256": "72a8762596de1037d949d8e3e647aa96ab3ce466457231445ed3b3cf8bf663bf"
+        },
+        {
+          "path": "figures/spo2_1record_factor0.85.png",
+          "sha256": "93b0b19179bf3cdcf14c7124d0d50875f908846772f657d8c9cb83020fcd014b"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewer": "Codex visual inspection",
+        "recorded_at_utc": "2026-09-21T07:05:17.096644+00:00",
+        "checks": [
+          "three scoring stages labeled separately",
+          "oxygenation units and support assumptions readable",
+          "gray U distinct from numeric zero",
+          "singleton suppression marked 0*",
+          "all cell labels and panel headings visible"
+        ],
+        "reviewed_png_sha256": "93b0b19179bf3cdcf14c7124d0d50875f908846772f657d8c9cb83020fcd014b"
+      }
+    },
+    {
+      "source": "spo2_2record_factor1.0.json",
+      "source_sha256": "cc75ffca77e27ded3fde53c36442d0c9230e8e9fe8a14a1e03ef0b6fe5e3a1b0",
+      "caption": "Deterministic spo2 evidence: 2 record(s), threshold factor 1.0\nStages separate support caps from encounter suppression; no Monte Carlo sampling.\nNumbers: score 0\u20134; gray U: unavailable evidence; 0*: singleton suppression. Unknown support supplies no FiO2.\nFiO2: room air 0.21, HFNC 0.40, IMV/NIPPV/SURG IMV 0.50; low flow 4 L/min uses an inferred fraction.\nHFNC: high-flow nasal cannula; NIPPV: noninvasive positive-pressure ventilation; IMV: invasive mechanical ventilation; SURG: surgical.",
+      "outputs": [
+        {
+          "path": "figures/spo2_2record_factor1.0.svg",
+          "sha256": "44ee8a795253840aa049efbd2c2d53a5a2f7721a016fa4671f9cab06bfc2c0a5"
+        },
+        {
+          "path": "figures/spo2_2record_factor1.0.png",
+          "sha256": "5fa9d392914faa9f777728d4bba1ae015b4c848e8269262f348d5bd5954c0e44"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewer": "Codex visual inspection",
+        "recorded_at_utc": "2026-09-21T07:05:17.097168+00:00",
+        "checks": [
+          "three scoring stages labeled separately",
+          "oxygenation units and support assumptions readable",
+          "gray U distinct from numeric zero",
+          "singleton suppression marked 0*",
+          "all cell labels and panel headings visible"
+        ],
+        "reviewed_png_sha256": "5fa9d392914faa9f777728d4bba1ae015b4c848e8269262f348d5bd5954c0e44"
+      }
+    },
+    {
+      "source": "spo2_2record_factor0.85.json",
+      "source_sha256": "e9906e9e191cd0bbc89b366f5309e97c1a937fc380d82023f81ba910a5aba4c2",
+      "caption": "Deterministic spo2 evidence: 2 record(s), threshold factor 0.85\nStages separate support caps from encounter suppression; no Monte Carlo sampling.\nNumbers: score 0\u20134; gray U: unavailable evidence; 0*: singleton suppression. Unknown support supplies no FiO2.\nFiO2: room air 0.21, HFNC 0.40, IMV/NIPPV/SURG IMV 0.50; low flow 4 L/min uses an inferred fraction.\nHFNC: high-flow nasal cannula; NIPPV: noninvasive positive-pressure ventilation; IMV: invasive mechanical ventilation; SURG: surgical.",
+      "outputs": [
+        {
+          "path": "figures/spo2_2record_factor0.85.svg",
+          "sha256": "f60003a347b8c9fa342fb59398dffc8da6b505ba7df4073749b3f857e6bdba35"
+        },
+        {
+          "path": "figures/spo2_2record_factor0.85.png",
+          "sha256": "9ded239fb3262da60f664f75c491965963dd8d1a1be62e1da93ac4ff71ef4606"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewer": "Codex visual inspection",
+        "recorded_at_utc": "2026-09-21T07:05:17.097740+00:00",
+        "checks": [
+          "three scoring stages labeled separately",
+          "oxygenation units and support assumptions readable",
+          "gray U distinct from numeric zero",
+          "singleton suppression marked 0*",
+          "all cell labels and panel headings visible"
+        ],
+        "reviewed_png_sha256": "9ded239fb3262da60f664f75c491965963dd8d1a1be62e1da93ac4ff71ef4606"
+      }
+    },
+    {
+      "source": "measured_pao2_1record_factor1.0.json",
+      "source_sha256": "d166d6d9753f9e1f13dd5c723f0ab9553366f326deaeac7e2e0ed94482a67344",
+      "caption": "Deterministic measured_pao2 evidence: 1 record(s), threshold factor 1.0\nStages separate support caps from encounter suppression; no Monte Carlo sampling.\nNumbers: score 0\u20134; gray U: unavailable evidence; 0*: singleton suppression. Unknown support supplies no FiO2.\nFiO2: room air 0.21, HFNC 0.40, IMV/NIPPV/SURG IMV 0.50; low flow 4 L/min uses an inferred fraction.\nHFNC: high-flow nasal cannula; NIPPV: noninvasive positive-pressure ventilation; IMV: invasive mechanical ventilation; SURG: surgical.",
+      "outputs": [
+        {
+          "path": "figures/measured_pao2_1record_factor1.0.svg",
+          "sha256": "acbd00f23ad6565ce1d72f52786a6e7de1fddf0327ad12606f8851e5e6f2b592"
+        },
+        {
+          "path": "figures/measured_pao2_1record_factor1.0.png",
+          "sha256": "bc52684863cdfbfbd4d7752b525d9d085436fa8609a4dc2cd277ff20d115cb1d"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewer": "Codex visual inspection",
+        "recorded_at_utc": "2026-09-21T07:05:17.098352+00:00",
+        "checks": [
+          "three scoring stages labeled separately",
+          "oxygenation units and support assumptions readable",
+          "gray U distinct from numeric zero",
+          "singleton suppression marked 0*",
+          "all cell labels and panel headings visible"
+        ],
+        "reviewed_png_sha256": "bc52684863cdfbfbd4d7752b525d9d085436fa8609a4dc2cd277ff20d115cb1d"
+      }
+    },
+    {
+      "source": "measured_pao2_1record_factor0.85.json",
+      "source_sha256": "48eec828f5c077d485706f892101d125959017e6dd6244f0b772745cc950e84d",
+      "caption": "Deterministic measured_pao2 evidence: 1 record(s), threshold factor 0.85\nStages separate support caps from encounter suppression; no Monte Carlo sampling.\nNumbers: score 0\u20134; gray U: unavailable evidence; 0*: singleton suppression. Unknown support supplies no FiO2.\nFiO2: room air 0.21, HFNC 0.40, IMV/NIPPV/SURG IMV 0.50; low flow 4 L/min uses an inferred fraction.\nHFNC: high-flow nasal cannula; NIPPV: noninvasive positive-pressure ventilation; IMV: invasive mechanical ventilation; SURG: surgical.",
+      "outputs": [
+        {
+          "path": "figures/measured_pao2_1record_factor0.85.svg",
+          "sha256": "980ae6012589fdc3200cc27d88f511c4b74b81e7bac361d0a8556343d8872170"
+        },
+        {
+          "path": "figures/measured_pao2_1record_factor0.85.png",
+          "sha256": "2b0c50f3e89ad8fd3fa82e5e6f3e4eb7c90cd1bedeaffe04b0e8fab73029e6ba"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewer": "Codex visual inspection",
+        "recorded_at_utc": "2026-09-21T07:05:17.098926+00:00",
+        "checks": [
+          "three scoring stages labeled separately",
+          "oxygenation units and support assumptions readable",
+          "gray U distinct from numeric zero",
+          "singleton suppression marked 0*",
+          "all cell labels and panel headings visible"
+        ],
+        "reviewed_png_sha256": "2b0c50f3e89ad8fd3fa82e5e6f3e4eb7c90cd1bedeaffe04b0e8fab73029e6ba"
+      }
+    },
+    {
+      "source": "measured_pao2_2record_factor1.0.json",
+      "source_sha256": "64358fdd59d2885b0aaa0b31c19b0047860dc04739915a7d145cb4cf36a603c3",
+      "caption": "Deterministic measured_pao2 evidence: 2 record(s), threshold factor 1.0\nStages separate support caps from encounter suppression; no Monte Carlo sampling.\nNumbers: score 0\u20134; gray U: unavailable evidence; 0*: singleton suppression. Unknown support supplies no FiO2.\nFiO2: room air 0.21, HFNC 0.40, IMV/NIPPV/SURG IMV 0.50; low flow 4 L/min uses an inferred fraction.\nHFNC: high-flow nasal cannula; NIPPV: noninvasive positive-pressure ventilation; IMV: invasive mechanical ventilation; SURG: surgical.",
+      "outputs": [
+        {
+          "path": "figures/measured_pao2_2record_factor1.0.svg",
+          "sha256": "fbce7b653f2b737af065b9ebb6501d11334f8ddb4dbbc59e81f66afa4b2da0d6"
+        },
+        {
+          "path": "figures/measured_pao2_2record_factor1.0.png",
+          "sha256": "2240c6b11b7e4c9bf569aa6fc54749b8299b62a1830759a70bb6f3d69566cd62"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewer": "Codex visual inspection",
+        "recorded_at_utc": "2026-09-21T07:05:17.099493+00:00",
+        "checks": [
+          "three scoring stages labeled separately",
+          "oxygenation units and support assumptions readable",
+          "gray U distinct from numeric zero",
+          "singleton suppression marked 0*",
+          "all cell labels and panel headings visible"
+        ],
+        "reviewed_png_sha256": "2240c6b11b7e4c9bf569aa6fc54749b8299b62a1830759a70bb6f3d69566cd62"
+      }
+    },
+    {
+      "source": "measured_pao2_2record_factor0.85.json",
+      "source_sha256": "71d8474796533fb3209d1621d4a07a944ae897a5286e5e3e39730aaf0b3c6014",
+      "caption": "Deterministic measured_pao2 evidence: 2 record(s), threshold factor 0.85\nStages separate support caps from encounter suppression; no Monte Carlo sampling.\nNumbers: score 0\u20134; gray U: unavailable evidence; 0*: singleton suppression. Unknown support supplies no FiO2.\nFiO2: room air 0.21, HFNC 0.40, IMV/NIPPV/SURG IMV 0.50; low flow 4 L/min uses an inferred fraction.\nHFNC: high-flow nasal cannula; NIPPV: noninvasive positive-pressure ventilation; IMV: invasive mechanical ventilation; SURG: surgical.",
+      "outputs": [
+        {
+          "path": "figures/measured_pao2_2record_factor0.85.svg",
+          "sha256": "16632dfd1ea4ee988d2827a93dcf006a101b10c88ea9e037fe04602dba2833b8"
+        },
+        {
+          "path": "figures/measured_pao2_2record_factor0.85.png",
+          "sha256": "40a25dffe15642e5298cf5c1d5ee70be628b8d54dda6a4afb2bc703f013701a1"
+        }
+      ],
+      "visual_review_status": "reviewed_png",
+      "visual_review": {
+        "reviewer": "Codex visual inspection",
+        "recorded_at_utc": "2026-09-21T07:05:17.100080+00:00",
+        "checks": [
+          "three scoring stages labeled separately",
+          "oxygenation units and support assumptions readable",
+          "gray U distinct from numeric zero",
+          "singleton suppression marked 0*",
+          "all cell labels and panel headings visible"
+        ],
+        "reviewed_png_sha256": "40a25dffe15642e5298cf5c1d5ee70be628b8d54dda6a4afb2bc703f013701a1"
+      }
+    }
+  ],
+  "matplotlib_version": "3.11.2",
+  "renderer_sha256": "87a260106ed541d900593e2d5407a24a66f55fa0f20c5158208899c65ff6f516"
+}

@@ -22,14 +22,25 @@ BROWSER_PYTHON_FILES = (
     "core/resp_scoring.py",
     "core/resp_simulation.py",
     "core/resp_utils.py",
+    "core/experiment_config.py",
+    "core/paired_simulation.py",
+    "core/observation.py",
+    "core/experiment_scoring.py",
     "reporting/__init__.py",
     "reporting/app_services.py",
     "reporting/presets.py",
     "reporting/reference.py",
     "reporting/view_model.py",
+    "reporting/experiment_request.py",
+    "reporting/experiment_service.py",
+    "reporting/experiment_results.py",
+    "reporting/experiment_bundle.py",
+    "reporting/experiment_workload.py",
+    "reporting/experiment_catalogue.py",
+    "reporting/rule_explorer.py",
 )
 
-STAGED_DATA_FILES = (REFERENCE_ARTIFACT,)
+STAGED_DATA_FILES = (REFERENCE_ARTIFACT, ROOT / "artifacts" / "saved_experiment_v2.json")
 
 
 def main() -> None:

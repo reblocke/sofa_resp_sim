@@ -1,0 +1,53 @@
+{
+  "schema_version": "deterministic_rule_evidence_v1",
+  "monte_carlo": false,
+  "environment": {
+    "python": "3.11.10",
+    "dependencies": {
+      "sofa-resp-sim": "0.1.0",
+      "numpy": "2.4.4",
+      "pandas": "3.0.2",
+      "scipy": "1.17.1",
+      "tzdata": "2026.1"
+    },
+    "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+    "dirty_tree": true,
+    "source_provenance_note": "Git state of the source checkout",
+    "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+  },
+  "cells": 476,
+  "cases": 8,
+  "table_schema": {
+    "algorithm_score": "number",
+    "case": "string",
+    "conversion_unavailable": "boolean",
+    "fio2_fraction": "number",
+    "input_unit": "string",
+    "input_value": "number",
+    "pao2_calc_mmhg": "number",
+    "pf_ratio_mmhg": "number",
+    "qualifying_pf_count": "number",
+    "raw_rubric": "number",
+    "records": "number",
+    "score_status": "string",
+    "singleton_suppressed": "boolean",
+    "source": "string",
+    "source_event_id": "string",
+    "support_adjusted_score": "number",
+    "support_label": "string",
+    "threshold_factor": "number"
+  },
+  "file_sha256": {
+    "spo2_1record_factor1.0.json": "3418a9a63fa2d160d40a5c337baf46bfb44e090b6c5aa3d63b6890972f672d73",
+    "spo2_1record_factor0.85.json": "0f0364843060504b9dccedc5ef9400631a826a792489f22f28b85d5cf0952e40",
+    "spo2_2record_factor1.0.json": "cc75ffca77e27ded3fde53c36442d0c9230e8e9fe8a14a1e03ef0b6fe5e3a1b0",
+    "spo2_2record_factor0.85.json": "e9906e9e191cd0bbc89b366f5309e97c1a937fc380d82023f81ba910a5aba4c2",
+    "measured_pao2_1record_factor1.0.json": "d166d6d9753f9e1f13dd5c723f0ab9553366f326deaeac7e2e0ed94482a67344",
+    "measured_pao2_1record_factor0.85.json": "48eec828f5c077d485706f892101d125959017e6dd6244f0b772745cc950e84d",
+    "measured_pao2_2record_factor1.0.json": "64358fdd59d2885b0aaa0b31c19b0047860dc04739915a7d145cb4cf36a603c3",
+    "measured_pao2_2record_factor0.85.json": "71d8474796533fb3209d1621d4a07a944ae897a5286e5e3e39730aaf0b3c6014",
+    "cells.csv": "191f8edad3ee33d346350595a82c2e5b9206f3863bd358b4e9c000d0276b6ae8"
+  },
+  "scope": "Synthetic deterministic conversion edges and cutpoints; no clinical validation",
+  "figure_status": "rendered; current PNG reviews in figure_data_manifest.json"
+}

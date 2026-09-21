@@ -1,0 +1,3835 @@
+{
+  "schema_version": "planning_acceptance_ledger_v1",
+  "plan_version": "1.0",
+  "purpose": "Active implementation acceptance contract; in-progress coverage is not a completed criterion.",
+  "status": "in_progress",
+  "repository": "reblocke/sofa_resp_sim",
+  "source": {
+    "issue": 11,
+    "url": "https://github.com/reblocke/sofa_resp_sim/issues/11",
+    "ticket_version": "1.0",
+    "audit_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+    "verified_current_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+    "archive_sha256": "bf865462b6334ea8b56227b25d15bc9048b61a324e4c59cc4c62dabe8c70e567",
+    "ticket_path": "source/IMPLEMENTATION_TICKET.md",
+    "original_criteria_path": "source/ACCEPTANCE_CRITERIA.json",
+    "numerical_cases_path": "source/NUMERICAL_CASES.json",
+    "live_issue_body_matches_snapshot": true,
+    "issue_updated_at": "2026-09-21T02:03:31Z"
+  },
+  "path_convention": "Paths are repository-relative except source paths. Proposed targets remain plans; actual_test_node_ids list implemented coverage. Evidence must be revalidated for the final tested source.",
+  "allowed_requirement_statuses": [
+    "not_started",
+    "in_progress",
+    "blocked",
+    "failed",
+    "passed"
+  ],
+  "verification_run_required_fields": [
+    "command",
+    "working_directory",
+    "tested_commit",
+    "tested_source_or_diff_sha256",
+    "runtime_versions",
+    "exit_code",
+    "recorded_at_utc",
+    "log_path"
+  ],
+  "completion_rule": {
+    "required_acceptance_ids": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "A06",
+      "A07",
+      "A08",
+      "A09",
+      "A10",
+      "A11",
+      "A12",
+      "A13",
+      "A14",
+      "A15",
+      "A16",
+      "A17",
+      "A18",
+      "A19",
+      "A20",
+      "A21",
+      "A22",
+      "A23",
+      "A24",
+      "A25",
+      "A26",
+      "A27",
+      "A28"
+    ],
+    "required_gate_ids": [
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G06"
+    ],
+    "required_status": "passed",
+    "require_nonempty_verification_runs_and_evidence": true,
+    "all_tests_and_artifacts_resolve": true,
+    "evidence_must_match_tested_implementation": true,
+    "skips_stubs_and_prose_only_claims_are_not_passes": true,
+    "source_text_must_remain_preserved": true,
+    "scope_changes_require_explicit_owner_decision": true,
+    "remote_ci_unavailable_means_G05_pending": true,
+    "release_and_hosted_deployment_are_separate": true
+  },
+  "baseline_observations": {
+    "native_suite": {
+      "command": "make test",
+      "exit_code": 0,
+      "scope": "Existing native tests excluding tests/e2e; does not satisfy the unimplemented v2 acceptance matrix."
+    },
+    "native_scoring_probes": [
+      "A10",
+      "A11",
+      "A12",
+      "A13"
+    ],
+    "python": "3.11.10",
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "uv_lock_sha256": "2780cf965564665584f98f0c2d48715a91e83a909914326c1998ce00d7f2eccd",
+    "not_run_during_planning": [
+      "browser_e2e",
+      "native_pyodide_parity",
+      "clean_environment_reproduction",
+      "v2_reference_demonstrations"
+    ]
+  },
+  "milestones": [
+    {
+      "id": "M0",
+      "depends_on": [],
+      "status": "passed"
+    },
+    {
+      "id": "M1",
+      "depends_on": [
+        "M0"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "M2",
+      "depends_on": [
+        "M1"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "M3",
+      "depends_on": [
+        "M2"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "M4",
+      "depends_on": [
+        "M3"
+      ],
+      "status": "in_progress"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "A01",
+      "milestone": "M0",
+      "required": true,
+      "given_when": "Existing entry points and fixed legacy fixtures run.",
+      "required_evidence": "Historical scores/intermediates and seeded legacy outputs are preserved in the pinned environment; intentional nonlegacy differences are separately versioned.",
+      "test_design": "Freeze numerical/intermediate outputs, seeded patient rows, old request normalization and entrypoint-specific defaults before any numerical edits. Compare both old imports and no-profile calls after introducing v2; preserve historical artifact hashes.",
+      "test_targets": [
+        "tests/experiments/test_legacy_compatibility.py::test_legacy_entrypoints",
+        "tests/experiments/test_legacy_compatibility.py::test_seeded_legacy_snapshots"
+      ],
+      "existing_coverage": [
+        "tests/core/test_resp_scoring.py",
+        "tests/core/test_resp_scoring_golden_fixtures.py",
+        "tests/contracts/test_reporting_services.py",
+        "tests/contracts/test_reporting_sweep.py",
+        "tests/workflows/test_cli_contract.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/legacy_comparison.json",
+        "artifacts/local/acceptance/legacy_artifact_hashes.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_legacy_compatibility.py::test_legacy_entrypoints",
+        "tests/experiments/test_legacy_compatibility.py::test_seeded_legacy_snapshots",
+        "tests/experiments/test_legacy_compatibility.py::test_historical_artifacts_are_preserved"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/final_native.xml",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:33:55.263581+00:00",
+          "log_path": "artifacts/local/acceptance/final_native.log"
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Reviewed legacy identity imports, exact seeded summary/observation snapshots and historical artifact hashes. Full 313-test native suite passed."
+    },
+    {
+      "id": "A02",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "E1 samples one cohort at 5/15/30/60 minutes.",
+      "required_evidence": "Latent/support/episode identities match; shared sampled times have identical underlying and noise values.",
+      "test_design": "Compare nested schedules 5/15/30/60 on identical patient IDs. Assert latent, episode and support identities, then exact latent and measurement-noise values at every shared timestamp; a matching seed field alone is insufficient.",
+      "test_targets": [
+        "tests/experiments/test_pairing.py::test_nested_schedules_share_patient_values"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/shared_time_comparison.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_observation.py::test_nested_schedules_share_patient_values"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/final_native.xml",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:33:55.263776+00:00",
+          "log_path": "artifacts/local/acceptance/final_native.log"
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Reviewed exact shared-time event comparisons at nested 5/15/30/60-minute schedules, plus patient/support identity checks."
+    },
+    {
+      "id": "A03",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "A constant 96% background has one 5-point episode lasting 30 minutes.",
+      "required_evidence": "Latent values are 91% during that interval and 96% outside it at every observation schedule; no accumulated decrement.",
+      "test_design": "Use sigma=0, background=96, one depth-5 episode on [30,60) minutes. Assert every latent minute, inclusive start/exclusive end and each sampled schedule against 96/91/96; preserve the unperturbed AR state.",
+      "test_targets": [
+        "tests/experiments/test_latent.py::test_rectangular_episode_returns_to_background"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/deterministic_episode.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_latent.py::test_rectangular_episode_returns_to_background"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/final_native.xml",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:33:55.263840+00:00",
+          "log_path": "artifacts/local/acceptance/final_native.log"
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Reviewed every latent minute and sampled schedule against the prescribed 96/91/96 rectangular episode with exclusive end."
+    },
+    {
+      "id": "A04",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "Long unclipped AR background, no desaturations.",
+      "required_evidence": "Empirical marginal SD and correlation at fixed elapsed lags agree with declared values within prespecified stochastic tolerances, not tolerances tuned after failure.",
+      "test_design": "Before execution, store seed set, sample length, tau/sigma cases, elapsed lags, expected values, numeric stochastic tolerances and rationale. Test the unclipped background with no episodes, stationary initialization and zero-correlation mode. Report achieved clipped diagnostics separately.",
+      "test_targets": [
+        "tests/experiments/test_latent.py::test_stationary_marginal_sd_and_elapsed_correlation"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/ar_validation_protocol.json",
+        "artifacts/local/acceptance/ar_validation_results.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_latent.py::test_stationary_marginal_sd_and_elapsed_correlation"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/final_native.xml",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:33:55.263906+00:00",
+          "log_path": "artifacts/local/acceptance/final_native.log"
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "tests/experiments/fixtures/ar_validation_protocol.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Reviewed frozen AR protocol and passing stationary SD/correlation assertions for tau 0/1/30 and lags 1/15/60, without changing tolerances."
+    },
+    {
+      "id": "A05",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "Conditions reordered/isolated/extended; chunks changed; N increased.",
+      "required_evidence": "Same patient-condition rows remain identical; first 200 patients do not change in a 1,000-patient run.",
+      "test_design": "Compare canonical scientific rows after reorder, isolation, label changes and addition of unrelated conditions; chunk sizes 1/7/64; N=200 versus first 200 of N=1000. Include shared missingness uniforms and source-label streams. Exclude run metadata from scientific identity.",
+      "test_targets": [
+        "tests/experiments/test_pairing.py::test_condition_order_and_isolation",
+        "tests/experiments/test_pairing.py::test_chunk_and_append_invariance"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/rng_invariance.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_pairing.py::test_condition_order_and_isolation",
+        "tests/experiments/test_pairing.py::test_chunk_and_append_invariance"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/final_native.xml",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:33:55.263967+00:00",
+          "log_path": "artifacts/local/acceptance/final_native.log"
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Reviewed scientific-row equality under reorder, rename, isolation, unrelated-condition addition, chunk sizes 1/7/64 and N200-to-N1000 extension."
+    },
+    {
+      "id": "A06",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "Noise, missingness, or threshold factor changes in fixed-support mode.",
+      "required_evidence": "Latent oxygenation and support/FiO2 are unchanged. A separate stress mode explicitly permits assignment changes.",
+      "test_design": "Change noise, missingness and threshold factors independently; latent and support/FiO2 trajectories must stay exact in fixed-support mode. Exercise the separately named assignment-stress mode with all four thresholds serialized.",
+      "test_targets": [
+        "tests/experiments/test_observation.py::test_fixed_support_is_unchanged",
+        "tests/experiments/test_observation.py::test_assignment_stress_mode_is_explicit"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/fixed_support_comparison.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_observation.py::test_fixed_support_is_unchanged",
+        "tests/experiments/test_observation.py::test_assignment_stress_mode_is_explicit"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.403620+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Fixed-support trajectory equality under noise/missingness/threshold changes; separate noisy assignment-stress fixture and serialized support thresholds."
+    },
+    {
+      "id": "A07",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "Identical FiO2 moves between set/measured columns with no conflicts.",
+      "required_evidence": "Provenance changes but all numerical scores and P/F values remain identical.",
+      "test_design": "Move identical values between set/measured sources without source conflicts. Assert changed provenance and unchanged chosen FiO2, P/F and event/encounter scores. Keep a separate disagreement case to prove the numerical priority mechanism.",
+      "test_targets": [
+        "tests/experiments/test_documentation.py::test_identical_fio2_source_label_is_inert"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/source_label_control.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_observation.py::test_source_label_changes_preserve_values_and_patient_identity",
+        "tests/experiments/test_scoring_profiles.py::test_identical_fio2_source_label_preserves_numerical_scores"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q tests/experiments/test_scoring_profiles.py --junitxml=artifacts/local/acceptance/source_label_audit.xml",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "2b084fbdef104ce9a0253fb21359b3efca9fc1641332976a56df36bdea39571e",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:33:55.264205+00:00",
+          "log_path": "artifacts/local/acceptance/source_label_audit.log",
+          "hash_scope": "Touched test file; scientific implementation unchanged from final_integration_checkpoint.json"
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/source_label_audit.xml"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Added and passed a direct score-level set-versus-measured source-label test: inference provenance differs while chosen FiO2, P/F and every score stage remain identical."
+    },
+    {
+      "id": "A08",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "All FiO2 evidence is removed in a designated non-room-air fixture.",
+      "required_evidence": "No hidden latent value, surviving flow/room-air fallback, or adapter artifact supplies it; eligibility follows the documented profile.",
+      "test_design": "In a non-room-air fixture remove set/measured/ABG FiO2, flow, room-air evidence and relevant context sources. Require zero qualifying P/F and explicit missing evidence, with no latent imputation. Resolve and test the display of any retained legacy implicit-0.21 diagnostic candidate before implementation.",
+      "test_targets": [
+        "tests/experiments/test_documentation.py::test_remove_entire_fio2_evidence_bundle"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/removed_denominator_sources.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_remove_entire_fio2_evidence_bundle"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.403673+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "No denominator fixture has no chosen source or P/F; full missingness removes set/measured/ABG/flow/room-air evidence."
+    },
+    {
+      "id": "A09",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "All oxygenation evidence is missing; compare with observed normal data and a suppressed abnormal singleton.",
+      "required_evidence": "Three distinct statuses; old algorithm zeros preserved; tables reconcile without calling no-data records normal.",
+      "test_design": "Compare observed score zero, an all-missing period and a suppressed abnormal singleton. Assert three exact statuses, algorithm score preservation, nullability and signed/evaluable deltas. Reconcile acute and eligible-baseline counts and algorithm/evidence/status transition tables to patient rows.",
+      "test_targets": [
+        "tests/experiments/test_evidence_status.py::test_normal_missing_and_suppressed_are_distinct"
+      ],
+      "existing_coverage": [
+        "tests/core/test_resp_scoring_golden_fixtures.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/evidence_status_reconciliation.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_normal_missing_and_suppressed_are_distinct",
+        "tests/experiments/test_results.py::test_transition_and_denominator_reconciliation"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.403724+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Three score-zero statuses distinguished; all-patient/evaluable denominators and 5x5/6x6/status transitions reconcile."
+    },
+    {
+      "id": "A10",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "Two records, SpO2=96, room air, no measured PaO2, at t=0 and +15min.",
+      "required_evidence": "Conversion PaO2=81.9 and P/F=390.00 unchanged across factors; algorithm score 1 at factor 1.0 and 0 at .85.",
+      "test_design": "Use the supplied two-record SpO2=96 room-air fixture at factors 1 and .85; assert PaO2=81.9, P/F=390, scores 1/0 and no change in intermediates other than thresholds/scoring stages.",
+      "test_targets": [
+        "tests/experiments/test_scoring_profiles.py::test_threshold_factor_preserves_conversion"
+      ],
+      "existing_coverage": [
+        "tests/core/test_resp_scoring_golden_fixtures.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/numerical_cases.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_threshold_factor_preserves_conversion"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.403767+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Exact 81.9/390 conversion preserved while factor changes reported score 1 to 0."
+    },
+    {
+      "id": "A11",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "Same two-record fixture has measured PaO2=84 at both times.",
+      "required_evidence": "Measured-first P/F=400.00 and score 0 at factor 1.0; exact threshold ties use the implemented strict inequalities.",
+      "test_design": "Use measured PaO2=84 in the same fixture and assert P/F=400, score=0 at factor 1. Parameterize exact P/F cutpoints and just-below values to preserve strict inequalities.",
+      "test_targets": [
+        "tests/experiments/test_scoring_profiles.py::test_measured_pao2_priority_and_strict_cutpoints"
+      ],
+      "existing_coverage": [
+        "tests/core/test_resp_scoring.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/numerical_cases.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_measured_pao2_priority_and_strict_cutpoints"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.403808+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Measured 84 gives P/F400 and score0; exact and below-threshold fixtures cover strict cutpoints."
+    },
+    {
+      "id": "A12",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "SpO2 49,50,96,97 without measured PaO2.",
+      "required_evidence": "Conversion unavailable at 49/97, available at 50/96. UI represents unavailable explicitly; no high-saturation PaO2 is fabricated.",
+      "test_design": "Assert conversion [null,26.9,81.9,null] at SpO2 [49,50,96,97] without measured PaO2. Test browser unavailable cells separately from normal score-zero cells and confirm explicitly measured PaO2 remains usable under its profile.",
+      "test_targets": [
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges",
+        "tests/e2e/test_rule_explorer.py::test_unavailable_conversion_state"
+      ],
+      "existing_coverage": [
+        "tests/core/test_resp_scoring_golden_fixtures.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/numerical_cases.json",
+        "artifacts/local/acceptance/screenshots/rule_explorer.png"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_conversion_edges"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.403853+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Native conversion edges and actual browser rule explorer distinguish unavailable conversion from measured-source mode."
+    },
+    {
+      "id": "A13",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "One low-flow record: SpO2=90, flow=4 L/min, factor=1.0. Then add an identical record 15min later.",
+      "required_evidence": "Inferred FiO2=33%, P/F=177.88, presuppression score 2; legacy singleton reported 0 with suppression, two records reported 2.",
+      "test_design": "Use SpO2=90, flow=4, factor=1. Assert inferred FiO2=33 percent, P/F=177.88, pre-suppression score=2; one record gives score=0 with suppression and two records 15 minutes apart give score=2.",
+      "test_targets": [
+        "tests/experiments/test_scoring_profiles.py::test_low_flow_singleton_and_two_record_fixture"
+      ],
+      "existing_coverage": [
+        "tests/core/test_resp_scoring_golden_fixtures.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/numerical_cases.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_low_flow_singleton_and_two_record_fixture"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.403898+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Low-flow one/two-record fixture verifies 0.33,177.88 and suppression0 versus2; browser flow units are separate."
+    },
+    {
+      "id": "A14",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "HFNC, NIPPV, IMV, SURG IMV fixtures exercise both support gates.",
+      "required_evidence": "Legacy behavior retained. Named support ablation changes all relevant gates, with an event-level explanation.",
+      "test_design": "Parameterize HFNC/NIPPV/IMV/SURG IMV through the raw rubric, first cap, final cap and singleton eligibility. Preserve each legacy distinction; test the resolved expanded-support variant at all gates with source-linked explanations.",
+      "test_targets": [
+        "tests/experiments/test_rule_variants.py::test_support_variant_changes_every_gate"
+      ],
+      "existing_coverage": [
+        "tests/core/test_resp_scoring_golden_fixtures.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/support_gate_matrix.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_support_variant_changes_every_gate"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.403942+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "HFNC/NIPPV/IMV/SURG IMV legacy and expanded gates exercised with source-linked cap/suppression outputs; historical golden fixtures preserved."
+    },
+    {
+      "id": "A15",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "FiO2 context at exact and just-outside 1/5/14-minute and 24-hour boundaries; conflicting current/previous values.",
+      "required_evidence": "Source event IDs and chosen priority match the versioned rule; no future unavailable evidence in as-of mode.",
+      "test_design": "Test exact and just-outside 1/5/14-minute and 24-hour boundaries plus competing current/backward/forward sources. Assert source event IDs, source age/direction, resolved priority and no unavailable future evidence in as-of mode. Keep measurement time and recorded time separate.",
+      "test_targets": [
+        "tests/experiments/test_event_adapter.py::test_fio2_lookup_boundaries",
+        "tests/experiments/test_event_adapter.py::test_asof_availability"
+      ],
+      "existing_coverage": [
+        "tests/core/test_resp_scoring.py",
+        "tests/core/test_resp_scoring_golden_fixtures.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/lookup_boundary_matrix.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_fio2_lookup_boundaries",
+        "tests/experiments/test_scoring_profiles.py::test_current_priority_and_asof_availability_are_explicit"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.403983+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Exact/outside 1/5/14-minute and 24-hour source boundaries, competing sources and as-of availability checked."
+    },
+    {
+      "id": "A16",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "Admit at 12:37, target endpoints, midnight and DST boundaries.",
+      "required_evidence": "v2 acute membership is explicit and bounded; calendar versus admission bins demonstrably differ when expected; legacy fixture results remain unchanged.",
+      "test_design": "Use admission at 12:37; target begin/end, lead-in, midnight, DST gaps/folds and invalid/mixed times. Check [admit-6h,admit+24h), resolved baseline date bounds and contextual records that can supply evidence without contributing acute scores. Compare calendar and admission-bin variants.",
+      "test_targets": [
+        "tests/experiments/test_time_windows.py::test_bounded_acute_endpoints",
+        "tests/experiments/test_time_windows.py::test_calendar_admission_and_dst"
+      ],
+      "existing_coverage": [
+        "tests/core/test_resp_scoring_golden_fixtures.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/time_window_matrix.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_bounded_acute_endpoints_and_context_only_records",
+        "tests/experiments/test_scoring_profiles.py::test_calendar_admission_and_dst"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404024+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Bounded acute membership and context-only records, calendar/admission bins and both DST transitions checked."
+    },
+    {
+      "id": "A17",
+      "milestone": "M1",
+      "required": true,
+      "given_when": "Separate observation and documentation streams with duplicate or coincident timestamps.",
+      "required_evidence": "No Cartesian joins or duplicated P/F counts. Distinct genuine measurements remain distinct; ties use stable event IDs.",
+      "test_design": "Combine independent observation and context streams at duplicate/coincident timestamps. Assert one score event per genuine oxygenation measurement, no context-only P/F counts, no Cartesian multiplication, stable IDs and deterministic tie choices.",
+      "test_targets": [
+        "tests/experiments/test_event_adapter.py::test_duplicate_and_coincident_events_preserve_counts"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/event_count_reconciliation.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_duplicate_and_coincident_events_preserve_counts"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404064+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Coincident distinct measurements retain counts and stable ID ties; duplicate IDs rejected."
+    },
+    {
+      "id": "A18",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "Exact replay baseline/acute control with matching exposure and equivalent scoring rules.",
+      "required_evidence": "Signed/evaluable delta is exactly zero. Independent stationary realizations are not falsely constrained to zero.",
+      "test_design": "Replay the identical complete six-hour UTC-clock segment wholly within each day with at least two qualifying observations, contemporaneous FiO2 and equivalent caps/eligibility; require exact signed/evaluable zero. Independent stationary blocks may differ and must not receive a forced-zero assertion.",
+      "test_targets": [
+        "tests/experiments/test_baseline_opportunity.py::test_exact_replay_zero",
+        "tests/experiments/test_baseline_opportunity.py::test_independent_stationary_control"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/baseline_replay_control.csv"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_scoring_profiles.py::test_exact_replay_zero_and_baseline_counts",
+        "tests/experiments/test_latent.py::test_independent_baseline_uses_a_distinct_stream_not_a_replay"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404104+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Exact replay has zero signed/evaluable delta; independent baseline uses a different stream and is not forced identical."
+    },
+    {
+      "id": "A19",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "Binomial counts k=0 and k=N.",
+      "required_evidence": "Wilson intervals have valid nonzero uncertainty width unless structural identity is explicitly proven elsewhere.",
+      "test_design": "Test k=0 and k=N, including 0/200 -> [0,.018845326377266575]. Require valid nonzero boundary uncertainty; label method/confidence and handle N<2 uncertainty as explicitly unavailable under the declared contract.",
+      "test_targets": [
+        "tests/experiments/test_uncertainty.py::test_wilson_boundary_cases"
+      ],
+      "existing_coverage": [
+        "tests/contracts/test_reporting_uncertainty.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/interval_anchors.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_uncertainty.py::test_wilson_boundary_cases"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404144+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Wilson 0/200 and200/200 boundaries match numeric anchors with nonzero width."
+    },
+    {
+      "id": "A20",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "Paired binary table has n_plus=30, n_minus=10, N=100.",
+      "required_evidence": "Difference is 0.20 = 20 percentage points; sample MCSE is sqrt((40-100*.2**2)/(99*100)); interval uses paired discordance counts.",
+      "test_design": "For N=100,n_plus=30,n_minus=10 assert difference=.20, 20 percentage points, MCSE=.06030226891555272 and the supplied paired exact-discordance-Bonferroni interval. Compute from patient differences, never independent-arm standard errors.",
+      "test_targets": [
+        "tests/experiments/test_uncertainty.py::test_paired_discordance_anchor"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/interval_anchors.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_uncertainty.py::test_paired_discordance_anchor"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404185+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "30/10 discordance anchor matches difference, MCSE and paired interval; reversed signs verified."
+    },
+    {
+      "id": "A21",
+      "milestone": "M2",
+      "required": true,
+      "given_when": "No observed discordances between nonidentical stochastic conditions.",
+      "required_evidence": "Observed MCSE may be zero, but reported boundary-safe interval is not asserted to prove equality.",
+      "test_design": "For nonidentical conditions with N=100 and no discordances assert empirical MCSE=0 but bounds [-.042874030238438485,.042874030238438485]. Structural-identity flags require construction evidence independent of observed output equality.",
+      "test_targets": [
+        "tests/experiments/test_uncertainty.py::test_zero_discordance_does_not_prove_identity"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/interval_anchors.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_uncertainty.py::test_zero_discordance_does_not_prove_identity"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404224+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Zero discordance retains nonzero interval width and does not claim structural identity."
+    },
+    {
+      "id": "A22",
+      "milestone": "M3",
+      "required": true,
+      "given_when": "Threshold probability, mean count .5, paired change -.02, and an unscorable cell render.",
+      "required_evidence": "Display 50%, 0.5 records, -2 percentage points, and U/not evaluable respectively; no magnitude-based unit guessing.",
+      "test_design": "Render probability .5 as 50%, mean count .5 as 0.5 records, paired -.02 as -2 percentage points and no evidence as U/not evaluable. Check table/chart/export consistency and zero-versus-missing states; no magnitude-based formatter.",
+      "test_targets": [
+        "tests/e2e/test_experiment_app.py::test_metric_units_and_unavailable_cells"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/screenshots/typed_metrics.png"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/e2e/test_experiment_app.py::test_metric_units_are_declared_not_guessed"
+      ],
+      "verification_runs": [
+        {
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/integration_browser.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 17,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_browser.xml",
+          "log_sha256": "68153908a214dd0b746cea123c9f7e23bda1cb42eaba1ed16ad938c37d7ee137",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404262+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "increment_note": "Investigation UI checkpoint: make verify passed 305 native and 12 browser tests. Final source-bound acceptance receipt and remaining criterion coverage are still required.",
+      "review_note": "Actual browser module renders declared probabilities, record means, signed percentage points and unavailable values; plots and CSV use typed metrics."
+    },
+    {
+      "id": "A23",
+      "milestone": "M3",
+      "required": true,
+      "given_when": "User edits a base scenario then expands a sweep or changes controls after a run.",
+      "required_evidence": "Sweep inherits the actual base. Old results are marked stale and exports retain their original immutable request.",
+      "test_design": "Edit the base, expand a sweep and compare the submitted normalized request. After running, edit/import/reset controls and confirm visible stale state with original immutable exports. Cancellation/reinitialization must preserve the edited state and reject stale worker responses.",
+      "test_targets": [
+        "tests/e2e/test_experiment_app.py::test_sweep_inherits_edited_request",
+        "tests/e2e/test_experiment_app.py::test_stale_results_keep_original_export_request"
+      ],
+      "existing_coverage": [
+        "tests/e2e/test_web_app.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/browser_state_receipt.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_catalogue.py::test_expansion_preserves_the_edited_base",
+        "tests/e2e/test_experiment_app.py::test_edited_base_stale_export_and_rule_explorer",
+        "tests/e2e/test_experiment_app.py::test_cancel_preserves_edited_request_and_reinitializes"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/integration_browser.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 17,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_browser.xml",
+          "log_sha256": "68153908a214dd0b746cea123c9f7e23bda1cb42eaba1ed16ad938c37d7ee137",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404300+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "increment_note": "Investigation UI checkpoint: make verify passed 305 native and 12 browser tests. Final source-bound acceptance receipt and remaining criterion coverage are still required.",
+      "review_note": "Edited base reaches resolved comparisons; stale result exports retain original data/request; cancellation preserves edits."
+    },
+    {
+      "id": "A24",
+      "milestone": "M3",
+      "required": true,
+      "given_when": "User selects a transition cell and a patient.",
+      "required_evidence": "Trace score matches the summary; explanations identify actual determining/excluded evidence without rerunning the cohort.",
+      "test_design": "Select a transition cell and lowest-ID contributor. Compare trace outcome with saved patient score, show selected/excluded evidence and ties, and instrument the service to prove only the chosen trace is retrieved/regenerated, not the whole cohort.",
+      "test_targets": [
+        "tests/e2e/test_experiment_app.py::test_transition_links_to_matching_patient_trace",
+        "tests/experiments/test_explanation.py::test_single_patient_reconstruction"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/trace_score_comparison.csv",
+        "artifacts/local/acceptance/screenshots/encounter_explanation.png"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_pairing.py::test_single_patient_reconstruction",
+        "tests/e2e/test_experiment_app.py::test_saved_example_precedes_python_and_new_run_trace_and_bundle"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/integration_browser.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 17,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_browser.xml",
+          "log_sha256": "68153908a214dd0b746cea123c9f7e23bda1cb42eaba1ed16ad938c37d7ee137",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404338+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "increment_note": "Investigation UI checkpoint: make verify passed 305 native and 12 browser tests. Final source-bound acceptance receipt and remaining criterion coverage are still required.",
+      "review_note": "Transition button selects contributor, trace reproduces saved score; instrumented native service regenerates exactly one patient; source/cap/tie markers visible."
+    },
+    {
+      "id": "A25",
+      "milestone": "M4",
+      "required": true,
+      "given_when": "Export/import/reproduce in a clean pinned environment.",
+      "required_evidence": "Scientific tables match, hashes validate, schema/versions preserved; unsupported versions produce actionable errors.",
+      "test_design": "Export both directory and ZIP forms; import in browser; reproduce through an installed package in a fresh locked environment outside the checkout. Verify scientific tables, hashes, schemas and versions; detect corruption and reject unsupported versions with actionable errors.",
+      "test_targets": [
+        "tests/experiments/test_bundle.py::test_roundtrip_hashes_and_versions",
+        "tests/workflows/test_experiment_cli.py::test_clean_environment_reproduction",
+        "tests/e2e/test_experiment_app.py::test_import_bundle"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/bundle_reproduction.json",
+        "artifacts/local/acceptance/clean_install.log"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_bundle.py::test_roundtrip_hashes_and_versions",
+        "tests/experiments/test_bundle.py::test_append_only_generates_new_patients_and_preserves_prior_rows",
+        "tests/workflows/test_experiment_cli.py::test_installed_cli_directory_zip_reproduce_append_explain",
+        "tests/e2e/test_pyodide_parity.py::test_pyodide_foundation_and_interval_components"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/bundle_browser.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_browser.xml",
+          "tests": 7,
+          "log_sha256": "de0bda0aedaeee293b9ec1586360f6f003bdb9b926c8f51acf1cd3c48e11a21a"
+        },
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "make experiments-install-check",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/clean_experiment_install.log",
+          "receipt_path": "artifacts/local/acceptance/clean_experiment_install.json"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/integration_browser.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 17,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_browser.xml",
+          "log_sha256": "68153908a214dd0b746cea123c9f7e23bda1cb42eaba1ed16ad938c37d7ee137",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404375+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Directory/ZIP/hash/schema roundtrip, corrupt/future-version rejection, browser import, CLI reproduction/append and fresh locked-wheel reproduction verified."
+    },
+    {
+      "id": "A26",
+      "milestone": "M4",
+      "required": true,
+      "given_when": "Same small fixtures run natively and through actual Pyodide.",
+      "required_evidence": "Exact discrete outputs and matching floats within predeclared tolerances; this is not replaced by a Python-only contract test.",
+      "test_design": "Execute deterministic scoring, small paired simulation and interval fixtures in actual staged Pyodide and natively. Compare exact IDs/categories/statuses/counts and floats at atol=rtol=1e-10 unless an approved precision contract says otherwise. Record runtime dependency versions and investigate any discrete mismatch.",
+      "test_targets": [
+        "tests/e2e/test_pyodide_parity.py::test_native_and_actual_pyodide_acceptance_cases"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/native_pyodide_parity.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/e2e/test_pyodide_parity.py::test_pyodide_foundation_and_interval_components"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/bundle_browser.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_browser.xml",
+          "tests": 7,
+          "log_sha256": "de0bda0aedaeee293b9ec1586360f6f003bdb9b926c8f51acf1cd3c48e11a21a"
+        },
+        {
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/integration_browser.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 17,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_browser.xml",
+          "log_sha256": "68153908a214dd0b746cea123c9f7e23bda1cb42eaba1ed16ad938c37d7ee137",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404426+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Actual staged Pyodide/native comparison has exact discrete fields and atol/rtol1e-10 floats; max latent difference1.42e-14 recorded."
+    },
+    {
+      "id": "A27",
+      "milestone": "M3",
+      "required": true,
+      "given_when": "Every advertised control/variant is exercised by a relevant fixture.",
+      "required_evidence": "It affects the claimed mechanism or is explicitly documented as provenance-only/inactive; no dead controls or hidden default resets.",
+      "test_design": "Enumerate every exposed control and named variant. Link each to a fixture demonstrating the claimed effect or explicit provenance-only/inactive behavior. Include all E6 gates, defaults/presets/import/sweep interactions and legitimate no-effect controls.",
+      "test_targets": [
+        "tests/experiments/test_catalogue.py::test_all_controls_and_variants_have_mechanism_fixtures",
+        "tests/e2e/test_experiment_app.py::test_advertised_controls"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/local/acceptance/control_to_mechanism.json"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_catalogue.py::test_finite_catalogue_executes_small_paired_runs",
+        "tests/experiments/test_catalogue.py::test_saved_configurations_match_prespecified_catalogue"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404464+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "All 13 rendered advanced controls and seed reach resolved requests; generator/observation/scoring fixtures cover mechanisms and conditional inactivity is inventoried; rule explorer and catalogue variants execute."
+    },
+    {
+      "id": "A28",
+      "milestone": "M4",
+      "required": true,
+      "given_when": "Six named experiments and deterministic explorer complete.",
+      "required_evidence": "Real output tables, configurations, selected traces, plots, and a findings/limitations note exist. No invented positive findings.",
+      "test_design": "Run the frozen finite catalogue with real outputs and 2,000 paired patients per reported stratum for each required stochastic demonstration. Check every mode, comparator, actual N, chosen trace, plot and figure-data link. Report effects and uncertainty as observed, including nulls, without seed selection.",
+      "test_targets": [
+        "tests/experiments/test_catalogue.py::test_reference_examples_cover_all_required_modes"
+      ],
+      "existing_coverage": [],
+      "evidence_targets": [
+        "artifacts/experiments_v2/catalogue_results.csv",
+        "artifacts/experiments_v2/figure_data_manifest.json",
+        "docs/implementation/sofa_experiment_v2_status.md"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_catalogue.py::test_finite_catalogue_executes_small_paired_runs",
+        "tests/experiments/test_catalogue.py::test_saved_configurations_match_prespecified_catalogue"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run python scripts/verify_experiment_evidence.py",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:31:47.645382+00:00",
+          "log_path": "artifacts/local/acceptance/final_artifact_verification.json"
+        }
+      ],
+      "evidence": [
+        "artifacts/experiments_v2/table_provenance.json",
+        "artifacts/experiments_v2/condition_summary.csv",
+        "artifacts/experiments_v2/paired_contrasts.csv",
+        "artifacts/experiments_v2/figure_data_manifest.json",
+        "artifacts/experiments_v2/rule_explorer/manifest.json",
+        "artifacts/experiments_v2/rule_explorer/figure_data_manifest.json",
+        "artifacts/experiments_v2/FINDINGS.md",
+        "artifacts/experiments_v2/INTERPRETATION.md",
+        "artifacts/local/acceptance/reference_review.json",
+        "artifacts/local/references_v2/run_index.json",
+        "artifacts/local/acceptance/final_native.xml"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Full frozen catalogue verified at required N. All regenerated primary PNGs individually reviewed after title-wrap correction; deterministic image reviews remain hash-current. Null/ceiling results and mechanism limits recorded in INTERPRETATION.md. Other delivery gates remain open."
+    }
+  ],
+  "delivery_gates": [
+    {
+      "id": "G01",
+      "milestone": "M0",
+      "title": "Normalized scientific contracts",
+      "required": true,
+      "source_ticket_sections": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "11"
+      ],
+      "required_evidence": "Strict versioned requests, declared clocks/units/rules, prespecified stochastic tolerances and aggregate-reference CSV/metadata validation are implemented. Cross-surface roundtrip preserves the same normalized scientific request.",
+      "test_targets": [
+        "tests/experiments/test_request.py",
+        "tests/experiments/test_reference_template.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/request_validation.json",
+        "artifacts/local/acceptance/ar_validation_protocol.json",
+        "docs/DECISIONS.md"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_request.py::test_normalized_roundtrip_and_condition_identity",
+        "tests/experiments/test_request.py::test_invalid_scientific_requests_fail",
+        "tests/experiments/test_request.py::test_explicit_zero_variability_and_unknown_support_are_valid",
+        "tests/experiments/test_request.py::test_scientific_overrides_inherit_actual_base",
+        "tests/experiments/test_request.py::test_integral_json_numbers_normalize_consistently",
+        "tests/experiments/test_request.py::test_overlap_and_conflicting_prescribed_generation_rejected",
+        "tests/experiments/test_reference_template.py"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404502+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Strict normalized request validation, units/clocks/profile decisions, frozen AR protocol, aggregate metadata/count validation and browser/native roundtrip verified."
+    },
+    {
+      "id": "G02",
+      "milestone": "M4",
+      "title": "Complete demonstrations",
+      "required": true,
+      "source_ticket_sections": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "12"
+      ],
+      "required_evidence": "The fixed catalogue includes all six experiments, every specified submode/control, required support strata and deterministic explorer. Each required stochastic demonstration has 2,000 paired patients per reported stratum under the proposed allocation; tables, traces, plots and a figure-data manifest exist and report null or contrary findings honestly.",
+      "test_targets": [
+        "tests/experiments/test_catalogue.py"
+      ],
+      "evidence_targets": [
+        "artifacts/experiments_v2/catalogue_results.csv",
+        "artifacts/experiments_v2/figure_data_manifest.json",
+        "docs/implementation/sofa_experiment_v2_status.md"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_catalogue.py::test_finite_catalogue_executes_small_paired_runs",
+        "tests/experiments/test_catalogue.py::test_saved_configurations_match_prespecified_catalogue"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run python scripts/verify_experiment_evidence.py",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:31:47.645382+00:00",
+          "log_path": "artifacts/local/acceptance/final_artifact_verification.json"
+        }
+      ],
+      "evidence": [
+        "artifacts/experiments_v2/table_provenance.json",
+        "artifacts/experiments_v2/condition_summary.csv",
+        "artifacts/experiments_v2/paired_contrasts.csv",
+        "artifacts/experiments_v2/figure_data_manifest.json",
+        "artifacts/experiments_v2/rule_explorer/manifest.json",
+        "artifacts/experiments_v2/rule_explorer/figure_data_manifest.json",
+        "artifacts/experiments_v2/FINDINGS.md",
+        "artifacts/experiments_v2/INTERPRETATION.md",
+        "artifacts/local/acceptance/reference_review.json",
+        "artifacts/local/references_v2/run_index.json",
+        "artifacts/local/acceptance/final_native.xml"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Full frozen catalogue verified at required N. All regenerated primary PNGs individually reviewed after title-wrap correction; deterministic image reviews remain hash-current. Null/ceiling results and mechanism limits recorded in INTERPRETATION.md. Other delivery gates remain open."
+    },
+    {
+      "id": "G03",
+      "milestone": "M3",
+      "title": "Operational browser behavior",
+      "required": true,
+      "source_ticket_sections": [
+        "9",
+        "12"
+      ],
+      "required_evidence": "Saved output renders before Pyodide readiness; real progress and attempted/completed work are reported; cancellation, errors and reinitialization preserve state; oversized jobs are rejected before allocation with a CLI alternative. Numeric preview budgets are frozen after representative measurement and verified. Record cold/warm runtimes, workload, hardware and memory where measurable. Failed runs cannot become reference examples.",
+      "test_targets": [
+        "tests/e2e/test_experiment_runtime.py",
+        "tests/experiments/test_workload.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/browser_runtime.json",
+        "artifacts/local/acceptance/preview_budget.json",
+        "artifacts/local/acceptance/screenshots/desktop.png",
+        "artifacts/local/acceptance/screenshots/mobile.png"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/e2e/test_experiment_app.py::test_saved_example_is_available_without_starting_python",
+        "tests/e2e/test_experiment_app.py::test_cancel_preserves_edited_request_and_reinitializes"
+      ],
+      "verification_runs": [
+        {
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/integration_browser.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 17,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_browser.xml",
+          "log_sha256": "68153908a214dd0b746cea123c9f7e23bda1cb42eaba1ed16ad938c37d7ee137",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404540+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "increment_note": "Investigation UI checkpoint: make verify passed 305 native and 12 browser tests. Final source-bound acceptance receipt and remaining criterion coverage are still required.",
+      "review_note": "Saved result before Python, attempted/completed progress, cancellation, structured errors/crash recovery, preallocation limits and measured density/baseline runtime; desktop/mobile/trace screenshots reviewed."
+    },
+    {
+      "id": "G04",
+      "milestone": "M4",
+      "title": "Bundles, CLI and packaging",
+      "required": true,
+      "source_ticket_sections": [
+        "8",
+        "10",
+        "12"
+      ],
+      "required_evidence": "All 11 specified bundle members, identity metadata and hashes validate; browser import and directory/ZIP CLI list/run/explain/verify-bundle/reproduce work. Append-runs preserve earlier patients. Clean locked installation and wheel/sdist smoke checks work outside the checkout. Unsupported versions/corruption fail clearly; scientific identity excludes volatile archive metadata.",
+      "test_targets": [
+        "tests/experiments/test_bundle.py",
+        "tests/workflows/test_experiment_cli.py",
+        "tests/contracts/test_experiment_packaging.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/bundle_reproduction.json",
+        "artifacts/local/acceptance/clean_install.log"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/experiments/test_bundle.py::test_roundtrip_hashes_and_versions",
+        "tests/experiments/test_bundle.py::test_append_only_generates_new_patients_and_preserves_prior_rows",
+        "tests/workflows/test_experiment_cli.py::test_installed_cli_directory_zip_reproduce_append_explain",
+        "tests/e2e/test_pyodide_parity.py::test_pyodide_foundation_and_interval_components"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/bundle_browser.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_browser.xml",
+          "tests": 7,
+          "log_sha256": "de0bda0aedaeee293b9ec1586360f6f003bdb9b926c8f51acf1cd3c48e11a21a"
+        },
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "make experiments-install-check",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/clean_experiment_install.log",
+          "receipt_path": "artifacts/local/acceptance/clean_experiment_install.json"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/integration_browser.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 17,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_browser.xml",
+          "log_sha256": "68153908a214dd0b746cea123c9f7e23bda1cb42eaba1ed16ad938c37d7ee137",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404578+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Required bundle members and source traces, typed CSV, volatile-vs-scientific hashes, CLI directory/ZIP workflows, append and fresh wheel built from sdist verified."
+    },
+    {
+      "id": "G05",
+      "milestone": "M4",
+      "title": "Integrated verification and delivery gates",
+      "required": true,
+      "source_ticket_sections": [
+        "11",
+        "12"
+      ],
+      "required_evidence": "Relevant native/scientific/legacy tests, lint/format, package build/install smoke, real browser E2E and actual native/Pyodide numerical parity pass for the tested implementation. CI actually runs these checks on an authorized branch/PR and provides matching-SHA receipts; Pages depends on successful checks for the deployed SHA. If remote execution is unavailable, this gate stays pending. Live deployment is not required for the goal.",
+      "test_targets": [
+        "tests/e2e/test_pyodide_parity.py",
+        "tests/contracts/test_repository_contract.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/full_verification.log",
+        "artifacts/local/acceptance/ci_receipt.json",
+        "artifacts/local/acceptance/native_pyodide_parity.json"
+      ],
+      "status": "in_progress",
+      "actual_test_node_ids": [
+        "tests/e2e/test_pyodide_parity.py::test_pyodide_foundation_and_interval_components"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/bundle_browser.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_browser.xml",
+          "tests": 7,
+          "log_sha256": "de0bda0aedaeee293b9ec1586360f6f003bdb9b926c8f51acf1cd3c48e11a21a"
+        },
+        {
+          "command": "uv run pytest -q tests/e2e --junitxml=artifacts/local/acceptance/integration_browser.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 17,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_browser.xml",
+          "log_sha256": "68153908a214dd0b746cea123c9f7e23bda1cb42eaba1ed16ad938c37d7ee137",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null
+    },
+    {
+      "id": "G06",
+      "milestone": "M4",
+      "title": "Truthful documentation and provenance",
+      "required": true,
+      "source_ticket_sections": [
+        "2",
+        "3",
+        "7",
+        "8",
+        "10",
+        "12"
+      ],
+      "required_evidence": "Canonical docs and artifact inventory match behavior; historical synthetic artifacts remain preserved/labeled; new model/examples say uncalibrated illustrative simulation. Distinguish MC uncertainty from clinical/parameter uncertainty. Report absent external SQL/calibration evidence. Staging and tracked tree contain only allowed synthetic/aggregate examples and no restricted inputs or publisher PDFs.",
+      "test_targets": [
+        "tests/contracts/test_public_release_hygiene.py",
+        "tests/contracts/test_stage_web_python.py",
+        "tests/contracts/test_repository_contract.py"
+      ],
+      "evidence_targets": [
+        "artifacts/local/acceptance/documentation_and_artifact_review.json",
+        "docs/implementation/sofa_experiment_v2_status.md"
+      ],
+      "status": "passed",
+      "actual_test_node_ids": [
+        "tests/contracts/test_public_release_hygiene.py"
+      ],
+      "verification_runs": [
+        {
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "4ca6b21ef79efabbbaaef0ef5c1625e3c8e4d4912f7a12526710686efaa56748",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:00:02.735326+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "numpy": "2.4.4",
+            "pandas": "3.0.2",
+            "scipy": "1.17.1",
+            "tzdata": "2026.1",
+            "pytest": "9.0.3",
+            "playwright": "1.58.0"
+          },
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/bundle_native.xml",
+          "exit_code": 0,
+          "log_path": "artifacts/local/acceptance/bundle_native.xml",
+          "tests": 301,
+          "log_sha256": "55c8d2d3668def7f680403ec7e78006723add270582ada17cc8f710720566bb2"
+        },
+        {
+          "command": "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/acceptance/integration_native.xml",
+          "exit_code": 0,
+          "counts": {
+            "tests": 308,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "log_path": "artifacts/local/acceptance/integration_native.xml",
+          "log_sha256": "0978e660f82d8acd53f7bc78e2d240a8de05ca736fc51c25d41b2fb992e70405",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+          "dirty_tree": true,
+          "recorded_at_utc": "2026-09-21T06:55:45.272878+00:00",
+          "runtime_versions": {
+            "python": "3.11.10",
+            "dependencies": {
+              "sofa-resp-sim": "0.1.0",
+              "numpy": "2.4.4",
+              "pandas": "3.0.2",
+              "scipy": "1.17.1",
+              "tzdata": "2026.1"
+            },
+            "git_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+            "dirty_tree": true,
+            "source_provenance_note": "Git state of the source checkout",
+            "source_sha256": "6181d8b92bdd86fb1996c294666ca992b93fd2c8544ac585e1540cf90d63c514"
+          }
+        },
+        {
+          "command": "Native and browser integration suites; clean-wheel reproduction; staged hygiene (commands recorded in referenced receipts)",
+          "working_directory": "/Users/blocke/Box Sync/Residency Personal Files/Scholarly Work/Locke Research Projects/sofa_resp_sim",
+          "tested_commit": "76ac9c3b670543380c19957450c215581b508f6f",
+          "tested_source_or_diff_sha256": "8b7170e571394ec9251e0ac2529f1560e0b47604dc333036ae978c82ee5023af",
+          "runtime_versions": {
+            "python": "3.11.10"
+          },
+          "exit_code": 0,
+          "recorded_at_utc": "2026-09-21T07:37:20.404615+00:00",
+          "log_path": "artifacts/local/acceptance/final_integration_checkpoint.json",
+          "scope_note": "Subsequent change adds a passing source-label test; Git attributes preserve staged artifact bytes. Remote CI will verify the committed final tree."
+        }
+      ],
+      "evidence": [
+        "artifacts/local/acceptance/bundle_checkpoint.json",
+        "artifacts/local/acceptance/integration_checkpoint.json",
+        "artifacts/local/acceptance/final_integration_checkpoint.json",
+        "artifacts/local/acceptance/final_native.xml",
+        "artifacts/local/acceptance/final_browser.xml",
+        "artifacts/local/acceptance/source_label_audit.xml",
+        "artifacts/local/acceptance/clean_experiment_install.json",
+        "artifacts/local/acceptance/runtime_probe.json",
+        "artifacts/local/acceptance/preview_runtime.json",
+        "artifacts/local/acceptance/staged_hygiene.xml",
+        "artifacts/local/acceptance/delivery_review.json"
+      ],
+      "blocker": null,
+      "owner_approved_deviation": null,
+      "review_note": "Canonical docs, controls and artifact inventory reviewed; staged source and artifact bytes match original/hash-bound files; tracked hygiene/staging checks pass. Byte-preservation Git attributes prevent checkout corruption."
+    }
+  ],
+  "proposed_resolutions": {
+    "reference_n": {
+      "paired_patients_per_reported_stratum": 2000,
+      "scope": "Each required stochastic demonstration; conditions share the same IDs. This is an explicit conservative allocation proposed to resolve the source ticket ambiguity."
+    },
+    "preview_n": {
+      "paired_patients": 200,
+      "scope": "One selected stratum and a small condition selection."
+    },
+    "rng": "Versioned SeedSequence/PCG64 registry with stable patient, block, stream and master-seed identifiers.",
+    "identity": "Condition scientific identity excludes labels, requested N, chunk size and volatile execution metadata; run identity may differ across extensions."
+  },
+  "implementation_checkpoint": {
+    "source_sha256": "57a52ca0d7925251967516767142699a11a71b5121a3a81620090e192a931e35",
+    "receipt": "artifacts/local/acceptance/integration_checkpoint.json",
+    "scope": "Full local integration checkpoint; complete references and final requirement audit/remote CI remain open",
+    "remaining_work": "G05 matching-commit remote CI, final delivery receipt and report."
+  }
+}

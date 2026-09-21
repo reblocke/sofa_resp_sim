@@ -1,0 +1,1065 @@
+{
+  "schema_version": "reference_table_provenance_v1",
+  "catalogue_version": "illustrative_catalogue_v2.1",
+  "index_sha256": "d7bc75dcc697aa43c3901afb901b3ed19cfbc32804fc2822bfc86f9231e857ab",
+  "table_sha256": {
+    "condition_summary.csv": "8ab2c6aaaba94722b54dee74db2d0be24ca894743568600506b6d14d5256facc",
+    "paired_contrasts.csv": "03b10d11db0cae9da335ec910db5a106d8ec01ac31c7f2815771aac8971b84dd"
+  },
+  "sources": [
+    {
+      "entry": "E1_density",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E1_density__room_air.zip",
+      "bundle_sha256": "99811376b6961740606cee6a4cb76b225ff2729028fb4faea5333911598c6092",
+      "scientific_data_sha256": "32aeb9a4acf3be073eff6b4a2437fd272353860f6425705603fd4221f70d8dc2",
+      "resumed": false,
+      "request_sha256": "6a9803df0e45c991c044cbdfc667aebd0029bba91f4dd968e6754771e99d6460",
+      "source_tables": {
+        "condition_summary.csv": "c08ce3b0907b212442c25aa17b11cfed2807d6573ac363dc0761500b7aec7eb7",
+        "paired_contrasts.csv": "f3966c7975879a085a78972106f4489ce4b1b7f4a0ee05ae6e23f73e0e5310c6"
+      }
+    },
+    {
+      "entry": "E1_density",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E1_density__low_flow.zip",
+      "bundle_sha256": "018aae8a54af184a6816090712acc4f3612c9cb9843854c9a48932e5402df1ee",
+      "scientific_data_sha256": "b465b8548c601179a1f69c6a7d704e8b5b9f515a94b575171403a661a33cfd18",
+      "resumed": false,
+      "request_sha256": "1f7044f09f4f9e99319f112e4e40d3ada8cba2f6bdb7845bde810fb18e2fb471",
+      "source_tables": {
+        "condition_summary.csv": "657b52430c567813bd7ccd57523d4ffb698ad7f328ae2734050d8a00cd403033",
+        "paired_contrasts.csv": "171d22bd26c54d9ee1c35c7bb925540d8e8af4f3c6ae166924e7453b40fb1607"
+      }
+    },
+    {
+      "entry": "E1_density",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E1_density__hfnc.zip",
+      "bundle_sha256": "5c0daf7f95066000a1d91460453668595989aacd62d10c43dc0cc47ea6bc22be",
+      "scientific_data_sha256": "148f58415ab61e0450b7eafc325300a3d5f2c97403e6c741275bceafef116ee7",
+      "resumed": false,
+      "request_sha256": "ada00e6d2bb6815db6d2a1a510193fbb9494a00906dfb9ab5e6c9639762c7d24",
+      "source_tables": {
+        "condition_summary.csv": "1ee857af2adb83923d8dc0b0c6fe64f868a1b8ecc9f73adc79236fd1fa90648d",
+        "paired_contrasts.csv": "e9370b40c50c1c2abcc299aefdb0c2e677c94c2617eede0aa3fc159c06d9f23e"
+      }
+    },
+    {
+      "entry": "E1_density",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E1_density__imv.zip",
+      "bundle_sha256": "2356b9f82cda9dbdf0a7c81242270fe1e88a372aa68817fc9b47c1300ad8384a",
+      "scientific_data_sha256": "bcc6c992af6fc92c736b3ce5057ca72e81dd51c0e51f11d497142c3fad18ce09",
+      "resumed": false,
+      "request_sha256": "50d837f8c829ea9322718349f0c563ad93a3b054c3b02d45f4bed17a914c6fe6",
+      "source_tables": {
+        "condition_summary.csv": "d3bdeb530293d4e083ec1e2c79b0d9ac28c80c7ab6217711f23a2024ede4c1c1",
+        "paired_contrasts.csv": "107f6c737679b036e8c060f6f32ac6da8bc8f5357b6ade1f0732a66c60d4d048"
+      }
+    },
+    {
+      "entry": "E1_episode",
+      "stratum": "room_air",
+      "completed_patients": 1,
+      "bundle": "E1_episode__room_air.zip",
+      "bundle_sha256": "655eb80a5be847bcdcb818f6168586817ec4d37e3e7306fb9c51635ff7ff5163",
+      "scientific_data_sha256": "db3badc9c616196f4758efb548ca1ef7836febfe14760aec9d3cbc4833cba20b",
+      "resumed": false,
+      "request_sha256": "fbd4321111539e69925da1aaebff32d7fb2f71cf416410ce5a534247d3f81cd4",
+      "source_tables": {
+        "condition_summary.csv": "c3c4a6423d35dc103a0de915bcfa1251aa05c26d2b2f2bb376275b8cee4fe1da",
+        "paired_contrasts.csv": "3b60fddbe29dd142a84b4feb0549d1f1ba9d80b8a0f668fda53b424f6def1f8a"
+      }
+    },
+    {
+      "entry": "E1_episode",
+      "stratum": "low_flow",
+      "completed_patients": 1,
+      "bundle": "E1_episode__low_flow.zip",
+      "bundle_sha256": "d83012626c89955953039cf1cfb42680925685066ce5f7d9290f35e6ba10f74f",
+      "scientific_data_sha256": "3610b4cc92731219e3a9f095780177da2206dabcb30c273a7e09fd91b4a46f2b",
+      "resumed": false,
+      "request_sha256": "2d418c238fc512bbac4bb3d785b10eacd30e2f83f40e3b5b766036649f2bcf26",
+      "source_tables": {
+        "condition_summary.csv": "1c2ef167e656aff40b65d1222737d75f8d222f6336ffbc51ecae9592b782c0b5",
+        "paired_contrasts.csv": "304c362b244da62cbf6b37488ae26e889a13acc91f66cf439fb3773b7455e849"
+      }
+    },
+    {
+      "entry": "E1_episode",
+      "stratum": "hfnc",
+      "completed_patients": 1,
+      "bundle": "E1_episode__hfnc.zip",
+      "bundle_sha256": "f6029135ad2af34d61056ef17399ae9e2de923bfafc551dd00d5d97ca4fdd150",
+      "scientific_data_sha256": "c183cf2124139c57e50bce1f544d4d06b9cc93685e157eaa119ffbbd6101656e",
+      "resumed": false,
+      "request_sha256": "355e3f8361a1be5f163ec6bc95a0f4b36adf48a49f8d924f528e38179b6ec618",
+      "source_tables": {
+        "condition_summary.csv": "9ff5b889c61d9a5d3a3c090e36c9034d4687ca5b9d8e1d379a31b0dbdfe668ca",
+        "paired_contrasts.csv": "6dbe20b1c964b050ffb81ac3f80d3563ac7c33764d4b0d7269211994c23526c7"
+      }
+    },
+    {
+      "entry": "E1_episode",
+      "stratum": "imv",
+      "completed_patients": 1,
+      "bundle": "E1_episode__imv.zip",
+      "bundle_sha256": "35437ed40e78969f77cb343b3c56228f198b110b6229c817c4183d6340fe8107",
+      "scientific_data_sha256": "3caa4c931020e587470b0f5d049ced1c70234d996746c82815b00fb46ec3fb70",
+      "resumed": false,
+      "request_sha256": "e25526698b83350d5c38238429f4d61d311c73489ba932bfe7dca3d26aee52d4",
+      "source_tables": {
+        "condition_summary.csv": "e9ab347f209df110054e1ea984af09725bce04f37786e935358969e91f38e665",
+        "paired_contrasts.csv": "6e867e9332b8d4507ec6b5bdf0d3011c05ac9385de301a65bc2249c50ef7c0db"
+      }
+    },
+    {
+      "entry": "E2_noise",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E2_noise__room_air.zip",
+      "bundle_sha256": "5f2d531b2543c04ec679d43ee5a0d8bad10290348f3ec2630d81939b6f1b7501",
+      "scientific_data_sha256": "7ea5671c0bc151d9670c6d228f1c826b14dbbe129db3e683f2e690aba5024448",
+      "resumed": false,
+      "request_sha256": "8ecbba36a3cbdfeb47465bebaba0a755f3051951d4eca636347d2c29ab931802",
+      "source_tables": {
+        "condition_summary.csv": "0c5800c005826b9b0e1119fc9d7b602f50296ecf687ad2a33241568dec8fd092",
+        "paired_contrasts.csv": "0b8f40c869ea268be300e37642e395ab49af4910f63240ea09e7c92c24c4b6df"
+      }
+    },
+    {
+      "entry": "E2_noise",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E2_noise__low_flow.zip",
+      "bundle_sha256": "53182563bcb5747d2a9c76b0bb46bb8c0ddb1c54986a50631e43c0f853d1ef0d",
+      "scientific_data_sha256": "bb65f0bc83b92a6bb11d785ca0247d6df579d34c63464a59c6092306130873f2",
+      "resumed": false,
+      "request_sha256": "44666bd658c0388f1b4f86b9f3b99c90e056a8161860e7393379f601a6c56f3c",
+      "source_tables": {
+        "condition_summary.csv": "1dde8b1ac6695ee979660a1c0963bfa091a148c1bc4ac5c1e5f4e381e08b99ba",
+        "paired_contrasts.csv": "dfa4384b05d32aeae8568aa696eb5f1b10cd95cd49989e76e0d7dea1c5f1964c"
+      }
+    },
+    {
+      "entry": "E2_noise",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E2_noise__hfnc.zip",
+      "bundle_sha256": "2ace2488b905d3ddd998fbdbb483267d94140c85eb8ba35588bf3ddf63509a0a",
+      "scientific_data_sha256": "cbbbe58f75c28686b7be78064172007aa0e4c61a6fa879f36c2472e11933632b",
+      "resumed": false,
+      "request_sha256": "53631d4bc6f0d9c147fe0b2ec10ca0f99c17209736585cb77e9641640737c0d7",
+      "source_tables": {
+        "condition_summary.csv": "0d4f3d5fa7e802a215bb1b007b8f55bc3bd50c45260a7323a402cac3d7eab2a7",
+        "paired_contrasts.csv": "d8b0d24ae341a8f1caae69c3784dc207130f8c24d3c265549a6b7641f777e2c6"
+      }
+    },
+    {
+      "entry": "E2_noise",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E2_noise__imv.zip",
+      "bundle_sha256": "8bf3b1fab1d2b7dd106a939bfcbe5e5ac406a250bccd184e002514adbadbb537",
+      "scientific_data_sha256": "9d1ca8396886668c724accd336121179bdedfedf865908309109bca8caab8381",
+      "resumed": false,
+      "request_sha256": "2ffe36276695e9c6864b5d73b3f7ccb16f64fb7d3c0b0aba8497db025a2405c4",
+      "source_tables": {
+        "condition_summary.csv": "5270548139fd39fc064c17dd826281478552dab5d17554c8ec78bfa57208aa05",
+        "paired_contrasts.csv": "235a78299695bf0b9ad3f267dc04e17bc68ba054f8f020c49f16787119b8ee0a"
+      }
+    },
+    {
+      "entry": "E2_bias",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E2_bias__room_air.zip",
+      "bundle_sha256": "9208ef4559dd6fb94090c245746d3c16d8e9701023443c403d209a37c7f92a78",
+      "scientific_data_sha256": "1179a802f9dd05c8b3a8bd724472ab32884721686ce36dcd49bd5f4272d7bd65",
+      "resumed": false,
+      "request_sha256": "e18683f4c8d5526a13d8dc40d933a82d3f93a6cb7c091e9844769e1d2bb81be3",
+      "source_tables": {
+        "condition_summary.csv": "9046511333f83decfefd7200c7bcd08cead355738ad9a17b46068f2b0c30b7d4",
+        "paired_contrasts.csv": "3247c544b501a61fd33cc0bbd65fb4efcfe5f096b4a6a610a527bdd24fb8ae64"
+      }
+    },
+    {
+      "entry": "E2_bias",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E2_bias__low_flow.zip",
+      "bundle_sha256": "ad6f5a0401190efde1ec25bbc02a73a8139d4b5287f834da2e32d5bbcb52d370",
+      "scientific_data_sha256": "9084b18db5d715beaa21bd80999c695016d2b3bb76df8e83308cabc7665b83bd",
+      "resumed": false,
+      "request_sha256": "44e7796c7cfef3cb4ca511d6f7ea27da2766ce9f47d1494263747d87a3e74325",
+      "source_tables": {
+        "condition_summary.csv": "80b5beae5386ad8bac17ec6bd4cc2225deb51372c5b02d90bb99029c01412282",
+        "paired_contrasts.csv": "49e8eca323fcd8016993cf7e7fba170c3267d4275f5f2b9cea5009034ac528e6"
+      }
+    },
+    {
+      "entry": "E2_bias",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E2_bias__hfnc.zip",
+      "bundle_sha256": "926190b4ea8550ba6ebcc0f3f4f4e488f8966aab281c5b310500330adf024b9c",
+      "scientific_data_sha256": "507985ce85e76a35b8f85402f4e9f40fa2c86ffd1893d8d7ea1606977bc62bba",
+      "resumed": false,
+      "request_sha256": "1e9805f3f135ad30a7d61e232d9bd798b176869994cdf6941cf231ea25fae71d",
+      "source_tables": {
+        "condition_summary.csv": "246f9e941a20d3b23897cecd8d86390f0fecf366ddca8ec15f0d5e14b861b7a9",
+        "paired_contrasts.csv": "fa7f6b7fc4c5e22486ef64f42fb6f7961d95fe348c2e9302bb145b5c70cffbd7"
+      }
+    },
+    {
+      "entry": "E2_bias",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E2_bias__imv.zip",
+      "bundle_sha256": "ff01100ef935e76d19f8b01a7da6700b348ae5f6872074f51127ab0b9e18b215",
+      "scientific_data_sha256": "e906568db067af81fbb3175cf23b402ab057ec6a650235085b5fe2c4255afd6f",
+      "resumed": false,
+      "request_sha256": "ca97d648d9885aa9bd5a136b01d8a30dc8c1e18b51c3e7e454d5ecd06a0d4567",
+      "source_tables": {
+        "condition_summary.csv": "6948567f9da375372c8f43a39600b4744d9b4e7bc3f0250015012706c1bf52b5",
+        "paired_contrasts.csv": "5da3bd764545039a2c3a8bd1e39957d0f455e1d6492b47245f9d310fdca340a1"
+      }
+    },
+    {
+      "entry": "E2_rounding",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E2_rounding__room_air.zip",
+      "bundle_sha256": "3bb3a25bfaf73ce12b7ff4aa35e425c7267d1d32d4de1c5e8c836683ed8fd44f",
+      "scientific_data_sha256": "39b162b8c38d00abc8b067530b5a71c1955cc092a4a8f11e4bc1af70508ce017",
+      "resumed": false,
+      "request_sha256": "c2b532765a20b502366b9a586b5311d937f91c6274287e8e724f866d1305932e",
+      "source_tables": {
+        "condition_summary.csv": "9a11b6c78657590482d8928645179e5fa4dff3b941a138e061713fc562c9c6b9",
+        "paired_contrasts.csv": "2aec14de8224b2e2270485ef191a0c3e557e17605a20a05f3f92e57b401d8248"
+      }
+    },
+    {
+      "entry": "E2_rounding",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E2_rounding__low_flow.zip",
+      "bundle_sha256": "54e0dd9b2082d512018c5eb9fef0c45d20583586329325737b3d2b9675e3da0e",
+      "scientific_data_sha256": "c8dc1a987264f1326ec1042ca9479bca8bc234420da1ebefe07a287a523002b4",
+      "resumed": false,
+      "request_sha256": "77cff36a744fed31ff069a7caf9824cf4c1eb76652016b8a793a8e2b7cd1d3ad",
+      "source_tables": {
+        "condition_summary.csv": "8c6a17523b476924cc9b59e8ef547e28ef7e43459023f507dc9cb81c660c8f01",
+        "paired_contrasts.csv": "bf9f9762d1ec9f42d7101e64e90c6fe6d0950c7ef07a27efb6622207427b7586"
+      }
+    },
+    {
+      "entry": "E2_rounding",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E2_rounding__hfnc.zip",
+      "bundle_sha256": "a8353c6d73bb8491f781ce5cfb8d324a1b502caa50729fa53e8bfc2d3ddea733",
+      "scientific_data_sha256": "88ad7497c0db02f907bdc18f3f124b130b08f84c3fcddeda6e98b1ec329769f5",
+      "resumed": false,
+      "request_sha256": "d4c3f499af5cd804c66c0d349ee86605fb2b2925a4df23b3918b82242667324e",
+      "source_tables": {
+        "condition_summary.csv": "7e7fe6f527176e6afba6942433f517e7e3d5fc7667403e16755fbbcf65740aa5",
+        "paired_contrasts.csv": "0c76b84d8e218ec2297b9e4fe6d44194e15a1795b302013ebb752d9e45a35be3"
+      }
+    },
+    {
+      "entry": "E2_rounding",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E2_rounding__imv.zip",
+      "bundle_sha256": "7daa1a42f6148a01fbf97b0ed761320d9e145e84b6ce124ec19f61d908c0df33",
+      "scientific_data_sha256": "0e6c6117a054837485fb1306ae5541b365c7d1d9d73ed8a434d3b1caecf9ede6",
+      "resumed": false,
+      "request_sha256": "04da848daadd681dd71388c9b54e70c5519b0cfb93eb3dec3da06a187eb92f5b",
+      "source_tables": {
+        "condition_summary.csv": "a2ebc1097b72571c26ae91e39da26eaf7b2297928ccaf213d7cbbc8fbe6310b4",
+        "paired_contrasts.csv": "b5a2e15ef2604a88683082e1fc796f6bb3d014d5b62e919b4f4e65d46a90cc34"
+      }
+    },
+    {
+      "entry": "E2_assignment",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E2_assignment__room_air.zip",
+      "bundle_sha256": "a3d53849317f10c7ab4a1e5fe41523b2f6a2f035db1c3485fd5c554237eaf4e9",
+      "scientific_data_sha256": "13b0b15ac690bbbf2ed42b78e8b465079bdae223c828cf11890debed911f30b5",
+      "resumed": false,
+      "request_sha256": "146a214680731e9225c52f6170972acac332fdca3584825057211766fb9d452b",
+      "source_tables": {
+        "condition_summary.csv": "15bcbb22d80588f33d1f53e0ce1d2c51ce40a5dd65d96bab88728876b6ea7b3c",
+        "paired_contrasts.csv": "b1799d29edca27e89c9d102690a6aba170e7a65263178941f8e57faec75c9c6d"
+      }
+    },
+    {
+      "entry": "E2_assignment",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E2_assignment__low_flow.zip",
+      "bundle_sha256": "0dd5d84fecacdedbb7ce3654d0ecc16221f89a7997d6cb49da50227d2977309c",
+      "scientific_data_sha256": "39de7fade2cb14cffe25dea538c9e32b5d9a7eb743e05260fe2ad1e97a084f4f",
+      "resumed": false,
+      "request_sha256": "88489d3f45959efa4aa1c30f8dfeb10bfdc2a3f40757d95968ca3ec4c990cf06",
+      "source_tables": {
+        "condition_summary.csv": "c9a87c737385e87da1c8bb5d3b0adc81fad1b907ac0f39c16b79d94752882e0f",
+        "paired_contrasts.csv": "eee6baa57014ac33cb8a2c464b2b688e5b0adedabdb0d0212c5710cb3a2a44cf"
+      }
+    },
+    {
+      "entry": "E2_assignment",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E2_assignment__hfnc.zip",
+      "bundle_sha256": "3533a40095382d36c89f33794ad450f01f4a69ab4f5afaa9c0dd6c99a54c9124",
+      "scientific_data_sha256": "6487d6f3cc2afcdc0a6fe7e7136bf9ac6a67b82757f47d4dd29946ff14da4cf8",
+      "resumed": false,
+      "request_sha256": "fd351bf31996c5d96907e7fd5cbadffa8ce7dcf026be4e93bce1e0022a97c6ba",
+      "source_tables": {
+        "condition_summary.csv": "b0e53182fe4a5e6dcab186054f7b4c42bbf77e5592d20d30824b578cdea8090c",
+        "paired_contrasts.csv": "e12e224848a98f3f252c3075f5a72c8fcb5a0f7f741b603e56eda57e9a0b8ca6"
+      }
+    },
+    {
+      "entry": "E2_assignment",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E2_assignment__imv.zip",
+      "bundle_sha256": "46db9a1861b9e2289c9e00731d0571166ea37e154011046c0eca481fc07c194a",
+      "scientific_data_sha256": "cbcd100c4acf90fd43fa3c5d241f63c5bc6a54d7b0834e72c432a02e205e765f",
+      "resumed": false,
+      "request_sha256": "38dffe70c9815321a44ac99680bb153156b78242488e594e4e32b25f51d3cb2e",
+      "source_tables": {
+        "condition_summary.csv": "e9723471ac8cbef4867d02767885a33d37b41790909688f8a4be1ab991fb280f",
+        "paired_contrasts.csv": "3ec2d4ab9e95cc893418c9c4ad91e5ae26a3b79b32d673a7545ef4839f630ac7"
+      }
+    },
+    {
+      "entry": "E3_missing",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E3_missing__room_air.zip",
+      "bundle_sha256": "8e57782d469aaaac3659dc80b1f4c7e67b729e7a483ac4ce1308f244cd4efec4",
+      "scientific_data_sha256": "f662ef61f1bfa19936f200d803b34a46f44582c73d7a5e944787431ee915dfe0",
+      "resumed": false,
+      "request_sha256": "0c3d2833cece0e5829b09b1fd00085ff9d87a8450f6d189c24fc1396402b8419",
+      "source_tables": {
+        "condition_summary.csv": "94b4ac6aed23910203e89e7e683fafc6a7e4ce92893633d62d754776b9b8d72a",
+        "paired_contrasts.csv": "9a496dcb34f0cd3fdb6910d37b65e5ddd38a43d9b18fc19ceef15342a82a1584"
+      }
+    },
+    {
+      "entry": "E3_missing",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E3_missing__low_flow.zip",
+      "bundle_sha256": "0dc2de85daa67223c8faa467adefddf229f7b6849ec305bdea8156faa5e13f7d",
+      "scientific_data_sha256": "4c33e17004b15df9bef9bb4b6345fc45c8ccbafce6240de3b669d3efc3943590",
+      "resumed": false,
+      "request_sha256": "05a54dd93e5db2da88d09a29a6f47fac2ed2fb4675436561dc0883531d5c4577",
+      "source_tables": {
+        "condition_summary.csv": "8e9b60690839fe724fe72d54eb4f45ac08577bd2b7cd115a89fd32e42c2b8638",
+        "paired_contrasts.csv": "ddb8a5bd7c102f3726ba4fb7dc4292ae3826deea30972e2ba408471b5408c414"
+      }
+    },
+    {
+      "entry": "E3_missing",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E3_missing__hfnc.zip",
+      "bundle_sha256": "f54a42e5ef6351c9158bafad05d3b9eaf96003ed00fe4ca95a7ad4fd7b7d367c",
+      "scientific_data_sha256": "6d4726b344ef818604c15f29ab213d3d427f2153ad74b0344c1912fbdbd12299",
+      "resumed": false,
+      "request_sha256": "d12b5f9869b7ca4ed595b07296c4076eaa3fc76e3de0e418078b877889096c08",
+      "source_tables": {
+        "condition_summary.csv": "6f9f1b0498df42b563d333db7a24478f47b156b7ccd86064386b1b204f891d81",
+        "paired_contrasts.csv": "93f587de73c5df4b4a380824a9a361d5032c391c717be1aae9b74304ee9c12eb"
+      }
+    },
+    {
+      "entry": "E3_missing",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E3_missing__imv.zip",
+      "bundle_sha256": "e6ec9040b0e0918cb973ebfa54dcfd1a2fe703d370974efb313fa907ed2e61c9",
+      "scientific_data_sha256": "094396766f0fa458b6d4cb0babf268966b948fd4b392884ffc4587331d5cf52d",
+      "resumed": false,
+      "request_sha256": "25eb5252019d70ad6796c2ab30062b9616062928c1d9e7677c8d94b2133c55cc",
+      "source_tables": {
+        "condition_summary.csv": "295bb687a71623d26aa1314aa200dbc15651ee14e9f893a02679d1fe59a1a530",
+        "paired_contrasts.csv": "f7645f9587a8df126ac4ce62d479b99005fc03f93dfaef63ac75fe813b94943f"
+      }
+    },
+    {
+      "entry": "E3_timing",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E3_timing__room_air.zip",
+      "bundle_sha256": "64cc5699b5fb66eed22aad61d072def7c05cdc95d7e980b12e7bac6f2970bdfe",
+      "scientific_data_sha256": "3af784ca116c4156ee542a8985049db739a2e6a9b91c3a57108d19548c23ebb6",
+      "resumed": false,
+      "request_sha256": "cbdf1474686528d2317a79d9b0c3fddd71fbc97560c9828fdcc2eae74a22d0b0",
+      "source_tables": {
+        "condition_summary.csv": "995c5ec1850107ac018feb4a2e4095ec001917cfe306a1e7e836d8b34182759e",
+        "paired_contrasts.csv": "27c7946e259135e5bcb77137b0ef3812184579e818c60292e6762991f089469c"
+      }
+    },
+    {
+      "entry": "E3_timing",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E3_timing__low_flow.zip",
+      "bundle_sha256": "f461c77341f9ff37660799ae5760eb9c3298c2aa9957e1d436352536d7158e4a",
+      "scientific_data_sha256": "4c39c5751355f8b22642594865d0af8ab2b8d5dea8802c45e3d8c32c9dc51b4a",
+      "resumed": false,
+      "request_sha256": "fb0266af250a1ee2243cf1b3b815d2170eb604ef03321a9223febe4d1352b591",
+      "source_tables": {
+        "condition_summary.csv": "5a1214a3fb02bddd45251536c611add7ee5885a403b84dc16b87003cb01eab56",
+        "paired_contrasts.csv": "1565d479a9a64e8dc1775eea6c8d3800585b09a4198febe1f9a6599a3ecde652"
+      }
+    },
+    {
+      "entry": "E3_timing",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E3_timing__hfnc.zip",
+      "bundle_sha256": "ec65d21baa9c1c280acc5d79ed1f86a2b76211d454c00954b0b3840382e6e00d",
+      "scientific_data_sha256": "43821d1aecae71c0d133677caf7ceafb1c130e063360f45d03757df8fa93f2e9",
+      "resumed": false,
+      "request_sha256": "472dd541350c7669603d4fb2c608517055b6c21190bffc9bc50c1ee0b0a67d6c",
+      "source_tables": {
+        "condition_summary.csv": "25570fad0895e69805b58786d0f7071fe3bc13da8d4ef70f70b5a8ce8ca5cfe1",
+        "paired_contrasts.csv": "0fb6adc09886764956fa6c0063fe703c80f3762f800172a00eba41fc2d278267"
+      }
+    },
+    {
+      "entry": "E3_timing",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E3_timing__imv.zip",
+      "bundle_sha256": "543bcb744ec82f37884b8aeebd1f76e529247ef1f1686d320cb73bcccf5d0d8b",
+      "scientific_data_sha256": "aa5427588c441db6fbec752a0807e54b393f9891fb0722e38c1ce58014c031d3",
+      "resumed": false,
+      "request_sha256": "e548672cc262ecc1ebb699eb251f7ca76f435cfe8b9797554f5022d0372a07f4",
+      "source_tables": {
+        "condition_summary.csv": "0478a7127b4a31aac8488b1d45499b37ac99a4c860bb548715fc9a8bc0e0e6fe",
+        "paired_contrasts.csv": "f9e8d6ccd5db4b7a22881e908d2c9f16e7cc8f3b0a4406d97db33d66b4cadb29"
+      }
+    },
+    {
+      "entry": "E3_sources",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E3_sources__room_air.zip",
+      "bundle_sha256": "32a07053e85eccff0fb3d70012e5c7cd0738ac5ccb047c3591b13499d2a25448",
+      "scientific_data_sha256": "e689bff181dc66183f65bc305d7068696533af2125656e5cbea520ac0e17d120",
+      "resumed": false,
+      "request_sha256": "13f13258073270c7e1146886525e1fad0732e0a036eca4d7784948754d5a1058",
+      "source_tables": {
+        "condition_summary.csv": "7bd34f517292c6a2e40d403beceb91fa890bb02fe6d25e60ba04d1c375e84715",
+        "paired_contrasts.csv": "5e82b5012b9fade567d565ee2863f459c1c834c518185668be2aef61ecd4c888"
+      }
+    },
+    {
+      "entry": "E3_sources",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E3_sources__low_flow.zip",
+      "bundle_sha256": "83583d7f8d83d09f432ba550267a252af3bade20cf7e3fe5db9066670ac476c7",
+      "scientific_data_sha256": "7f21b60a5136222727d849bd60169ecd9e933972afe342a70e8f666493d2aec9",
+      "resumed": false,
+      "request_sha256": "3bdbbb23bb03e8694c714ab8ea6affeffc279af29e91eebdb1db634c340c0df0",
+      "source_tables": {
+        "condition_summary.csv": "ae42ad703c54ba544d8c27f3f0646ed402994704218efb703b931bdddbdc5f53",
+        "paired_contrasts.csv": "fc38acb94584b51af9365529b739efac3d59c8d31af392b2cfd60770bc0d25ad"
+      }
+    },
+    {
+      "entry": "E3_sources",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E3_sources__hfnc.zip",
+      "bundle_sha256": "3a1f78c8ddb2b3d50e22e9a389b1861a2414cf9001bb170545c9bcdfd4c6fea1",
+      "scientific_data_sha256": "2c5c2a4dc92f5fcc6c49857c8c4af3d31584a61d4654f917c76d636440d9713a",
+      "resumed": false,
+      "request_sha256": "1586da2849412412ebf7c52e04e6964e5892606f17f14924401014dd59fab960",
+      "source_tables": {
+        "condition_summary.csv": "8adb1a6a183f119d45ed48c75562a06496d58319bb0f77551830fc00ce893219",
+        "paired_contrasts.csv": "a42a5eeda43c5fc46362d5eb89e738d41cc0a43f811afdc8fd8fd4610ff9a026"
+      }
+    },
+    {
+      "entry": "E3_sources",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E3_sources__imv.zip",
+      "bundle_sha256": "e84ffa5bed95a73c309eab89eb664e72a1fd0a007d245b49c2c044ec62c74e8a",
+      "scientific_data_sha256": "8799d4c7da073ac440764f36c0ddfae58d6bf1ebf5829607ae6b188e32fe47fb",
+      "resumed": false,
+      "request_sha256": "865abfae4e649f593cce6540381910a50553eacfb8977794c8c9908a69a2b3b6",
+      "source_tables": {
+        "condition_summary.csv": "6afcab8b4dcc68c07ef208583e2066da279bc2286dbbc095010b6f62449a14cd",
+        "paired_contrasts.csv": "f818734c184de51e6c380c6be333b1fd03a94c8fbec4e999819cadf43fd27b09"
+      }
+    },
+    {
+      "entry": "E3_stale",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E3_stale__room_air.zip",
+      "bundle_sha256": "b413a4134cce544fa354468607ed3e051d001572cd4cb9e351608a999ee45b09",
+      "scientific_data_sha256": "2f8eba1438bcd17ab9326ae52c5684985f90f57c75868ddced111b34a0da7f2c",
+      "resumed": false,
+      "request_sha256": "bec2eca3bc861010001df223e673856a56bf47a0b029527ec49957c3528137bc",
+      "source_tables": {
+        "condition_summary.csv": "d50ad3ffaffdac1cd1dcb2a887bda6123e860f2aed3729052cf9d1d8fce286fe",
+        "paired_contrasts.csv": "669f13aa6a5bef180e277b26bb82267249694cc9010a9cc1e474614568d84de7"
+      }
+    },
+    {
+      "entry": "E3_stale",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E3_stale__low_flow.zip",
+      "bundle_sha256": "27204666e87f0d7d1a80fa54dd903beb540c2e1c6d3d56e8213e7aed69a6f870",
+      "scientific_data_sha256": "c2af70c19d3a33c5e35f3c26c7b822a710a1308ff00014592b0a1a71ea5f82d9",
+      "resumed": false,
+      "request_sha256": "073207c82bf1c915510223e247bc942d6909cea22c1e5c64b1752b1d4c117cdd",
+      "source_tables": {
+        "condition_summary.csv": "21b930ea38cef48a27d7b03b4d9589454d4e074f1e79777a5c6a003545a92f1f",
+        "paired_contrasts.csv": "d4d73eb2947b1598a19ecd91ebaa3e8ee493e91bf930dc26e6d93e1cfcd327bc"
+      }
+    },
+    {
+      "entry": "E3_stale",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E3_stale__hfnc.zip",
+      "bundle_sha256": "4d30a8c5d064510943912dc1465aa479c69902ff90162cf7bb6dec372eb8849c",
+      "scientific_data_sha256": "e269e04a3878278bb67df6a1f7dc65b88c4c9634e48594375a3691ffbcf8c04b",
+      "resumed": false,
+      "request_sha256": "a71fad1764b3f80a373573c492cf07f76a17aae96f38c4f4fcf5df09bbf98f82",
+      "source_tables": {
+        "condition_summary.csv": "68d210761986777f06d07d5e158a06a6a702237020e12be620e6d3bf037db45e",
+        "paired_contrasts.csv": "69967b354f1a490fe0ede34b0851dbd55b59482f0666a17e51c43ed252840e77"
+      }
+    },
+    {
+      "entry": "E3_stale",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E3_stale__imv.zip",
+      "bundle_sha256": "36ef2d22dcaf8a2b6df198949a6239a76ee67650d0751aced222282edc687d2f",
+      "scientific_data_sha256": "5bfb1aac5159cd96c8cceb75f4989afc58f9cc8ba93516d4fa45b112b37bbd36",
+      "resumed": false,
+      "request_sha256": "112da754a1f1ce46c88f02f45a058c8693e7afbb9769c9acc60262cbd9e74a0d",
+      "source_tables": {
+        "condition_summary.csv": "c6ff9988501778f0de411e905e6332c2b6318afba7865d0d2a7b0235be251896",
+        "paired_contrasts.csv": "ebee5862c1be64ee81105a03a3b0946bf19f65919ac87a9a064f7476c8dfbc5b"
+      }
+    },
+    {
+      "entry": "E3_labels",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E3_labels__room_air.zip",
+      "bundle_sha256": "468819ed8734ea7b57e9ab32e29f4f79e98938c05ca49e4c8a48be85fed76201",
+      "scientific_data_sha256": "2e2ff4e61adf712b149be2b55a329187afe972d916f4a05ad8c791afb3f4fc5a",
+      "resumed": false,
+      "request_sha256": "ea552be3f89228d815c5fbf5608388d2389be4d22169f1af8da8dd15517b4f06",
+      "source_tables": {
+        "condition_summary.csv": "7c7a08c3ee7d8fc4a7acc58ea2bbd5e8eeea039186fd9a31ed19d4f7e3d60787",
+        "paired_contrasts.csv": "3829b0e153814aaee778db241cdfa4420e8aae88c41ca6d26b0e1178efbef08c"
+      }
+    },
+    {
+      "entry": "E3_labels",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E3_labels__low_flow.zip",
+      "bundle_sha256": "1aeaa792389215f3c4f07e7e57b7f572ed101a0278d1197dc258dff0d38aca2b",
+      "scientific_data_sha256": "1aa4cf496a60ef90c8dede9783171720b01c2dcdd1caa423bc208625e2f3e020",
+      "resumed": false,
+      "request_sha256": "b30a16dfdaba3aef787f6121180c1f2d70168ecfb0533e91d072989ebf1bfcde",
+      "source_tables": {
+        "condition_summary.csv": "59f67743c8813ec7d02da03ef9a1dcf034cf7d0ca01d447b06f9f07205a25134",
+        "paired_contrasts.csv": "0128b664958a487fb728ff8ecbc249eea2e26d63c7b3065854947ab83ccda1d7"
+      }
+    },
+    {
+      "entry": "E3_labels",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E3_labels__hfnc.zip",
+      "bundle_sha256": "12ab27e733717f2ca379ff685b31b9530888c085a78dff0937018823250eea4d",
+      "scientific_data_sha256": "62510d72ae8e05fd50b69e56da3b6f04407e2beb23b1b40427bc16f3bb46bf61",
+      "resumed": false,
+      "request_sha256": "03b0ff26d57180b303b8060ea0ddcac444e61a508df9789f18ac5f43dc2fbc6f",
+      "source_tables": {
+        "condition_summary.csv": "080d9883b2edd352bf2b3268bf826887103a9e2a995e6c9f8bbafa700b919ad6",
+        "paired_contrasts.csv": "2c89752ac10a3411f37b7103d49f5ce17bd8f0ce04b1683634f6626e3e04d00f"
+      }
+    },
+    {
+      "entry": "E3_labels",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E3_labels__imv.zip",
+      "bundle_sha256": "37ee1d23f547ace2e2b7bf60196a7eee6c40c36714411ecd66155bad55bda347",
+      "scientific_data_sha256": "8c8b2da7b19b26ef43dd23fc93d3c652c8251cb887c51fe5f3fce2ca6abc58cc",
+      "resumed": false,
+      "request_sha256": "e45f25dd21e3d58b1f8bb905a3504d1569cd2d50be32ef83de4ca78dabd54b21",
+      "source_tables": {
+        "condition_summary.csv": "452d8279a49d14b67ee4e1e28669f1d782ee8a370f7953fbcdb1859938980ba0",
+        "paired_contrasts.csv": "31a27a376be111d3123555508201efc36a0ab856e12c4ac16d9136db9df41427"
+      }
+    },
+    {
+      "entry": "E3_zero",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E3_zero__room_air.zip",
+      "bundle_sha256": "a373059358249572b7b7570d88d1d430b8944b8a1fa95cde477d3ecd8270bb7a",
+      "scientific_data_sha256": "43873e482d727dc3aff180a9851013233fcc84fb7b42da0a1ac49e995e619f2b",
+      "resumed": false,
+      "request_sha256": "3e25981195e7677116ae6f43f3d4ff77f976e0db8185cf0c38d089963170a06c",
+      "source_tables": {
+        "condition_summary.csv": "61667c794604c35cf1d090cc9336206ab11bece170a2876c1a51e28ac4e9299e",
+        "paired_contrasts.csv": "3398b1594b47d2bc604589155303ba94b6247615d09a64e59dc2339f2a3f6c9f"
+      }
+    },
+    {
+      "entry": "E3_zero",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E3_zero__low_flow.zip",
+      "bundle_sha256": "3b66e5defcfbc13b781b536f652d7fdf39e464dfab119caca25a735c751c61b5",
+      "scientific_data_sha256": "e19bb8b694913f565d97ece9a5c74c659296a642f0d1715f04aa66049ee510d5",
+      "resumed": false,
+      "request_sha256": "b2eca8a9187d649045bdb82bc44321064114551d8c67b426aad32a135de6a9b5",
+      "source_tables": {
+        "condition_summary.csv": "f8a10c384c1ca659eeccac538834dd9410b58b547a62d3cffc43b037f1fbb64d",
+        "paired_contrasts.csv": "9a5c86f2fbf87d7472d48a2df742a9361fc992f3927a8271f04c1c7c35ad1cf1"
+      }
+    },
+    {
+      "entry": "E3_zero",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E3_zero__hfnc.zip",
+      "bundle_sha256": "6b0c909fa895ef22856dc6f0072960b11c28a7f583465bbd97fa8d7abe23da3f",
+      "scientific_data_sha256": "ebb220bd0520d9629d67055add249399675cee76d95176ddfde8d831daee0c9d",
+      "resumed": false,
+      "request_sha256": "f4c1d56ce1564037e279168ce4fb2ad6fa0d9034a2ab7bef51cf7216d2ea412a",
+      "source_tables": {
+        "condition_summary.csv": "02d883c300c121cbbc4520c41fb813ace04b4a7d4233593f1c1919ecb7449383",
+        "paired_contrasts.csv": "1adf182367dca439c91d16cbb4a272563f0ef8e126731ebdce2ff5ccf1670e29"
+      }
+    },
+    {
+      "entry": "E3_zero",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E3_zero__imv.zip",
+      "bundle_sha256": "bacd5374c9e1478cb5970f3ada99dcd8b697869f5795ef6ae0700f57a145e830",
+      "scientific_data_sha256": "71a57013304f1c9640a1854d03858dd0e199321e9ef13e989494e36c63f21b24",
+      "resumed": false,
+      "request_sha256": "70869dfe6159163d4a0114c4e49ef4736bcc6eae9cee75841df81c8b907ddccd",
+      "source_tables": {
+        "condition_summary.csv": "1b781e91d2928962c6c3e240570fc6490ce1c3a45a78950f9f45d3a50bb8b865",
+        "paired_contrasts.csv": "70a5abc0c21a3043183351d8ad1570ea9778f524e52191eb60b52fc07ff60e44"
+      }
+    },
+    {
+      "entry": "E4_estimated",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E4_estimated__room_air.zip",
+      "bundle_sha256": "42df738bab40b41b75101b2e151cd77bc67128daa238dc1c48647a322a86bf41",
+      "scientific_data_sha256": "b9582a8bbaef2e7f2d2c604126f514d58e35b4e679486b66d66621ed78e1dc04",
+      "resumed": false,
+      "request_sha256": "12b95804861abd36085f0d4b819f03f866a663355df0959d75cb3f26069d527b",
+      "source_tables": {
+        "condition_summary.csv": "8103e56989097642155fceb5f48167ae24e887ba8fb755e13ee836510fd756f5",
+        "paired_contrasts.csv": "e2f13684ad870f84afab44dd59a4709a52e7c326e1bf0eb512695654ded243ad"
+      }
+    },
+    {
+      "entry": "E4_estimated",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E4_estimated__low_flow.zip",
+      "bundle_sha256": "543bebc6c54e51582dd63c34ffe9c3572f4577d79971a1837699a229a453c335",
+      "scientific_data_sha256": "d25a03aaedc41d154cc4dd785b940865ac9cca8aa0a8a16ada88b17b3d130c78",
+      "resumed": false,
+      "request_sha256": "082728cc7ce7acec2bc889bcee254699547e43067ce85fb3938a7e6686a18822",
+      "source_tables": {
+        "condition_summary.csv": "0ef34432c865750bf9f9c72956a04e7fcbcedfe931a64728f31e31125119cea5",
+        "paired_contrasts.csv": "bac15ac4e10eb90126600d0ca48b5231d32cce5a1a87407dcf620b81c37583e4"
+      }
+    },
+    {
+      "entry": "E4_estimated",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E4_estimated__hfnc.zip",
+      "bundle_sha256": "f569fcaa9c08434326995bd900afed20cc6750b25388541f7502fac97019a896",
+      "scientific_data_sha256": "a6b3a6152ff554f984ade83df42eff971fc32fc2505ad61ac52362f5cb86bcec",
+      "resumed": false,
+      "request_sha256": "d26c5ca2b81cf5b69015fc232a61c32e79bcc5610e3e94e61a2d9503bb888358",
+      "source_tables": {
+        "condition_summary.csv": "e20d73701157b23b4633ebcee5bf8634e3df2efcdbf9ef7dd8c58d5a77176ae5",
+        "paired_contrasts.csv": "9b7ca68167770bccf5e6a295eb62330c4f67e3746634ee4f84e1be5d4066ce7c"
+      }
+    },
+    {
+      "entry": "E4_estimated",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E4_estimated__imv.zip",
+      "bundle_sha256": "06e5f329ea81607b41ed9f75d3fd33d209c2390549f1c522a65ff3188c4e538f",
+      "scientific_data_sha256": "dcc5720ab731e609fa972e67c04a025cb20362c260e10cc3324d9a96d0bab87d",
+      "resumed": false,
+      "request_sha256": "e2146793849d0bfedb2dc019e2e4e49ce797636131af3042bc1667fc8b41f501",
+      "source_tables": {
+        "condition_summary.csv": "0831a698d732391473869154130a44f4a0c3f643fa0b93a2b3e187a2e3d7f72e",
+        "paired_contrasts.csv": "94380e980cc63262fd4c811ad90623986f2a7d3293f88bf3a123bf9e8a94b142"
+      }
+    },
+    {
+      "entry": "E4_measured",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E4_measured__room_air.zip",
+      "bundle_sha256": "ea25421780c99682861bf1103c719a67b166f7578276b11d1c8be79a027219fc",
+      "scientific_data_sha256": "c2c72d0b0b8d5362ec594e47187a3be96f054ee129d2252924462920bebafed8",
+      "resumed": false,
+      "request_sha256": "e3d5535eb04234509a85f14b31a8fb4486ae7c8479dd00c9db7311a8957ae761",
+      "source_tables": {
+        "condition_summary.csv": "078799c2d73514d66a4ba075e440fe8000140143e7779650945a1e64862ccbae",
+        "paired_contrasts.csv": "3a221ff82c3cbd485013685eb4ff98d1c5538f030998102e1399021cad6cf71d"
+      }
+    },
+    {
+      "entry": "E4_measured",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E4_measured__low_flow.zip",
+      "bundle_sha256": "acd598e5d424587bf90de13734fd24b10a8fced06e2f488782b94966de12cb4a",
+      "scientific_data_sha256": "4bc09d9dd7a8e479aa6893da9da7243b61d8c44bd3bfe8e4bbc8afd551d93be3",
+      "resumed": false,
+      "request_sha256": "9efb23676b93d669328e515546aaacded08c3d5026c15d1c852e6af301c74f0b",
+      "source_tables": {
+        "condition_summary.csv": "c4478fe75186395c0fd48523421a6c698feefc2b07280f66c347f6ee23d0e627",
+        "paired_contrasts.csv": "24fcc5bf96028e3caca6557c0bba605fc8c69055bd8f54270530fefc0f18a5dc"
+      }
+    },
+    {
+      "entry": "E4_measured",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E4_measured__hfnc.zip",
+      "bundle_sha256": "48e4b4d6c83fa633713f6797d44d7b2d29aea6e6e9a9e0a2b0a15d746f007f35",
+      "scientific_data_sha256": "6b6c96a637301722a9c2953b4c9397b13a3cb7bcb5c2ad8c9e41ddb07e0ad788",
+      "resumed": false,
+      "request_sha256": "438c5ead932350ffe86fc9e5d1534b0c584a64cf270bcfdda89500605a642be0",
+      "source_tables": {
+        "condition_summary.csv": "75a3cd720dd8a0298491f86e691f6a502af14c226445b8ab08cb4df2a8f6d287",
+        "paired_contrasts.csv": "041ed34638bdfa66d2496bfacde5e43fe9fd2dea2363c2e72b1bac22f8ead877"
+      }
+    },
+    {
+      "entry": "E4_measured",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E4_measured__imv.zip",
+      "bundle_sha256": "27461e2092341172032788c5074e3a35e8ae306f2936677f2e4afc47c891d6a9",
+      "scientific_data_sha256": "0b85c81c4133ba6a3fa93dac53769f4360b58388505dc204bdacfa3b325c6c69",
+      "resumed": false,
+      "request_sha256": "5334eb18fd3c11136c51a54cffc41156817a77e81aa8b82eb61c0f73c7da3ff6",
+      "source_tables": {
+        "condition_summary.csv": "f938af6b5818ae23751b04ab3be308fbaf613fca299fbcaf65c51edf41023654",
+        "paired_contrasts.csv": "c3589b6bf780417530dabb49b8ed9e4b76122598854e86db92a076754b5075de"
+      }
+    },
+    {
+      "entry": "E5_opportunity",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E5_opportunity__room_air.zip",
+      "bundle_sha256": "c5aee3360d8f8f4a0d302b691ca7bb349c842c73b254b318aa93f4e21fb86b05",
+      "scientific_data_sha256": "0b51b87b196ae1b90c12b49d2c6b40f0e639faed0c5aad8eb0bd2b273269683f",
+      "resumed": false,
+      "request_sha256": "553dc9a4a4a6283db2e1323629d54829864cd6155e74a62b4c3999eb226d2203",
+      "source_tables": {
+        "condition_summary.csv": "a7b2cc3a5dd232f968af670448d496856fc3df4da8595a1b6bb3718d5fd7d3ff",
+        "paired_contrasts.csv": "9255c7024da961e6b4b34c36ae2ab3e2e9a38ffbbd8695fd35be71ca4b7a9452"
+      }
+    },
+    {
+      "entry": "E5_opportunity",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E5_opportunity__low_flow.zip",
+      "bundle_sha256": "53ce07810ad956e47926773642c622365affc7d6066efcf98240a549bd0ed7a4",
+      "scientific_data_sha256": "3a0208a36108072352ef62999e772992c2c8195388ee321258e8f6ae9f606ffa",
+      "resumed": false,
+      "request_sha256": "ea9d3575f03ff595f01a27425e782288b3c33b612e9e5193e6895b8fb5ba0ca4",
+      "source_tables": {
+        "condition_summary.csv": "79b13743b2501806cc6fb9c9ab84f877e3756a9aa38ca278d751617f294c4946",
+        "paired_contrasts.csv": "ba89c45609f966c0097b9838ff38980972d69f5c01df35954fc71f7f06428454"
+      }
+    },
+    {
+      "entry": "E5_opportunity",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E5_opportunity__hfnc.zip",
+      "bundle_sha256": "b0b8e93b79156af5b2a31a8d4f2283bc2a346b6b13796901593744e5293f22fa",
+      "scientific_data_sha256": "83f24aacea8393cba0120c647a873e124db186e7d6c8d65a3bb5c3c0183e9a31",
+      "resumed": false,
+      "request_sha256": "48dd4487c735cb98783ee31e30b22d12b5fbda320dac8f6dc09c5d020aa64fc2",
+      "source_tables": {
+        "condition_summary.csv": "7a854029923d2da60421a56c6b847d1886e3cf9d992f19d0c59a6935c78e57a7",
+        "paired_contrasts.csv": "575ae12e5f95524fece9ba53de17492eb5abde99c5deeb9291232649be0d70f7"
+      }
+    },
+    {
+      "entry": "E5_opportunity",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E5_opportunity__imv.zip",
+      "bundle_sha256": "28849268988558bd881d4efabac47b21ad24738ed92d3afc188f3f5e277178f6",
+      "scientific_data_sha256": "7eddacd02aa5dc4aa4e2bb9e855d97112c76a1fb3ac0360511686e6dec75f25e",
+      "resumed": false,
+      "request_sha256": "4edd2c9b83f64667087f319be2970277e479c9b30efc130a50c9187bb279734a",
+      "source_tables": {
+        "condition_summary.csv": "1327c6848b7cf2d022d813494938acb52dc00bc8cf5b278be8464f01b50ef885",
+        "paired_contrasts.csv": "a66aae40e30bbd59f346963de055a1b1990a5c68cdfbb9b2d697d259836d2880"
+      }
+    },
+    {
+      "entry": "E5_replay",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E5_replay__room_air.zip",
+      "bundle_sha256": "224ca7f3d7a2d2b679964532eb9db2bdb85e15452a5adc3c85234efde1066a59",
+      "scientific_data_sha256": "b3f4b16c63be152702865701178cca6588b97e4560cb362010950f688f4748ae",
+      "resumed": false,
+      "request_sha256": "6f7763ac9d316aac240a47f9a5e99eebeaa753bc50300c94189b979c055b0338",
+      "source_tables": {
+        "condition_summary.csv": "6e07f3927dbbd44f32374abd7d861e4f9750729179d94f74a9a9654689bb6905",
+        "paired_contrasts.csv": "319e62902210983b3d009180f971e2fcf7277d9d1fe8ed55f4b8965e46c2e02e"
+      }
+    },
+    {
+      "entry": "E5_replay",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E5_replay__low_flow.zip",
+      "bundle_sha256": "41144f3fed5a9e130dbbcd1919e148060355af2bae091ff4a8896ddb1e3149bf",
+      "scientific_data_sha256": "ae82d76ca824e202ce547e6a07003c32ec9591f1730b7177e43515042bf48003",
+      "resumed": false,
+      "request_sha256": "0c0200eb290e591a96d8fea458a398731fa5e0339cfc15ddbb87e6de26c0c65e",
+      "source_tables": {
+        "condition_summary.csv": "4a49bf52a0ebebe3102da7bc2498957cccb06de2d9b424a6c2f23a0cf7178921",
+        "paired_contrasts.csv": "e37e6a6b6a5934408ce51235a3fcf723afbc1f72912751161f27384025e73853"
+      }
+    },
+    {
+      "entry": "E5_replay",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E5_replay__hfnc.zip",
+      "bundle_sha256": "6401e2213664dce91d5d279c009de713c753f8b8569060bcb779aec941bf92f5",
+      "scientific_data_sha256": "8c5266fb7954bb177f7c8e2bcda5d911d8fb2a6b47752834bb8e23c554b7670a",
+      "resumed": false,
+      "request_sha256": "c727325e655aa4e806f0cf43c6494d9c6d17ba5eea14b4ab9a917a2aff7e7647",
+      "source_tables": {
+        "condition_summary.csv": "100e0ae5299baebe2ad92fad82fdbf9189c870da3f589ce54301744a16aaba6e",
+        "paired_contrasts.csv": "67f0287865f83cbb264430cce34c52d0626bda51abda947f0b2b666d965d4ee6"
+      }
+    },
+    {
+      "entry": "E5_replay",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E5_replay__imv.zip",
+      "bundle_sha256": "11180b2eccac203214f08a8402f91301006212e7ea7099e6a8dbab0a3a93f4a4",
+      "scientific_data_sha256": "416282ce185c51a606156b24578fdbff5478fe974f0985cb1b31c3d42b52eda5",
+      "resumed": false,
+      "request_sha256": "2f4c42170834b26631d024fa945410ded6b39b27c7acd7f1a7be4a622ca1f5e6",
+      "source_tables": {
+        "condition_summary.csv": "619f2ea211b622d8203d7c0dc04ea967867172491123cacda89af4fb98ac7edf",
+        "paired_contrasts.csv": "30a15aaab8280c333ba82c44244ee665cb2b6b4ff4d27a00481df360ab2ee184"
+      }
+    },
+    {
+      "entry": "E6_rules",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E6_rules__room_air.zip",
+      "bundle_sha256": "fda720ab35076813a3d31e8743e1b517ec75e2060caa2300c9957c6677822a6d",
+      "scientific_data_sha256": "d23fd08bac562d915a84fbdbc4c6f2903416fc95356d6346feeef00485fe9c73",
+      "resumed": false,
+      "request_sha256": "6c28bd637a164f332f2183dbba5765d302a0baeb06c07b48ea9a3ee16c918b44",
+      "source_tables": {
+        "condition_summary.csv": "65de18e8e45981a08186b08515eb766ac20bd4f62ed1d909fa4e6f51494f9ff2",
+        "paired_contrasts.csv": "9b5ae445bd3921adc5107d4dee741820c1a5276790dd4492f0ec9311f83a8286"
+      }
+    },
+    {
+      "entry": "E6_rules",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E6_rules__low_flow.zip",
+      "bundle_sha256": "97d42b335e966aef0eb4a28ebd1d97cb709314ff1c8f20eed9d7e0b894a721d9",
+      "scientific_data_sha256": "12c077dc8af1497d71d0d979d146961a3cd24d5068fdd63c30bef24bf7572457",
+      "resumed": false,
+      "request_sha256": "6f9baea536cf00c9e837cf8fe40abcf0c3f464152c2a11f5debfb5f277dac2bf",
+      "source_tables": {
+        "condition_summary.csv": "6f7ee49e5577e8dd83869616e0767a179b03473959e4063e56d0a3c3f1e195d1",
+        "paired_contrasts.csv": "80bee189479a4bc791536f26a38ef4a28eb784420d3ce4fc2e29b1c552ba0099"
+      }
+    },
+    {
+      "entry": "E6_rules",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E6_rules__hfnc.zip",
+      "bundle_sha256": "7da4d6bbe7f6989a58fc10ffc036f43529a1bfd160e8cb4d08a98cf6b8dfe1ab",
+      "scientific_data_sha256": "556f9a53a12039b4e902410aaf767c2bf7b1c75c40041e58d45ed25801db47a6",
+      "resumed": false,
+      "request_sha256": "13189ecdf1e81116e2bed0470dbbc4dd23ffaf98b9a8f213b72098f51aa2c862",
+      "source_tables": {
+        "condition_summary.csv": "282baa87391edbff72442f5d9a3535e6fb8ec2888e69d7a455b81976d138dd08",
+        "paired_contrasts.csv": "8606663efe17bf66a9faa82c442f1c413767344ae4c85fad0c11a408451008d6"
+      }
+    },
+    {
+      "entry": "E6_rules",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E6_rules__imv.zip",
+      "bundle_sha256": "671a4712db7a9ade0d6cb6c5cbeed3db2a881db8df6777511cf3b56feaab8230",
+      "scientific_data_sha256": "f1fc0ed594fa0ec91e5f07ea3a6fdb52010a3c4324e906b440624e1ea8765125",
+      "resumed": false,
+      "request_sha256": "81ba0d0bc2f488b607348e7ccfe5a8eac4f4009b2d6b41a2d228198ce6c4ef2e",
+      "source_tables": {
+        "condition_summary.csv": "44b43ec44a706bb22e858b7fb686c28abf8d32d034eefd2835d87dd63ff3de73",
+        "paired_contrasts.csv": "cd491a3a9c9fc0c0171cb57f9246b0b680dbc8e3b37761a457f9e0e532501471"
+      }
+    },
+    {
+      "entry": "E6_singleton",
+      "stratum": "room_air",
+      "completed_patients": 2000,
+      "bundle": "E6_singleton__room_air.zip",
+      "bundle_sha256": "5df9e24aab510ba86d9bcab7ee9d4bad38109c018f6962cc95d0bc6d0aedd0eb",
+      "scientific_data_sha256": "8b6b175b543287b088f41ce2d334989665550f52377f2de0bed23506f7bd771c",
+      "resumed": false,
+      "request_sha256": "2f1f933ed47ce7b4ee1ee8a4c9f8fac32e3ec45c1f83bb05ed47d969f45fc4e7",
+      "source_tables": {
+        "condition_summary.csv": "0e3de8a981b6a441fad3bb9c188c2ea23a214b5aaba990609fe476948a50d859",
+        "paired_contrasts.csv": "43e4c06a7fd7e13ce1d2a2d8728e8f514eb5068b0345b415aa08109588c57b63"
+      }
+    },
+    {
+      "entry": "E6_singleton",
+      "stratum": "low_flow",
+      "completed_patients": 2000,
+      "bundle": "E6_singleton__low_flow.zip",
+      "bundle_sha256": "3a1f56d5d73d76cf72f83f1ce70dd725f5682abb2a807446d78fa3dd067fdb22",
+      "scientific_data_sha256": "766625972f59d21fcc7ef3047d323a392ff025aeb0771fea2191a4807b03118a",
+      "resumed": false,
+      "request_sha256": "c513f8b7a7969aeb49ab6db5285bdb808ec9f2142976454ba2fd78b068850693",
+      "source_tables": {
+        "condition_summary.csv": "037212446f02d992c72cdda66c947fe9ecd307ba74d3c436012fde07edbdce7a",
+        "paired_contrasts.csv": "621204fe4cc6e1fe1810b5d9622162b403b67d754a77b52ce5b27d6f702cd0dd"
+      }
+    },
+    {
+      "entry": "E6_singleton",
+      "stratum": "hfnc",
+      "completed_patients": 2000,
+      "bundle": "E6_singleton__hfnc.zip",
+      "bundle_sha256": "4e57d4725dff3f299854370d4de914c84587da2c42bf9226e026e0ff6a916d1a",
+      "scientific_data_sha256": "a5c611a68ee63d762c29a474743373059a7e5b59767435dc3428838ef0d8386e",
+      "resumed": false,
+      "request_sha256": "3c5696dec8e5da3d5e9015b8647adfb46fbaf415181576717da9d32d5d4bf4e5",
+      "source_tables": {
+        "condition_summary.csv": "904dd4c8777e03206a91352e9d81c09d6fb38ce2f59a69089f4aae6285d11029",
+        "paired_contrasts.csv": "03684eec0c397519b0c66ecae13aa39f2d42da88cd4f58d2895a7c9b254c2e74"
+      }
+    },
+    {
+      "entry": "E6_singleton",
+      "stratum": "imv",
+      "completed_patients": 2000,
+      "bundle": "E6_singleton__imv.zip",
+      "bundle_sha256": "4f64ee08483349359846d9c076c1274658523757ab2117e02716f82cee0e21e3",
+      "scientific_data_sha256": "11b5be5c1c31655e7ce0eba0262b8eccf1349be19c0950bf8d986c4cf6003c4b",
+      "resumed": false,
+      "request_sha256": "f8b44e9b2f23419b5c36faaf6d64ce45f3ab569c89a2b06558b259172f744e36",
+      "source_tables": {
+        "condition_summary.csv": "3012f457c306536cc48ebfe1320c435149c6d9954ac8e9f96b848de9f733146b",
+        "paired_contrasts.csv": "ad66d88bed96f2927c1cdde062487d67a16ec1bb2d620c4b590841e17c7473b6"
+      }
+    }
+  ],
+  "selected_trace_sha256": {
+    "traces/E1_episode__room_air__selected_events.csv": "3cb9f1264ee88b3f925017c98407ff0bc5168b5b1ee93a6cc0a0ae28cf809a13",
+    "traces/E1_episode__room_air__episodes.csv": "483b09c821e5d7f824d111672e6bef7128e992f2a61c0c2bfa3e81f0d579eb30",
+    "traces/E2_bias__low_flow__selected_events.csv": "6c5300f079e79154d8755ac50b005dfea3377d722ef03cc705e67a861a83c594",
+    "traces/E2_bias__low_flow__episodes.csv": "239279bec3997cfd1feddf73a58d3d4eda9706349484d43af159c75613f4c50e",
+    "traces/E3_timing__hfnc__selected_events.csv": "4db3a03697451b552a2c66031f4666aff6922e5859388a8e0d9cc75b747a4255",
+    "traces/E3_timing__hfnc__episodes.csv": "27a15d15913bc69d4da41f4da96f7d9c355c7db03673fdcd1f8c46445bc42db6",
+    "traces/E4_measured__imv__selected_events.csv": "d7e90e6157501045f7ddcc7951427b58622c0a86ac167c5a0da30a7bb455eb5f",
+    "traces/E4_measured__imv__episodes.csv": "582b9cf5fa343fdb9236bf63703ded310647fcf70a9b9719af252fc767208ba9",
+    "traces/E5_replay__room_air__selected_events.csv": "7473829ed1abecab7fe5f539fa3eda3d155dce856c014f57b31ad8e3c1e8838c",
+    "traces/E5_replay__room_air__episodes.csv": "1ff8f4a0079fe2f365342baf247495e235af118da0a6c5fb1e4edc3935f3a9aa",
+    "traces/E6_singleton__low_flow__selected_events.csv": "f007e3e9de1e82c9e839bcd456fe803de2df7ced9fc5e6a08816db17cabda307",
+    "traces/E6_singleton__low_flow__episodes.csv": "1ff8f4a0079fe2f365342baf247495e235af118da0a6c5fb1e4edc3935f3a9aa"
+  },
+  "trace_selection": {
+    "patient_id": 0,
+    "examples": [
+      [
+        "E1_episode",
+        "room_air"
+      ],
+      [
+        "E2_bias",
+        "low_flow"
+      ],
+      [
+        "E3_timing",
+        "hfnc"
+      ],
+      [
+        "E4_measured",
+        "imv"
+      ],
+      [
+        "E5_replay",
+        "room_air"
+      ],
+      [
+        "E6_singleton",
+        "low_flow"
+      ]
+    ],
+    "rule": "Fixed patient 0; E1-E6 and four strata; no effect-size selection"
+  },
+  "scope": "Uncalibrated synthetic model; pointwise Monte Carlo uncertainty, not clinical CI",
+  "figure_status": "Tables only; figure rendering and visual verification remain required"
+}

@@ -4,10 +4,11 @@ const BASE_URL = new URL("./", self.location.href);
 
 let pyodide = null;
 let initPromise = null;
+let messageQueue = Promise.resolve();
 
 self.onmessage = (event) => {
   const { id, type, payload } = event.data || {};
-  handleMessage(id, type, payload);
+  messageQueue = messageQueue.then(() => handleMessage(id, type, payload));
 };
 
 async function handleMessage(id, type, payload) {
@@ -25,6 +26,36 @@ async function handleMessage(id, type, payload) {
     }
     if (type === "sweep") {
       postResult(id, type, await callContract("run_sweep_payload", payload || {}));
+      return;
+    }
+    if (type === "experiment") {
+      postResult(id, type, await callContract("run_experiment_payload", payload || {}, (progress) => {
+        self.postMessage({id, type: "progress", payload: progress});
+      }));
+      return;
+    }
+    if (type === "workload") {
+      postResult(id, type, await callContract("get_experiment_workload_payload", payload || {}));
+      return;
+    }
+    if (type === "explain") {
+      postResult(id, type, await callContract("explain_experiment_payload", payload || {}));
+      return;
+    }
+    if (type === "catalogue") {
+      postResult(id, type, await callContract("get_experiment_catalogue_payload", payload || {}));
+      return;
+    }
+    if (type === "rule_explorer") {
+      postResult(id, type, await callContract("run_rule_explorer_payload", payload || {}));
+      return;
+    }
+    if (type === "export_bundle") {
+      postResult(id, type, await callContract("export_experiment_bundle_payload", payload || {}));
+      return;
+    }
+    if (type === "import_bundle") {
+      postResult(id, type, await callContract("import_experiment_bundle_payload", payload || {}));
       return;
     }
 
@@ -53,7 +84,7 @@ async function bootRuntime() {
   pyodide = await loadPyodide({ indexURL: PYODIDE_INDEX_URL });
 
   postStatus("Loading Python packages");
-  await pyodide.loadPackage(["numpy", "pandas"]);
+  await pyodide.loadPackage(["numpy", "pandas", "scipy", "tzdata"]);
 
   postStatus("Staging Python source");
   await stageManifestFiles();
@@ -92,40 +123,40 @@ if src_path not in sys.path:
 `);
 }
 
-async function callContract(functionName, payload = null) {
-  let pyPayload = null;
+async function callContract(functionName, payload = null, onProgress = null) {
   try {
     if (payload === null) {
-      const resultProxy = await pyodide.runPythonAsync(`
+      const encodedResult = await pyodide.runPythonAsync(`
+import json
 import sofa_resp_sim.browser_contract as browser_contract
-browser_contract.${functionName}()
+json.dumps(browser_contract.${functionName}(), allow_nan=False)
 `);
-      return proxyToJs(resultProxy);
+      return JSON.parse(encodedResult);
     }
 
-    pyPayload = pyodide.toPy(payload);
-    pyodide.globals.set("browser_payload", pyPayload);
-    const resultProxy = await pyodide.runPythonAsync(`
+    // JSON is the contract: normalize JS null to Python None, not a JsNull proxy.
+    const encoded = JSON.stringify(payload, (_key, value) => {
+      if (typeof value === "number" && !Number.isFinite(value)) {
+        throw new Error("Scientific inputs must be finite numbers.");
+      }
+      return value;
+    });
+    pyodide.globals.set("browser_payload_json", encoded);
+    if (onProgress) {
+      pyodide.globals.set("browser_progress_json", (value) => onProgress(JSON.parse(value)));
+    }
+    const encodedResult = await pyodide.runPythonAsync(`
+import json
 import sofa_resp_sim.browser_contract as browser_contract
-browser_contract.${functionName}(browser_payload)
+json.dumps(browser_contract.${functionName}(json.loads(browser_payload_json)${onProgress ? ", on_progress=lambda p: browser_progress_json(json.dumps(p, allow_nan=False))" : ""}), allow_nan=False)
 `);
-    return proxyToJs(resultProxy);
+    return JSON.parse(encodedResult);
   } finally {
-    if (pyPayload && typeof pyPayload.destroy === "function") {
-      pyPayload.destroy();
-    }
     if (payload !== null) {
-      pyodide.globals.delete("browser_payload");
+      pyodide.globals.delete("browser_payload_json");
     }
+    if (onProgress) pyodide.globals.delete("browser_progress_json");
   }
-}
-
-function proxyToJs(proxy) {
-  const value = proxy.toJs({ dict_converter: Object.fromEntries });
-  if (typeof proxy.destroy === "function") {
-    proxy.destroy();
-  }
-  return value;
 }
 
 async function fetchJson(path) {

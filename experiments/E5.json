@@ -1,0 +1,3141 @@
+{
+  "experiment": "E5",
+  "requests": [
+    {
+      "schema_version": "experiment_request_v2",
+      "rng_version": "seedsequence_pcg64_v2",
+      "experiment_id": "E5_opportunity:room_air",
+      "base": {
+        "documentation": {
+          "disagreement_fraction": 0.0,
+          "interval_minutes": 15,
+          "measured_source_probability": 0.2,
+          "missing_probability": 0.0,
+          "phase_minutes": 0,
+          "recorded_delay_minutes": 0.0,
+          "stale_minutes": 0,
+          "timestamp_offset_minutes": 0.0
+        },
+        "generator": {
+          "episode_depth_pct_points": 5.0,
+          "episode_duration_minutes": 30,
+          "episode_rate_per_hour": 0.0,
+          "marginal_sd_pct": 1.5,
+          "mean_pct": 94.0,
+          "prescribed_episodes": [],
+          "prescribed_trajectory": [],
+          "tau_minutes": 30.0,
+          "version": "fixed_minute_ar1_v2"
+        },
+        "horizon": {
+          "admit_dts": "2024-01-01T12:37:00Z",
+          "baseline_days_before": 30,
+          "baseline_generation_minutes": 1440,
+          "baseline_replay": false,
+          "end_minute": 1440,
+          "include_baseline": true,
+          "start_minute": 0
+        },
+        "observation": {
+          "baseline_exposure_minutes": 1440,
+          "baseline_interval_minutes": 15,
+          "bias_pct_points": 0.0,
+          "interval_minutes": 15,
+          "measured_pao2_mmhg": null,
+          "missing_probability": 0.0,
+          "noise_sd_pct": 1.0,
+          "phase_minutes": 0,
+          "rounding": "integer",
+          "start_minute": 0
+        },
+        "scoring": {
+          "acute_begin_minute": -360,
+          "acute_end_minute": 1440,
+          "availability": "retrospective",
+          "baseline_end_days": 7,
+          "baseline_months": 36,
+          "baseline_selection": "latest_day",
+          "binning": "calendar",
+          "conversion": "spo2_or_measured",
+          "lookup": "legacy",
+          "profile": "bounded_analysis_v2",
+          "single_record_suppression": true,
+          "support_eligibility": "legacy",
+          "threshold_factor": 1.0,
+          "timezone": "UTC"
+        },
+        "support": {
+          "based_on_observed": true,
+          "fio2_fraction": 0.21,
+          "flow_lpm": null,
+          "label": "ROOM_AIR",
+          "mode": "fixed",
+          "segments": [],
+          "thresholds_pct": [
+            94.0,
+            90.0,
+            86.0,
+            82.0
+          ]
+        }
+      },
+      "comparator": {
+        "label": "24h every 15 minutes",
+        "overrides": {
+          "documentation": {
+            "disagreement_fraction": 0.0,
+            "interval_minutes": 15,
+            "measured_source_probability": 0.2,
+            "missing_probability": 0.0,
+            "phase_minutes": 0,
+            "recorded_delay_minutes": 0.0,
+            "stale_minutes": 0,
+            "timestamp_offset_minutes": 0.0
+          },
+          "generator": {
+            "episode_depth_pct_points": 5.0,
+            "episode_duration_minutes": 30,
+            "episode_rate_per_hour": 0.0,
+            "marginal_sd_pct": 1.5,
+            "mean_pct": 94.0,
+            "prescribed_episodes": [],
+            "prescribed_trajectory": [],
+            "tau_minutes": 30.0,
+            "version": "fixed_minute_ar1_v2"
+          },
+          "horizon": {
+            "admit_dts": "2024-01-01T12:37:00Z",
+            "baseline_days_before": 30,
+            "baseline_generation_minutes": 1440,
+            "baseline_replay": false,
+            "end_minute": 1440,
+            "include_baseline": true,
+            "start_minute": 0
+          },
+          "observation": {
+            "baseline_exposure_minutes": 1440,
+            "baseline_interval_minutes": 15,
+            "bias_pct_points": 0.0,
+            "interval_minutes": 15,
+            "measured_pao2_mmhg": null,
+            "missing_probability": 0.0,
+            "noise_sd_pct": 1.0,
+            "phase_minutes": 0,
+            "rounding": "integer",
+            "start_minute": 0
+          },
+          "scoring": {
+            "acute_begin_minute": -360,
+            "acute_end_minute": 1440,
+            "availability": "retrospective",
+            "baseline_end_days": 7,
+            "baseline_months": 36,
+            "baseline_selection": "latest_day",
+            "binning": "calendar",
+            "conversion": "spo2_or_measured",
+            "lookup": "legacy",
+            "profile": "bounded_analysis_v2",
+            "single_record_suppression": true,
+            "support_eligibility": "legacy",
+            "threshold_factor": 1.0,
+            "timezone": "UTC"
+          },
+          "support": {
+            "based_on_observed": true,
+            "fio2_fraction": 0.21,
+            "flow_lpm": null,
+            "label": "ROOM_AIR",
+            "mode": "fixed",
+            "segments": [],
+            "thresholds_pct": [
+              94.0,
+              90.0,
+              86.0,
+              82.0
+            ]
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "1h every 15 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.21,
+              "flow_lpm": null,
+              "label": "ROOM_AIR",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "1h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.21,
+              "flow_lpm": null,
+              "label": "ROOM_AIR",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "6h every 15 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.21,
+              "flow_lpm": null,
+              "label": "ROOM_AIR",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "6h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.21,
+              "flow_lpm": null,
+              "label": "ROOM_AIR",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "24h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 1440,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.21,
+              "flow_lpm": null,
+              "label": "ROOM_AIR",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        }
+      ],
+      "replicates": 2000,
+      "seed": 173203,
+      "primary_outcome": "delta_legacy_ge1"
+    },
+    {
+      "schema_version": "experiment_request_v2",
+      "rng_version": "seedsequence_pcg64_v2",
+      "experiment_id": "E5_opportunity:low_flow",
+      "base": {
+        "documentation": {
+          "disagreement_fraction": 0.0,
+          "interval_minutes": 15,
+          "measured_source_probability": 0.2,
+          "missing_probability": 0.0,
+          "phase_minutes": 0,
+          "recorded_delay_minutes": 0.0,
+          "stale_minutes": 0,
+          "timestamp_offset_minutes": 0.0
+        },
+        "generator": {
+          "episode_depth_pct_points": 5.0,
+          "episode_duration_minutes": 30,
+          "episode_rate_per_hour": 0.0,
+          "marginal_sd_pct": 1.5,
+          "mean_pct": 94.0,
+          "prescribed_episodes": [],
+          "prescribed_trajectory": [],
+          "tau_minutes": 30.0,
+          "version": "fixed_minute_ar1_v2"
+        },
+        "horizon": {
+          "admit_dts": "2024-01-01T12:37:00Z",
+          "baseline_days_before": 30,
+          "baseline_generation_minutes": 1440,
+          "baseline_replay": false,
+          "end_minute": 1440,
+          "include_baseline": true,
+          "start_minute": 0
+        },
+        "observation": {
+          "baseline_exposure_minutes": 1440,
+          "baseline_interval_minutes": 15,
+          "bias_pct_points": 0.0,
+          "interval_minutes": 15,
+          "measured_pao2_mmhg": null,
+          "missing_probability": 0.0,
+          "noise_sd_pct": 1.0,
+          "phase_minutes": 0,
+          "rounding": "integer",
+          "start_minute": 0
+        },
+        "scoring": {
+          "acute_begin_minute": -360,
+          "acute_end_minute": 1440,
+          "availability": "retrospective",
+          "baseline_end_days": 7,
+          "baseline_months": 36,
+          "baseline_selection": "latest_day",
+          "binning": "calendar",
+          "conversion": "spo2_or_measured",
+          "lookup": "legacy",
+          "profile": "bounded_analysis_v2",
+          "single_record_suppression": true,
+          "support_eligibility": "legacy",
+          "threshold_factor": 1.0,
+          "timezone": "UTC"
+        },
+        "support": {
+          "based_on_observed": true,
+          "fio2_fraction": null,
+          "flow_lpm": 4.0,
+          "label": "LOW_FLOW",
+          "mode": "fixed",
+          "segments": [],
+          "thresholds_pct": [
+            94.0,
+            90.0,
+            86.0,
+            82.0
+          ]
+        }
+      },
+      "comparator": {
+        "label": "24h every 15 minutes",
+        "overrides": {
+          "documentation": {
+            "disagreement_fraction": 0.0,
+            "interval_minutes": 15,
+            "measured_source_probability": 0.2,
+            "missing_probability": 0.0,
+            "phase_minutes": 0,
+            "recorded_delay_minutes": 0.0,
+            "stale_minutes": 0,
+            "timestamp_offset_minutes": 0.0
+          },
+          "generator": {
+            "episode_depth_pct_points": 5.0,
+            "episode_duration_minutes": 30,
+            "episode_rate_per_hour": 0.0,
+            "marginal_sd_pct": 1.5,
+            "mean_pct": 94.0,
+            "prescribed_episodes": [],
+            "prescribed_trajectory": [],
+            "tau_minutes": 30.0,
+            "version": "fixed_minute_ar1_v2"
+          },
+          "horizon": {
+            "admit_dts": "2024-01-01T12:37:00Z",
+            "baseline_days_before": 30,
+            "baseline_generation_minutes": 1440,
+            "baseline_replay": false,
+            "end_minute": 1440,
+            "include_baseline": true,
+            "start_minute": 0
+          },
+          "observation": {
+            "baseline_exposure_minutes": 1440,
+            "baseline_interval_minutes": 15,
+            "bias_pct_points": 0.0,
+            "interval_minutes": 15,
+            "measured_pao2_mmhg": null,
+            "missing_probability": 0.0,
+            "noise_sd_pct": 1.0,
+            "phase_minutes": 0,
+            "rounding": "integer",
+            "start_minute": 0
+          },
+          "scoring": {
+            "acute_begin_minute": -360,
+            "acute_end_minute": 1440,
+            "availability": "retrospective",
+            "baseline_end_days": 7,
+            "baseline_months": 36,
+            "baseline_selection": "latest_day",
+            "binning": "calendar",
+            "conversion": "spo2_or_measured",
+            "lookup": "legacy",
+            "profile": "bounded_analysis_v2",
+            "single_record_suppression": true,
+            "support_eligibility": "legacy",
+            "threshold_factor": 1.0,
+            "timezone": "UTC"
+          },
+          "support": {
+            "based_on_observed": true,
+            "fio2_fraction": null,
+            "flow_lpm": 4.0,
+            "label": "LOW_FLOW",
+            "mode": "fixed",
+            "segments": [],
+            "thresholds_pct": [
+              94.0,
+              90.0,
+              86.0,
+              82.0
+            ]
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "1h every 15 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": null,
+              "flow_lpm": 4.0,
+              "label": "LOW_FLOW",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "1h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": null,
+              "flow_lpm": 4.0,
+              "label": "LOW_FLOW",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "6h every 15 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": null,
+              "flow_lpm": 4.0,
+              "label": "LOW_FLOW",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "6h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": null,
+              "flow_lpm": 4.0,
+              "label": "LOW_FLOW",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "24h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 1440,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": null,
+              "flow_lpm": 4.0,
+              "label": "LOW_FLOW",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        }
+      ],
+      "replicates": 2000,
+      "seed": 173203,
+      "primary_outcome": "delta_legacy_ge1"
+    },
+    {
+      "schema_version": "experiment_request_v2",
+      "rng_version": "seedsequence_pcg64_v2",
+      "experiment_id": "E5_opportunity:hfnc",
+      "base": {
+        "documentation": {
+          "disagreement_fraction": 0.0,
+          "interval_minutes": 15,
+          "measured_source_probability": 0.2,
+          "missing_probability": 0.0,
+          "phase_minutes": 0,
+          "recorded_delay_minutes": 0.0,
+          "stale_minutes": 0,
+          "timestamp_offset_minutes": 0.0
+        },
+        "generator": {
+          "episode_depth_pct_points": 5.0,
+          "episode_duration_minutes": 30,
+          "episode_rate_per_hour": 0.0,
+          "marginal_sd_pct": 1.5,
+          "mean_pct": 94.0,
+          "prescribed_episodes": [],
+          "prescribed_trajectory": [],
+          "tau_minutes": 30.0,
+          "version": "fixed_minute_ar1_v2"
+        },
+        "horizon": {
+          "admit_dts": "2024-01-01T12:37:00Z",
+          "baseline_days_before": 30,
+          "baseline_generation_minutes": 1440,
+          "baseline_replay": false,
+          "end_minute": 1440,
+          "include_baseline": true,
+          "start_minute": 0
+        },
+        "observation": {
+          "baseline_exposure_minutes": 1440,
+          "baseline_interval_minutes": 15,
+          "bias_pct_points": 0.0,
+          "interval_minutes": 15,
+          "measured_pao2_mmhg": null,
+          "missing_probability": 0.0,
+          "noise_sd_pct": 1.0,
+          "phase_minutes": 0,
+          "rounding": "integer",
+          "start_minute": 0
+        },
+        "scoring": {
+          "acute_begin_minute": -360,
+          "acute_end_minute": 1440,
+          "availability": "retrospective",
+          "baseline_end_days": 7,
+          "baseline_months": 36,
+          "baseline_selection": "latest_day",
+          "binning": "calendar",
+          "conversion": "spo2_or_measured",
+          "lookup": "legacy",
+          "profile": "bounded_analysis_v2",
+          "single_record_suppression": true,
+          "support_eligibility": "legacy",
+          "threshold_factor": 1.0,
+          "timezone": "UTC"
+        },
+        "support": {
+          "based_on_observed": true,
+          "fio2_fraction": 0.4,
+          "flow_lpm": null,
+          "label": "HFNC",
+          "mode": "fixed",
+          "segments": [],
+          "thresholds_pct": [
+            94.0,
+            90.0,
+            86.0,
+            82.0
+          ]
+        }
+      },
+      "comparator": {
+        "label": "24h every 15 minutes",
+        "overrides": {
+          "documentation": {
+            "disagreement_fraction": 0.0,
+            "interval_minutes": 15,
+            "measured_source_probability": 0.2,
+            "missing_probability": 0.0,
+            "phase_minutes": 0,
+            "recorded_delay_minutes": 0.0,
+            "stale_minutes": 0,
+            "timestamp_offset_minutes": 0.0
+          },
+          "generator": {
+            "episode_depth_pct_points": 5.0,
+            "episode_duration_minutes": 30,
+            "episode_rate_per_hour": 0.0,
+            "marginal_sd_pct": 1.5,
+            "mean_pct": 94.0,
+            "prescribed_episodes": [],
+            "prescribed_trajectory": [],
+            "tau_minutes": 30.0,
+            "version": "fixed_minute_ar1_v2"
+          },
+          "horizon": {
+            "admit_dts": "2024-01-01T12:37:00Z",
+            "baseline_days_before": 30,
+            "baseline_generation_minutes": 1440,
+            "baseline_replay": false,
+            "end_minute": 1440,
+            "include_baseline": true,
+            "start_minute": 0
+          },
+          "observation": {
+            "baseline_exposure_minutes": 1440,
+            "baseline_interval_minutes": 15,
+            "bias_pct_points": 0.0,
+            "interval_minutes": 15,
+            "measured_pao2_mmhg": null,
+            "missing_probability": 0.0,
+            "noise_sd_pct": 1.0,
+            "phase_minutes": 0,
+            "rounding": "integer",
+            "start_minute": 0
+          },
+          "scoring": {
+            "acute_begin_minute": -360,
+            "acute_end_minute": 1440,
+            "availability": "retrospective",
+            "baseline_end_days": 7,
+            "baseline_months": 36,
+            "baseline_selection": "latest_day",
+            "binning": "calendar",
+            "conversion": "spo2_or_measured",
+            "lookup": "legacy",
+            "profile": "bounded_analysis_v2",
+            "single_record_suppression": true,
+            "support_eligibility": "legacy",
+            "threshold_factor": 1.0,
+            "timezone": "UTC"
+          },
+          "support": {
+            "based_on_observed": true,
+            "fio2_fraction": 0.4,
+            "flow_lpm": null,
+            "label": "HFNC",
+            "mode": "fixed",
+            "segments": [],
+            "thresholds_pct": [
+              94.0,
+              90.0,
+              86.0,
+              82.0
+            ]
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "1h every 15 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.4,
+              "flow_lpm": null,
+              "label": "HFNC",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "1h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.4,
+              "flow_lpm": null,
+              "label": "HFNC",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "6h every 15 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.4,
+              "flow_lpm": null,
+              "label": "HFNC",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "6h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.4,
+              "flow_lpm": null,
+              "label": "HFNC",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "24h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 1440,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.4,
+              "flow_lpm": null,
+              "label": "HFNC",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        }
+      ],
+      "replicates": 2000,
+      "seed": 173203,
+      "primary_outcome": "delta_legacy_ge1"
+    },
+    {
+      "schema_version": "experiment_request_v2",
+      "rng_version": "seedsequence_pcg64_v2",
+      "experiment_id": "E5_opportunity:imv",
+      "base": {
+        "documentation": {
+          "disagreement_fraction": 0.0,
+          "interval_minutes": 15,
+          "measured_source_probability": 0.2,
+          "missing_probability": 0.0,
+          "phase_minutes": 0,
+          "recorded_delay_minutes": 0.0,
+          "stale_minutes": 0,
+          "timestamp_offset_minutes": 0.0
+        },
+        "generator": {
+          "episode_depth_pct_points": 5.0,
+          "episode_duration_minutes": 30,
+          "episode_rate_per_hour": 0.0,
+          "marginal_sd_pct": 1.5,
+          "mean_pct": 94.0,
+          "prescribed_episodes": [],
+          "prescribed_trajectory": [],
+          "tau_minutes": 30.0,
+          "version": "fixed_minute_ar1_v2"
+        },
+        "horizon": {
+          "admit_dts": "2024-01-01T12:37:00Z",
+          "baseline_days_before": 30,
+          "baseline_generation_minutes": 1440,
+          "baseline_replay": false,
+          "end_minute": 1440,
+          "include_baseline": true,
+          "start_minute": 0
+        },
+        "observation": {
+          "baseline_exposure_minutes": 1440,
+          "baseline_interval_minutes": 15,
+          "bias_pct_points": 0.0,
+          "interval_minutes": 15,
+          "measured_pao2_mmhg": null,
+          "missing_probability": 0.0,
+          "noise_sd_pct": 1.0,
+          "phase_minutes": 0,
+          "rounding": "integer",
+          "start_minute": 0
+        },
+        "scoring": {
+          "acute_begin_minute": -360,
+          "acute_end_minute": 1440,
+          "availability": "retrospective",
+          "baseline_end_days": 7,
+          "baseline_months": 36,
+          "baseline_selection": "latest_day",
+          "binning": "calendar",
+          "conversion": "spo2_or_measured",
+          "lookup": "legacy",
+          "profile": "bounded_analysis_v2",
+          "single_record_suppression": true,
+          "support_eligibility": "legacy",
+          "threshold_factor": 1.0,
+          "timezone": "UTC"
+        },
+        "support": {
+          "based_on_observed": true,
+          "fio2_fraction": 0.5,
+          "flow_lpm": null,
+          "label": "IMV",
+          "mode": "fixed",
+          "segments": [],
+          "thresholds_pct": [
+            94.0,
+            90.0,
+            86.0,
+            82.0
+          ]
+        }
+      },
+      "comparator": {
+        "label": "24h every 15 minutes",
+        "overrides": {
+          "documentation": {
+            "disagreement_fraction": 0.0,
+            "interval_minutes": 15,
+            "measured_source_probability": 0.2,
+            "missing_probability": 0.0,
+            "phase_minutes": 0,
+            "recorded_delay_minutes": 0.0,
+            "stale_minutes": 0,
+            "timestamp_offset_minutes": 0.0
+          },
+          "generator": {
+            "episode_depth_pct_points": 5.0,
+            "episode_duration_minutes": 30,
+            "episode_rate_per_hour": 0.0,
+            "marginal_sd_pct": 1.5,
+            "mean_pct": 94.0,
+            "prescribed_episodes": [],
+            "prescribed_trajectory": [],
+            "tau_minutes": 30.0,
+            "version": "fixed_minute_ar1_v2"
+          },
+          "horizon": {
+            "admit_dts": "2024-01-01T12:37:00Z",
+            "baseline_days_before": 30,
+            "baseline_generation_minutes": 1440,
+            "baseline_replay": false,
+            "end_minute": 1440,
+            "include_baseline": true,
+            "start_minute": 0
+          },
+          "observation": {
+            "baseline_exposure_minutes": 1440,
+            "baseline_interval_minutes": 15,
+            "bias_pct_points": 0.0,
+            "interval_minutes": 15,
+            "measured_pao2_mmhg": null,
+            "missing_probability": 0.0,
+            "noise_sd_pct": 1.0,
+            "phase_minutes": 0,
+            "rounding": "integer",
+            "start_minute": 0
+          },
+          "scoring": {
+            "acute_begin_minute": -360,
+            "acute_end_minute": 1440,
+            "availability": "retrospective",
+            "baseline_end_days": 7,
+            "baseline_months": 36,
+            "baseline_selection": "latest_day",
+            "binning": "calendar",
+            "conversion": "spo2_or_measured",
+            "lookup": "legacy",
+            "profile": "bounded_analysis_v2",
+            "single_record_suppression": true,
+            "support_eligibility": "legacy",
+            "threshold_factor": 1.0,
+            "timezone": "UTC"
+          },
+          "support": {
+            "based_on_observed": true,
+            "fio2_fraction": 0.5,
+            "flow_lpm": null,
+            "label": "IMV",
+            "mode": "fixed",
+            "segments": [],
+            "thresholds_pct": [
+              94.0,
+              90.0,
+              86.0,
+              82.0
+            ]
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "1h every 15 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.5,
+              "flow_lpm": null,
+              "label": "IMV",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "1h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 60,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.5,
+              "flow_lpm": null,
+              "label": "IMV",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "6h every 15 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.5,
+              "flow_lpm": null,
+              "label": "IMV",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "6h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.5,
+              "flow_lpm": null,
+              "label": "IMV",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        },
+        {
+          "label": "24h every 60 minutes",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.2,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T12:37:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 1440,
+              "baseline_replay": false,
+              "end_minute": 1440,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 1440,
+              "baseline_interval_minutes": 60,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 1.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": -360,
+              "acute_end_minute": 1440,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.5,
+              "flow_lpm": null,
+              "label": "IMV",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        }
+      ],
+      "replicates": 2000,
+      "seed": 173203,
+      "primary_outcome": "delta_legacy_ge1"
+    },
+    {
+      "schema_version": "experiment_request_v2",
+      "rng_version": "seedsequence_pcg64_v2",
+      "experiment_id": "E5_replay:room_air",
+      "base": {
+        "documentation": {
+          "disagreement_fraction": 0.0,
+          "interval_minutes": 15,
+          "measured_source_probability": 0.0,
+          "missing_probability": 0.0,
+          "phase_minutes": 0,
+          "recorded_delay_minutes": 0.0,
+          "stale_minutes": 0,
+          "timestamp_offset_minutes": 0.0
+        },
+        "generator": {
+          "episode_depth_pct_points": 5.0,
+          "episode_duration_minutes": 30,
+          "episode_rate_per_hour": 0.0,
+          "marginal_sd_pct": 1.5,
+          "mean_pct": 94.0,
+          "prescribed_episodes": [],
+          "prescribed_trajectory": [],
+          "tau_minutes": 30.0,
+          "version": "fixed_minute_ar1_v2"
+        },
+        "horizon": {
+          "admit_dts": "2024-01-01T06:00:00Z",
+          "baseline_days_before": 30,
+          "baseline_generation_minutes": 360,
+          "baseline_replay": true,
+          "end_minute": 360,
+          "include_baseline": true,
+          "start_minute": 0
+        },
+        "observation": {
+          "baseline_exposure_minutes": 360,
+          "baseline_interval_minutes": 15,
+          "bias_pct_points": 0.0,
+          "interval_minutes": 15,
+          "measured_pao2_mmhg": null,
+          "missing_probability": 0.0,
+          "noise_sd_pct": 0.0,
+          "phase_minutes": 0,
+          "rounding": "integer",
+          "start_minute": 0
+        },
+        "scoring": {
+          "acute_begin_minute": 0,
+          "acute_end_minute": 360,
+          "availability": "retrospective",
+          "baseline_end_days": 7,
+          "baseline_months": 36,
+          "baseline_selection": "latest_day",
+          "binning": "calendar",
+          "conversion": "spo2_or_measured",
+          "lookup": "legacy",
+          "profile": "bounded_analysis_v2",
+          "single_record_suppression": true,
+          "support_eligibility": "legacy",
+          "threshold_factor": 1.0,
+          "timezone": "UTC"
+        },
+        "support": {
+          "based_on_observed": true,
+          "fio2_fraction": 0.21,
+          "flow_lpm": null,
+          "label": "ROOM_AIR",
+          "mode": "fixed",
+          "segments": [],
+          "thresholds_pct": [
+            94.0,
+            90.0,
+            86.0,
+            82.0
+          ]
+        }
+      },
+      "comparator": {
+        "label": "Six-hour replay",
+        "overrides": {
+          "documentation": {
+            "disagreement_fraction": 0.0,
+            "interval_minutes": 15,
+            "measured_source_probability": 0.0,
+            "missing_probability": 0.0,
+            "phase_minutes": 0,
+            "recorded_delay_minutes": 0.0,
+            "stale_minutes": 0,
+            "timestamp_offset_minutes": 0.0
+          },
+          "generator": {
+            "episode_depth_pct_points": 5.0,
+            "episode_duration_minutes": 30,
+            "episode_rate_per_hour": 0.0,
+            "marginal_sd_pct": 1.5,
+            "mean_pct": 94.0,
+            "prescribed_episodes": [],
+            "prescribed_trajectory": [],
+            "tau_minutes": 30.0,
+            "version": "fixed_minute_ar1_v2"
+          },
+          "horizon": {
+            "admit_dts": "2024-01-01T06:00:00Z",
+            "baseline_days_before": 30,
+            "baseline_generation_minutes": 360,
+            "baseline_replay": true,
+            "end_minute": 360,
+            "include_baseline": true,
+            "start_minute": 0
+          },
+          "observation": {
+            "baseline_exposure_minutes": 360,
+            "baseline_interval_minutes": 15,
+            "bias_pct_points": 0.0,
+            "interval_minutes": 15,
+            "measured_pao2_mmhg": null,
+            "missing_probability": 0.0,
+            "noise_sd_pct": 0.0,
+            "phase_minutes": 0,
+            "rounding": "integer",
+            "start_minute": 0
+          },
+          "scoring": {
+            "acute_begin_minute": 0,
+            "acute_end_minute": 360,
+            "availability": "retrospective",
+            "baseline_end_days": 7,
+            "baseline_months": 36,
+            "baseline_selection": "latest_day",
+            "binning": "calendar",
+            "conversion": "spo2_or_measured",
+            "lookup": "legacy",
+            "profile": "bounded_analysis_v2",
+            "single_record_suppression": true,
+            "support_eligibility": "legacy",
+            "threshold_factor": 1.0,
+            "timezone": "UTC"
+          },
+          "support": {
+            "based_on_observed": true,
+            "fio2_fraction": 0.21,
+            "flow_lpm": null,
+            "label": "ROOM_AIR",
+            "mode": "fixed",
+            "segments": [],
+            "thresholds_pct": [
+              94.0,
+              90.0,
+              86.0,
+              82.0
+            ]
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Identical replay",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.0,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T06:00:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 360,
+              "baseline_replay": true,
+              "end_minute": 360,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 0.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": 0,
+              "acute_end_minute": 360,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.21,
+              "flow_lpm": null,
+              "label": "ROOM_AIR",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        }
+      ],
+      "replicates": 2000,
+      "seed": 173203,
+      "primary_outcome": "delta_legacy_ge1"
+    },
+    {
+      "schema_version": "experiment_request_v2",
+      "rng_version": "seedsequence_pcg64_v2",
+      "experiment_id": "E5_replay:low_flow",
+      "base": {
+        "documentation": {
+          "disagreement_fraction": 0.0,
+          "interval_minutes": 15,
+          "measured_source_probability": 0.0,
+          "missing_probability": 0.0,
+          "phase_minutes": 0,
+          "recorded_delay_minutes": 0.0,
+          "stale_minutes": 0,
+          "timestamp_offset_minutes": 0.0
+        },
+        "generator": {
+          "episode_depth_pct_points": 5.0,
+          "episode_duration_minutes": 30,
+          "episode_rate_per_hour": 0.0,
+          "marginal_sd_pct": 1.5,
+          "mean_pct": 94.0,
+          "prescribed_episodes": [],
+          "prescribed_trajectory": [],
+          "tau_minutes": 30.0,
+          "version": "fixed_minute_ar1_v2"
+        },
+        "horizon": {
+          "admit_dts": "2024-01-01T06:00:00Z",
+          "baseline_days_before": 30,
+          "baseline_generation_minutes": 360,
+          "baseline_replay": true,
+          "end_minute": 360,
+          "include_baseline": true,
+          "start_minute": 0
+        },
+        "observation": {
+          "baseline_exposure_minutes": 360,
+          "baseline_interval_minutes": 15,
+          "bias_pct_points": 0.0,
+          "interval_minutes": 15,
+          "measured_pao2_mmhg": null,
+          "missing_probability": 0.0,
+          "noise_sd_pct": 0.0,
+          "phase_minutes": 0,
+          "rounding": "integer",
+          "start_minute": 0
+        },
+        "scoring": {
+          "acute_begin_minute": 0,
+          "acute_end_minute": 360,
+          "availability": "retrospective",
+          "baseline_end_days": 7,
+          "baseline_months": 36,
+          "baseline_selection": "latest_day",
+          "binning": "calendar",
+          "conversion": "spo2_or_measured",
+          "lookup": "legacy",
+          "profile": "bounded_analysis_v2",
+          "single_record_suppression": true,
+          "support_eligibility": "legacy",
+          "threshold_factor": 1.0,
+          "timezone": "UTC"
+        },
+        "support": {
+          "based_on_observed": true,
+          "fio2_fraction": null,
+          "flow_lpm": 4.0,
+          "label": "LOW_FLOW",
+          "mode": "fixed",
+          "segments": [],
+          "thresholds_pct": [
+            94.0,
+            90.0,
+            86.0,
+            82.0
+          ]
+        }
+      },
+      "comparator": {
+        "label": "Six-hour replay",
+        "overrides": {
+          "documentation": {
+            "disagreement_fraction": 0.0,
+            "interval_minutes": 15,
+            "measured_source_probability": 0.0,
+            "missing_probability": 0.0,
+            "phase_minutes": 0,
+            "recorded_delay_minutes": 0.0,
+            "stale_minutes": 0,
+            "timestamp_offset_minutes": 0.0
+          },
+          "generator": {
+            "episode_depth_pct_points": 5.0,
+            "episode_duration_minutes": 30,
+            "episode_rate_per_hour": 0.0,
+            "marginal_sd_pct": 1.5,
+            "mean_pct": 94.0,
+            "prescribed_episodes": [],
+            "prescribed_trajectory": [],
+            "tau_minutes": 30.0,
+            "version": "fixed_minute_ar1_v2"
+          },
+          "horizon": {
+            "admit_dts": "2024-01-01T06:00:00Z",
+            "baseline_days_before": 30,
+            "baseline_generation_minutes": 360,
+            "baseline_replay": true,
+            "end_minute": 360,
+            "include_baseline": true,
+            "start_minute": 0
+          },
+          "observation": {
+            "baseline_exposure_minutes": 360,
+            "baseline_interval_minutes": 15,
+            "bias_pct_points": 0.0,
+            "interval_minutes": 15,
+            "measured_pao2_mmhg": null,
+            "missing_probability": 0.0,
+            "noise_sd_pct": 0.0,
+            "phase_minutes": 0,
+            "rounding": "integer",
+            "start_minute": 0
+          },
+          "scoring": {
+            "acute_begin_minute": 0,
+            "acute_end_minute": 360,
+            "availability": "retrospective",
+            "baseline_end_days": 7,
+            "baseline_months": 36,
+            "baseline_selection": "latest_day",
+            "binning": "calendar",
+            "conversion": "spo2_or_measured",
+            "lookup": "legacy",
+            "profile": "bounded_analysis_v2",
+            "single_record_suppression": true,
+            "support_eligibility": "legacy",
+            "threshold_factor": 1.0,
+            "timezone": "UTC"
+          },
+          "support": {
+            "based_on_observed": true,
+            "fio2_fraction": null,
+            "flow_lpm": 4.0,
+            "label": "LOW_FLOW",
+            "mode": "fixed",
+            "segments": [],
+            "thresholds_pct": [
+              94.0,
+              90.0,
+              86.0,
+              82.0
+            ]
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Identical replay",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.0,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T06:00:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 360,
+              "baseline_replay": true,
+              "end_minute": 360,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 0.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": 0,
+              "acute_end_minute": 360,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": null,
+              "flow_lpm": 4.0,
+              "label": "LOW_FLOW",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        }
+      ],
+      "replicates": 2000,
+      "seed": 173203,
+      "primary_outcome": "delta_legacy_ge1"
+    },
+    {
+      "schema_version": "experiment_request_v2",
+      "rng_version": "seedsequence_pcg64_v2",
+      "experiment_id": "E5_replay:hfnc",
+      "base": {
+        "documentation": {
+          "disagreement_fraction": 0.0,
+          "interval_minutes": 15,
+          "measured_source_probability": 0.0,
+          "missing_probability": 0.0,
+          "phase_minutes": 0,
+          "recorded_delay_minutes": 0.0,
+          "stale_minutes": 0,
+          "timestamp_offset_minutes": 0.0
+        },
+        "generator": {
+          "episode_depth_pct_points": 5.0,
+          "episode_duration_minutes": 30,
+          "episode_rate_per_hour": 0.0,
+          "marginal_sd_pct": 1.5,
+          "mean_pct": 94.0,
+          "prescribed_episodes": [],
+          "prescribed_trajectory": [],
+          "tau_minutes": 30.0,
+          "version": "fixed_minute_ar1_v2"
+        },
+        "horizon": {
+          "admit_dts": "2024-01-01T06:00:00Z",
+          "baseline_days_before": 30,
+          "baseline_generation_minutes": 360,
+          "baseline_replay": true,
+          "end_minute": 360,
+          "include_baseline": true,
+          "start_minute": 0
+        },
+        "observation": {
+          "baseline_exposure_minutes": 360,
+          "baseline_interval_minutes": 15,
+          "bias_pct_points": 0.0,
+          "interval_minutes": 15,
+          "measured_pao2_mmhg": null,
+          "missing_probability": 0.0,
+          "noise_sd_pct": 0.0,
+          "phase_minutes": 0,
+          "rounding": "integer",
+          "start_minute": 0
+        },
+        "scoring": {
+          "acute_begin_minute": 0,
+          "acute_end_minute": 360,
+          "availability": "retrospective",
+          "baseline_end_days": 7,
+          "baseline_months": 36,
+          "baseline_selection": "latest_day",
+          "binning": "calendar",
+          "conversion": "spo2_or_measured",
+          "lookup": "legacy",
+          "profile": "bounded_analysis_v2",
+          "single_record_suppression": true,
+          "support_eligibility": "legacy",
+          "threshold_factor": 1.0,
+          "timezone": "UTC"
+        },
+        "support": {
+          "based_on_observed": true,
+          "fio2_fraction": 0.4,
+          "flow_lpm": null,
+          "label": "HFNC",
+          "mode": "fixed",
+          "segments": [],
+          "thresholds_pct": [
+            94.0,
+            90.0,
+            86.0,
+            82.0
+          ]
+        }
+      },
+      "comparator": {
+        "label": "Six-hour replay",
+        "overrides": {
+          "documentation": {
+            "disagreement_fraction": 0.0,
+            "interval_minutes": 15,
+            "measured_source_probability": 0.0,
+            "missing_probability": 0.0,
+            "phase_minutes": 0,
+            "recorded_delay_minutes": 0.0,
+            "stale_minutes": 0,
+            "timestamp_offset_minutes": 0.0
+          },
+          "generator": {
+            "episode_depth_pct_points": 5.0,
+            "episode_duration_minutes": 30,
+            "episode_rate_per_hour": 0.0,
+            "marginal_sd_pct": 1.5,
+            "mean_pct": 94.0,
+            "prescribed_episodes": [],
+            "prescribed_trajectory": [],
+            "tau_minutes": 30.0,
+            "version": "fixed_minute_ar1_v2"
+          },
+          "horizon": {
+            "admit_dts": "2024-01-01T06:00:00Z",
+            "baseline_days_before": 30,
+            "baseline_generation_minutes": 360,
+            "baseline_replay": true,
+            "end_minute": 360,
+            "include_baseline": true,
+            "start_minute": 0
+          },
+          "observation": {
+            "baseline_exposure_minutes": 360,
+            "baseline_interval_minutes": 15,
+            "bias_pct_points": 0.0,
+            "interval_minutes": 15,
+            "measured_pao2_mmhg": null,
+            "missing_probability": 0.0,
+            "noise_sd_pct": 0.0,
+            "phase_minutes": 0,
+            "rounding": "integer",
+            "start_minute": 0
+          },
+          "scoring": {
+            "acute_begin_minute": 0,
+            "acute_end_minute": 360,
+            "availability": "retrospective",
+            "baseline_end_days": 7,
+            "baseline_months": 36,
+            "baseline_selection": "latest_day",
+            "binning": "calendar",
+            "conversion": "spo2_or_measured",
+            "lookup": "legacy",
+            "profile": "bounded_analysis_v2",
+            "single_record_suppression": true,
+            "support_eligibility": "legacy",
+            "threshold_factor": 1.0,
+            "timezone": "UTC"
+          },
+          "support": {
+            "based_on_observed": true,
+            "fio2_fraction": 0.4,
+            "flow_lpm": null,
+            "label": "HFNC",
+            "mode": "fixed",
+            "segments": [],
+            "thresholds_pct": [
+              94.0,
+              90.0,
+              86.0,
+              82.0
+            ]
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Identical replay",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.0,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T06:00:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 360,
+              "baseline_replay": true,
+              "end_minute": 360,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 0.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": 0,
+              "acute_end_minute": 360,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.4,
+              "flow_lpm": null,
+              "label": "HFNC",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        }
+      ],
+      "replicates": 2000,
+      "seed": 173203,
+      "primary_outcome": "delta_legacy_ge1"
+    },
+    {
+      "schema_version": "experiment_request_v2",
+      "rng_version": "seedsequence_pcg64_v2",
+      "experiment_id": "E5_replay:imv",
+      "base": {
+        "documentation": {
+          "disagreement_fraction": 0.0,
+          "interval_minutes": 15,
+          "measured_source_probability": 0.0,
+          "missing_probability": 0.0,
+          "phase_minutes": 0,
+          "recorded_delay_minutes": 0.0,
+          "stale_minutes": 0,
+          "timestamp_offset_minutes": 0.0
+        },
+        "generator": {
+          "episode_depth_pct_points": 5.0,
+          "episode_duration_minutes": 30,
+          "episode_rate_per_hour": 0.0,
+          "marginal_sd_pct": 1.5,
+          "mean_pct": 94.0,
+          "prescribed_episodes": [],
+          "prescribed_trajectory": [],
+          "tau_minutes": 30.0,
+          "version": "fixed_minute_ar1_v2"
+        },
+        "horizon": {
+          "admit_dts": "2024-01-01T06:00:00Z",
+          "baseline_days_before": 30,
+          "baseline_generation_minutes": 360,
+          "baseline_replay": true,
+          "end_minute": 360,
+          "include_baseline": true,
+          "start_minute": 0
+        },
+        "observation": {
+          "baseline_exposure_minutes": 360,
+          "baseline_interval_minutes": 15,
+          "bias_pct_points": 0.0,
+          "interval_minutes": 15,
+          "measured_pao2_mmhg": null,
+          "missing_probability": 0.0,
+          "noise_sd_pct": 0.0,
+          "phase_minutes": 0,
+          "rounding": "integer",
+          "start_minute": 0
+        },
+        "scoring": {
+          "acute_begin_minute": 0,
+          "acute_end_minute": 360,
+          "availability": "retrospective",
+          "baseline_end_days": 7,
+          "baseline_months": 36,
+          "baseline_selection": "latest_day",
+          "binning": "calendar",
+          "conversion": "spo2_or_measured",
+          "lookup": "legacy",
+          "profile": "bounded_analysis_v2",
+          "single_record_suppression": true,
+          "support_eligibility": "legacy",
+          "threshold_factor": 1.0,
+          "timezone": "UTC"
+        },
+        "support": {
+          "based_on_observed": true,
+          "fio2_fraction": 0.5,
+          "flow_lpm": null,
+          "label": "IMV",
+          "mode": "fixed",
+          "segments": [],
+          "thresholds_pct": [
+            94.0,
+            90.0,
+            86.0,
+            82.0
+          ]
+        }
+      },
+      "comparator": {
+        "label": "Six-hour replay",
+        "overrides": {
+          "documentation": {
+            "disagreement_fraction": 0.0,
+            "interval_minutes": 15,
+            "measured_source_probability": 0.0,
+            "missing_probability": 0.0,
+            "phase_minutes": 0,
+            "recorded_delay_minutes": 0.0,
+            "stale_minutes": 0,
+            "timestamp_offset_minutes": 0.0
+          },
+          "generator": {
+            "episode_depth_pct_points": 5.0,
+            "episode_duration_minutes": 30,
+            "episode_rate_per_hour": 0.0,
+            "marginal_sd_pct": 1.5,
+            "mean_pct": 94.0,
+            "prescribed_episodes": [],
+            "prescribed_trajectory": [],
+            "tau_minutes": 30.0,
+            "version": "fixed_minute_ar1_v2"
+          },
+          "horizon": {
+            "admit_dts": "2024-01-01T06:00:00Z",
+            "baseline_days_before": 30,
+            "baseline_generation_minutes": 360,
+            "baseline_replay": true,
+            "end_minute": 360,
+            "include_baseline": true,
+            "start_minute": 0
+          },
+          "observation": {
+            "baseline_exposure_minutes": 360,
+            "baseline_interval_minutes": 15,
+            "bias_pct_points": 0.0,
+            "interval_minutes": 15,
+            "measured_pao2_mmhg": null,
+            "missing_probability": 0.0,
+            "noise_sd_pct": 0.0,
+            "phase_minutes": 0,
+            "rounding": "integer",
+            "start_minute": 0
+          },
+          "scoring": {
+            "acute_begin_minute": 0,
+            "acute_end_minute": 360,
+            "availability": "retrospective",
+            "baseline_end_days": 7,
+            "baseline_months": 36,
+            "baseline_selection": "latest_day",
+            "binning": "calendar",
+            "conversion": "spo2_or_measured",
+            "lookup": "legacy",
+            "profile": "bounded_analysis_v2",
+            "single_record_suppression": true,
+            "support_eligibility": "legacy",
+            "threshold_factor": 1.0,
+            "timezone": "UTC"
+          },
+          "support": {
+            "based_on_observed": true,
+            "fio2_fraction": 0.5,
+            "flow_lpm": null,
+            "label": "IMV",
+            "mode": "fixed",
+            "segments": [],
+            "thresholds_pct": [
+              94.0,
+              90.0,
+              86.0,
+              82.0
+            ]
+          }
+        }
+      },
+      "conditions": [
+        {
+          "label": "Identical replay",
+          "overrides": {
+            "documentation": {
+              "disagreement_fraction": 0.0,
+              "interval_minutes": 15,
+              "measured_source_probability": 0.0,
+              "missing_probability": 0.0,
+              "phase_minutes": 0,
+              "recorded_delay_minutes": 0.0,
+              "stale_minutes": 0,
+              "timestamp_offset_minutes": 0.0
+            },
+            "generator": {
+              "episode_depth_pct_points": 5.0,
+              "episode_duration_minutes": 30,
+              "episode_rate_per_hour": 0.0,
+              "marginal_sd_pct": 1.5,
+              "mean_pct": 94.0,
+              "prescribed_episodes": [],
+              "prescribed_trajectory": [],
+              "tau_minutes": 30.0,
+              "version": "fixed_minute_ar1_v2"
+            },
+            "horizon": {
+              "admit_dts": "2024-01-01T06:00:00Z",
+              "baseline_days_before": 30,
+              "baseline_generation_minutes": 360,
+              "baseline_replay": true,
+              "end_minute": 360,
+              "include_baseline": true,
+              "start_minute": 0
+            },
+            "observation": {
+              "baseline_exposure_minutes": 360,
+              "baseline_interval_minutes": 15,
+              "bias_pct_points": 0.0,
+              "interval_minutes": 15,
+              "measured_pao2_mmhg": null,
+              "missing_probability": 0.0,
+              "noise_sd_pct": 0.0,
+              "phase_minutes": 0,
+              "rounding": "integer",
+              "start_minute": 0
+            },
+            "scoring": {
+              "acute_begin_minute": 0,
+              "acute_end_minute": 360,
+              "availability": "retrospective",
+              "baseline_end_days": 7,
+              "baseline_months": 36,
+              "baseline_selection": "latest_day",
+              "binning": "calendar",
+              "conversion": "spo2_or_measured",
+              "lookup": "legacy",
+              "profile": "bounded_analysis_v2",
+              "single_record_suppression": true,
+              "support_eligibility": "legacy",
+              "threshold_factor": 1.0,
+              "timezone": "UTC"
+            },
+            "support": {
+              "based_on_observed": true,
+              "fio2_fraction": 0.5,
+              "flow_lpm": null,
+              "label": "IMV",
+              "mode": "fixed",
+              "segments": [],
+              "thresholds_pct": [
+                94.0,
+                90.0,
+                86.0,
+                82.0
+              ]
+            }
+          }
+        }
+      ],
+      "replicates": 2000,
+      "seed": 173203,
+      "primary_outcome": "delta_legacy_ge1"
+    }
+  ]
+}

@@ -13,6 +13,16 @@ modules through thin contracts.
 | `src/sofa_resp_sim/core/resp_utils.py` | Pure helpers | Oracle-style rounding and SpO2-to-PaO2 conversion |
 | `src/sofa_resp_sim/core/resp_scoring.py` | Respiratory SOFA scoring | Public scoring entrypoint and diagnostics |
 | `src/sofa_resp_sim/core/resp_simulation.py` | Simulation engine | Replicates and parameter sweeps |
+| `src/sofa_resp_sim/core/experiment_config.py` | v2 scientific configuration | Strict units, profiles and normalized condition identity |
+| `src/sofa_resp_sim/core/paired_simulation.py` | v2 latent patient generation | Fixed minute grid and stable patient/process streams |
+| `src/sofa_resp_sim/core/observation.py` | v2 observation/documentation | Independent schedules and observable event records |
+| `src/sofa_resp_sim/core/experiment_scoring.py` | Bounded v2 scoring | Observable evidence, source selection and exclusion traces |
+| `src/sofa_resp_sim/reporting/experiment_service.py` | Paired orchestration | Per-patient generation/cache and selected trace reconstruction |
+| `src/sofa_resp_sim/reporting/experiment_results.py` | Paired estimands | Explicit denominators, transitions and pointwise MC uncertainty |
+| `src/sofa_resp_sim/reporting/experiment_catalogue.py` | Finite experiment definitions | Prespecified comparisons; expands edited bases without resets |
+| `src/sofa_resp_sim/reporting/rule_explorer.py` | Deterministic rule grid | Event versus explicit encounter scoring |
+| `src/sofa_resp_sim/reporting/experiment_bundle.py` | Portable synthetic bundles | Typed CSV, hashes, versions, ZIP import/export |
+| `src/sofa_resp_sim/reporting/experiment_request.py` | v2 request normalization | One resolved base/comparator/condition contract |
 | `src/sofa_resp_sim/resp_*.py` | Compatibility wrappers | Preserve existing imports |
 | `src/sofa_resp_sim/reporting/view_model.py` | Request schemas and validation | Browser-safe, no UI dependencies |
 | `src/sofa_resp_sim/reporting/app_services.py` | Scenario/sweep orchestration | Calls the core simulation layer |
@@ -20,6 +30,7 @@ modules through thin contracts.
 | `src/sofa_resp_sim/reporting/presets.py` | Presets and serialization | Shared by tests and browser contract |
 | `src/sofa_resp_sim/browser_contract.py` | Pyodide API | JSON-safe payload boundary |
 | `src/sofa_resp_sim/data/` | Packaged reference fallback | Used outside repo/staged web layouts |
+| `src/sofa_resp_sim/workflows/experiment_cli.py` | Paired experiment CLI | Run, explain, verify, reproduce and append |
 | `src/sofa_resp_sim/workflows/cli.py` | CLI entrypoint | `resp-sofa-sim` |
 | `scripts/stage_web_python.py` | Web staging | Allowlists browser-safe Python and data |
 | `web/` | Static app | HTML/CSS/JS plus Pyodide worker |
@@ -60,6 +71,12 @@ JavaScript -> scoring decisions
 - `get_app_config_payload()`
 - `run_scenario_payload(payload)`
 - `run_sweep_payload(payload)`
+- `run_experiment_payload(payload)`
+- `explain_experiment_payload(payload)`
+- `get_experiment_catalogue_payload(payload)`
+- `run_rule_explorer_payload(payload)`
+- `export_experiment_bundle_payload(payload)`
+- `import_experiment_bundle_payload(payload)`
 
 All browser contract outputs must be JSON serializable and should return
 structured `{"ok": false, "error": ...}` failures instead of uncaught tracebacks
@@ -68,6 +85,7 @@ at the worker boundary.
 ### CLI
 
 - `resp-sofa-sim`
+- `resp-sofa-experiment`
 - `python -m sofa_resp_sim.workflows.cli`
 
 ### Static app
@@ -84,6 +102,13 @@ Installed package use falls back to the packaged reference CSV under
 `sofa_resp_sim.data` when repo and Pyodide filesystem paths are unavailable.
 
 ## Architecture invariants
+
+The paired experimental workbench is being implemented alongside the legacy
+entry points. The paired Python service and worker API are implemented; the
+paired CLI is available. The default investigation interface uses one editable
+request and a separate immutable completed result. The historical workflow is
+preserved at `web/legacy.html`. See
+`docs/implementation/sofa_experiment_v2_status.md` for verified scope.
 
 1. Scoring rules live in `src/sofa_resp_sim/core/`.
 2. JavaScript never computes SOFA scores, simulation summaries, uncertainty

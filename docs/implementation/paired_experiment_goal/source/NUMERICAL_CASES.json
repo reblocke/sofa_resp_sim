@@ -1,0 +1,164 @@
+{
+  "purpose": "Numerical acceptance vectors. This packet does not implement or execute the new repository pipeline.",
+  "input_convention": "Scoring cases use legacy scorer field names and percent FiO2. The v2 request contract uses fraction FiO2 and must adapt explicitly.",
+  "admit_dts": "2024-01-01T12:37:00Z",
+  "cases": [
+    {
+      "id": "A03",
+      "generator_version": "v2_proposed",
+      "background_mean_pct": 96,
+      "background_sd": 0,
+      "episode_start_minute": 30,
+      "episode_end_minute_exclusive": 60,
+      "episode_depth_percentage_points": 5,
+      "observation_intervals_minutes": [
+        5,
+        15,
+        30,
+        60
+      ],
+      "expected_before_during_after": [
+        96,
+        91,
+        96
+      ],
+      "note": "Coarse schedules can miss an episode. Latent values at shared times must match; no recursive decrement."
+    },
+    {
+      "id": "A10",
+      "input": {
+        "times_minutes": [
+          0,
+          15
+        ],
+        "spo2_obs": [
+          96,
+          96
+        ],
+        "is_room_air": [
+          true,
+          true
+        ]
+      },
+      "factor_cases": [
+        {
+          "factor": 1.0,
+          "expected_score": 1
+        },
+        {
+          "factor": 0.85,
+          "expected_score": 0
+        }
+      ],
+      "expected_pao2_calc_mmhg": 81.9,
+      "expected_pf_ratio": 390.0
+    },
+    {
+      "id": "A11",
+      "input": {
+        "times_minutes": [
+          0,
+          15
+        ],
+        "spo2_obs": [
+          96,
+          96
+        ],
+        "pao2_meas": [
+          84,
+          84
+        ],
+        "is_room_air": [
+          true,
+          true
+        ]
+      },
+      "factor": 1.0,
+      "expected_pao2_used_mmhg": 84.0,
+      "expected_pf_ratio": 400.0,
+      "expected_score": 0
+    },
+    {
+      "id": "A12",
+      "spo2_obs": [
+        49,
+        50,
+        96,
+        97
+      ],
+      "expected_pao2_calc_mmhg": [
+        null,
+        26.9,
+        81.9,
+        null
+      ]
+    },
+    {
+      "id": "A13",
+      "input": {
+        "times_minutes": [
+          0
+        ],
+        "spo2_obs": [
+          90
+        ],
+        "oxygen_flow_rate": [
+          4
+        ],
+        "is_room_air": [
+          false
+        ]
+      },
+      "factor": 1.0,
+      "expected_fio2_percent": 33.0,
+      "expected_pf_ratio": 177.88,
+      "expected_presuppression_score": 2,
+      "expected_singleton_score": 0,
+      "expected_singleton_suppressed": true,
+      "expected_score_after_adding_identical_row_at_15_minutes": 2
+    },
+    {
+      "id": "A20",
+      "n": 100,
+      "n_plus": 30,
+      "n_minus": 10,
+      "paired_difference": 0.2,
+      "difference_percentage_points": 20.0,
+      "mcse": 0.06030226891555272,
+      "interval_method": "exact_discordance_bonferroni",
+      "alpha": 0.05,
+      "expected_conservative_pointwise_interval": [
+        0.013763053206362341,
+        0.3700078964050354
+      ]
+    },
+    {
+      "id": "A19",
+      "k": 0,
+      "n": 200,
+      "confidence_level": 0.95,
+      "method": "wilson",
+      "expected_interval": [
+        0.0,
+        0.018845326377266575
+      ]
+    },
+    {
+      "id": "A21",
+      "n": 100,
+      "n_plus": 0,
+      "n_minus": 0,
+      "conditions_structurally_identical": false,
+      "empirical_mcse": 0.0,
+      "expected_conservative_pointwise_interval": [
+        -0.042874030238438485,
+        0.042874030238438485
+      ]
+    }
+  ],
+  "anchor_verification_environment": {
+    "python": "3.13.5",
+    "scipy": "1.17.0",
+    "scope": "Interval anchors calculated with installed SciPy; score anchors specified from audited formulas and fixtures, not a v2 execution."
+  }
+}

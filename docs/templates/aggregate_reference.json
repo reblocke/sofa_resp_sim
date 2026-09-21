@@ -1,0 +1,10 @@
+{
+  "schema_version": "aggregate_reference_v2",
+  "source": "Invented aggregate counts for schema demonstration only",
+  "extraction_date": "2026-09-21",
+  "cohort_definition": "100 illustrative synthetic patients; not an empirical cohort",
+  "scoring_profile": {"profile": "bounded_analysis_v2"},
+  "units": "patient_counts",
+  "access_class": "synthetic",
+  "denominator_definition": "All completed synthetic patients within each named stratum"
+}
