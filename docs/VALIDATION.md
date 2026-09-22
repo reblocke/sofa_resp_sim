@@ -259,9 +259,11 @@ validation or current-production equivalence.
 
 The historical profile's local DATE clock is tested across the 2024 New York
 spring and fall transitions in `tests/experiments/test_historical_dst.py`.
-The 32 cases cover inclusive acute endpoints, baseline cutoffs, exact negative
+The 34 cases cover inclusive acute endpoints, baseline cutoffs, exact negative
 integer days, quarter-dependent room-air fallback, local gap/fold labels and
-generation/documentation of the +24-hour observation. Actual Pyodide parity
+generation/documentation of the +24-hour observation. Full traces and scientific
+bundle hashes also agree under UTC, Los Angeles and New York host timezones;
+this explicitly tests the pandas local-calendar ordering key. Actual Pyodide parity
 also covers both transitions, generated endpoints and bundle verification.
 
 The pre-fix `main` revision `2a100aadf707abb29cf1d52761c307255bd74809` mixed

@@ -21,7 +21,7 @@
   "tested_file_sha256": {
     "src/sofa_resp_sim/core/historical_trops.py": "b9ce57a2e6ea774a74252262ef73216333a684d44d89047605e05ae5245fd09a",
     "src/sofa_resp_sim/core/experiment_scoring.py": "a5541f8bb63a879b34ebdc9ae2f5498daa3c04ed7f2e7c1b1ea48ff258e7e569",
-    "tests/experiments/test_historical_dst.py": "fbc9a0221a2eea136c07cbbad46b3aa56ad1c642f802b343fea3c76b1087ab8d",
+    "tests/experiments/test_historical_dst.py": "030189b1bd0b678854e303fc3b29c1f66520ccb4a4b5dbd96da3deac348373f2",
     "tests/e2e/test_pyodide_parity.py": "3db51751adb6b464aa97b0771264735a722c974295c147c274f6672b9d89dbac",
     "scripts/verify_historical_dst_compatibility.py": "2b16e32a817cabab90dcb50ce5bc9e7518ef8ca6ec82c5d0509a0c30ec23f7a9"
   },
@@ -33,12 +33,13 @@
     },
     "final_native_format_lint": {
       "status": "passed",
-      "native_cases": 464
+      "native_cases": 466
     },
     "new_dst_regressions": {
-      "cases": 32,
+      "cases": 34,
       "failed_before_fix": 15,
-      "passed_after_fix": 32
+      "passed_after_fix": 34,
+      "pre_fix_comparison_cases": 32
     },
     "actual_pyodide": {
       "status": "passed",
@@ -82,6 +83,30 @@
           "scientific_data_sha256": "02b3d24f459fee40266ddca3f23039938ef2ea3dfd8aa9c5adeb09fc866959e7"
         }
       ]
+    },
+    "host_timezone_invariance": {
+      "status": "passed",
+      "admissions": [
+        "2024-03-10T00:00:00-05:00",
+        "2024-11-03T00:00:00-04:00"
+      ],
+      "host_timezones": [
+        "UTC",
+        "America/Los_Angeles",
+        "America/New_York"
+      ],
+      "comparison": "Exact complete traces and scientific bundle hashes",
+      "review_finding": "https://github.com/reblocke/sofa_resp_sim/pull/13#discussion_r4075651267",
+      "finding_reproduced": false,
+      "implementation_changed": false
+    },
+    "initial_remote_ci": {
+      "revision": "c76719ff4a6085f20629fd628ad11bae73c185a8",
+      "runs": [
+        35774249160,
+        35774290717
+      ],
+      "status": "passed"
     }
   },
   "commands": [
@@ -92,13 +117,15 @@
     "uv run python scripts/verify_experiment_evidence.py",
     "uv run resp-sofa-experiment verify-bundle artifacts/local/historical_references/H_density_historical__imv.zip",
     "uv run resp-sofa-experiment verify-bundle artifacts/local/references_v2/E1_density__imv.zip",
-    "make experiments-install-check"
+    "make experiments-install-check",
+    "uv run pytest -q --ignore=tests/e2e --junitxml=artifacts/local/dst/final_native.xml"
   ],
   "local_log_sha256": {
     "artifacts/local/dst/verification.log": "aacb8e20d5d1455655a92da2b430849db93dece04198f9f211b7c486368a3640",
     "artifacts/local/dst/native_final.log": "dadd236453a45d4be963cbdf2faf9e3b690da426512f9f407a66c742dc946305",
     "artifacts/local/dst/format_lint.log": "e770ea239227521d97b17db6bc2473d4dec5a459d2cfef84491eb2519ab124d7",
     "artifacts/local/dst/clean_install.log": "a18e3dd1eb9ec515a92ec3f9307d816df70d64dfbe90d9a4dadeb2d0fb4b3996",
-    "artifacts/local/dst/before_fix.log": "999a52e33e8d2b0011f4e5e473893e48b7e5e8c43c63d55397e28adbd69d1a3b"
+    "artifacts/local/dst/before_fix.log": "999a52e33e8d2b0011f4e5e473893e48b7e5e8c43c63d55397e28adbd69d1a3b",
+    "artifacts/local/dst/final_native.xml": "5f9c75a3503afd4c3256c5edddf51a115167ec59ea12659c187c5a6811b9a953"
   }
 }

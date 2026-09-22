@@ -1,13 +1,17 @@
 """Synthetic local-wall-clock regressions for PR #12's DST review finding."""
 
+import json
+import time
+
 import pandas as pd
 import pytest
 
 from sofa_resp_sim.core.experiment_config import ScoringProfile
 from sofa_resp_sim.core.experiment_scoring import score_documented_events
 from sofa_resp_sim.core.historical_trops import PROFILE, historical_time
+from sofa_resp_sim.reporting.experiment_bundle import build_bundle
 from sofa_resp_sim.reporting.experiment_request import normalize_experiment_request
-from sofa_resp_sim.reporting.experiment_service import explain_patient
+from sofa_resp_sim.reporting.experiment_service import explain_patient, run_experiment
 
 ZONE = "America/New_York"
 ADMISSIONS = ("2024-03-10T00:00:00-05:00", "2024-11-03T00:00:00-04:00")
@@ -136,3 +140,39 @@ def test_dst_generated_endpoint_is_documented_and_scored(admit):
     endpoint = next(e for e in trace["scoring"]["events"] if e["measurement_minute"] == 1440)
     assert endpoint["in_acute_target"]
     assert endpoint["historical_quarter"] == 5
+
+
+@pytest.mark.skipif(not hasattr(time, "tzset"), reason="Host timezone switching requires tzset")
+@pytest.mark.parametrize("admit", ADMISSIONS)
+def test_historical_trace_and_bundle_ignore_host_timezone(admit, monkeypatch):
+    request = normalize_experiment_request(
+        {
+            "schema_version": "experiment_request_v3",
+            "replicates": 1,
+            "base": {
+                "horizon": {
+                    "admit_dts": admit,
+                    "start_minute": 0,
+                    "end_minute": 1440,
+                    "include_baseline": True,
+                },
+                "observation": {"start_minute": 0},
+                "scoring": {"profile": PROFILE, "timezone": ZONE},
+            },
+            "comparator": {"label": "DST"},
+            "conditions": [],
+        }
+    )
+    results = []
+    for zone in ("UTC", "America/Los_Angeles", "America/New_York"):
+        try:
+            with monkeypatch.context() as context:
+                context.setenv("TZ", zone)
+                time.tzset()
+                trace = explain_patient(request, 0, request.comparator.condition_id)
+                bundle = build_bundle(run_experiment(request))
+                digest = json.loads(bundle["manifest.json"])["scientific_data_sha256"]
+                results.append((trace, digest))
+        finally:
+            time.tzset()  # The context restored TZ, including on a failed assertion.
+    assert results[0] == results[1] == results[2]
