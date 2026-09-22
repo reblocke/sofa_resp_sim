@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "recorded_at_utc": "2026-09-22T14:10:00.807414+00:00",
+  "finding": "https://github.com/reblocke/sofa_resp_sim/pull/12#discussion_r4066830538",
+  "qualification": "Historical TROPS specification mapped to Python; synthetic verification complete; execution against the study SQL not performed.",
+  "tested_environment": {
+    "python": "3.11.10",
+    "dependencies": {
+      "sofa-resp-sim": "0.1.0",
+      "numpy": "2.4.4",
+      "pandas": "3.0.2",
+      "scipy": "1.17.1",
+      "tzdata": "2026.1"
+    },
+    "git_commit": "2a100aadf707abb29cf1d52761c307255bd74809",
+    "dirty_tree": true,
+    "source_provenance_note": "Git state of the source checkout",
+    "source_sha256": "67e2dedcccaa130cc9d8635cd9c79222ac55ebf897490855ef998cb7df8d34db"
+  },
+  "revision_note": "Correction tested as a working-tree patch on the recorded Git commit; exact tested Python and test bytes are bound below. The commit alone is not the corrected revision.",
+  "tested_file_sha256": {
+    "src/sofa_resp_sim/core/historical_trops.py": "b9ce57a2e6ea774a74252262ef73216333a684d44d89047605e05ae5245fd09a",
+    "src/sofa_resp_sim/core/experiment_scoring.py": "a5541f8bb63a879b34ebdc9ae2f5498daa3c04ed7f2e7c1b1ea48ff258e7e569",
+    "tests/experiments/test_historical_dst.py": "fbc9a0221a2eea136c07cbbad46b3aa56ad1c642f802b343fea3c76b1087ab8d",
+    "tests/e2e/test_pyodide_parity.py": "3db51751adb6b464aa97b0771264735a722c974295c147c274f6672b9d89dbac",
+    "scripts/verify_historical_dst_compatibility.py": "2b16e32a817cabab90dcb50ce5bc9e7518ef8ca6ec82c5d0509a0c30ec23f7a9"
+  },
+  "checks": {
+    "make_verify": {
+      "status": "passed",
+      "native_cases": 464,
+      "browser_cases": 21
+    },
+    "final_native_format_lint": {
+      "status": "passed",
+      "native_cases": 464
+    },
+    "new_dst_regressions": {
+      "cases": 32,
+      "failed_before_fix": 15,
+      "passed_after_fix": 32
+    },
+    "actual_pyodide": {
+      "status": "passed",
+      "scope": "v3 historical generation, scoring, common-pair eligibility, trace and bundle verification; spring/fall DST boundaries and local gap/fold labels",
+      "native_python": "3.11.10",
+      "pyodide": "0.29.0",
+      "patients": 3,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "staging_manifest_sha256": "19f82ea61101278413727e8b5c0e52414c141e0cff7b4e873f2256c56993aa49"
+    },
+    "utc_compatibility": {
+      "status": "passed",
+      "baseline_revision": "2a100aadf707abb29cf1d52761c307255bd74809",
+      "requests": 48,
+      "paired_patients_per_request": 1,
+      "comparison": "exact full outputs and all condition explanations",
+      "output_digest_map_sha256": "e8e06ad423a12eee2b0a8113986836b79e0c49d5667e468a1f7dee6da43a73d3"
+    },
+    "archived_reference_evidence": {
+      "status": "verified",
+      "v2_sources": 72,
+      "v3_sources": 48,
+      "artifacts_overwritten": false
+    },
+    "archived_bundle_import": {
+      "status": "verified",
+      "v2_scientific_data_sha256": "bcc6c992af6fc92c736b3ce5057ca72e81dd51c0e51f11d497142c3fad18ce09",
+      "v3_scientific_data_sha256": "d545c7d9f922f3b5b21eac36b7d8dbfdffebc5a56286e3c537ab63c4b43c8ed8"
+    },
+    "clean_wheel": {
+      "status": "verified",
+      "scope": "Fresh locked wheel outside checkout; exact scientific reproduction",
+      "checks": [
+        {
+          "status": "verified",
+          "scientific_data_sha256": "c53f7d300778b3d7f43fca381e84fa3b17b02878967be5cd68996b373de0342b"
+        },
+        {
+          "status": "verified",
+          "scientific_data_sha256": "02b3d24f459fee40266ddca3f23039938ef2ea3dfd8aa9c5adeb09fc866959e7"
+        }
+      ]
+    }
+  },
+  "commands": [
+    "make verify",
+    "make fmt-check lint",
+    "uv run pytest -q --ignore=tests/e2e",
+    "uv run python scripts/verify_historical_dst_compatibility.py",
+    "uv run python scripts/verify_experiment_evidence.py",
+    "uv run resp-sofa-experiment verify-bundle artifacts/local/historical_references/H_density_historical__imv.zip",
+    "uv run resp-sofa-experiment verify-bundle artifacts/local/references_v2/E1_density__imv.zip",
+    "make experiments-install-check"
+  ],
+  "local_log_sha256": {
+    "artifacts/local/dst/verification.log": "aacb8e20d5d1455655a92da2b430849db93dece04198f9f211b7c486368a3640",
+    "artifacts/local/dst/native_final.log": "dadd236453a45d4be963cbdf2faf9e3b690da426512f9f407a66c742dc946305",
+    "artifacts/local/dst/format_lint.log": "e770ea239227521d97b17db6bc2473d4dec5a459d2cfef84491eb2519ab124d7",
+    "artifacts/local/dst/clean_install.log": "a18e3dd1eb9ec515a92ec3f9307d816df70d64dfbe90d9a4dadeb2d0fb4b3996",
+    "artifacts/local/dst/before_fix.log": "999a52e33e8d2b0011f4e5e473893e48b7e5e8c43c63d55397e28adbd69d1a3b"
+  }
+}

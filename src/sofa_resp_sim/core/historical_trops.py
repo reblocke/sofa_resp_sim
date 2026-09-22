@@ -91,12 +91,25 @@ class ScenarioV3(ScenarioConfig):
 
 def historical_time(minute, admit, profile):
     """Oracle DATE arithmetic on the declared local wall clock, not elapsed DST days."""
-    stamp = admit + pd.Timedelta(minutes=minute)
-    relative = (stamp.tz_localize(None) - admit.tz_localize(None)).total_seconds() / 86400
+    local_admit = admit.tz_localize(None)
+    stamp = local_admit + pd.Timedelta(minutes=minute)
+    relative = (stamp - local_admit).total_seconds() / 86400
     begin, end = profile.acute_begin_minute / 1440, profile.acute_end_minute / 1440
     day = 0 if begin <= relative <= end else math.trunc(relative) - (relative < begin)
     quarter = math.trunc(abs(relative - day) * 4) + 1
     return stamp, int(day), quarter, begin <= relative <= end
+
+
+def historical_isoformat(stamp, timezone):
+    """Label wall time without inventing an instant in a DST gap or repeated hour.
+
+    The scoring clock is declared in resolved_windows.timezone. A unique local
+    instant retains its offset (including +00:00 for unchanged UTC exports).
+    Otherwise serialize the original local label without a UTC offset.
+    """
+    local = stamp.tz_localize(None)
+    instant = local.tz_localize(timezone, ambiguous="NaT", nonexistent="NaT")
+    return (local if pd.isna(instant) else instant).isoformat()
 
 
 def validate_context(row):

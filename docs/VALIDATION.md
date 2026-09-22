@@ -255,3 +255,26 @@ The original v2 contract and reference evidence remain preserved. New frozen
 requests live in `experiments/trops_v1/`; new evidence uses
 `artifacts/trops_sensitivity_v1/`. Historical mapping is not SQL execution
 validation or current-production equivalence.
+## Historical DST correction
+
+The historical profile's local DATE clock is tested across the 2024 New York
+spring and fall transitions in `tests/experiments/test_historical_dst.py`.
+The 32 cases cover inclusive acute endpoints, baseline cutoffs, exact negative
+integer days, quarter-dependent room-air fallback, local gap/fold labels and
+generation/documentation of the +24-hour observation. Actual Pyodide parity
+also covers both transitions, generated endpoints and bundle verification.
+
+The pre-fix `main` revision `2a100aadf707abb29cf1d52761c307255bd74809` mixed
+elapsed-time addition with local-time comparisons. Its existing green tests did
+not establish historical DST correctness: historical endpoints used UTC, and
+DST tests covered the bounded profile. The correction preserves the historical
+source specification and its not-execution-validated qualification.
+
+`uv run python scripts/verify_historical_dst_compatibility.py` compares exact
+outputs and patient explanations for all 48 frozen UTC requests against that
+revision in an isolated source snapshot, using one paired patient per request.
+This is a deterministic compatibility check, not a replacement of the original
+2,000-patient reference runs or their uncertainty estimates. The unchanged
+archived evidence is checked with `uv run python scripts/verify_experiment_evidence.py`.
+The DST correction receipt is `artifacts/historical_dst_fix.json`; full local
+compatibility details are in `artifacts/local/dst/utc_compatibility.json`.
