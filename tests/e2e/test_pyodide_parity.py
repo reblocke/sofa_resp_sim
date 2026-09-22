@@ -277,6 +277,36 @@ verified = verify_bundle(bundle)
 # Raw floating-point hashes are runtime-specific; numerical outputs compare below.
 output.pop("runtime_provenance")
 result = {"output": output, "trace": trace, "verified": verified["scores"]}
+from sofa_resp_sim.core.experiment_config import ScoringProfile
+from sofa_resp_sim.core.experiment_scoring import score_documented_events
+from sofa_resp_sim.core.historical_trops import PROFILE
+from sofa_resp_sim.reporting.experiment_request import normalize_experiment_request
+dst = []
+for admit, gap_or_fold in [("2024-03-10T00:00:00-05:00", 150),
+                           ("2024-11-03T00:00:00-04:00", 90)]:
+    profile = ScoringProfile(profile=PROFILE, timezone="America/New_York")
+    events = []
+    for minute in [gap_or_fold, 1439.999, 1440, 1440.001]:
+        common = dict(patient_id=0, measurement_minute=minute, available_minute=minute,
+                      support_type="IMV", invasive_ind=True, support_ind=False,
+                      ce_admit_dts=admit)
+        events.extend([
+            dict(common, event_id=f"ox{minute}", event_type="oxygenation", pao2_meas=80),
+            dict(common, event_id=f"fio{minute}", event_type="fio2", fio2_set_fraction=1.0)])
+    scoring = score_documented_events(events, admit, profile)
+    assert [e["in_acute_target"] for e in scoring["events"]] == [True, True, True, False]
+    request = normalize_experiment_request({
+        "schema_version": "experiment_request_v3", "replicates": 1,
+        "base": {"horizon": {"admit_dts": admit, "start_minute": 0, "end_minute": 1440},
+                 "observation": {"start_minute": 0}, "scoring": profile.to_dict()},
+        "comparator": {"label": "DST"}, "conditions": []})
+    output = run_experiment(request)
+    verified = verify_bundle(build_bundle(output))
+    trace = explain_patient(request, 0, request.comparator.condition_id)
+    endpoint = next(e for e in trace["scoring"]["events"] if e["measurement_minute"] == 1440)
+    assert endpoint["in_acute_target"] and endpoint["historical_quarter"] == 5
+    dst.append({"scoring": scoring, "trace": trace, "verified": verified["scores"]})
+result["dst"] = dst
 """
     handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=ROOT / "web")
     server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
@@ -299,7 +329,7 @@ result = {"output": output, "trace": trace, "verified": verified["scores"]}
                     "status": "passed",
                     ("scope"): (
                         "v3 historical generation, scoring, common-pair eligibility, trace and "
-                        "bundle verification"
+                        "bundle verification; spring/fall DST boundaries and local gap/fold labels"
                     ),
                     "native_python": platform.python_version(),
                     "pyodide": "0.29.0",

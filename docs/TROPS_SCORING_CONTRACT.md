@@ -6,6 +6,31 @@ execution-validated**. Neither source currency nor production equivalence is
 asserted. Synthetic references use UTC; the historical deployment timezone is
 unknown. Configured local wall-clock DATE arithmetic is explicit in the profile.
 
+Historical `measurement_minute` and `available_minute` are normalized offsets on
+that local wall clock. Convert the supplied admission to the configured timezone
+first, then remove timezone information **before** adding offsets or comparing
+dates. Acute/baseline bounds, historical days/quarters, FiO2 lookup ages and
+availability all use this coordinate system. The shared synthetic minute grid
+and random streams are unchanged; a historical local-clock day spans 1,440
+model minutes even at DST transitions. The bounded profile retains its elapsed
+minutes and timezone-aware calendar bins.
+
+Historical trace/window labels include a UTC offset only when the local value
+identifies a unique instant. Values in a spring gap or repeated fall hour are
+serialized as offset-free ISO local labels, with the clock declared by
+`resolved_windows.timezone` (or the request's scoring timezone in bundle tables);
+they must not be interpreted as UTC. They remain
+valid DATE coordinates for scoring, without shifting nonexistent values or
+choosing a fold. `ce_admit_dts` remains a timezone-aware, UTC-normalized encounter
+partition key. Historical `bin_epoch` is a numeric local-calendar ordering key,
+not a physical instant. UTC trace/window exports retain their original values.
+
+This corrects the DST mixing of elapsed and local arithmetic identified in
+[PR #12](https://github.com/reblocke/sofa_resp_sim/pull/12#discussion_r4066830538).
+The intended source contract/profile ID and SQL hashes are unchanged; implementation
+source hashes distinguish corrected runs. Archived bundles retain their original
+source provenance and require that source for exact replay, as described below.
+
 ## Source identity and boundary
 
 Only derived specifications and hashes are stored here. Source file names and
@@ -44,6 +69,7 @@ All rows are source-mapped and synthetically tested, never study-execution certi
 | Baseline midnight minus 36 calendar months through midnight minus 7 days; acute admission minus 6h through plus 24h, both inclusive. Measures 63–66, 175–183. | `core/experiment_scoring.py:score_documented_events`, `core/historical_trops.py:historical_time` | `test_actual_baseline_cutoff`, `test_inclusive_acute_endpoints`, `test_generated_endpoint_is_documented_and_scored` |
 | Historical pre-acute day index trunc(relative days) minus 1; latest day then maximum score then latest time. Exact negative integer differs from floor. Measures 175–183, baseline ranking. | `historical_time`, `experiment_scoring.py:_period_record` | `test_january_ranking_and_component_delta`, `test_exact_negative_integer_day_and_quarter` |
 | Quarter = trunc(abs(relative days minus day index) ×4)+1; can be 5 at exact negative day. Detail 523. | `historical_time` | `test_exact_negative_integer_day_and_quarter` |
+| Declared local DATE clock across DST; inclusive endpoints, baseline cutoffs, quarter evidence and timestamp labels agree. | `historical_time`, `historical_isoformat`, `score_documented_events` | `tests/experiments/test_historical_dst.py`; actual-worker DST cases in `tests/e2e/test_pyodide_parity.py` |
 | Measured PaO2 priority; SpO2 50–96 inclusive via Ellis conversion, rounded to 0.1 mmHg. Detail 536–539. | `experiment_scoring.py:score_documented_events`, `core/resp_utils.py` | deterministic conversion grid; existing `test_scoring_profiles.py` |
 | Room-air 21%; invasive set→measured→ABG; noninvasive measured→set→ABG; flow 0–15 L/min converts to (3×flow+21)%. Detail 698–709. | `experiment_scoring.py:_fio2_context` | `test_historical_source_priority`, deterministic support/PF grid |
 | Partition by patient/cohort, resolved ce_admit_dts and invasive flag; back −14 to −1 min latest, then 0 to +5 min earliest; latest in prior 24h for baseline. Current room-air override. Detail 719–724. | `experiment_scoring.py:EvidenceIndex.lookup` | `test_partition_and_invasive_flags_are_explicit`, `test_historical_lookup_edges` |

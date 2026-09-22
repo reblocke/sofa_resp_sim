@@ -13,7 +13,13 @@ from typing import get_args
 import pandas as pd
 
 from .experiment_config import ScoringProfile, SupportLabel
-from .historical_trops import PROFILE, historical_time, profile_provenance, validate_context
+from .historical_trops import (
+    PROFILE,
+    historical_isoformat,
+    historical_time,
+    profile_provenance,
+    validate_context,
+)
 from .resp_scoring import _apply_resp_detail_cap, _assign_fio2_priority, _assign_sofa_rubric
 from .resp_utils import oracle_round, spo2_to_pao2
 
@@ -248,9 +254,17 @@ def score_documented_events(
     if admit.tzinfo is None:
         raise ValueError("Admission must have an explicit timezone")
     admit = admit.tz_convert(profile.timezone)
+    historical = profile.profile == PROFILE
+    # Historical normalized minutes are local DATE offsets. Keep every scoring
+    # comparison in that coordinate system, including gaps and repeated hours.
+    if historical:
+        admit = admit.tz_localize(None)
+
+    def format_time(stamp):
+        return historical_isoformat(stamp, profile.timezone) if historical else stamp.isoformat()
+
     baseline_begin = admit.normalize() - pd.DateOffset(months=profile.baseline_months)
     baseline_end = admit.normalize() - pd.DateOffset(days=profile.baseline_end_days)
-    historical = profile.profile == PROFILE
     records = _validate_events(events, historical)
     index = EvidenceIndex(records, historical)
     quarter_evidence = set()
@@ -351,11 +365,13 @@ def score_documented_events(
         source_age = minute - selected["measurement_minute"] if selected else None
         event.update(
             {
-                "measurement_time": timestamp.isoformat(),
-                "available_time": (
+                "measurement_time": format_time(timestamp),
+                "available_time": format_time(
                     admit + pd.Timedelta(minutes=event["available_minute"])
-                ).isoformat(),
-                "bin_start": bin_start.isoformat(),
+                ),
+                "bin_start": format_time(bin_start),
+                # For historical scoring this is a local-calendar ordering key,
+                # not an elapsed-time instant. UTC values remain identical.
                 "bin_epoch": bin_start.timestamp(),
                 "pao2_calc_mmhg": converted,
                 "pao2_used_mmhg": pao2,
@@ -426,11 +442,11 @@ def score_documented_events(
         "resolved_windows": {
             "timezone": profile.timezone,
             "binning": profile.binning,
-            "acute_begin": (admit + pd.Timedelta(minutes=profile.acute_begin_minute)).isoformat(),
-            ("acute_end_inclusive" if historical else "acute_end_exclusive"): (
+            "acute_begin": format_time(admit + pd.Timedelta(minutes=profile.acute_begin_minute)),
+            ("acute_end_inclusive" if historical else "acute_end_exclusive"): format_time(
                 admit + pd.Timedelta(minutes=profile.acute_end_minute)
-            ).isoformat(),
-            "baseline_begin_inclusive": baseline_begin.isoformat(),
-            "baseline_end_day_inclusive": baseline_end.isoformat(),
+            ),
+            "baseline_begin_inclusive": format_time(baseline_begin),
+            "baseline_end_day_inclusive": format_time(baseline_end),
         },
     }
