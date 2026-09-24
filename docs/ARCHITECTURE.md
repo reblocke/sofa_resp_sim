@@ -92,8 +92,8 @@ at the worker boundary.
 
 - `web/index.html`
 - `web/pyodide_worker.js`
-- `web/assets/js/app.js`
-- `web/assets/css/styles.css`
+- `web/assets/js/investigation.js` and `web/assets/css/investigation.css` (default paired page)
+- `web/assets/js/app.js` and `web/assets/css/styles.css` (legacy scenario/sweep page)
 
 Generated staged assets under `web/assets/py/` and `web/assets/data/` are
 ignored and reproducible.
@@ -103,12 +103,13 @@ Installed package use falls back to the packaged reference CSV under
 
 ## Architecture invariants
 
-The paired experimental workbench is being implemented alongside the legacy
-entry points. The paired Python service and worker API are implemented; the
-paired CLI is available. The default investigation interface uses one editable
-request and a separate immutable completed result. The historical workflow is
-preserved at `web/legacy.html`. See
-`docs/implementation/sofa_experiment_v2_status.md` for verified scope.
+The paired experimental workbench is implemented on the current default branch
+alongside the retained legacy entry points. The default investigation interface
+uses one editable request and a separate immutable completed result; the
+historical scenario/sweep UI remains at `web/legacy.html`. The
+[paired implementation status](implementation/sofa_experiment_v2_status.md)
+records acceptance at its stated historical commit, not release, current
+deployment, or clinical/source-fidelity validation.
 
 1. Scoring rules live in `src/sofa_resp_sim/core/`.
 2. JavaScript never computes SOFA scores, simulation summaries, uncertainty
