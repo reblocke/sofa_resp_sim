@@ -72,6 +72,7 @@ JavaScript -> scoring decisions
 - `run_scenario_payload(payload)`
 - `run_sweep_payload(payload)`
 - `run_experiment_payload(payload)`
+- `get_experiment_workload_payload(payload)`
 - `explain_experiment_payload(payload)`
 - `get_experiment_catalogue_payload(payload)`
 - `run_rule_explorer_payload(payload)`

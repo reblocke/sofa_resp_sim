@@ -13,7 +13,7 @@ The simulations are **uncalibrated illustrations**, not clinical predictions or 
 | `resp-sofa-experiment` | Run a prespecified or normalized paired request, save and verify a synthetic bundle, explain a patient, reproduce or append. | Bundle verification checks its recorded structure, hashes, versions, and table reconciliation; source/runtime requirements still govern replay. |
 | Legacy scenario/sweep | `resp-sofa-sim`, compatibility imports, and [`web/legacy.html`](web/legacy.html). | Retained for older workflows; not the primary paired interface. |
 
-The paired implementation and its acceptance checks are recorded at specific historical commits in the [v2 status and receipt](docs/implementation/sofa_experiment_v2_status.md). The current default branch includes that work and later historical-sensitivity/DST changes; the old receipt is not a fresh check of this head. Merge, release, current hosted deployment, independent source fidelity, and clinical validation require separate evidence. The [historical TROPS completion report](docs/implementation/trops_fidelity_goal/COMPLETION_REPORT.md) covers source-mapped **synthetic** verification; execution against the study SQL remains unperformed.
+**Status at this documentation review (2026-09-24, `main@a4ff41137d369a5b30b55a2cf306f1802d6688cf`):** the paired implementation is present in source. Its implementation acceptance and checks are recorded at earlier commits in the [v2 status and receipt](docs/implementation/sofa_experiment_v2_status.md); that receipt is not a fresh check of this review base. Release, current hosted deployment, independent source fidelity, and clinical validation require separate evidence. The [historical TROPS completion report](docs/implementation/trops_fidelity_goal/COMPLETION_REPORT.md) covers source-mapped **synthetic** verification; execution against the study SQL remains unperformed.
 
 ## Quickstart
 
@@ -26,7 +26,7 @@ uv run resp-sofa-experiment run --entry E1_density --stratum room_air --replicat
 uv run resp-sofa-experiment verify-bundle artifacts/local/readme-e1-room-air
 ```
 
-Choose a **new** output path for each run: the CLI refuses to replace an existing bundle. `run` reports `completed_patients` and its output path. The new directory contains `request.json`, `manifest.json`, `scores.csv`, `condition_summary.csv`, `paired_contrasts.csv`, `transitions.csv`, `reclassification.csv`, selected trace tables, metric metadata, and `SHA256SUMS`. A successful verification prints JSON with `"status": "verified"` and the scientific-data hash. These commands are defined in `src/sofa_resp_sim/workflows/experiment_cli.py`; the execution status for this README change is reported in its PR.
+Choose a **new** output path for each run: the CLI refuses to replace an existing bundle. `run` reports `completed_patients` and its output path. The new directory contains `request.json`, `manifest.json`, `scores.csv`, `condition_summary.csv`, `paired_contrasts.csv`, `transitions.csv`, `reclassification.csv`, selected trace tables, metric metadata, and `SHA256SUMS`. A successful verification prints JSON with `"status": "verified"` and the scientific-data hash. These commands are defined in `src/sofa_resp_sim/workflows/experiment_cli.py`. [Documentation PR #15](https://github.com/reblocke/sofa_resp_sim/pull/15) records a source-checkout E1 run and exact replay at prior documentation head `f3d1f12af8c049e9d7d813175d31c370add29342` and its recorded runtime; neither result establishes installed-package replay, full-reference reproduction, source fidelity, clinical validity, or a hosted deployment.
 
 On the **same recorded Python/dependency and package source**, an optional exact replay writes to another new path:
 
@@ -60,6 +60,8 @@ Core scoring and simulation live in `src/sofa_resp_sim/core/`; `src/sofa_resp_si
 
 ## CLI
 
+### Legacy scenario/sweep and compatibility
+
 The older `resp-sofa-sim` CLI remains a legacy scenario/sweep entry point. `uv run resp-sofa-sim --help` shows its options; comma-separated observation frequency, noise SD, and room-air threshold values create a sweep. Its Python compatibility wrappers remain under `src/sofa_resp_sim/resp_scoring.py`, `resp_simulation.py`, and `resp_utils.py`. Use `resp-sofa-experiment` above for the paired workbench.
 
 ## Common commands
@@ -75,7 +77,7 @@ These are defined in the [Makefile](Makefile). The quickstart above is the small
 
 ## Validation
 
-[docs/VALIDATION.md](docs/VALIDATION.md) maps tests, bundle checks, installed reproduction, and reference evidence. A verified synthetic bundle establishes internal consistency under its recorded source/runtime; it is not population calibration, clinical validation, or equivalence to an independently run SQL scorer. The [clinical scope](docs/CLINICAL_SCOPE.md) and [reference interpretation](artifacts/experiments_v2/INTERPRETATION.md) explain missing evidence, conditional uncertainty, null results, and limits of inference. Current checks performed for this documentation change belong in its PR, separate from older acceptance receipts.
+[docs/VALIDATION.md](docs/VALIDATION.md) maps tests, bundle checks, installed reproduction, and reference evidence. A verified synthetic bundle establishes internal consistency under its recorded source/runtime; it is not population calibration, clinical validation, or equivalence to an independently run SQL scorer. The [clinical scope](docs/CLINICAL_SCOPE.md) and [reference interpretation](artifacts/experiments_v2/INTERPRETATION.md) explain missing evidence, conditional uncertainty, null results, and limits of inference. The dated source-checkout check for this documentation update is recorded in [PR #15](https://github.com/reblocke/sofa_resp_sim/pull/15), separately from historical acceptance receipts.
 
 ## Public release posture
 

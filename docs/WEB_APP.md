@@ -122,8 +122,9 @@ the prior result stale; its bundle retains the original immutable request.
 
 Python checks workload before allocation: at most 200 patients, 1,600 scoring
 evaluations, 720,000 generated minutes, 400,000 documented events, and 10,000
-generated minutes per patient across cached generators. All 72 catalogue
-previews fit this envelope. Larger runs use an exported request with the CLI.
+generated minutes per patient across cached generators. The original 72 v2
+catalogue previews fit this envelope; current historical selections are subject
+to the same workload check. Larger runs use an exported request with the CLI.
 These counts describe work, not a prediction of peak RAM.
 
 Progress reports attempted patients, completed patients and scoring evaluations.
