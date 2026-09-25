@@ -1,219 +1,102 @@
 # sofa_resp_sim
 
-Respiratory SOFA scoring, simulation, and static browser validation app.
+How do observation, documentation, support, and scoring choices change respiratory SOFA results for the **same synthetic patients**? This repository is a paired respiratory SOFA experiment workbench with a Python batch CLI and a static Pyodide browser app. The default browser page is the paired investigation interface; the earlier scenario/sweep workflow remains available for compatibility.
 
-Use the published app: [Respiratory SOFA Simulation](https://reblocke.github.io/sofa_resp_sim/).
-
-This repository contains:
-- a Python respiratory SOFA scoring engine with diagnostic outputs,
-- deterministic simulation helpers for respiratory observation/support scenarios,
-- a static GitHub Pages app that runs the Python package in Pyodide,
-- small checked-in validation artifacts and contract tests.
-
-This is research software. It is not a medical device, standalone clinical
-decision support, or a replacement for clinician judgment.
-
-## Quickstart
-
-```bash
-uv sync --dev
-make test
-make stage-web
-make serve
-```
-
-Then open the local server URL printed by `python3 -m http.server`.
-
-## Common commands
-
-```bash
-make sync       # uv sync --locked --dev
-make test       # Python tests, excluding browser e2e
-make e2e        # Playwright browser smoke test for the static app
-make verify     # stage web assets, format check, lint, tests, e2e
-make build      # build the Python package
-make sim-help   # show CLI help
-```
-
-## Package layout
-
-- `src/sofa_resp_sim/core/`
-  - pure scoring, simulation, and utility modules.
-- `src/sofa_resp_sim/resp_scoring.py`, `resp_simulation.py`, `resp_utils.py`
-  - compatibility wrappers for existing imports.
-- `src/sofa_resp_sim/reporting/`
-  - browser-safe request normalization, presets, reference comparison,
-    uncertainty summaries, and export formatting.
-- `src/sofa_resp_sim/browser_contract.py`
-  - the narrow Pyodide-facing API used by the static app.
-- `src/sofa_resp_sim/workflows/cli.py`
-  - `resp-sofa-sim` console entrypoint.
-- `web/`
-  - static HTML/CSS/JavaScript and the Pyodide worker.
-- `scripts/stage_web_python.py`
-  - reproducibly stages allowlisted Python/data assets into `web/assets/`.
-- `tests/`
-  - core, contract, workflow, and browser e2e tests.
-
-## Python API
-
-Existing imports remain valid:
-
-```python
-from sofa_resp_sim import score_respiratory
-from sofa_resp_sim.resp_simulation import SimulationConfig, run_parameter_sweep
-```
-
-The browser app calls only:
-
-```python
-from sofa_resp_sim.browser_contract import (
-    get_app_config_payload,
-    run_scenario_payload,
-    run_sweep_payload,
-)
-```
-
-## CLI
-
-The CLI is the batch/export surface for local or scripted runs. It accepts
-comma-separated values for `--obs-freq`, `--noise-sd`, and
-`--room-air-threshold`, so a single command can run a small parameter sweep.
-Single values produce a one-cell sweep.
-
-```bash
-uv run resp-sofa-sim --help
-uv run resp-sofa-sim --replicates 200 --obs-freq 15 --noise-sd 1.0 --room-air-threshold 94 --seed 0
-uv run resp-sofa-sim --replicates 100 --obs-freq 15,30,60 --noise-sd 0.5,1.0 --room-air-threshold 92,94 --seed 0 --output /tmp/sofa_resp_sweep.csv
-```
-
-The first example is a one-cell sweep / single-configuration run. The second
-writes a multi-cell sweep summary to CSV.
-
-Invalid CLI inputs fail fast with validation errors printed to stderr instead of
-uncaught Python tracebacks.
-
-## Web app
-
-The GitHub Pages app is the main interactive surface. JavaScript collects
-inputs, renders returned tables/charts, and downloads CSV/JSON exports. Scoring
-and simulation logic run inside Pyodide from staged Python source.
-
-```bash
-make stage-web
-make serve
-make e2e
-```
-
-Generated staged assets under `web/assets/py/` and `web/assets/data/` are
-ignored because they are reproducible from source and artifacts.
-
-## Validation
-
-Primary validation commands:
-
-```bash
-make test
-make e2e
-make verify
-uv run python -m build
-uv run resp-sofa-sim --help
-```
-
-See `docs/VALIDATION.md` and `artifacts/README.md`.
-
-## Public release posture
-
-The tracked tree is intended to contain only source code, docs, tests, and small
-synthetic or aggregate artifacts. Local literature PDFs are ignored by
-`docs/*.pdf`.
-
-Before making an existing hosted repository public, review
-`docs/PUBLIC_RELEASE_AUDIT.md`: the current tree has no known PHI, but earlier
-GitHub history/PR refs may still contain publisher PDF blobs.
-
-## More documentation
-
-- `docs/ARCHITECTURE.md`
-- `docs/WEB_APP.md`
-- `docs/DEPLOY_PAGES.md`
-- `docs/VALIDATION.md`
-- `docs/CLINICAL_SCOPE.md`
-- `docs/PROVENANCE.md`
-- `docs/DECISIONS.md`
-- `docs/PUBLIC_RELEASE_AUDIT.md`
-
-## Citation and license
-
-- Citation metadata: `CITATION.cff`
-- License: `LICENSE`
-
-## Repository Notes
-
-### Description
-
-Simulation to explore SOFA respiratory score generation from EHR data at elevation
-
-### Project Status
-
-No manuscript version is expected. Code and simulation text are repository-authored unless otherwise noted.
-
-### Data and Reuse
-
-Simulation data only
-
-### Contact
-
-Maintainer: Brian W. Locke (`@reblocke`). Use GitHub issues or pull requests for repository-specific questions when the repository is public.
+The simulations are **uncalibrated illustrations**, not clinical predictions or a population sample. Their intervals describe pointwise Monte Carlo sampling uncertainty conditional on fixed model assumptions, not parameter or clinical uncertainty. The four support strata have no population weights, and observed zero differences do not prove equivalence. This software is not a medical device, standalone clinical decision support, or a replacement for clinician judgment.
 
 ## Paired workbench implementation
 
-The v2 paired Python/worker API is under active implementation alongside the
-existing scenario/sweep workflows. See [implementation status](docs/implementation/sofa_experiment_v2_status.md)
-for completed checks and remaining acceptance and reference-run work.
+| Route | Current use | Evidence boundary |
+|---|---|---|
+| [Hosted app](https://reblocke.github.io/sofa_resp_sim/) | Interactive exploration through the configured GitHub Pages URL. | A link or Pages configuration does not verify the currently deployed build. |
+| Local browser development | Stage source assets, serve over HTTP, and inspect the default Experiment, Explain an encounter, and Methods and export views. | Staging and a local page load are not clinical validation. |
+| `resp-sofa-experiment` | Run a prespecified or normalized paired request, save and verify a synthetic bundle, explain a patient, reproduce or append. | Bundle verification checks its recorded structure, hashes, versions, and table reconciliation; source/runtime requirements still govern replay. |
+| Legacy scenario/sweep | `resp-sofa-sim`, compatibility imports, and [`web/legacy.html`](web/legacy.html). | Retained for older workflows; not the primary paired interface. |
+
+**Status at this documentation review (2026-09-24, `main@a4ff41137d369a5b30b55a2cf306f1802d6688cf`):** the paired implementation is present in source. Its implementation acceptance and checks are recorded at earlier commits in the [v2 status and receipt](docs/implementation/sofa_experiment_v2_status.md); that receipt is not a fresh check of this review base. Release, current hosted deployment, independent source fidelity, and clinical validation require separate evidence. The [historical TROPS completion report](docs/implementation/trops_fidelity_goal/COMPLETION_REPORT.md) covers source-mapped **synthetic** verification; execution against the study SQL remains unperformed.
+
+## Quickstart
+
+From the repository root, use Python **3.11 or newer** and `uv` with the committed lockfile. The example is a small synthetic E1 observation-density experiment in the room-air stratum; it does not run the full reference catalogue.
+
+```bash
+uv sync --locked --dev
+uv run resp-sofa-experiment list
+uv run resp-sofa-experiment run --entry E1_density --stratum room_air --replicates 200 --output artifacts/local/readme-e1-room-air
+uv run resp-sofa-experiment verify-bundle artifacts/local/readme-e1-room-air
+```
+
+Choose a **new** output path for each run: the CLI refuses to replace an existing bundle. `run` reports `completed_patients` and its output path. The new directory contains `request.json`, `manifest.json`, `scores.csv`, `condition_summary.csv`, `paired_contrasts.csv`, `transitions.csv`, `reclassification.csv`, selected trace tables, metric metadata, and `SHA256SUMS`. A successful verification prints JSON with `"status": "verified"` and the scientific-data hash. These commands are defined in `src/sofa_resp_sim/workflows/experiment_cli.py`. [Documentation PR #15](https://github.com/reblocke/sofa_resp_sim/pull/15) records a source-checkout E1 run and exact replay at prior documentation head `f3d1f12af8c049e9d7d813175d31c370add29342` and its recorded runtime; neither result establishes installed-package replay, full-reference reproduction, source fidelity, clinical validity, or a hosted deployment.
+
+On the **same recorded Python/dependency and package source**, an optional exact replay writes to another new path:
+
+```bash
+uv run resp-sofa-experiment reproduce artifacts/local/readme-e1-room-air --output artifacts/local/readme-e1-room-air-reproduced
+uv run resp-sofa-experiment verify-bundle artifacts/local/readme-e1-room-air-reproduced
+```
+
+If versions or source differ, the CLI rejects exact replay. Its explicit `--allow-runtime-difference` route uses exact discrete comparisons and the declared float tolerance rather than claiming byte-identical output. See [validation and bundle rules](docs/VALIDATION.md) before interpreting a replay as source fidelity.
 
 ## Paired experiment CLI and bundles
 
-The default browser page provides Experiment, Explain an encounter, and Methods
-and export views. It displays a saved synthetic example before Python loads.
-The historical scenario/sweep interface remains available at `legacy.html`.
-A small saved bundle includes normalized requests, patient scores, summaries,
-paired contrasts, transitions, reclassification, selected traces and content hashes.
-These are uncalibrated synthetic results.
+`resp-sofa-experiment run --request request.json --output NEW_PATH` accepts a normalized request; `explain BUNDLE --patient ID --condition ID` regenerates one saved patient's trace. `append` increases the total paired N without regenerating earlier patients. Directory and ZIP bundles record requests, per-patient scores, summaries, contrasts, transitions, trace selections, versions, and hashes. The [experiment controls](docs/EXPERIMENT_CONTROLS.md), [architecture](docs/ARCHITECTURE.md), and [artifact inventory](artifacts/README.md) hold the detailed contracts.
+
+The complete 18-entry, four-stratum reference collection and its prespecified checks are described in [validation](docs/VALIDATION.md) and the [synthetic interpretation](artifacts/experiments_v2/INTERPRETATION.md). `make experiments-reference` is a much larger frozen run, not an onboarding command. Historical TROPS conditional C=0/1/≥2 views are **scenarios**, not population weights; see the [source-mapped contract](docs/TROPS_SCORING_CONTRACT.md). Reproducing archived bundles requires their recorded source and runtime, and the external study SQL has not been executed here.
+
+## Web app
+
+The default [`web/index.html`](web/index.html) uses a saved, labeled synthetic example while Pyodide starts, then runs Python scoring/simulation in a worker. For a local HTTP-served development view:
 
 ```bash
-uv run resp-sofa-experiment list
-uv run resp-sofa-experiment run --entry E1_density --stratum room_air --replicates 200 --output artifacts/local/example-bundle
-uv run resp-sofa-experiment verify-bundle artifacts/local/example-bundle
-uv run resp-sofa-experiment reproduce artifacts/local/example-bundle --output artifacts/local/reproduced.zip
-uv run resp-sofa-experiment append artifacts/local/example-bundle --replicates 1000 --output artifacts/local/extended-bundle
+make stage-web
+make serve
 ```
 
-`run --request request.json` accepts a fully normalized request; optional
-`--replicates` overrides N explicitly. `explain BUNDLE --patient ID --condition ID`
-regenerates one trace and verifies its saved score. Output paths must be new.
-Exact reproduction/append require the recorded runtime and package source.
-`reproduce --allow-runtime-difference` explicitly permits a cross-runtime check
-with exact discrete values and the declared float tolerance, recorded in the
-new manifest. Unknown scientific versions still fail.
+Open the URL printed by `python3 -m http.server`; opening `index.html` directly as a file is unsupported. `make serve` stages ignored `web/assets/py/` and `web/assets/data/` assets first. The worker uses the current paired experiment, workload, catalogue, explanation, rule-explorer, and bundle import/export payload functions; scenario/sweep calls remain for the legacy page. See [web app behavior and limits](docs/WEB_APP.md). A local browser run and a hosted Pages deployment are separate checks.
 
-Use `make experiments-smoke` for native mechanism/bundle checks and
-`make experiments-install-check` for an isolated locked wheel reproduction.
-The full reference collection is in `artifacts/experiments_v2/`, with reviewed
-figures, source hashes and interpretation. The completed delivery audit is recorded in `docs/implementation/sofa_experiment_v2_status.md`.
+## Python API
 
-`make experiments-reference` runs the complete frozen catalogue at 2,000 paired
-patients per stochastic stratum (one for the deterministic episode). It retains
-verified bundles and logs under `artifacts/local/references_v2/` and resumes
-matching completed bundles. This can take substantially longer than a preview.
-See `docs/VALIDATION.md` for resumption and reference-evidence rules.
+Core scoring and simulation live in `src/sofa_resp_sim/core/`; `src/sofa_resp_sim/browser_contract.py` is the JSON-safe browser boundary. Existing compatibility imports such as `from sofa_resp_sim import score_respiratory` remain available. The worker calls the current paired functions as well as `get_app_config_payload`, `run_scenario_payload`, and `run_sweep_payload`; the full current API list is in [docs/WEB_APP.md](docs/WEB_APP.md). JavaScript does not compute SOFA scores or uncertainty intervals.
 
-The completed historical phase is documented in the
-[TROPS eligibility sensitivity target and acceptance ledger](docs/implementation/trops_fidelity_goal/GOAL.md).
-See the [completion report](docs/implementation/trops_fidelity_goal/COMPLETION_REPORT.md)
-and [reference findings](artifacts/trops_sensitivity_v1/FINDINGS.md). External
-SQL execution is separate future work.
+## CLI
 
-The v3 historical TROPS sensitivity profile is described in
-[the source-mapped contract](docs/TROPS_SCORING_CONTRACT.md). It is historical and
-not execution-validated; C=0/1/≥2 are conditional scenarios, not population weights.
+### Legacy scenario/sweep and compatibility
+
+The older `resp-sofa-sim` CLI remains a legacy scenario/sweep entry point. `uv run resp-sofa-sim --help` shows its options; comma-separated observation frequency, noise SD, and room-air threshold values create a sweep. Its Python compatibility wrappers remain under `src/sofa_resp_sim/resp_scoring.py`, `resp_simulation.py`, and `resp_utils.py`. Use `resp-sofa-experiment` above for the paired workbench.
+
+## Common commands
+
+- `make sync`: locked development environment.
+- `make test`: native tests without browser e2e.
+- `make e2e`: stage assets and run Playwright browser tests; browser installation may be required.
+- `make verify`: stage, format check, lint, native tests, and e2e; inspect side effects before running.
+- `make experiments-smoke`: frozen-catalogue check and bounded native experiment tests.
+- `make experiments-install-check`: build and verify a clean-wheel replay.
+
+These are defined in the [Makefile](Makefile). The quickstart above is the smaller runnable path; do not use `make verify`, reference generation, release, or deployment as an incidental README smoke test.
+
+## Validation
+
+[docs/VALIDATION.md](docs/VALIDATION.md) maps tests, bundle checks, installed reproduction, and reference evidence. A verified synthetic bundle establishes internal consistency under its recorded source/runtime; it is not population calibration, clinical validation, or equivalence to an independently run SQL scorer. The [clinical scope](docs/CLINICAL_SCOPE.md) and [reference interpretation](artifacts/experiments_v2/INTERPRETATION.md) explain missing evidence, conditional uncertainty, null results, and limits of inference. The dated source-checkout check for this documentation update is recorded in [PR #15](https://github.com/reblocke/sofa_resp_sim/pull/15), separately from historical acceptance receipts.
+
+## Public release posture
+
+The tracked tree is intended to contain source, documentation, tests, and small synthetic or aggregate artifacts. Local literature PDFs are ignored. The current [public release audit](docs/PUBLIC_RELEASE_AUDIT.md) reports no known PHI in the tracked tree, but old GitHub history or PR refs may still expose publisher PDF blobs. Review that audit before a public visibility or release decision. A documentation change does not clear that audit or authorize data sharing.
+
+## More documentation
+
+- [Architecture and source routes](docs/ARCHITECTURE.md) · [web app](docs/WEB_APP.md) · [provenance](docs/PROVENANCE.md) · [decisions](docs/DECISIONS.md)
+- [Experiment controls](docs/EXPERIMENT_CONTROLS.md) · [validation](docs/VALIDATION.md) · [historical TROPS contract](docs/TROPS_SCORING_CONTRACT.md)
+- [Artifact inventory](artifacts/README.md) · [paired implementation status](docs/implementation/sofa_experiment_v2_status.md)
+
+## Package layout
+
+`src/sofa_resp_sim/core/` owns scoring and simulation; `reporting/` owns paired requests, results, uncertainty and bundles; `workflows/` owns both CLIs; `web/` contains the static app and Pyodide worker; `scripts/` stages assets and maintains evidence; `tests/` covers core, contracts, workflows and browser behavior. See [architecture](docs/ARCHITECTURE.md) for the detailed map.
+
+## Citation and license
+
+See [CITATION.cff](CITATION.cff) for repository citation metadata and [LICENSE](LICENSE) for the software license. Code and simulation text are repository-authored unless otherwise noted. The simulation and checked-in examples do not grant rights to any external clinical data or third-party PDFs.
+
+## Repository Notes
+
+This is a research-software workspace; no manuscript version is expected here. Maintainer: Brian W. Locke (`@reblocke`). Use [GitHub Issues](https://github.com/reblocke/sofa_resp_sim/issues) or pull requests for repository-specific questions.

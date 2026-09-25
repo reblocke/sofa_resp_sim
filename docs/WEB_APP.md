@@ -80,13 +80,16 @@ make stage-web
 make e2e
 ```
 
-The e2e test starts a local static server, waits for Pyodide initialization,
-runs a small scenario, runs a small sweep, checks rendered charts/tables, and
-verifies CSV downloads are wired.
+The e2e tests start a local static server and cover the default paired
+investigation page, native/Pyodide parity, and the retained scenario/sweep page.
+They require an installed Playwright browser; running them is a separate check
+from the native CLI example.
 
-## Paired experiment API (implementation in progress)
+## Paired experiment API
 
-The worker accepts `experiment` and `explain` messages for the v2 Python API.
+The worker accepts paired `experiment`, `workload`, `explain`, `catalogue`,
+`rule_explorer`, `export_bundle`, and `import_bundle` messages alongside the
+legacy `scenario` and `sweep` messages.
 Requests cross the worker boundary as strict JSON so null values and integral
 numbers normalize consistently in native Python and Pyodide. Nonfinite numbers
 fail before execution. The default investigation interface displays a saved
@@ -95,8 +98,10 @@ not a new run or a full reference demonstration.
 
 Paired results include patient scores, condition summaries, paired contrasts,
 transition cells with contributor IDs, reclassification and metric units.
-Explanations regenerate only the selected patient. See the implementation status
-for verified scope; these APIs do not imply the complete workbench is delivered.
+Explanations regenerate only the selected patient. The
+[implementation status](implementation/sofa_experiment_v2_status.md) records
+acceptance at its stated historical commit; it does not certify current
+release, hosted deployment, clinical validation, or independent SQL equivalence.
 
 The `catalogue` worker message lists the finite demonstrations and returns a
 normalized selected request. Supplying `base` expands comparator/condition
@@ -117,8 +122,9 @@ the prior result stale; its bundle retains the original immutable request.
 
 Python checks workload before allocation: at most 200 patients, 1,600 scoring
 evaluations, 720,000 generated minutes, 400,000 documented events, and 10,000
-generated minutes per patient across cached generators. All 72 catalogue
-previews fit this envelope. Larger runs use an exported request with the CLI.
+generated minutes per patient across cached generators. The original 72 v2
+catalogue previews fit this envelope; current historical selections are subject
+to the same workload check. Larger runs use an exported request with the CLI.
 These counts describe work, not a prediction of peak RAM.
 
 Progress reports attempted patients, completed patients and scoring evaluations.
